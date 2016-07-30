@@ -21,6 +21,7 @@ import com.b2infosoft.paathshala.server.Server;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
+    Tags tags = Tags.getInstance();
     private static final String Tag = LoginActivity.class.getName();
     EditText username, role, dob, password;
     Button login;
@@ -119,10 +120,11 @@ public class LoginActivity extends AppCompatActivity {
             //TODO: LoginActivity add login web service URL
             Server server = new Server("");
             HashMap<String,String> map = new HashMap<>();
-            map.put(Tags.USER_ID,login.getId());
-            map.put(Tags.USER_PASSWORD,login.getPassword());
-            map.put(Tags.USER_ROLE,login.getRole());
-            map.put(Tags.USER_SESSION,login.getSession());
+
+            map.put(tags.USER_ID,login.getId());
+            map.put(tags.USER_PASSWORD,login.getPassword());
+            map.put(tags.USER_ROLE,login.getRole());
+            map.put(tags.USER_SESSION,login.getSession());
             try {
                return  server.doPost(map);
             }catch (Exception e){

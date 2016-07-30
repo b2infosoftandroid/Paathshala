@@ -8,6 +8,7 @@ import java.net.URL;
  */
 public class Config {
     private final String SERVER_IP = "192.168.0.57";
+    public final String SERVER_PATH ="http://app.paathshala.net.in/App/";
     private final Boolean LIVE_SERVER = false;
     private static Config ourInstance = new Config();
 

@@ -55,6 +55,9 @@
                     android:drawablePadding="@dimen/edit_text_drawable_padding"
                     android:drawableRight="@drawable/dropdown_arrow"
                     android:hint="@string/login_session"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:editable="false"
                     android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
 

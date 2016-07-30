@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.credential.Active;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 /**
@@ -25,7 +27,8 @@ import com.mikhaellopez.circularimageview.CircularImageView;
  */
 
 public class Student extends Fragment {
-
+    Active active = Active.getInstance(getContext());
+    Tags tags = Tags.getInstance();
     EditText register_no,form_no,house,dob,stu_class,section,category,religion,handicap,type,mobile,gender,mode;
     EditText faculty,admission_type,cast,nationality,bpl,email;
     Button save;
@@ -78,6 +81,10 @@ public class Student extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        active.setKey(tags.S_ID,"261");
+        active.setKey(tags.SESSION_ID,"8");
+        active.setKey(tags.SCHOOL_ID,"1");
+        active.getValue(tags.S_ID);
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image=(CircularImageView)view.findViewById(R.id.student_info_circularImageView);
         register_no=(EditText)view.findViewById(R.id.student_info_register_no);

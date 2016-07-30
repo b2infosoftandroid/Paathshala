@@ -8,35 +8,49 @@ import android.content.SharedPreferences;
  */
 
 public class Active {
-    private static final String USER_CREDENTIALS="dmr_rajesh";
-    private static final int PRIVATE_KEY=0;
-    private static final String DEVICE_LOGIN="device_login";
-    private static final boolean STATUS[]={false,true};
+    private Context context;
 
-    public static void setKey(Context context,String key,String value){
-        SharedPreferences setting= context.getSharedPreferences(USER_CREDENTIALS,PRIVATE_KEY);
+    private Active(Context context) {
+        this.context = context;
+    }
+
+    public static Active getInstance(Context context) {
+        return new Active(context);
+    }
+
+    private final String USER_CREDENTIALS = "dmr_rajesh";
+    private final int PRIVATE_KEY = 0;
+    private final String DEVICE_LOGIN = "device_login";
+    private final boolean STATUS[] = {false, true};
+
+    public void setKey(String key, String value) {
+        SharedPreferences setting = context.getSharedPreferences(USER_CREDENTIALS, PRIVATE_KEY);
         setting.edit()
-                .putString(key,value)
+                .putString(key, value)
                 .commit();
     }
-    public static String getValue(Context context,String key){
-        SharedPreferences setting= context.getSharedPreferences(USER_CREDENTIALS,0);
-        return setting.getString(key,"");
+
+    public String getValue(String key) {
+        SharedPreferences setting = context.getSharedPreferences(USER_CREDENTIALS, 0);
+        return setting.getString(key, "");
     }
-    public static void setLogin(Context context){
-        SharedPreferences setting= context.getSharedPreferences(USER_CREDENTIALS, PRIVATE_KEY);
+
+    public void setLogin() {
+        SharedPreferences setting = context.getSharedPreferences(USER_CREDENTIALS, PRIVATE_KEY);
         setting.edit()
                 .putBoolean(DEVICE_LOGIN, STATUS[1])
                 .commit();
     }
-    public static void setLogOut(Context context){
-        SharedPreferences setting= context.getSharedPreferences(USER_CREDENTIALS,PRIVATE_KEY);
+
+    public void setLogOut() {
+        SharedPreferences setting = context.getSharedPreferences(USER_CREDENTIALS, PRIVATE_KEY);
         setting.edit()
                 .putBoolean(DEVICE_LOGIN, STATUS[0])
                 .commit();
     }
-    public static boolean isLogin(Context context){
-        SharedPreferences setting= context.getSharedPreferences(USER_CREDENTIALS,0);
-        return setting.getBoolean(DEVICE_LOGIN,STATUS[0]);
+
+    public boolean isLogin() {
+        SharedPreferences setting = context.getSharedPreferences(USER_CREDENTIALS, 0);
+        return setting.getBoolean(DEVICE_LOGIN, STATUS[0]);
     }
 }
