@@ -378,24 +378,8 @@
                     android:focusable="false"
                     android:clickable="false"
                     android:hint="@string/student_info_dob"
-                    android:textAllCaps="true"
-                    android:drawableRight="@drawable/dob_icon"/>
+                    android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/student_info_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/button_top_margin"
-                android:textAllCaps="true"
-                android:text="@string/student_info_save"
-                android:textSize="15dp"
-                android:layout_marginLeft="@dimen/button_left_margin"
-                android:layout_marginRight="@dimen/button_right_margin"
-                android:textColor="@color/button_foreground"
-                android:background="@drawable/button_fill_background"
-                />
-
         </LinearLayout>
 
     </ScrollView>

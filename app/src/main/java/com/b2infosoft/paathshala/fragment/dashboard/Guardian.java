@@ -40,7 +40,6 @@ public class Guardian extends Fragment {
     private static String TAG=Guardian.class.getName();
 
     EditText name,email,phone,mobile,remark,address;
-    Button save;
     Fonts fonts = Fonts.getInstance();
     Tags tags= Tags.getInstance();
     Urls urls=Urls.getInstance();
@@ -100,13 +99,6 @@ public class Guardian extends Fragment {
         mobile=(EditText)view.findViewById(R.id.guardian_mobile_no);
         remark=(EditText)view.findViewById(R.id.guardian_remark);
         address=(EditText)view.findViewById(R.id.guardian_address);
-        save=(Button)view.findViewById(R.id.guardian_info_button);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
        // setFonts();
         fetchGuardianInfo();
         return  view;
@@ -209,6 +201,5 @@ public class Guardian extends Fragment {
         mobile.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
         remark.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
         address.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
-        save.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_MEDIUM));
     }
 }

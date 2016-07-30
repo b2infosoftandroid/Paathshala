@@ -46,7 +46,6 @@ public class Student extends Fragment {
     Tags tags = Tags.getInstance();
     EditText register_no,form_no,house,dob,stu_class,section,category,religion,handicap,type,mobile,gender,mode;
     EditText faculty,admission_type,cast,nationality,bpl,email;
-    Button save;
     TextView student_name;
     CircularImageView student_image;
     Fonts fonts = Fonts.getInstance();
@@ -121,13 +120,6 @@ public class Student extends Fragment {
         bpl=(EditText)view.findViewById(R.id.stu_bpl);
         email=(EditText)view.findViewById(R.id.stu_email);
         student_name=(TextView)view.findViewById(R.id.student_info_name);
-        save=(Button)view.findViewById(R.id.student_info_button);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         //setFonts();
         fetchStudentInfo();
         return view;
@@ -275,7 +267,6 @@ public class Student extends Fragment {
         form_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         house.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         dob.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
-        save.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_MEDIUM));
 
         stu_class.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
         section.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));

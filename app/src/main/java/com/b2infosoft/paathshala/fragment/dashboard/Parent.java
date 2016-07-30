@@ -39,7 +39,6 @@ public class Parent extends Fragment {
 
     private static String TAG=Parent.class.getName();
 
-    Button save;
     EditText f_name, m_name, f_occupation, f_income, mobile, address;
     Fonts fonts = Fonts.getInstance();
     Tags tags= Tags.getInstance();
@@ -99,13 +98,6 @@ public class Parent extends Fragment {
         f_income = (EditText) view.findViewById(R.id.parent_father_income);
         mobile = (EditText) view.findViewById(R.id.parent_mobile);
         address = (EditText) view.findViewById(R.id.parent_address);
-        save = (Button) view.findViewById(R.id.parent_info_button);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
        // setFonts();
         fetchParentInfo();
         return view;
@@ -208,6 +200,5 @@ public class Parent extends Fragment {
         f_income.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         mobile.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         address.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
-        save.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
     }
 }
