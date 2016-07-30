@@ -23,6 +23,7 @@ public class Tags {
     public final String CHECK_USER ="CheckUser";
     public final String SESSION_LIST ="Sessions/1";
     public final String STUDENT_INFO ="StudentInfo";
+    public final String FEES_LEDGER ="FeesLedger";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 

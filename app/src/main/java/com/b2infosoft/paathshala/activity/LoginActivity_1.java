@@ -339,6 +339,7 @@ public class LoginActivity_1 extends AppCompatActivity {
             requestQueue.cancelAll(TAG);
         }
     }
+
     private void showProgress(){
         progress = new ProgressDialog(LoginActivity_1.this);
         progress.setMessage("Please Wait...");

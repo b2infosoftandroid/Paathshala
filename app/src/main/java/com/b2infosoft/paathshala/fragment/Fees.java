@@ -1,9 +1,11 @@
 package com.b2infosoft.paathshala.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,16 +17,30 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.app.Urls;
+import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.model.DepositInstallent;
 import com.b2infosoft.paathshala.model.FeeInstallment;
+import com.b2infosoft.paathshala.volly.MySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Fees extends Fragment {
-
+    Active active;
+    Tags tags;
     Fonts fonts = Fonts.getInstance();
 
     TableLayout t1, t2;
@@ -34,6 +50,7 @@ public class Fees extends Fragment {
     ScrollView sv;
     View view;
     private OnFeesListener mListener;
+    private ProgressDialog progress = null;
 
     public Fees() {
         // Required empty public constructor
@@ -146,31 +163,11 @@ public class Fees extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        active = Active.getInstance(getActivity());
+        tags = Tags.getInstance();
         view = inflater.inflate(R.layout.fragment_fees, container, false);
-
         init();
 
-        /*
-        name = (TextView) view.findViewById(R.id.stu_fee_name);
-        type = (TextView) view.findViewById(R.id.stu_fee_type);
-        total_fee = (TextView) view.findViewById(R.id.stu_total_fee);
-        deposit = (TextView) view.findViewById(R.id.stu_deposit);
-        discount = (TextView) view.findViewById(R.id.stu_tdiscount);
-        balance = (TextView) view.findViewById(R.id.stu_balance);
-
-        deposit_name = (TextView) view.findViewById(R.id.deposit_fee_name);
-        deposit_type = (TextView) view.findViewById(R.id.deposit_fee_type);
-        amount = (TextView) view.findViewById(R.id.deposit_amount);
-        receipt_no = (TextView) view.findViewById(R.id.deposit_receipt_no);
-        receipt_date = (TextView) view.findViewById(R.id.deposit_receipt_date);
-        payment_type = (TextView) view.findViewById(R.id.payment_mode);
-
-        s1 = (HorizontalScrollView) view.findViewById(R.id.stu_scroll);
-        s2 = (HorizontalScrollView) view.findViewById(R.id.deposit_scroll);
-        s1.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
-        s2.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
-*/
-        //setFonts();
         setDataInstallment(getInstallments());
         return view;
     }
@@ -350,4 +347,81 @@ public class Fees extends Fragment {
         }
         return installments;
     }
+    private void fetchInstallmentData(){
+        Urls urls = Urls.getInstance();
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
+        map.put(tags.S_ID, active.getValue(tags.S_ID));
+        showProgress();
+        final JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.CHECK_USER), map), null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+//                        Log.d(TAG, response.toString());
+                        try {
+                            if (response.has(tags.ARR_RESULT)) {
+                                JSONArray result = response.getJSONArray(tags.ARR_RESULT);
+                                JSONObject object = result.getJSONObject(0);
+                                if (object.has(tags.RESPONSE)) {
+                                    String res = object.getString(tags.RESPONSE);
+                                    if (res.equals(tags.RESPONSE_PASS)) {
+
+                                    }
+                                }
+                            }
+                            if (response.has(tags.ARR_USER_INFO)) {
+                                JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
+                                JSONObject object = userInfoArray.getJSONObject(0);
+                                if (object.has(tags.S_ID)) {
+
+                                }
+                                if (object.has(tags.COLUMN_1)) {
+
+                                }
+                                dismissProgress();
+                            }
+                        } catch (Exception e) {
+                            dismissProgress();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsObjRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        jsObjRequest.setTag(TAG);
+        MySingleton.getInstance(getActivity()).addToRequestQueue(jsObjRequest);
+
+    }
+    private void showProgress(){
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
+    private void dismissProgress(){
+        if(progress!=null){
+            progress.dismiss();
+        }
+    }
+
 }
