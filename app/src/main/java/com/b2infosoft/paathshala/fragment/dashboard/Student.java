@@ -98,6 +98,7 @@ public class Student extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
+
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image=(CircularImageView)view.findViewById(R.id.student_info_circularImageView);
         register_no=(EditText)view.findViewById(R.id.student_info_register_no);
@@ -148,13 +149,16 @@ public class Student extends Fragment {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
                                     for(int i=0;i<jsonArray.length();i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        //if(object.has(tags.S_INFO_IMAGE)){
-                                        //   student_image.setId(object.getInt(tags.S_INFO_IMAGE));
-                                        //}
+                                        if(object.has(tags.S_INFO_IMAGE)){
+                                           //student_image.set(object.get(tags.S_INFO_IMAGE));
+                                            active.setKey(tags.S_INFO_IMAGE,object.getString(tags.S_INFO_IMAGE).toString());
+
+                                        }
                                         if(object.has(tags.S_INFO_DOB)){
                                             dob.setText(object.getString(tags.S_INFO_DOB));
                                         }
                                         if(object.has(tags.S_INFO_STU_NAME)){
+                                            active.setKey(tags.S_INFO_STU_NAME,object.getString(tags.S_INFO_STU_NAME));
                                            student_name.setText(object.getString(tags.S_INFO_STU_NAME));
                                         }
                                         if(object.has(tags.S_INFO_HOUSE)){
