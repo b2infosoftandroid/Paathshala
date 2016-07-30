@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +12,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,7 +39,10 @@ import com.mikhaellopez.circularimageview.CircularImageView;
  */
 
 public class Student extends Fragment {
-    Active active = Active.getInstance(getContext());
+
+    private static String TAG=Student.class.getName();
+
+    Active active;
     Tags tags = Tags.getInstance();
     EditText register_no,form_no,house,dob,stu_class,section,category,religion,handicap,type,mobile,gender,mode;
     EditText faculty,admission_type,cast,nationality,bpl,email;
@@ -35,6 +50,7 @@ public class Student extends Fragment {
     TextView student_name;
     CircularImageView student_image;
     Fonts fonts = Fonts.getInstance();
+    Urls urls=Urls.getInstance();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,10 +97,7 @@ public class Student extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        active.setKey(tags.S_ID,"261");
-        active.setKey(tags.SESSION_ID,"8");
-        active.setKey(tags.SCHOOL_ID,"1");
-        active.getValue(tags.S_ID);
+        active = Active.getInstance(getContext());
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image=(CircularImageView)view.findViewById(R.id.student_info_circularImageView);
         register_no=(EditText)view.findViewById(R.id.student_info_register_no);
@@ -114,8 +127,103 @@ public class Student extends Fragment {
 
             }
         });
-        setFonts();
+        //setFonts();
+        fetchStudentInfo();
         return view;
+    }
+
+    private void fetchStudentInfo(){
+        HashMap<String,String> map=new HashMap<>();
+        map.put(tags.S_ID,active.getValue(tags.S_ID));
+        map.put(tags.SESSION_ID,active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+                (Request.Method.GET,urls.getUrl(urls.getPath(tags.STUDENT_INFO),map), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response!=null){
+                            try {
+                                if (response.has(tags.ARR_STUDENT_INFO)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
+                                    for(int i=0;i<jsonArray.length();i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        //if(object.has(tags.S_INFO_IMAGE)){
+                                        //   student_image.setId(object.getInt(tags.S_INFO_IMAGE));
+                                        //}
+                                        if(object.has(tags.S_INFO_DOB)){
+                                            dob.setText(object.getString(tags.S_INFO_DOB));
+                                        }
+                                        if(object.has(tags.S_INFO_STU_NAME)){
+                                           student_name.setText(object.getString(tags.S_INFO_STU_NAME));
+                                        }
+                                        if(object.has(tags.S_INFO_HOUSE)){
+                                            house.setText(object.getString(tags.S_INFO_HOUSE));
+                                        }
+                                        if(object.has(tags.S_INFO_SECTION)){
+                                            section.setText(object.getString(tags.S_INFO_SECTION));
+                                        }
+                                        if(object.has(tags.S_INFO_CLASS)){
+                                           stu_class.setText(object.getString(tags.S_INFO_CLASS));
+                                        }
+                                        if(object.has(tags.S_INFO_NATIONALITY)){
+                                            nationality.setText(object.getString(tags.S_INFO_NATIONALITY));
+                                        }
+                                        if(object.has(tags.S_INFO_BPL)){
+                                            bpl.setText(object.getString(tags.S_INFO_BPL));
+                                        }
+                                        if(object.has(tags.S_INFO_CATEGORY)){
+                                            category.setText(object.getString(tags.S_INFO_CATEGORY));
+                                        }
+                                        if(object.has(tags.S_INFO_STU_CAST)){
+                                            cast.setText(object.getString(tags.S_INFO_STU_CAST));
+                                        }
+                                        if(object.has(tags.S_INFO_FACULTY)){
+                                            faculty.setText(object.getString(tags.S_INFO_FACULTY));
+                                        }
+                                        if(object.has(tags.S_INFO_GENDER)){
+                                            gender.setText(object.getString(tags.S_INFO_GENDER));
+                                        }
+                                        if(object.has(tags.S_INFO_MODE)){
+                                            mode.setText(object.getString(tags.S_INFO_MODE));
+                                        }
+                                        if(object.has(tags.S_INFO_EMAIL)){
+                                            email.setText(object.getString(tags.S_INFO_EMAIL));
+                                        }
+                                        if(object.has(tags.S_INFO_RELIGION)){
+                                            religion.setText(object.getString(tags.S_INFO_RELIGION));
+                                        }
+                                        if(object.has(tags.S_INFO_HANDICAPPED)){
+                                            handicap.setText(object.getString(tags.S_INFO_HANDICAPPED));
+                                        }
+                                        if(object.has(tags.S_INFO_STU_TYPE)){
+                                            type.setText(object.getString(tags.S_INFO_STU_TYPE));
+                                        }
+                                        if(object.has(tags.S_INFO_MOBILE)){
+                                            mobile.setText(object.getString(tags.S_INFO_MOBILE));
+                                        }
+                                        if(object.has(tags.S_INFO_SR_NO)){
+                                            register_no.setText(object.getString(tags.S_INFO_SR_NO));
+                                        }
+                                        if(object.has(tags.S_INFO_ADMIN_TYPE)){
+                                            admission_type.setText(object.getString(tags.S_INFO_ADMIN_TYPE));
+                                        }
+                                    }
+                                }
+                            }catch (Exception e){
+
+                            }
+                        }
+                    }
+                },new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -4,14 +4,28 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.app.Urls;
+import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.volly.MySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +37,14 @@ import com.b2infosoft.paathshala.app.Fonts;
  */
 public class Guardian extends Fragment {
 
+    private static String TAG=Guardian.class.getName();
+
     EditText name,email,phone,mobile,remark,address;
     Button save;
     Fonts fonts = Fonts.getInstance();
+    Tags tags= Tags.getInstance();
+    Urls urls=Urls.getInstance();
+    Active active;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -72,6 +91,8 @@ public class Guardian extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        active = Active.getInstance(getContext());
         View view =  inflater.inflate(R.layout.fragment_guardian, container, false);
         name=(EditText)view.findViewById(R.id.guardian_name);
         email=(EditText)view.findViewById(R.id.guardian_email);
@@ -86,8 +107,61 @@ public class Guardian extends Fragment {
 
             }
         });
-        setFonts();
+       // setFonts();
+        fetchGuardianInfo();
         return  view;
+    }
+
+    private void fetchGuardianInfo(){
+        HashMap<String,String> map=new HashMap<>();
+        map.put(tags.S_ID,active.getValue(tags.S_ID));
+        map.put(tags.SESSION_ID,active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+                (Request.Method.GET,urls.getUrl(urls.getPath(tags.STUDENT_INFO),map), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response!=null){
+                            try {
+                                if (response.has(tags.ARR_STUDENT_INFO)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
+                                    for(int i=0;i<jsonArray.length();i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        if(object.has(tags.S_INFO_GUARDIAN_NAME)){
+                                            name.setText(object.getString(tags.S_INFO_GUARDIAN_NAME));
+                                        }
+                                        if(object.has(tags.S_INFO_GUARDIAN_EMAIL)){
+                                            email.setText(object.getString(tags.S_INFO_GUARDIAN_EMAIL));
+                                        }
+                                        if(object.has(tags.S_INFO_CORR_ADD)){
+                                            address.setText(object.getString(tags.S_INFO_CORR_ADD));
+                                        }
+                                        if(object.has(tags.S_INFO_GUARDIAN_MOBILE)){
+                                            mobile.setText(object.getString(tags.S_INFO_GUARDIAN_MOBILE));
+                                        }
+                                        if(object.has(tags.S_INFO_GUARDIAN_PHONE)){
+                                            phone.setText(object.getString(tags.S_INFO_GUARDIAN_PHONE));
+                                        }
+                                        if(object.has(tags.S_INFO_REMARK)){
+                                            remark.setText(object.getString(tags.S_INFO_REMARK));
+                                        }
+                                    }
+                                }
+                            }catch (Exception e){
+
+                            }
+                        }
+                    }
+                },new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

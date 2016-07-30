@@ -29,6 +29,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/guardian_info_name"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -43,6 +46,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/guardian_info_email"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -57,6 +63,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/guardian_info_phone_no"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -71,6 +80,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/guardian_info_mobile"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -85,6 +97,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/guardian_info_remark"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -99,6 +114,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:clickable="false"
+                    android:focusable="false"
                     android:hint="@string/guardian_info_address"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>

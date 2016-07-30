@@ -28,6 +28,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/parent_info_father_name"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -42,6 +45,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/parent_info_mother_name"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -56,6 +62,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/parent_info_father_occupation"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -70,6 +79,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/parent_info_father_income"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -84,6 +96,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/parent_info_mobile"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -98,6 +113,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/parent_info_address"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>

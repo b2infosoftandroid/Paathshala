@@ -4,14 +4,28 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.app.Urls;
+import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.volly.MySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +37,14 @@ import com.b2infosoft.paathshala.app.Fonts;
  */
 public class Parent extends Fragment {
 
+    private static String TAG=Parent.class.getName();
+
     Button save;
     EditText f_name, m_name, f_occupation, f_income, mobile, address;
     Fonts fonts = Fonts.getInstance();
+    Tags tags= Tags.getInstance();
+    Urls urls=Urls.getInstance();
+    Active active;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,6 +91,7 @@ public class Parent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        active = Active.getInstance(getContext());
         View view = inflater.inflate(R.layout.fragment_parent, container, false);
         f_name = (EditText) view.findViewById(R.id.parent_father_name);
         m_name = (EditText) view.findViewById(R.id.parent_mother_name);
@@ -86,8 +106,61 @@ public class Parent extends Fragment {
 
             }
         });
-        setFonts();
+       // setFonts();
+        fetchParentInfo();
         return view;
+    }
+
+    private void fetchParentInfo(){
+        HashMap<String,String> map=new HashMap<>();
+        map.put(tags.S_ID,active.getValue(tags.S_ID));
+        map.put(tags.SESSION_ID,active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+                (Request.Method.GET,urls.getUrl(urls.getPath(tags.STUDENT_INFO),map), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response!=null){
+                            try {
+                                if (response.has(tags.ARR_STUDENT_INFO)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
+                                    for(int i=0;i<jsonArray.length();i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        if(object.has(tags.S_INFO_FATHER_NAME)){
+                                            f_name.setText(object.getString(tags.S_INFO_FATHER_NAME));
+                                        }
+                                        if(object.has(tags.S_INFO_MOTHER_NAME)){
+                                            m_name.setText(object.getString(tags.S_INFO_MOTHER_NAME));
+                                        }
+                                        if(object.has(tags.S_INFO_PARMANENT_ADD)){
+                                            address.setText(object.getString(tags.S_INFO_PARMANENT_ADD));
+                                        }
+                                        if(object.has(tags.S_INFO_PARENT_MOBILE)){
+                                            mobile.setText(object.getString(tags.S_INFO_PARENT_MOBILE));
+                                        }
+                                        if(object.has(tags.S_INFO_OCCUPATION)){
+                                            f_occupation.setText(object.getString(tags.S_INFO_OCCUPATION));
+                                        }
+                                        if(object.has(tags.S_INFO_FATHER_INCOME)){
+                                            f_income.setText(object.getString(tags.S_INFO_FATHER_INCOME));
+                                        }
+                                    }
+                                }
+                            }catch (Exception e){
+
+                            }
+                        }
+                    }
+                },new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

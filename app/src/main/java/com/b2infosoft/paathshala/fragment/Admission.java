@@ -171,7 +171,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
             TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
             tv.setTextColor(Color.parseColor("#ffffff"));
             //tv.setTextSize(10);
-//            tv.setTypeface(fonts.getFont(getActivity(), fonts.ROBOTO_MEDIUM));
+           // tv.setTypeface(fonts.getFont(getActivity(), fonts.ROBOTO_MEDIUM));
         }
     }
 

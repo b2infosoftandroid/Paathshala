@@ -50,6 +50,7 @@ public class Tags {
     public final String COLUMN_1 = "Column1";
 
     ////////   STUDENT INFO  ///////////////////
+    public final String S_INFO_IMAGE = "StuImage";
     public final String S_INFO_ID = "Id";
     public final String S_INFO_SID = "SID";
     public final String S_INFO_S_PASSWORD = "SPassword";

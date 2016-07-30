@@ -53,6 +53,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_info_registration_no"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -67,6 +70,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_info_form_no"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -81,6 +87,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_info_house"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
@@ -96,6 +105,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_class"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -111,6 +123,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_section"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -126,6 +141,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_category"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -141,6 +159,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_religion"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -156,6 +177,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_handicap"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -171,6 +195,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_type"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -186,6 +213,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_mobile"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -201,6 +231,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_gender"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -216,6 +249,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_mode"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -231,6 +267,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_faculty"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -246,6 +285,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_admission_type"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -261,6 +303,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_cast"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -276,6 +321,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_nationality"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -291,6 +339,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_bpl"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -306,6 +357,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_email"
                     android:textAllCaps="true" />
             </android.support.design.widget.TextInputLayout>
@@ -320,6 +374,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="date"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
                     android:hint="@string/student_info_dob"
                     android:textAllCaps="true"
                     android:drawableRight="@drawable/dob_icon"/>
