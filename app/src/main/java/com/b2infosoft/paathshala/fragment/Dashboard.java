@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -104,9 +105,9 @@ public class Dashboard extends Fragment {
                 .withBorder(10)
                 .fontSize(getFontSize(device.widthPixels, device.heightPixels))
                 .textColor(getResources().getColor(R.color.button_foreground))
-                .useFont(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM))
                 .endConfig()
                 .buildRoundRect(string, getResources().getColor(R.color.layout_top), 100);
+//        .useFont(Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto_Medium.ttf"))
         return drawable;
     }
     private int getFontSize(int w,int h){
@@ -123,7 +124,6 @@ public class Dashboard extends Fragment {
             mListener.onAdmissionInteraction(uri);
         }
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

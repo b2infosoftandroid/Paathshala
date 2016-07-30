@@ -17,25 +17,25 @@ public class Fonts {
 
     }
 
-    public final String ROBOTO_BLACK = "fonts/Roboto-Black.ttf";
-    public final String ROBOTO_BLACKITALIC = "fonts/Roboto-BlackItalic.ttf";
-    public final String ROBOTO_BOlD = "fonts/Roboto-Bold.ttf";
-    public final String ROBOTO_BOlDITALIC = "fonts/Roboto-BoldItalic.ttf";
-    public final String ROBOTO_ITALIC = "fonts/Roboto-Italic.ttf";
-    public final String ROBOTO_LIGHT = "fonts/Roboto-Light.ttf";
-    public final String ROBOTO_LIGHTITALIC = "fonts/Roboto-LightItalic.ttf";
-    public final String ROBOTO_MEDIUM = "fonts/Roboto-Medium.ttf";
-    public final String ROBOTO_MEDIUMITALIC = "fonts/Roboto-MediumItalic.ttf";
-    public final String ROBOTO_REGULAR = "fonts/Roboto-Regular.ttf";
-    public final String ROBOTO_THIN = "fonts/Roboto-Thin.ttf";
-    public final String ROBOTOCONDENSED_BOLD_1 = "fonts/RobotoCondensed-Bold_1.ttf";
-    public final String ROBOTOCONDENSED_BOLDITALIC_1 = "fonts/RobotoCondensed-BoldItalic_1.ttf";
-    public final String ROBOTOCONDENSED_ITALIC_1 = "fonts/RobotoCondensed-Italic_1.ttf";
-    public final String ROBOTOCONDENSED_LIGHT_1 = "fonts/RobotoCondensed-Light_1.ttf";
-    public final String ROBOTOCONDENSED_LIGHTITALIC_1 = "fonts/RobotoCondensed-LightItalic_1.ttf";
-    public final String ROBOTOCONDENSED_REGULAR_1 = "fonts/RobotoCondensed-Regular_1.ttf";
+    public final String ROBOTO_BLACK = "Roboto_Black.ttf";
+    public final String ROBOTO_BLACKITALIC = "Roboto_BlackItalic.ttf";
+    public final String ROBOTO_BOlD = "Roboto_Bold.ttf";
+    public final String ROBOTO_BOlDITALIC = "Roboto_BoldItalic.ttf";
+    public final String ROBOTO_ITALIC = "Roboto_Italic.ttf";
+    public final String ROBOTO_LIGHT = "Roboto_Light.ttf";
+    public final String ROBOTO_LIGHTITALIC = "Roboto_LightItalic.ttf";
+    public final String ROBOTO_MEDIUM = "Roboto_Medium.ttf";
+    public final String ROBOTO_MEDIUMITALIC = "Roboto_MediumItalic.ttf";
+    public final String ROBOTO_REGULAR = "Roboto_Regular.ttf";
+    public final String ROBOTO_THIN = "Roboto_Thin.ttf";
+    public final String ROBOTOCONDENSED_BOLD_1 = "RobotoCondensed_Bold_1.ttf";
+    public final String ROBOTOCONDENSED_BOLDITALIC_1 = "RobotoCondensed_BoldItalic_1.ttf";
+    public final String ROBOTOCONDENSED_ITALIC_1 = "RobotoCondensed_Italic_1.ttf";
+    public final String ROBOTOCONDENSED_LIGHT_1 = "RobotoCondensed_Light_1.ttf";
+    public final String ROBOTOCONDENSED_LIGHTITALIC_1 = "RobotoCondensed_LightItalic_1.ttf";
+    public final String ROBOTOCONDENSED_REGULAR_1 = "RobotoCondensed_Regular_1.ttf";
 
     public Typeface getFont(Context context, String font) {
-        return Typeface.createFromAsset(context.getAssets(), font);
+        return Typeface.createFromAsset(context.getAssets(),"fonts/"+font);
     }
 }

@@ -6,16 +6,26 @@ import java.util.regex.Pattern;
 /**
  * Created by rajesh on 7/14/2016.
  */
-public class Valid {
+public class Validation {
 
-    static public boolean isEnrollmentNumber(String enroll) {
+    private static Validation instance = new Validation();
+
+    private Validation() {
+
+    }
+
+    public static Validation getInstance() {
+        return instance;
+    }
+
+    public boolean isEnrollmentNumber(String enroll) {
         if (enroll.length() >= 5 && enroll.length() <= 8) {
             return true;
         }
         return false;
     }
 
-    static public boolean isMobileNumber(String mobile) {
+    public boolean isMobileNumber(String mobile) {
         boolean check = false;
         if (!Pattern.matches("[a-zA-Z]+", mobile)) {
             if (mobile.length() != 10) {
@@ -29,7 +39,7 @@ public class Valid {
         return check;
     }
 
-    static public boolean isPassword(String password) {
+    public boolean isPassword(String password) {
         boolean check = false;
         if (password.length() == 0) {
             check = false;
@@ -39,11 +49,11 @@ public class Valid {
         return check;
     }
 
-    static public boolean isPasswordConfirm(String s, String s1) {
+    public boolean isPasswordConfirm(String s, String s1) {
         return s.equals(s1);
     }
 
-    static public boolean isName(String name) {
+    public boolean isName(String name) {
         Pattern pattern = Pattern.compile(new String("^[a-zA-Z\\s]*$"));
         Matcher matcher = pattern.matcher(name);
         if (matcher.matches()) {
@@ -51,7 +61,8 @@ public class Valid {
         }
         return false;
     }
-    static public boolean isSubject(String subject){
+
+    public boolean isSubject(String subject) {
         boolean check = false;
         if (subject.length() == 0) {
             check = false;
@@ -60,7 +71,8 @@ public class Valid {
         }
         return check;
     }
-    static public boolean isMessage(String message){
+
+    public boolean isMessage(String message) {
         boolean check = false;
         if (message.length() == 0) {
             check = false;
@@ -69,5 +81,19 @@ public class Valid {
         }
         return check;
     }
-
+    public boolean isInstituteID(String str) {
+        if (str.length() != 0)
+            return true;
+        return false;
+    }
+    public boolean isSession(String str) {
+        if (str.length() != 0)
+            return true;
+        return false;
+    }
+    public boolean isScholarID(String str) {
+        if (str.length() != 0)
+            return true;
+        return false;
+    }
 }

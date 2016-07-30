@@ -36,7 +36,7 @@ public class Tags {
 
     public final String ARR_RESULT="result";
     public final String ARR_SESSION_LIST="SessionList";
-
+    public final String ARR_USER_INFO = "UserInfo";
 
     /////////   LOGIN FORM USER VALID    /////////
     public final String USER_ID ="UserId";
@@ -45,6 +45,7 @@ public class Tags {
     public final String SCHOOL_ID ="SchoolId";
     public final String PWD_ID = "Pwd";
     public final String S_ID = "Sid";
+    public final String COLUMN_1 = "Column1";
 
     ////////   STUDENT INFO  ///////////////////
     public final String S_INFO_ID = "Id";

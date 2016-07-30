@@ -14,7 +14,6 @@ import com.b2infosoft.paathshala.Custom.MyProgressDialog;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
-import com.b2infosoft.paathshala.app.Valid;
 import com.b2infosoft.paathshala.model.Login;
 import com.b2infosoft.paathshala.server.Server;
 

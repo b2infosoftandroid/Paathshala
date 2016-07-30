@@ -39,6 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_institute_id"
+                    android:inputType="number"
+                    android:singleLine="true"
                     android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
 
@@ -58,6 +60,8 @@
                     android:clickable="true"
                     android:focusable="false"
                     android:editable="false"
+                    android:inputType="text"
+                    android:singleLine="true"
                     android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
 
@@ -72,6 +76,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_student_scholar_no"
+                    android:inputType="number"
+                    android:singleLine="true"
                     android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
 
@@ -86,6 +92,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/login_password_1"
+                    android:inputType="numberPassword"
+                    android:singleLine="true"
                     android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
 
