@@ -4,76 +4,153 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.model.DepositInstallent;
+import com.b2infosoft.paathshala.model.FeeInstallment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Fees.OnFeesListener} interface
- * to handle interaction events.
- * Use the {@link Fees#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class Fees extends Fragment {
 
-    HorizontalScrollView s1, s2;
-    TextView name, type, total_fee, deposit, discount, balance, deposit_name, deposit_type, amount, receipt_no, receipt_date, payment_type;
     Fonts fonts = Fonts.getInstance();
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    TableLayout t1, t2;
+    TextView name, type, total_fee, deposit, t_discount, balance, deposit_name, deposit_type, amt, receipt_no, receipt_date, pay_mode;
+    List<FeeInstallment> fee_installments;
+    List<DepositInstallent> deposit_installments;
+    ScrollView sv;
+    View view;
     private OnFeesListener mListener;
 
     public Fees() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fees.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fees newInstance(String param1, String param2) {
-        Fees fragment = new Fees();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    }
+
+    private void init() {
+        sv = (ScrollView) view.findViewById(R.id.scrollview);
+        t1 = (TableLayout) view.findViewById(R.id.fee_ledger);
+        t2 = (TableLayout) view.findViewById(R.id.fee_deposit_table);
+        TableRow tr_head = new TableRow(getActivity());
+        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        TableRow tr1_head = new TableRow(getActivity());
+        tr1_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+        name = new TextView(getActivity());
+        name.setText("FEE NAME");
+        name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        name.setTextColor(getResources().getColor(R.color.app_background));
+        name.setPadding(10, 5, 10, 5);
+        tr_head.addView(name);
+
+        type = new TextView(getActivity());
+        type.setText("FEE TYPE");
+        type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        type.setTextColor(getResources().getColor(R.color.app_background));
+        type.setPadding(10, 5, 10, 5);
+        tr_head.addView(type);
+
+        total_fee = new TextView(getActivity());
+        total_fee.setText("TOTAL FEES");
+        total_fee.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        total_fee.setTextColor(getResources().getColor(R.color.app_background));
+        total_fee.setPadding(10, 5, 10, 5);
+        tr_head.addView(total_fee);
+
+        deposit = new TextView(getActivity());
+        deposit.setText("DEPOSIT");
+        deposit.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        deposit.setTextColor(getResources().getColor(R.color.app_background));
+        deposit.setPadding(10, 5, 10, 5);
+        tr_head.addView(deposit);
+
+        t_discount = new TextView(getActivity());
+        t_discount.setText("T DISCOUNT");
+        t_discount.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        t_discount.setTextColor(getResources().getColor(R.color.app_background));
+        t_discount.setPadding(10, 5, 10, 5);
+        tr_head.addView(t_discount);
+
+        balance = new TextView(getActivity());
+        balance.setText("BALANCE");
+        balance.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        balance.setTextColor(getResources().getColor(R.color.app_background));
+        balance.setPadding(10, 5, 10, 5);
+        tr_head.addView(balance);
+
+        t1.addView(tr_head);
+
+        deposit_name = new TextView(getActivity());
+        deposit_name.setText("FEE NAME");
+        deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        deposit_name.setTextColor(getResources().getColor(R.color.app_background));
+        deposit_name.setPadding(10, 5, 10, 5);
+        tr1_head.addView(deposit_name);
+
+        deposit_type = new TextView(getActivity());
+        deposit_type.setText("FEE TYPE");
+        deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        deposit_type.setTextColor(getResources().getColor(R.color.app_background));
+        deposit_type.setPadding(10, 5, 10, 5);
+        tr1_head.addView(deposit_type);
+
+        amt = new TextView(getActivity());
+        amt.setText("AMOUNT");
+        amt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        amt.setTextColor(getResources().getColor(R.color.app_background));
+        amt.setPadding(10, 5, 10, 5);
+        tr1_head.addView(amt);
+
+        receipt_no = new TextView(getActivity());
+        receipt_no.setText("RECEIPT NO");
+        receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        receipt_no.setTextColor(getResources().getColor(R.color.app_background));
+        receipt_no.setPadding(10, 5, 10, 5);
+        tr1_head.addView(receipt_no);
+
+        receipt_date = new TextView(getActivity());
+        receipt_date.setText("RECEIPT DATE");
+        receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        receipt_date.setTextColor(getResources().getColor(R.color.app_background));
+        receipt_date.setPadding(10, 5, 10, 5);
+        tr1_head.addView(receipt_date);
+
+        pay_mode = new TextView(getActivity());
+        pay_mode.setText("PAYMENT MODE");
+        pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        pay_mode.setTextColor(getResources().getColor(R.color.app_background));
+        pay_mode.setPadding(10, 5, 10, 5);
+        tr1_head.addView(pay_mode);
+
+        t2.addView(tr1_head);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_fees, container, false);
+        view = inflater.inflate(R.layout.fragment_fees, container, false);
+
+        init();
+
+        /*
         name = (TextView) view.findViewById(R.id.stu_fee_name);
         type = (TextView) view.findViewById(R.id.stu_fee_type);
         total_fee = (TextView) view.findViewById(R.id.stu_total_fee);
@@ -87,18 +164,17 @@ public class Fees extends Fragment {
         receipt_no = (TextView) view.findViewById(R.id.deposit_receipt_no);
         receipt_date = (TextView) view.findViewById(R.id.deposit_receipt_date);
         payment_type = (TextView) view.findViewById(R.id.payment_mode);
-/*
+
         s1 = (HorizontalScrollView) view.findViewById(R.id.stu_scroll);
         s2 = (HorizontalScrollView) view.findViewById(R.id.deposit_scroll);
         s1.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
         s2.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
 */
         //setFonts();
-
+        setDataInstallment(getInstallments());
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFeesInteraction(uri);
@@ -122,21 +198,11 @@ public class Fees extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFeesListener {
-        // TODO: Update argument type and name
         void onFeesInteraction(Uri uri);
     }
 
+    /*
     private void setFonts() {
         name.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
         type.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
@@ -151,5 +217,137 @@ public class Fees extends Fragment {
         receipt_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
         receipt_date.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
         payment_type.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
+    }
+    */
+    private void setDataInstallment(List<FeeInstallment> installments) {
+        for (int i = 0; i < installments.size(); i++) {
+            FeeInstallment installment = installments.get(i);
+            TableRow tr1 = new TableRow(getActivity());
+            if (i % 2 != 0)
+                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+
+            name = new TextView(getActivity());
+            name.setText(installment.getName());
+            name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            name.setTextColor(getResources().getColor(R.color.colorAccent));
+            name.setPadding(5, 5, 5, 5);
+            name.setGravity(Gravity.CENTER);
+            tr1.addView(name);
+
+
+            type = new TextView(getActivity());
+            type.setText(installment.getType());
+            type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            type.setTextColor(getResources().getColor(R.color.colorAccent));
+            type.setPadding(5, 5, 5, 5);
+            type.setGravity(Gravity.CENTER);
+            tr1.addView(type);
+
+            total_fee = new TextView(getActivity());
+            total_fee.setText(String.valueOf(installment.getTotal()));
+            total_fee.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            total_fee.setTextColor(getResources().getColor(R.color.colorAccent));
+            total_fee.setPadding(5, 5, 5, 5);
+            total_fee.setGravity(Gravity.CENTER);
+            tr1.addView(total_fee);
+
+            deposit = new TextView(getActivity());
+            deposit.setText(String.valueOf(installment.getDeposit()));
+            deposit.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            deposit.setTextColor(getResources().getColor(R.color.colorAccent));
+            deposit.setPadding(5, 5, 5, 5);
+            deposit.setGravity(Gravity.CENTER);
+            tr1.addView(deposit);
+
+            t_discount = new TextView(getActivity());
+            t_discount.setText(String.valueOf(installment.getDiscount()));
+            t_discount.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            t_discount.setTextColor(getResources().getColor(R.color.colorAccent));
+            t_discount.setPadding(5, 5, 5, 5);
+            t_discount.setGravity(Gravity.CENTER);
+            tr1.addView(t_discount);
+
+            balance = new TextView(getActivity());
+            balance.setText(String.valueOf(installment.getBalance()));
+            balance.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            balance.setTextColor(getResources().getColor(R.color.colorAccent));
+            balance.setPadding(5, 5, 5, 5);
+            balance.setGravity(Gravity.CENTER);
+            tr1.addView(balance);
+            t1.addView(tr1);
+        }
+    }
+
+    private void depositData(List<DepositInstallent> deposits) {
+        for (int i = 0; i < deposits.size(); i++) {
+            DepositInstallent deposit = deposits.get(i);
+            TableRow tr = new TableRow(getActivity());
+            if (i % 2 != 0)
+                tr.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+
+            deposit_name = new TextView(getActivity());
+            deposit_name.setText(deposit.getDeposit_name());
+            deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            deposit_name.setTextColor(getResources().getColor(R.color.colorAccent));
+            deposit_name.setPadding(5, 5, 5, 5);
+            deposit_name.setGravity(Gravity.CENTER);
+            tr.addView(deposit_name);
+
+            deposit_type = new TextView(getActivity());
+            deposit_type.setText(deposit.getDeposit_type());
+            deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            deposit_type.setTextColor(getResources().getColor(R.color.colorAccent));
+            deposit_type.setPadding(5, 5, 5, 5);
+            deposit_type.setGravity(Gravity.CENTER);
+            tr.addView(deposit_type);
+
+            amt = new TextView(getActivity());
+            amt.setText(String.valueOf(deposit.getAmount()));
+            amt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            amt.setTextColor(getResources().getColor(R.color.colorAccent));
+            amt.setPadding(5, 5, 5, 5);
+            amt.setGravity(Gravity.CENTER);
+            tr.addView(amt);
+
+            receipt_no = new TextView(getActivity());
+            receipt_no.setText(String.valueOf(deposit.getReceipt_no()));
+            receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            receipt_no.setTextColor(getResources().getColor(R.color.colorAccent));
+            receipt_no.setPadding(5, 5, 5, 5);
+            receipt_no.setGravity(Gravity.CENTER);
+            tr.addView(receipt_no);
+
+            receipt_date = new TextView(getActivity());
+            receipt_date.setText(deposit.getReceipt_date());
+            receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            receipt_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            receipt_date.setPadding(5, 5, 5, 5);
+            receipt_date.setGravity(Gravity.CENTER);
+            tr.addView(receipt_date);
+
+            pay_mode = new TextView(getActivity());
+            pay_mode.setText(deposit.getPayment_mode());
+            pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            pay_mode.setTextColor(getResources().getColor(R.color.colorAccent));
+            pay_mode.setPadding(5, 5, 5, 5);
+            pay_mode.setGravity(Gravity.CENTER);
+            tr.addView(pay_mode);
+
+            t2.addView(tr);
+        }
+    }
+    private List<FeeInstallment> getInstallments(){
+        List<FeeInstallment> installments = new ArrayList<>();
+        for(int i=1;i<=5;i++) {
+            FeeInstallment installment = new FeeInstallment();
+            installment.setName(i+" INSTALLMENT");
+            installment.setType("REGULAR");
+            installment.setTotal(1200.00);
+            installment.setDeposit(1000.00);
+            installment.setDiscount(0.00);
+            installment.setBalance(0.00);
+            installments.add(installment);
+        }
+        return installments;
     }
 }

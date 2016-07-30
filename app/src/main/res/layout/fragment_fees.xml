@@ -7,6 +7,70 @@
     tools:context="com.b2infosoft.paathshala.fragment.Fees">
 
     <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/stu_fee_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/text_view_bottom_margin"
+                        android:layout_marginLeft="@dimen/edit_text_left_margin"
+                        android:layout_marginTop="@dimen/text_view_top_margin"
+                        android:text="@string/student_fee_info"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_view_main_font_size" />
+
+                    <TableLayout
+                        android:id="@+id/fee_ledger"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"></TableLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/text_view_bottom_margin"
+                        android:layout_marginLeft="@dimen/edit_text_left_margin"
+                        android:layout_marginTop="@dimen/text_view_top_margin"
+                        android:text="@string/student_fee_deposit_detail"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_view_main_font_size" />
+
+                    <TableLayout
+                        android:id="@+id/fee_deposit_table"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"></TableLayout>
+                </LinearLayout>
+
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!--
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none">
@@ -797,4 +861,5 @@
             </LinearLayout>
         </HorizontalScrollView>
     </ScrollView>
+    -->
 </LinearLayout>

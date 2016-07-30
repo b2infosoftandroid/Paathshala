@@ -56,7 +56,6 @@
     <dimen name="student_info_image_right_padding">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
-
     <dimen name="text_view_top_margin">16dp</dimen>
     <dimen name="text_view_bottom_margin">10dp</dimen>
     <dimen name="text_view_left_margin">16dp</dimen>
@@ -66,7 +65,7 @@
     <dimen name="text_view_left_padding">10dp</dimen>
     <dimen name="text_view_right_padding">10dp</dimen>
     <dimen name="text_view_main_font_size">18dp</dimen>
-    <dimen name="text_view_font_size">11dp</dimen>
-
+    <dimen name="text_view_font_size">12sp</dimen>
+    <dimen name="table_text_view_font_size">10sp</dimen>
 
 </resources>

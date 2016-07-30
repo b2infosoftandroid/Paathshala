@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.fragment.Admission;
 import com.b2infosoft.paathshala.fragment.Dashboard;
@@ -42,6 +43,7 @@ public class MainActivity extends CallBacks {
     TextView profile_name;
     LinearLayout nav_header_layout;
     Active active;
+    Tags tags;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class MainActivity extends CallBacks {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         active = Active.getInstance(this);
+        tags = Tags.getInstance();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -76,7 +79,7 @@ public class MainActivity extends CallBacks {
             }
         });
         profile_name = (TextView) headerView.findViewById(R.id.user_profile_name);
-        //profile_name.setText(Active.getValue(this, Tags.STU_NAME));
+        profile_name.setText(active.getValue(tags.S_INFO_STU_NAME));
         if (circularImageView != null) {
             //Toast.makeText(this,circularImageView+"",Toast.LENGTH_SHORT).show();
         }
@@ -185,7 +188,7 @@ public class MainActivity extends CallBacks {
                 setTitle("Holiday");
             } else if(id==R.id.nav_exit){
                 active.setLogOut();
-                startActivity(new Intent(MainActivity.this,LoginActivity_1.class));
+                startActivity(new Intent(MainActivity.this, LoginActivity_1.class));
                 finish();
             }
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
