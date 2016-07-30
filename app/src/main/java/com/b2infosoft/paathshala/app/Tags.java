@@ -39,6 +39,8 @@ public class Tags {
     public final String ARR_SESSION_LIST="SessionList";
     public final String ARR_STUDENT_INFO="StudentInfo";
     public final String ARR_USER_INFO="UserInfo";
+    public final String ARR_FEES_DETAILS="FeesDetail";
+    public final String ARR_FEES_DETAILS_DEPOSIT="DepositDetail";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -91,5 +93,17 @@ public class Tags {
     public final String S_INFO_GUARDIAN_PHONE = "GuarPhone";
     public final String S_INFO_REMARK = "remark";
 
-    //http://app.paathshala.net.in/App/CheckUser?UserId=5697&SessionId=8&SchoolId=1&Pwd=1
+    //////////   FEES INSTALLMENTS  ////////////
+    public final String FEES_ID = "Id";
+    public final String FEES_NAME = "FeesName";
+    public final String FEES_TYPE = "FeesType";
+    public final String FEES_TOTAL = "Total";
+    public final String FEES_DEPOSIT = "Deposit";
+    public final String FEES_DISCOUNT = "Discount";
+    public final String FEES_BALANCE = "Balance";
+    public final String FEES_AMOUNT = "Amount";
+    public final String FEES_RECEIPT_NO = "ReceiptNo";
+    public final String FEES_PAY_DATE = "PayDate";
+    public final String FEES_MODE = "Mode";
+
 }

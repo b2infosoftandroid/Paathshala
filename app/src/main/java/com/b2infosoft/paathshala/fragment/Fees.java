@@ -39,6 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Fees extends Fragment {
+    private final static String TAG = Fees.class.getName();
     Active active;
     Tags tags;
     Fonts fonts = Fonts.getInstance();
@@ -168,7 +169,8 @@ public class Fees extends Fragment {
         view = inflater.inflate(R.layout.fragment_fees, container, false);
         init();
 
-        setDataInstallment(getInstallments());
+        //setDataInstallment(getInstallments());
+        fetchInstallmentData();
         return view;
     }
 
@@ -275,7 +277,8 @@ public class Fees extends Fragment {
         }
     }
 
-    private void depositData(List<DepositInstallent> deposits) {
+    private void setDataDepositInstallment(List<DepositInstallent> deposits) {
+        Log.d(TAG,"CALLING DEPOSIT");
         for (int i = 0; i < deposits.size(); i++) {
             DepositInstallent deposit = deposits.get(i);
             TableRow tr = new TableRow(getActivity());
@@ -333,11 +336,12 @@ public class Fees extends Fragment {
             t2.addView(tr);
         }
     }
-    private List<FeeInstallment> getInstallments(){
+
+    private List<FeeInstallment> getInstallments() {
         List<FeeInstallment> installments = new ArrayList<>();
-        for(int i=1;i<=5;i++) {
+        for (int i = 1; i <= 5; i++) {
             FeeInstallment installment = new FeeInstallment();
-            installment.setName(i+" INSTALLMENT");
+            installment.setName(i + " INSTALLMENT");
             installment.setType("REGULAR");
             installment.setTotal(1200.00);
             installment.setDeposit(1000.00);
@@ -347,7 +351,8 @@ public class Fees extends Fragment {
         }
         return installments;
     }
-    private void fetchInstallmentData(){
+
+    private void fetchInstallmentData() {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
@@ -355,32 +360,74 @@ public class Fees extends Fragment {
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         showProgress();
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, urls.getUrl(urls.getPath(tags.CHECK_USER), map), null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.FEES_LEDGER), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        Log.d(TAG, response.toString());
+                       Log.d(TAG, response.toString());
                         try {
-                            if (response.has(tags.ARR_RESULT)) {
-                                JSONArray result = response.getJSONArray(tags.ARR_RESULT);
-                                JSONObject object = result.getJSONObject(0);
-                                if (object.has(tags.RESPONSE)) {
-                                    String res = object.getString(tags.RESPONSE);
-                                    if (res.equals(tags.RESPONSE_PASS)) {
+                            if (response.has(tags.ARR_FEES_DETAILS)) {
+                                JSONArray result = response.getJSONArray(tags.ARR_FEES_DETAILS);
+                                List<FeeInstallment> installments = new ArrayList<>();
+                                for (int i = 0; i < result.length(); i++) {
+                                    FeeInstallment installment = new FeeInstallment();
+                                    JSONObject object = result.getJSONObject(i);
+                                    if (object.has(tags.FEES_ID)) {
 
                                     }
+                                    if (object.has(tags.FEES_NAME)) {
+                                        installment.setName(object.getString(tags.FEES_NAME));
+                                    }
+                                    if (object.has(tags.FEES_TYPE)) {
+                                        installment.setType(object.getString(tags.FEES_TYPE));
+                                    }
+                                    if (object.has(tags.FEES_TOTAL)) {
+                                        installment.setTotal(object.getDouble(tags.FEES_TOTAL));
+                                    }
+                                    if (object.has(tags.FEES_DEPOSIT)) {
+                                        installment.setDeposit(object.getDouble(tags.FEES_DEPOSIT));
+                                    }
+                                    if (object.has(tags.FEES_DISCOUNT)) {
+                                        installment.setDiscount(object.getDouble(tags.FEES_DISCOUNT));
+                                    }
+                                    if (object.has(tags.FEES_BALANCE)) {
+                                        installment.setBalance(object.getDouble(tags.FEES_BALANCE));
+                                    }
+                                    installments.add(installment);
                                 }
+                                setDataInstallment(installments);
                             }
-                            if (response.has(tags.ARR_USER_INFO)) {
-                                JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
-                                JSONObject object = userInfoArray.getJSONObject(0);
-                                if (object.has(tags.S_ID)) {
+                            if (response.has(tags.ARR_FEES_DETAILS_DEPOSIT)) {
+                                JSONArray result = response.getJSONArray(tags.ARR_FEES_DETAILS_DEPOSIT);
+                                List<DepositInstallent> installments = new ArrayList<>();
+                                for (int i = 0; i < result.length(); i++) {
+                                    DepositInstallent installment = new DepositInstallent();
+                                    JSONObject object = result.getJSONObject(i);
+                                    if (object.has(tags.FEES_ID)) {
 
+                                    }
+                                    if (object.has(tags.FEES_NAME)) {
+                                        installment.setDeposit_name(object.getString(tags.FEES_NAME));
+                                    }
+                                    if (object.has(tags.FEES_TYPE)) {
+                                        installment.setDeposit_type(object.getString(tags.FEES_TYPE));
+                                    }
+                                    if (object.has(tags.FEES_AMOUNT)) {
+                                        installment.setAmount(object.getDouble(tags.FEES_AMOUNT));
+                                    }
+                                    if (object.has(tags.FEES_RECEIPT_NO)) {
+                                        installment.setReceipt_no(object.getInt(tags.FEES_RECEIPT_NO));
+                                    }
+                                    if (object.has(tags.FEES_PAY_DATE)) {
+                                        installment.setReceipt_date(object.getString(tags.FEES_PAY_DATE));
+                                    }
+                                    if (object.has(tags.FEES_MODE)) {
+                                        installment.setPayment_mode(object.getString(tags.FEES_MODE));
+                                    }
+                                    installments.add(installment);
                                 }
-                                if (object.has(tags.COLUMN_1)) {
-
-                                }
-                                dismissProgress();
+                                setDataDepositInstallment(installments);
                             }
+                            dismissProgress();
                         } catch (Exception e) {
                             dismissProgress();
                         }
@@ -411,15 +458,17 @@ public class Fees extends Fragment {
         MySingleton.getInstance(getActivity()).addToRequestQueue(jsObjRequest);
 
     }
-    private void showProgress(){
+
+    private void showProgress() {
         progress = new ProgressDialog(getActivity());
         progress.setMessage("Please Wait...");
         progress.setIndeterminate(true);
         progress.setCancelable(false);
         progress.show();
     }
-    private void dismissProgress(){
-        if(progress!=null){
+
+    private void dismissProgress() {
+        if (progress != null) {
             progress.dismiss();
         }
     }
