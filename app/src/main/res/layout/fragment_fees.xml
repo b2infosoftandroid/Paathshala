@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.b2infosoft.paathshala.fragment.Fees">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/stu_fee_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/text_view_bottom_margin"
+                    android:layout_marginLeft="@dimen/edit_text_left_margin"
+                    android:layout_marginTop="@dimen/text_view_top_margin"
+                    android:text="@string/student_fee_info"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_view_main_font_size" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="true">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorAccent">
+
+                        <TextView
+                            android:id="@+id/stu_fee_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_name"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/stu_fee_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/stu_total_fee"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_total"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/stu_deposit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_deposit"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/stu_tdiscount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_t_discount"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/stu_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_balance"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_1"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1200.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_1"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1200.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_2"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1200.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_3"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1200.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="1000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/colorAccent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/total"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="60000"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="4000.00"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="500.00"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="0.00"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+                </TableLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/text_view_bottom_margin"
+                    android:layout_marginLeft="@dimen/edit_text_left_margin"
+                    android:layout_marginTop="@dimen/text_view_top_margin"
+                    android:text="@string/student_fee_deposit_detail"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_view_main_font_size" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:background="@color/colorAccent">
+
+                        <TextView
+                            android:id="@+id/deposit_fee_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_name"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/deposit_fee_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/deposit_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_amount"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/deposit_receipt_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_receipt_no"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/deposit_receipt_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_receipt_date"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:id="@+id/payment_mode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_payment_mode"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_1"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="4000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="2"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="13/05/2016"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="CASH"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_1"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="4000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="2"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="13/05/2016"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="CASH"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_installment_1"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="@string/fee_type_regular"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="4000.00"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="2"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="13/05/2016"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/text_view_bottom_padding"
+                            android:paddingLeft="@dimen/text_view_left_padding"
+                            android:paddingRight="@dimen/text_view_right_padding"
+                            android:paddingTop="@dimen/text_view_top_padding"
+                            android:text="CASH"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_view_font_size" />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </ScrollView>
+</LinearLayout>

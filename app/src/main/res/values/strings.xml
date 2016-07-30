@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">Paathshala</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Login form strings -->
+    <string name="login_username">USERNAME</string>
+    <string name="login_password">PASSWORD</string>
+    <string name="login_dob">SELECT DATE</string>
+    <string name="login_role">ROLE</string>
+    <string name="login_button">LOGIN</string>
+    <string name="login_forgot_password">FORGOT PASSWORD</string>
+
+    <!-- Login 1 form string -->
+    <string name="login_institute_id">Institute id</string>
+    <string name="login_session">Session</string>
+    <string name="login_student_scholar_no">Student Scholar No</string>
+    <string name="login_password_1">Password</string>
+    <string name="login_bottom_text">Manage Your Institute Easily and Perfectly</string>
+    <string name="login_get_institute_id">Get Institute Id</string>
+    <string name="login_login">Login</string>
+    <string name="login_forgot_password_1">Forgot Password</string>
+
+
+    <!--  STUDENT INFO   -->
+    <string name="student_info_name">STUDENT NAME HERE</string>
+    <string name="student_info_registration_no">REGISTRATION NUMBER</string>
+    <string name="student_info_form_no">FORM NUMBER</string>
+    <string name="student_info_house">HOUSE</string>
+    <string name="student_info_dob">DATE OF BIRTH</string>
+    <string name="student_info_save">SAVE</string>
+
+    <!--  PARENT INFO   -->
+    <string name="parent_info_father_name">FATHERS NAME</string>
+    <string name="parent_info_mother_name">MOTHERS NAME</string>
+    <string name="parent_info_father_occupation">FATHERS OCCUPATION</string>
+    <string name="parent_info_father_income">FATHERS INCOME</string>
+    <string name="parent_info_mobile">MOBILE NO</string>
+    <string name="parent_info_address">PERMANENT ADDRESS</string>
+    <string name="parent_info_save">SAVE</string>
+
+    <!--  GUARDIAN INFO   -->
+    <string name="guardian_info_name">GUARDIANS NAME</string>
+    <string name="guardian_info_email">E-MAIL</string>
+    <string name="guardian_info_phone_no">PHONE NO</string>
+    <string name="guardian_info_mobile">MOBILE NO</string>
+    <string name="guardian_info_remark">REMARK</string>
+    <string name="guardian_info_address">CORRESPONDING ADDRESS</string>
+    <string name="guardian_info_save">SAVE</string>
+
+    <!-- CHANGE PASSWORD  -->
+    <string name="old_password">ENTER OLD PASSWORD</string>
+    <string name="new_password">ENTER NEW PASSWORD</string>
+    <string name="confirm_new_password">CONFIRM NEW PASSWORD</string>
+    <string name="password_update">UPDATE</string>
+
+    <!--  COMPLAINT  -->
+    <string name="submit_complaint">SUBMIT</string>
+    <string name="complaint_subject">SUBJECT</string>
+    <string name="complaint_message">TYPE YOUR COMPLAINT HERE</string>
+
+    <!--  ADMISSION FORM  -->
+    <string name="parent_info">PARENTS INFORMATION</string>
+    <string name="guardian_info">GUARDIANS INFORMATION</string>
+    <string name="student_info">STUDENT INFORMATION</string>
+    <string name="admission_date">DATE OF ADMISSION</string>
+    <string name="student_class">CLASS</string>
+    <string name="student_section">SECTION</string>
+    <string name="student_category">CATEGORY</string>
+    <string name="student_religion">RELIGION</string>
+    <string name="student_handicap">HANDICAPPED</string>
+    <string name="student_type">STUDENT TYPE</string>
+    <string name="student_gender">GENDER</string>
+    <string name="student_mode">MODE</string>
+    <string name="student_faculty">FACULTY</string>
+    <string name="student_admission_type">ADMISSION TYPE</string>
+    <string name="student_cast">CAST</string>
+    <string name="student_nationality">NATIONALITY</string>
+    <string name="student_bpl">BPL</string>
+    <string name="student_email">EMAIL</string>
+    <string name="student_mobile">MOBILE NO</string>
+
+    <!--  STUDENT FEES    -->
+    <string name="student_fee_info">STUDENT FEES INFO</string>
+    <string name="student_fee_deposit_detail">DEPOSIT DETAIL</string>
+    <string name="fee_name">FEES NAME</string>
+    <string name="fee_type">FEE TYPE</string>
+    <string name="fee_total">TOTAL FEES</string>
+    <string name="fee_deposit">DEPOSIT</string>
+    <string name="fee_t_discount">T DISCOUNT</string>
+    <string name="fee_balance">BALANCE</string>
+
+    <string name="fee_amount">AMOUNT</string>
+    <string name="fee_receipt_no">RECEIPT NO.</string>
+    <string name="fee_receipt_date">RECEIPT DATE</string>
+    <string name="fee_payment_mode">PAYMENT MODE</string>
+
+    <string name="fee_type_regular">REGULAR</string>
+    <string name="fee_installment_1">1ST INSTALL</string>
+    <string name="fee_installment_2">2ND INSTALL</string>
+    <string name="fee_installment_3">3RD INSTALL</string>
+    <string name="total">TOTAL</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

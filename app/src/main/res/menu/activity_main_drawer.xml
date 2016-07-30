@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_admission"
+            android:icon="@drawable/ic_admission"
+            android:title="ADMISSION FORM" />
+        <item
+            android:id="@+id/nav_attendance"
+            android:icon="@drawable/ic_attendance"
+            android:title="ATTENDANCE" />
+        <item
+            android:id="@+id/nav_holiday"
+            android:icon="@drawable/ic_holidays"
+            android:title="HOLIDAYS" />
+    </group>
+    <group
+        android:id="@+id/middle"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_fee_ledger"
+            android:icon="@drawable/ic_fees"
+            android:title="FEES" />
+        <item
+            android:id="@+id/nav_marksheet"
+            android:icon="@drawable/ic_marksheet"
+            android:title="MARKSHEET" />
+        <item
+            android:id="@+id/nav_time_table"
+            android:icon="@drawable/ic_timetable"
+            android:title="TIME TABLE" />
+    </group>
+    <group
+        android:id="@+id/bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_complaint"
+            android:icon="@drawable/ic_complaint"
+            android:title="COMPLAINT" />
+
+        <item
+            android:id="@+id/nav_change_password"
+            android:icon="@drawable/ic_change_password"
+            android:title="CHANGE PASSWORD" />
+
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_logout"
+            android:title="EXIT" />
+    </group>
+</menu>
