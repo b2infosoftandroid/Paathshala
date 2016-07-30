@@ -17,9 +17,10 @@ public class TextDrawable {
                 .withBorder(2)
                 .fontSize(30)
                 .textColor(context.getResources().getColor(R.color.button_foreground))
-                .useFont(fonts.getFont(context, fonts.ROBOTO_MEDIUM))
                 .endConfig()
                 .buildRoundRect(string, context.getResources().getColor(R.color.colorAccent), 100);
+//                .useFont(fonts.getFont(context, fonts.ROBOTO_MEDIUM))
+
         return drawable;
     }
 }

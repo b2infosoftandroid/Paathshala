@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.activity;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,7 @@ public class LoginActivity_1 extends AppCompatActivity {
 
     /* UI  */
     private EditText session_list, login_institute_id, login_student_scholar_no, login_password_1;
+    private ProgressDialog progress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,11 +167,12 @@ public class LoginActivity_1 extends AppCompatActivity {
         map.put(tags.SESSION_ID, sessionList.get(session));
         map.put(tags.USER_ID, user_id);
         map.put(tags.PWD_ID, password);
+        showProgress();
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.CHECK_USER), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                       Log.d(TAG,response.toString());
+//                        Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_RESULT);
@@ -184,25 +187,25 @@ public class LoginActivity_1 extends AppCompatActivity {
                             if (response.has(tags.ARR_USER_INFO)) {
                                 JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
                                 JSONObject object = userInfoArray.getJSONObject(0);
-                                if(object.has(tags.S_ID)){
+                                if (object.has(tags.S_ID)) {
                                     String s_id = object.getString(tags.S_ID);
                                     Active active = Active.getInstance(getApplicationContext());
-                                    active.setKey(tags.S_ID,s_id);
-                                    active.setKey(tags.SCHOOL_ID,institute_id);
+                                    active.setKey(tags.S_ID, s_id);
+                                    active.setKey(tags.SCHOOL_ID, institute_id);
                                     active.setKey(tags.SESSION_ID, sessionList.get(session));
                                     active.setLogin();
                                     loginSuccess();
                                 }
-                                if(object.has(tags.COLUMN_1)){
+                                if (object.has(tags.COLUMN_1)) {
 
                                 }
+                                dismissProgress();
                             }
                         } catch (Exception e) {
-
+                            dismissProgress();
                         }
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
@@ -226,6 +229,7 @@ public class LoginActivity_1 extends AppCompatActivity {
         });
         jsObjRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+
     }
 
     private void fetchSession() {
@@ -333,6 +337,18 @@ public class LoginActivity_1 extends AppCompatActivity {
         super.onStop();
         if (requestQueue != null) {
             requestQueue.cancelAll(TAG);
+        }
+    }
+    private void showProgress(){
+        progress = new ProgressDialog(LoginActivity_1.this);
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
+    private void dismissProgress(){
+        if(progress!=null){
+            progress.dismiss();
         }
     }
 }

@@ -18,7 +18,6 @@ public class Tags {
     public final int SUCCESS = 1;
     public final int UN_SUCCESS = 0;
 
-
     ///////////////  ----------  USER ACTION   ----------- //////////////
 
     public final String CHECK_USER ="CheckUser";

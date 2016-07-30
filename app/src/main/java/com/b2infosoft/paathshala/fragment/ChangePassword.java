@@ -82,7 +82,7 @@ public class ChangePassword extends Fragment {
 
             }
         });
-        setFonts();
+      //  setFonts();
         return  view;
     }
 

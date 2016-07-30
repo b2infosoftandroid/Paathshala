@@ -93,7 +93,7 @@ public class Fees extends Fragment {
         s1.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
         s2.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
 */
-        setFonts();
+        //setFonts();
 
         return view;
     }

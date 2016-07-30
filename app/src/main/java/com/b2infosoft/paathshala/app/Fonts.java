@@ -16,7 +16,6 @@ public class Fonts {
     private Fonts() {
 
     }
-
     public final String ROBOTO_BLACK = "Roboto_Black.ttf";
     public final String ROBOTO_BLACKITALIC = "Roboto_BlackItalic.ttf";
     public final String ROBOTO_BOlD = "Roboto_Bold.ttf";
@@ -38,4 +37,5 @@ public class Fonts {
     public Typeface getFont(Context context, String font) {
         return Typeface.createFromAsset(context.getAssets(),"fonts/"+font);
     }
+
 }

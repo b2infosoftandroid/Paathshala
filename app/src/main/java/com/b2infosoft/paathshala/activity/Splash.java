@@ -23,7 +23,7 @@ public class Splash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Automatic session tracking
-        Branch.getAutoInstance(getApplication());
+        //Branch.getAutoInstance(getApplication());
         setContentView(R.layout.activity_splash);
 
         findViewById(R.id.imageView).startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom));
@@ -50,6 +50,7 @@ public class Splash extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+    /*
         Branch branch = Branch.getInstance();
         branch.initSession(new Branch.BranchReferralInitListener() {
             @Override
@@ -62,11 +63,12 @@ public class Splash extends AppCompatActivity {
                 }
             }
         }, this.getIntent().getData(), this);
+        */
 /*      Log.d("DEEP LINK",branch.getDeeplinkDebugParams().toString());
         Log.d("LAST",branch.getLatestReferringParams().toString());
         Log.d("FIRST LINK",branch.getFirstReferringParams().toString());
 */
-
+/*
         BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
                 .setCanonicalIdentifier("article/12345")
                 .setTitle("Check out this article!")
@@ -85,7 +87,7 @@ public class Splash extends AppCompatActivity {
                 Log.i("MyApp", "Got my Branch link to share: " + url);
             }
         });
-
+*/
     }
 
     @Override
