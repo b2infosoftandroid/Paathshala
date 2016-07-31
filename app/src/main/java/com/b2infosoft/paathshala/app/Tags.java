@@ -3,6 +3,7 @@ package com.b2infosoft.paathshala.app;
 /**
  * Created by rajesh on 7/17/2016.
  */
+
 public class Tags {
     private static Tags instance = new Tags();
     private Tags() {
@@ -45,6 +46,8 @@ public class Tags {
     public final String ARR_FEES_DETAILS_DEPOSIT="DepositDetail";
     public final String ARR_EXAM_SESSION_LIST="SessionList";
     public final String ARR_EXAM_TIME_TABLE="ExamTimeTable";
+    public final String ARR_MARKS_DETAIL="MarksDetail";
+    public final String ARR_MARK_SHEET="Marksheet";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -117,5 +120,22 @@ public class Tags {
     /////////    EXAM TIME TABLE   //////////
     public final String TIME_TABLE_SUBJECT_NAME ="SubjectName";
     public final String TIME_TABLE_EXAM_DATE ="ExamDate";
+
+    ///////////  MARKS SHEET    ///////////////
+    public final String M_EXAM_NAME = "ExamName";
+    public final String M_SUBJECT_NAME = "SubjectName";
+    public final String M_T_MARKS = "TMarks";
+    public final String M_T_MARKS_OBT = "TMarksObt";
+    public final String M_P_MARKS = "PMarks";
+    public final String M_P_MARKS_OBT = "PMarksObt";
+    public final String M_ADD_IN_MARK = "AddInMark";
+    public final String M_ADD_IN_RES = "AddinRes";
+
+    public final String M_RESULT = "Result";
+    public final String M_DIVISION = "Division";
+    public final String M_PERCENTAGE = "Percentage";
+    public final String M_TOT_MARKS = "TotMarks";
+    public final String M_TOTAL_OBT = "TotalObt";
+    public final String M_MARK_SHEET_TYPE = "MarksheetType";
 
 }

@@ -7,42 +7,35 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.model.Marks;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MarkSheet.OnMarkSheetListener} interface
- * to handle interaction events.
- * Use the {@link MarkSheet#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class MarkSheet extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String TAG = MarkSheet.class.getName();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
     private OnMarkSheetListener mListener;
+    private View mView;
+    private TextView id, examName, subjectName, tMarks, tMarksObt, pMarks, pMarksObt, addInMark, addInRes;
+    private TableLayout tableLayout;
+    private Spinner spinner;
+    private Button button;
 
     public MarkSheet() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MarkSheet.
-     */
-    // TODO: Rename and change types and number of parameters
     public static MarkSheet newInstance(String param1, String param2) {
         MarkSheet fragment = new MarkSheet();
         Bundle args = new Bundle();
@@ -64,17 +57,170 @@ public class MarkSheet extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mark_sheet, container, false);
+        mView = inflater.inflate(R.layout.fragment_mark_sheet, container, false);
+        spinner = (Spinner) mView.findViewById(R.id.exam_type_spinner);
+        button = (Button) mView.findViewById(R.id.exam_type_search);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String type = (String) spinner.getSelectedItem();
+                searchMarkSheet(type);
+            }
+        });
+        init();
+        return mView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    private void init() {
+        tableLayout = (TableLayout) mView.findViewById(R.id.table_layout_mark_sheet);
+        TableRow tr_head = new TableRow(getActivity());
+        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+        id = new TextView(getActivity());
+        id.setText("ID");
+        id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        id.setTextColor(getResources().getColor(R.color.app_background));
+        id.setPadding(10, 5, 10, 5);
+        tr_head.addView(id);
+
+        examName = new TextView(getActivity());
+        examName.setText("Exam Name");
+        examName.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        examName.setTextColor(getResources().getColor(R.color.app_background));
+        examName.setPadding(10, 5, 10, 5);
+        tr_head.addView(examName);
+
+        subjectName = new TextView(getActivity());
+        subjectName.setText("Subject Name");
+        subjectName.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        subjectName.setTextColor(getResources().getColor(R.color.app_background));
+        subjectName.setPadding(10, 5, 10, 5);
+        tr_head.addView(subjectName);
+
+        tMarks = new TextView(getActivity());
+        tMarks.setText("T Marks");
+        tMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        tMarks.setTextColor(getResources().getColor(R.color.app_background));
+        tMarks.setPadding(10, 5, 10, 5);
+        tr_head.addView(tMarks);
+
+        tMarksObt = new TextView(getActivity());
+        tMarksObt.setText("T Marks Obt");
+        tMarksObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        tMarksObt.setTextColor(getResources().getColor(R.color.app_background));
+        tMarksObt.setPadding(10, 5, 10, 5);
+        tr_head.addView(tMarksObt);
+
+        pMarks = new TextView(getActivity());
+        pMarks.setText("P Marks");
+        pMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        pMarks.setTextColor(getResources().getColor(R.color.app_background));
+        pMarks.setPadding(10, 5, 10, 5);
+        tr_head.addView(pMarks);
+
+        pMarksObt = new TextView(getActivity());
+        pMarksObt.setText("P Marks Obt");
+        pMarksObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        pMarksObt.setTextColor(getResources().getColor(R.color.app_background));
+        pMarksObt.setPadding(10, 5, 10, 5);
+        tr_head.addView(pMarksObt);
+
+        addInMark = new TextView(getActivity());
+        addInMark.setText("Add In Marks");
+        addInMark.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        addInMark.setTextColor(getResources().getColor(R.color.app_background));
+        addInMark.setPadding(10, 5, 10, 5);
+        tr_head.addView(addInMark);
+
+        addInRes = new TextView(getActivity());
+        addInRes.setText("Add In Res");
+        addInRes.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        addInRes.setTextColor(getResources().getColor(R.color.app_background));
+        addInRes.setPadding(10, 5, 10, 5);
+        tr_head.addView(addInRes);
+
+        tableLayout.addView(tr_head);
+
+    }
+
+    private void setResult(List<Marks> marksList) {
+        for (Marks marks : marksList) {
+            TableRow tr_head = new TableRow(getActivity());
+            tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+            id = new TextView(getActivity());
+            id.setText(String.valueOf(marks.getId()));
+            id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            id.setTextColor(getResources().getColor(R.color.app_background));
+            id.setPadding(10, 5, 10, 5);
+            tr_head.addView(id);
+
+            examName = new TextView(getActivity());
+            examName.setText(marks.getExamName());
+            examName.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            examName.setTextColor(getResources().getColor(R.color.app_background));
+            examName.setPadding(10, 5, 10, 5);
+            tr_head.addView(examName);
+
+            subjectName = new TextView(getActivity());
+            subjectName.setText(marks.getSubjectName());
+            subjectName.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            subjectName.setTextColor(getResources().getColor(R.color.app_background));
+            subjectName.setPadding(10, 5, 10, 5);
+            tr_head.addView(subjectName);
+
+            tMarks = new TextView(getActivity());
+            tMarks.setText(String.valueOf(marks.getTMarks()));
+            tMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            tMarks.setTextColor(getResources().getColor(R.color.app_background));
+            tMarks.setPadding(10, 5, 10, 5);
+            tr_head.addView(tMarks);
+
+            tMarksObt = new TextView(getActivity());
+            tMarksObt.setText(String.valueOf(marks.getTMarksObt()));
+            tMarksObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            tMarksObt.setTextColor(getResources().getColor(R.color.app_background));
+            tMarksObt.setPadding(10, 5, 10, 5);
+            tr_head.addView(tMarksObt);
+
+            pMarks = new TextView(getActivity());
+            pMarks.setText(String.valueOf(marks.getPMarks()));
+            pMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            pMarks.setTextColor(getResources().getColor(R.color.app_background));
+            pMarks.setPadding(10, 5, 10, 5);
+            tr_head.addView(pMarks);
+
+            pMarksObt = new TextView(getActivity());
+            pMarksObt.setText(String.valueOf(marks.getPMarksObt()));
+            pMarksObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            pMarksObt.setTextColor(getResources().getColor(R.color.app_background));
+            pMarksObt.setPadding(10, 5, 10, 5);
+            tr_head.addView(pMarksObt);
+
+            addInMark = new TextView(getActivity());
+            addInMark.setText(String.valueOf(marks.getAddInMark()));
+            addInMark.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            addInMark.setTextColor(getResources().getColor(R.color.app_background));
+            addInMark.setPadding(10, 5, 10, 5);
+            tr_head.addView(addInMark);
+
+            addInRes = new TextView(getActivity());
+            addInRes.setText(String.valueOf(marks.getAddInRes()));
+            addInRes.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            addInRes.setTextColor(getResources().getColor(R.color.app_background));
+            addInRes.setPadding(10, 5, 10, 5);
+            tr_head.addView(addInRes);
+
+            tableLayout.addView(tr_head);
+        }
+    }
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onMarkSheetInteraction(uri);
         }
     }
-    
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -92,18 +238,11 @@ public class MarkSheet extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnMarkSheetListener {
-        // TODO: Update argument type and name
         void onMarkSheetInteraction(Uri uri);
+    }
+
+    private void searchMarkSheet(String type) {
+
     }
 }
