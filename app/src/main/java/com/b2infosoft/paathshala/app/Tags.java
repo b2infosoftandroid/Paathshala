@@ -123,6 +123,8 @@ public class Tags {
     public final String TIME_TABLE_EXAM_DATE ="ExamDate";
 
     ///////////  MARKS SHEET    ///////////////
+    public final String M_ID = "id";
+    public final String M_EXAM_TYPE = "examType";
     public final String M_EXAM_NAME = "ExamName";
     public final String M_SUBJECT_NAME = "SubjectName";
     public final String M_T_MARKS = "TMarks";
