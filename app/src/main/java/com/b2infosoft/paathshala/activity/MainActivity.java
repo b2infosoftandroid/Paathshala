@@ -61,15 +61,8 @@ public class MainActivity extends CallBacks {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavSelect());
 
-        headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_main, navigationView, true);
+        headerView = LayoutInflater.from(this).inflate(R.layout.nav_header_main, navigationView, false);
         nav_header_layout = (LinearLayout) headerView.findViewById(R.id.nav_header_layout);
-        nav_header_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new Admission());
-                setTitle("Admission");
-            }
-        });
         circularImageView = (CircularImageView) headerView.findViewById(R.id.circularImageView);
         circularImageView.setOnClickListener(new View.OnClickListener() {
             @Override
