@@ -29,6 +29,8 @@ public class Tags {
     public final String EXAM_TIME_TABLE ="ExamTimeTable";
     public final String MARKS_SHEET ="Marksheet";
     public final String SCHOOL_LIST ="SchoolList ";
+    public final String YEAR_ATTENDANCE ="MonthReg";
+    public final String MONTH_ATTENDANCE ="AttnReg";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -51,6 +53,8 @@ public class Tags {
     public final String ARR_MARKS_DETAIL="MarksDetail";
     public final String ARR_MARK_SHEET="Marksheet";
     public final String ARR_INSTITUTE_ID="Schools";
+    public final String ARR_TOTAL_YEAR_ATTENDANCE="TotalYearAttendance";
+    public final String ARR_TOTAL_MONTH_ATTENDANCE="AttendanceRegister";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -149,5 +153,52 @@ public class Tags {
     public final String INSTITUTE_NAME = "SchoolName";
     public final String INSTITUTE_ADDRESS = "SchoolAddress";
     public final String INSTITUTE_ACTIVE = "Active";
+
+    ///////////   YEAR ATTENDANCE /////////
+    public final String YEAR_YEAR = "Year";
+    public final String YEAR_MONTH = "Month";
+    public final String YEAR_TOTAL = "Total";
+    public final String YEAR_PRESENT = "Present";
+    public final String YEAR_ABSENT = "Absent";
+    public final String YEAR_HALF_DAY = "Half Day";
+    public final String YEAR_LEAVE = "Leave";
+
+    ////////////  MONTH ATTENDANCE  ////////////
+
+    public final String ONE ="One";
+    public final String TWO ="Two";
+    public final String THREE ="Three";
+    public final String FOUR ="Four";
+    public final String FIVE ="Five";
+    public final String SIX ="Six";
+    public final String SEVEN ="Seven";
+    public final String EIGHT ="Eight";
+    public final String NINE ="Nine";
+    public final String TEN ="Ten";
+    public final String ELEVEN ="Eleven";
+    public final String TWELVE ="Tweleve";
+    public final String THIRTEEN ="Thirteen";
+    public final String FOURTEEN ="fourteen";
+    public final String FIFTEEN ="fifteen";
+    public final String SIXTEEN ="sixteen";
+    public final String SEVENTEEN ="Seventeen";
+    public final String EIGHTEEN ="Eighteen";
+    public final String NINETEEN ="Ninteen";
+    public final String TWENTY ="twenty";
+    public final String TONE ="TOne";
+    public final String TTWO ="TTwo";
+    public final String TThree ="TThree";
+    public final String TFOUR ="TFour";
+    public final String TFIVE ="TFive";
+    public final String TSIX ="TSix";
+    public final String TSEVEN ="TSeven";
+    public final String TEIGHT ="TEight";
+    public final String TNINE ="TNine";
+    public final String TTEN ="TTen";
+    public final String TELEVEN ="TEleven";
+    public final String MONTH_ABSENT="Absents";
+    public final String MONTH_PRESENT="Presents";
+    public final String MONTH_LEAVE="Leave";
+    public final String MONTH_HALF_DAY="HalfDay";
 
 }

@@ -6,17 +6,22 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.GridView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.AttendanceCalenderAdapter;
+import com.b2infosoft.paathshala.adapter.TabPageAdapter;
+import com.b2infosoft.paathshala.fragment.attendance.Month;
+import com.b2infosoft.paathshala.fragment.attendance.Year;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -24,6 +29,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,25 +39,9 @@ import java.util.HashSet;
  * Use the {@link Attendance#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Attendance extends Fragment {
+public class Attendance extends Fragment implements ViewPager.OnPageChangeListener,TabHost.OnTabChangeListener{
     View view;
-    private GridView grid;
 
-    // how many days to show, defaults to six weeks, 42 days
-    private static final int DAYS_COUNT = 42;
-
-    // default date format
-    private static final String DATE_FORMAT = "MMM yyyy";
-
-    // date format
-    private String dateFormat;
-
-    // current displayed month
-    private Calendar currentDate = Calendar.getInstance();
-
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -61,19 +51,16 @@ public class Attendance extends Fragment {
 
     private OnAttendanceListener mListener;
 
+    private ViewPager viewPager;
+    private TabHost tabHost;
+    private TabPageAdapter tabPageAdapter;
+    private String[] tabs = {"MONTH","YEAR"};
+    private List<Fragment> fragmentList;
+
+
     public Attendance() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Attendance.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Attendance newInstance(String param1, String param2) {
         Attendance fragment = new Attendance();
         Bundle args = new Bundle();
@@ -96,15 +83,39 @@ public class Attendance extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_attendance, container, false);
-        grid = (GridView) view.findViewById(R.id.gridView);
-        HashSet<Date> events = new HashSet<>();
-        events.add(new Date());
-        updateCalendar(events);
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new Month());
+        fragmentList.add(new Year());
+
+        tabHost = (TabHost) view.findViewById(android.R.id.tabhost);
+        tabHost.setup();
+        for (String tab : tabs) {
+            TabHost.TabSpec tabSpec = tabHost.newTabSpec(tab);
+            tabSpec.setIndicator(tab);
+            tabSpec.setContent(new TabHost.TabContentFactory() {
+                @Override
+                public View createTabContent(String tag) {
+                    View view1 = new View(getActivity().getApplicationContext());
+                    view1.setMinimumHeight(0);
+                    view1.setMinimumWidth(0);
+                    return view1;
+                }
+            });
+            tabHost.addTab(tabSpec);
+        }
+        tabHost.setOnTabChangedListener(this);
+        tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList);
+        viewPager = (ViewPager) view.findViewById(R.id.view_pager);
+        viewPager.setAdapter(tabPageAdapter);
+        viewPager.setOnPageChangeListener(this);
+        viewPager.setCurrentItem(0);
+        tabHost.setCurrentTab(0);
+        setSelectedTabColor();
+
 
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onAttendanceInteraction(uri);
@@ -128,121 +139,37 @@ public class Attendance extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        tabHost.setCurrentTab(position);
+        setSelectedTabColor();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
+    }
+
+    @Override
+    public void onTabChanged(String tabId) {
+        int selected_item = tabHost.getCurrentTab();
+        viewPager.setCurrentItem(selected_item);
+    }
+    private void setSelectedTabColor() {
+        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
+            tv.setTextColor(Color.parseColor("#ffffff"));
+            //tv.setTextSize(10);
+            // tv.setTypeface(fonts.getFont(getActivity(), fonts.ROBOTO_MEDIUM));
+        }
+    }
     public interface OnAttendanceListener {
-        // TODO: Update argument type and name
         void onAttendanceInteraction(Uri uri);
     }
 
-    /**
-     * Display dates correctly in grid
-     */
-    public void updateCalendar(HashSet<Date> events) {
-        ArrayList<Date> cells = new ArrayList<>();
-        Calendar calendar = (Calendar) currentDate.clone();
-
-        // determine the cell for current month's beginning
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
-        int monthBeginningCell = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-
-        // move calendar backwards to the beginning of the week
-        calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
-
-        // fill cells
-        while (cells.size() < DAYS_COUNT) {
-            cells.add(calendar.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-
-        // update grid
-        //grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
-
-        grid.setAdapter(new AttendanceCalenderAdapter(getContext(),R.layout.calender,cells,events));
-
-        // update title
-        //SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        //txtDate.setText(sdf.format(currentDate.getTime()));
-
-        // set header color according to current season
-        int month = currentDate.get(Calendar.MONTH);
-//        int season = monthSeason[month];
-//        int color = rainbow[season];
-
-//        header.setBackgroundColor(getResources().getColor(color));
-
-    }
-
-    private class CalendarAdapter extends ArrayAdapter<Date> {
-        // days with events
-        private HashSet<Date> eventDays;
-        // for view inflation
-        private LayoutInflater inflater;
-
-        public CalendarAdapter(Context context, ArrayList<Date> days, HashSet<Date> eventDays) {
-            super(context, R.layout.control_calendar_day, days);
-            this.eventDays = eventDays;
-            inflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public View getView(int position, View view1, ViewGroup parent) {
-
-            // day in question
-            Date date = getItem(position);
-            int day = date.getDate();
-            int month = date.getMonth();
-            int year = date.getYear();
-
-            // today
-            Date today = new Date();
-
-            // inflate item if it does not exist yet
-            if (view1 == null)
-                view1 = inflater.inflate(R.layout.control_calendar_day,parent, false);
-
-            // if this day has an event, specify event image
-            //view1.setBackgroundResource(0);
-            if (eventDays != null) {
-                for (Date eventDate : eventDays) {
-                    if (eventDate.getDate() == day &&
-                            eventDate.getMonth() == month &&
-                            eventDate.getYear() == year) {
-                        // mark this day for event
-                        view1.setBackgroundResource(R.drawable.reminder);
-                        break;
-                    }
-                }
-            }
-
-            // clear styling
-            //((TextView) view1).setTypeface(null, Typeface.NORMAL);
-            //((TextView) view1).setTextColor(Color.BLACK);
-/*
-            if (month != today.getMonth() || year != today.getYear())
-            {
-                // if this day is outside current month, grey it out
-                ((TextView)view).setTextColor(getResources().getColor(R.color.greyed_out));
-            }
-            else if (day == today.getDate())
-            {
-                // if it is today, set it to blue/bold
-                ((TextView)view).setTypeface(null, Typeface.BOLD);
-                ((TextView)view).setTextColor(getResources().getColor(R.color.today));
-            }
-
-  */          // set text
-            ((TextView) view1).setText(String.valueOf(day));
-
-            return view1;
-        }
-    }
 }

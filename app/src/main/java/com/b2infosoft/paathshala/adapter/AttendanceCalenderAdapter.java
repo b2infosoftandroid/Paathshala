@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.model.MonthInfo;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -19,12 +21,18 @@ public class AttendanceCalenderAdapter extends ArrayAdapter<Date> {
     private Context context;
     private HashSet<Date> eventDays;
     private int resource;
-
+    private MonthInfo info;
     public AttendanceCalenderAdapter(Context context, int resource, ArrayList<Date> objects, HashSet<Date> eventDays) {
         super(context, resource, objects);
         this.resource = resource;
         this.context = context;
         this.eventDays = eventDays;
+    }
+    public AttendanceCalenderAdapter(Context context, int resource, ArrayList<Date> objects, MonthInfo monthInfo) {
+        super(context, resource, objects);
+        this.resource = resource;
+        this.context = context;
+        this.info = info;
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
