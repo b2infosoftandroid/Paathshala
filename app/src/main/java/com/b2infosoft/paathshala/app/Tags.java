@@ -27,6 +27,7 @@ public class Tags {
     public final String FEES_LEDGER ="FeesLedger";
     public final String EXAM_LIST ="ExamList";
     public final String EXAM_TIME_TABLE ="ExamTimeTable";
+    public final String MARKS_SHEET ="Marksheet";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 

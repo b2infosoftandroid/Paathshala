@@ -7,10 +7,10 @@ public class Marks {
     private int id;
     private String examName;
     private String subjectName;
-    private String tMarks;
-    private String tMarksObt;
-    private String pMarks;
-    private String pMarksObt;
+    private double TMarks;
+    private double TMarksObt;
+    private double PMarks;
+    private double PMarksObt;
     private String addInMark;
     private String addInRes;
 
@@ -38,36 +38,36 @@ public class Marks {
         this.subjectName = subjectName;
     }
 
-    public String getTMarks() {
-        return tMarks;
+    public double getTMarks() {
+        return TMarks;
     }
 
-    public void setTMarks(String tMarks) {
-        this.tMarks = tMarks;
+    public void setTMarks(double TMarks) {
+        this.TMarks = TMarks;
     }
 
-    public String getTMarksObt() {
-        return tMarksObt;
+    public double getTMarksObt() {
+        return TMarksObt;
     }
 
-    public void setTMarksObt(String tMarksObt) {
-        this.tMarksObt = tMarksObt;
+    public void setTMarksObt(double TMarksObt) {
+        this.TMarksObt = TMarksObt;
     }
 
-    public String getPMarks() {
-        return pMarks;
+    public double getPMarks() {
+        return PMarks;
     }
 
-    public void setPMarks(String pMarks) {
-        this.pMarks = pMarks;
+    public void setPMarks(double PMarks) {
+        this.PMarks = PMarks;
     }
 
-    public String getPMarksObt() {
-        return pMarksObt;
+    public double getPMarksObt() {
+        return PMarksObt;
     }
 
-    public void setPMarksObt(String pMarksObt) {
-        this.pMarksObt = pMarksObt;
+    public void setPMarksObt(double PMarksObt) {
+        this.PMarksObt = PMarksObt;
     }
 
     public String getAddInMark() {
