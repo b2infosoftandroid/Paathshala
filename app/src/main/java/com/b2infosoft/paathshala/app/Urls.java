@@ -2,6 +2,9 @@ package com.b2infosoft.paathshala.app;
 
 import android.content.Context;
 import android.util.Log;
+import android.webkit.URLUtil;
+
+import com.android.volley.toolbox.HurlStack;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -31,9 +34,11 @@ public class Urls {
     public String getStringRequest() {
         return config.getServerAddress().concat("string_request.php");
     }
-    public String getPath(String path){
-        return  config.SERVER_PATH.concat(path);
+
+    public String getPath(String path) {
+        return config.SERVER_PATH.concat(path);
     }
+
     public String getUrl(String path, HashMap<String, String> map) {
         if (!map.isEmpty()) {
             StringBuilder builder = new StringBuilder(path);
@@ -45,17 +50,17 @@ public class Urls {
                 String value = map.get(key);
                 builder.append(key);
                 builder.append("=");
+                try {
+                    value = URLEncoder.encode(value, "UTF-8");
+                } catch (UnsupportedEncodingException e) {
+
+                }
                 builder.append(value);
                 builder.append("&");
             }
             String newPath = builder.toString();
-            String url=newPath.substring(0,newPath.length()-1);
-            try{
-                url= URLEncoder.encode(url,"UTF-8");
-            }catch (UnsupportedEncodingException e){
-
-            }
-            return url ;
+            String url = newPath.substring(0, newPath.length() - 1);
+            return url;
         } else {
             return path;
         }
