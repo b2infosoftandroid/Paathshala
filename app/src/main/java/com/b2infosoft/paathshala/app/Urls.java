@@ -3,8 +3,10 @@ package com.b2infosoft.paathshala.app;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -47,7 +49,13 @@ public class Urls {
                 builder.append("&");
             }
             String newPath = builder.toString();
-            return newPath.substring(0,newPath.length()-1);
+            String url=newPath.substring(0,newPath.length()-1);
+            try{
+                url= URLEncoder.encode(url,"UTF-8");
+            }catch (UnsupportedEncodingException e){
+
+            }
+            return url ;
         } else {
             return path;
         }
