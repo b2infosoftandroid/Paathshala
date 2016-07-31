@@ -24,6 +24,8 @@ public class Tags {
     public final String SESSION_LIST ="Sessions/1";
     public final String STUDENT_INFO ="StudentInfo";
     public final String FEES_LEDGER ="FeesLedger";
+    public final String EXAM_LIST ="ExamList";
+    public final String EXAM_TIME_TABLE ="ExamTimeTable";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -41,6 +43,8 @@ public class Tags {
     public final String ARR_USER_INFO="UserInfo";
     public final String ARR_FEES_DETAILS="FeesDetail";
     public final String ARR_FEES_DETAILS_DEPOSIT="DepositDetail";
+    public final String ARR_EXAM_SESSION_LIST="SessionList";
+    public final String ARR_EXAM_TIME_TABLE="ExamTimeTable";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -51,6 +55,7 @@ public class Tags {
     public final String PWD_ID = "Pwd";
     public final String S_ID = "Sid";
     public final String COLUMN_1 = "Column1";
+    public final String TIME_TABLE_EXAM_NAME = "ExamName";
 
     ////////   STUDENT INFO  ///////////////////
     public final String S_INFO_IMAGE = "StuImage";
@@ -105,5 +110,12 @@ public class Tags {
     public final String FEES_RECEIPT_NO = "ReceiptNo";
     public final String FEES_PAY_DATE = "PayDate";
     public final String FEES_MODE = "Mode";
+
+    /////////////  EXAM LIST   ///////////
+    public final String EXAM_NAME = "ExamName";
+
+    /////////    EXAM TIME TABLE   //////////
+    public final String TIME_TABLE_SUBJECT_NAME ="SubjectName";
+    public final String TIME_TABLE_EXAM_DATE ="ExamDate";
 
 }
