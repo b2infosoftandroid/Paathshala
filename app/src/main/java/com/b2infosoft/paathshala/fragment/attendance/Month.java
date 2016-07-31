@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -48,6 +50,8 @@ public class Month extends Fragment {
     View view;
     private GridView grid;
     private ProgressDialog progress;
+    private ImageButton month_pre,month_next;
+    TextView current_date;
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
 
@@ -69,13 +73,30 @@ public class Month extends Fragment {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         tags = Tags.getInstance();
-
         view = inflater.inflate(R.layout.fragment_month, container, false);
         grid = (GridView) view.findViewById(R.id.gridView);
-        //HashSet<Date> events = new HashSet<>();
-        //events.add(new Date());
-        //updateCalendar(events);
+        HashSet<Date> events = new HashSet<>();
+        events.add(new Date());
+        updateCalendar(events);
+        month_pre = (ImageButton)view.findViewById(R.id.month_left);
+        month_next = (ImageButton)view.findViewById(R.id.month_right);
+        month_pre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HashSet<Date> events = new HashSet<>();
+                events.add(new Date());
+                currentDate.add(Calendar.MONTH, -1);
+                //updateCalender(events);
+            }
+        });
 
+        month_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDate.add(Calendar.MONTH, -1);
+                //updateCalender(null);
+            }
+        });
         return view;
     }
 
@@ -187,8 +208,7 @@ public class Month extends Fragment {
         }
     }
 
-
-    private void updateCalender(MonthInfo info){
+    private void updateCalenderAttendance(MonthInfo info){
         ArrayList<Date> cells = new ArrayList<>();
         Calendar calendar = (Calendar) currentDate.clone();
 
@@ -338,7 +358,7 @@ public class Month extends Fragment {
                                     month.setLeave(object.getInt(tags.MONTH_LEAVE));
                                 }
                             }
-                            updateCalender(month);
+                            updateCalenderAttendance(month);
                             dismissProgress();
                         } catch (Exception e) {
                             dismissProgress();

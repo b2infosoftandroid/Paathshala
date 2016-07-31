@@ -41,7 +41,7 @@ public class AttendanceCalenderAdapter extends ArrayAdapter<Date> {
         int day = date.getDate();
         int month = date.getMonth();
         int year = date.getYear();
-
+        
         TextView textView = (TextView)view.findViewById(R.id.calender_cell);
         Date today= new Date();
 
