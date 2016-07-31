@@ -28,6 +28,7 @@ public class Tags {
     public final String EXAM_LIST ="ExamList";
     public final String EXAM_TIME_TABLE ="ExamTimeTable";
     public final String MARKS_SHEET ="Marksheet";
+    public final String SCHOOL_LIST ="SchoolList ";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -49,6 +50,7 @@ public class Tags {
     public final String ARR_EXAM_TIME_TABLE="ExamTimeTable";
     public final String ARR_MARKS_DETAIL="MarksDetail";
     public final String ARR_MARK_SHEET="Marksheet";
+    public final String ARR_INSTITUTE_ID="Schools";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -140,5 +142,12 @@ public class Tags {
     public final String M_TOT_MARKS = "TotMarks";
     public final String M_TOTAL_OBT = "TotalObt";
     public final String M_MARK_SHEET_TYPE = "MarksheetType";
+
+
+    //////////     LOGIN INSTITUTE ID  ////////////
+    public final String INSTITUTE_ID = "Id";
+    public final String INSTITUTE_NAME = "SchoolName";
+    public final String INSTITUTE_ADDRESS = "SchoolAddress";
+    public final String INSTITUTE_ACTIVE = "Active";
 
 }
