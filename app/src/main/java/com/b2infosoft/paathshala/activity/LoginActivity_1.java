@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,9 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class LoginActivity_1 extends AppCompatActivity {
     Urls urls;
@@ -47,6 +45,7 @@ public class LoginActivity_1 extends AppCompatActivity {
     StringRequest stringRequest; // Assume this exists.
     RequestQueue requestQueue;  // Assume this exists.
     Button login, forgot_password;
+    TextView get_id;
     private final String TAG = LoginActivity_1.class.getName();
     private Hashtable<String, String> sessionList;
 
@@ -69,10 +68,17 @@ public class LoginActivity_1 extends AppCompatActivity {
         login_institute_id = (EditText) findViewById(R.id.login_institute_id);
         login_student_scholar_no = (EditText) findViewById(R.id.login_student_scholar_no);
         login_password_1 = (EditText) findViewById(R.id.login_password_1);
+        get_id = (TextView)findViewById(R.id.get_institute_id);
+        get_id.setOnClickListener(button);
 
         session_list = (EditText) findViewById(R.id.login_session);
         session_list.setOnClickListener(button);
         fetchSession();
+    }
+
+    private void getId(){
+        startActivity(new Intent(this,GetInstituteId.class));
+
     }
 
     private void loginSuccess() {
@@ -125,6 +131,9 @@ public class LoginActivity_1 extends AppCompatActivity {
                     break;
                 case R.id.login_session:
                     selectSession();
+                    break;
+                case R.id.get_institute_id:
+                    getId();
                     break;
             }
         }
