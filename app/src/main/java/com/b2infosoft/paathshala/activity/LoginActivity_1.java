@@ -202,6 +202,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     active.setKey(tags.S_ID, s_id);
                                     active.setKey(tags.SCHOOL_ID, institute_id);
                                     active.setKey(tags.SESSION_ID, sessionList.get(session));
+                                    active.setKey(tags.SESSION,session);
                                     active.setLogin();
                                     loginSuccess();
                                 }
