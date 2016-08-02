@@ -36,11 +36,23 @@
 
         </LinearLayout>
 
-        <ListView
-            android:id="@+id/time_table_list"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/edit_text_top_margin">
-        </ListView>
+            android:scrollbars="none">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <TableLayout
+                    android:id="@+id/time_table_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_top_margin"
+                    android:gravity="center"></TableLayout>
+            </HorizontalScrollView>
+        </ScrollView>
     </LinearLayout>
 </LinearLayout>
