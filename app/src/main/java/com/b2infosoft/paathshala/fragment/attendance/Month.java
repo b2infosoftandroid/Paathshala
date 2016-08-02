@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -38,7 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Month extends Fragment {
+public class Month extends Fragment implements View.OnClickListener {
     private static final String TAG = Month.class.getName();
     Active active;
     Tags tags;
@@ -46,9 +47,10 @@ public class Month extends Fragment {
     View view;
     private GridView grid;
     private ProgressDialog progress;
-    private ImageButton month_pre,month_next;
-    Config config= Config.getInstance();
-    TextView current_date;
+    private ImageButton month_pre, month_next;
+    Config config = Config.getInstance();
+    TextView month;
+    int mMonth = 0;
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
 
@@ -60,7 +62,10 @@ public class Month extends Fragment {
 
     // current displayed month
     private Calendar currentDate = Calendar.getInstance();
-
+    private final String MONTH_NAME[] = {"JAN", "FAB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    private final int MONTH_ID[] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1, 2};
+    private String SESSION[];
+    private TextView present,absent,leave,half_day;
     public Month() {
         // Required empty public constructor
     }
@@ -70,42 +75,81 @@ public class Month extends Fragment {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         tags = Tags.getInstance();
+        SESSION = active.getValue(tags.SESSION).split("-");
         view = inflater.inflate(R.layout.fragment_month, container, false);
         grid = (GridView) view.findViewById(R.id.gridView);
+        month = (TextView) view.findViewById(R.id.current_date);
+        present = (TextView)view.findViewById(R.id.total_present);
+        absent = (TextView)view.findViewById(R.id.total_absent);
+        leave = (TextView)view.findViewById(R.id.total_leave);
+        half_day = (TextView)view.findViewById(R.id.total_half_day);
+
+/*
         HashSet<Date> events = new HashSet<>();
         events.add(new Date());
         updateCalendar(events);
-        month_pre = (ImageButton)view.findViewById(R.id.month_left);
-        month_next = (ImageButton)view.findViewById(R.id.month_right);
-        month_pre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                HashSet<Date> events = new HashSet<>();
-                events.add(new Date());
-                currentDate.add(Calendar.MONTH, -1);
-
-                //updateCalender(events);
-            }
-        });
-
-        month_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentDate.add(Calendar.MONTH, -1);
-                //updateCalender(null);
-            }
-        });
+*/
+        month_pre = (ImageButton) view.findViewById(R.id.month_left);
+        month_next = (ImageButton) view.findViewById(R.id.month_right);
+        month_pre.setOnClickListener(this);
+        month_next.setOnClickListener(this);
+        //month.setText(String.valueOf(currentDate.get(Calendar.MONTH)));
+        mMonth = currentDate.get(Calendar.MONTH);
+        updateDate(mMonth);
         return view;
+    }
+
+
+    private int getItemPosition(int item) {
+        for (int i = 0; i < MONTH_ID.length; i++) {
+            if (MONTH_ID[i] == item) {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**
      * Display dates correctly in grid
      */
 
-    public void updateCalendar(HashSet<Date> events) {
-        ArrayList<Date> cells = new ArrayList<>();
-        Calendar calendar = (Calendar) currentDate.clone();
+    public void updateDate(int mon) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, mon);
+        if (mon <= 2) {
+            month.setText(MONTH_NAME[mon]+" ".concat(SESSION[1]));
+            calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[1]));
+            //updateCalendar(null, calendar);
+            searchYearAttendance(SESSION[1], mon + "");
+        } else {
+            month.setText(MONTH_NAME[mon]+" ".concat(SESSION[0]));
+            calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[0]));
+            //updateCalendar(null, calendar);
+            searchYearAttendance(SESSION[0], mon + "");
+        }
+    }
 
+    @Override
+    public void onClick(View v) {
+        int position = getItemPosition(mMonth);
+        switch (v.getId()) {
+            case R.id.month_left:
+                if (position <= 11 && position > 0) {
+                    mMonth = MONTH_ID[position - 1];
+                    updateDate(mMonth);
+                }
+                break;
+            case R.id.month_right:
+                if (position < 11 && position >= 0) {
+                    mMonth = MONTH_ID[position + 1];
+                    updateDate(mMonth);
+                }
+                break;
+        }
+    }
+
+    public void updateCalendar(MonthInfo info, Calendar calendar) {
+        ArrayList<Date> cells = new ArrayList<>();
         // determine the cell for current month's beginning
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         int monthBeginningCell = calendar.get(Calendar.DAY_OF_WEEK) - 1;
@@ -118,25 +162,12 @@ public class Month extends Fragment {
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
         // update grid
         //grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
-
-        grid.setAdapter(new AttendanceCalenderAdapter(getContext(), R.layout.calender, cells, events));
-
-        // update title
-        //SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-        //txtDate.setText(sdf.format(currentDate.getTime()));
-
-        // set header color according to current season
-        int month = currentDate.get(Calendar.MONTH);
-//        int season = monthSeason[month];
-//        int color = rainbow[season];
-
-//        header.setBackgroundColor(getResources().getColor(color));
-
+        grid.setAdapter(new AttendanceCalenderAdapter(getContext(), R.layout.calender, cells, info, mMonth));
     }
 
+    /*
     private void updateCalenderAttendance(MonthInfo info){
         ArrayList<Date> cells = new ArrayList<>();
         Calendar calendar = (Calendar) currentDate.clone();
@@ -155,24 +186,28 @@ public class Month extends Fragment {
         }
         grid.setAdapter(new AttendanceCalenderAdapter(getActivity(),R.layout.calender,cells, info));
     }
+*/
 
-    private void searchYearAttendance(String year, String month) {
+    private void searchYearAttendance(final String year, final String month_1) {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.YEAR_YEAR, year);
-        map.put(tags.YEAR_MONTH, month);
+        map.put(tags.YEAR_MONTH, month_1);
+        final MonthInfo month = new MonthInfo();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, Integer.parseInt(month_1));
+        calendar.set(Calendar.YEAR, Integer.parseInt(year));
         showProgress();
         String url = urls.getUrl(urls.getPath(tags.MONTH_ATTENDANCE), map);
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        Log.d(TAG, response.toString());
+                        Log.d(TAG, response.toString());
                         try {
-                            MonthInfo month = new MonthInfo();
                             if (response.has(tags.ARR_TOTAL_MONTH_ATTENDANCE)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_TOTAL_MONTH_ATTENDANCE);
                                 JSONObject object = result.getJSONObject(0);
@@ -252,7 +287,7 @@ public class Month extends Fragment {
                                     month.setTFive(object.getString(tags.TFIVE));
                                 }
                                 if (object.has(tags.TSIX)) {
-                                    month.setTSex(object.getString(tags.TSIX));
+                                    month.setTSix(object.getString(tags.TSIX));
                                 }
                                 if (object.has(tags.TSEVEN)) {
                                     month.setTSeven(object.getString(tags.TSEVEN));
@@ -282,15 +317,20 @@ public class Month extends Fragment {
                                     month.setLeave(object.getInt(tags.MONTH_LEAVE));
                                 }
                             }
-                            updateCalenderAttendance(month);
+                            present.setText(String.valueOf(month.getPresent()));
+                            absent.setText(String.valueOf(month.getAbsent()));
+                            leave.setText(String.valueOf(month.getLeave()));
+                            half_day.setText(String.valueOf(month.getHalfDay()));
                             dismissProgress();
                         } catch (Exception e) {
                             dismissProgress();
                         }
+                        updateCalendar(month, calendar);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        updateCalendar(month, calendar);
                         Log.d(TAG, error.toString());
                     }
                 });
@@ -328,5 +368,4 @@ public class Month extends Fragment {
             progress.dismiss();
         }
     }
-
 }

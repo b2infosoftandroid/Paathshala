@@ -29,7 +29,7 @@ public class MonthInfo {
     private String TThree="null";
     private String TFour="null";
     private String TFive="null";
-    private String TSex="null";
+    private String TSix="null";
     private String TSeven="null";
     private String TEight="null";
     private String TNine="null";
@@ -240,12 +240,12 @@ public class MonthInfo {
         this.TFive = TFive;
     }
 
-    public String getTSex() {
-        return TSex;
+    public String getTSix() {
+        return TSix;
     }
 
-    public void setTSex(String TSex) {
-        this.TSex = TSex;
+    public void setTSix(String TSix) {
+        this.TSix = TSix;
     }
 
     public String getTSeven() {

@@ -29,9 +29,13 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <View
+                    <TextView
+                        android:id="@+id/total_present"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:text="0"
+                        android:gravity="center"
+                        android:textColor="@color/app_background"
                         android:background="@color/attendance_present" />
 
                     <TextView
@@ -48,9 +52,14 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <View
+                    <TextView
+                        android:id="@+id/total_absent"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:text="0"
+                        android:gravity="center"
+                        android:textColor="@color/app_background"
+
                         android:background="@color/attendance_absent" />
 
                     <TextView
@@ -67,9 +76,14 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <View
+                    <TextView
+                        android:id="@+id/total_leave"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:text="0"
+                        android:gravity="center"
+                        android:textColor="@color/app_background"
+
                         android:background="@color/attendance_leave" />
 
                     <TextView
@@ -86,9 +100,13 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
 
-                    <View
+                    <TextView
+                        android:id="@+id/total_half_day"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:text="0"
+                        android:gravity="center"
+                        android:textColor="@color/app_background"
                         android:background="@color/attendance_half_day" />
 
                     <TextView
