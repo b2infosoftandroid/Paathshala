@@ -22,11 +22,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.AttendanceCalenderAdapter;
+import com.b2infosoft.paathshala.app.Config;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.model.MonthInfo;
-import com.b2infosoft.paathshala.model.YearInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -37,11 +37,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Month extends Fragment {
     private static final String TAG = Month.class.getName();
     Active active;
@@ -51,6 +47,7 @@ public class Month extends Fragment {
     private GridView grid;
     private ProgressDialog progress;
     private ImageButton month_pre,month_next;
+    Config config= Config.getInstance();
     TextView current_date;
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
@@ -86,6 +83,7 @@ public class Month extends Fragment {
                 HashSet<Date> events = new HashSet<>();
                 events.add(new Date());
                 currentDate.add(Calendar.MONTH, -1);
+
                 //updateCalender(events);
             }
         });
@@ -103,6 +101,7 @@ public class Month extends Fragment {
     /**
      * Display dates correctly in grid
      */
+
     public void updateCalendar(HashSet<Date> events) {
         ArrayList<Date> cells = new ArrayList<>();
         Calendar calendar = (Calendar) currentDate.clone();
@@ -138,76 +137,6 @@ public class Month extends Fragment {
 
     }
 
-    private class CalendarAdapter extends ArrayAdapter<Date> {
-        // days with events
-        private HashSet<Date> eventDays;
-        // for view inflation
-        private LayoutInflater inflater;
-        private MonthInfo info;
-        public CalendarAdapter(Context context, ArrayList<Date> days, HashSet<Date> eventDays) {
-            super(context, R.layout.control_calendar_day, days);
-            this.eventDays = eventDays;
-            inflater = LayoutInflater.from(context);
-        }
-        public CalendarAdapter(Context context, ArrayList<Date> days, MonthInfo info) {
-            super(context, R.layout.control_calendar_day, days);
-            this.info = info;
-            inflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public View getView(int position, View view1, ViewGroup parent) {
-
-            // day in question
-            Date date = getItem(position);
-            int day = date.getDate();
-            int month = date.getMonth();
-            int year = date.getYear();
-
-            // today
-            Date today = new Date();
-
-            // inflate item if it does not exist yet
-            if (view1 == null)
-                view1 = inflater.inflate(R.layout.control_calendar_day, parent, false);
-
-            // if this day has an event, specify event image
-            //view1.setBackgroundResource(0);
-            if (eventDays != null) {
-                for (Date eventDate : eventDays) {
-                    if (eventDate.getDate() == day &&
-                            eventDate.getMonth() == month &&
-                            eventDate.getYear() == year) {
-                        // mark this day for event
-                        view1.setBackgroundResource(R.drawable.reminder);
-                        break;
-                    }
-                }
-            }
-
-            // clear styling
-            //((TextView) view1).setTypeface(null, Typeface.NORMAL);
-            //((TextView) view1).setTextColor(Color.BLACK);
-/*
-            if (month != today.getMonth() || year != today.getYear())
-            {
-                // if this day is outside current month, grey it out
-                ((TextView)view).setTextColor(getResources().getColor(R.color.greyed_out));
-            }
-            else if (day == today.getDate())
-            {
-                // if it is today, set it to blue/bold
-                ((TextView)view).setTypeface(null, Typeface.BOLD);
-                ((TextView)view).setTextColor(getResources().getColor(R.color.today));
-            }
-
-  */          // set text
-            ((TextView) view1).setText(String.valueOf(day));
-
-            return view1;
-        }
-    }
-
     private void updateCalenderAttendance(MonthInfo info){
         ArrayList<Date> cells = new ArrayList<>();
         Calendar calendar = (Calendar) currentDate.clone();
@@ -224,12 +153,7 @@ public class Month extends Fragment {
             cells.add(calendar.getTime());
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
-        // update grid
-        //grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
-
         grid.setAdapter(new AttendanceCalenderAdapter(getActivity(),R.layout.calender,cells, info));
-
     }
 
     private void searchYearAttendance(String year, String month) {

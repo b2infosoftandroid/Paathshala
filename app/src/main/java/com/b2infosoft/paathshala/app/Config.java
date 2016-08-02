@@ -25,5 +25,6 @@ public class Config {
             return "http://".concat(SERVER_IP).concat("/rajesh/paathshala_services/");
         }
     }
-
+    public final String MONTH_NAME[] = {"APR","MAY","JUN","JUL","AUG","SEP","OCT","NOV","DEC","JAN","FAB","MAR"};
+    public final int MONTH_ID[]   = {3,4,5,6,7,8,9,10,11,0,1,2};
 }
