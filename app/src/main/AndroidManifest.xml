@@ -32,31 +32,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <!-- Deep link intent filter -->
-            <intent-filter>
-                <data
-                    android:host="open"
-                    android:scheme="paathshala" />
-
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
         </activity>
-        <!-- Add this meta-data below -->
-        <meta-data
-            android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_mnn2XWDZktBodzrLjKYXXehgsqdtX6Jz" />
-
-        <receiver
-            android:name="io.branch.referral.InstallListener"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-        </receiver>
-
         <activity android:name=".activity.GetInstituteId"></activity>
     </application>
 

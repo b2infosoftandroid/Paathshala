@@ -13,10 +13,6 @@ import com.b2infosoft.paathshala.credential.Active;
 
 import org.json.JSONObject;
 
-import io.branch.indexing.BranchUniversalObject;
-import io.branch.referral.Branch;
-import io.branch.referral.BranchError;
-import io.branch.referral.util.LinkProperties;
 
 public class Splash extends AppCompatActivity {
     @Override
@@ -50,44 +46,6 @@ public class Splash extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-    /*
-        Branch branch = Branch.getInstance();
-        branch.initSession(new Branch.BranchReferralInitListener() {
-            @Override
-            public void onInitFinished(JSONObject referringParams, BranchError error) {
-                if (error == null) {
-                    // params are the deep linked params associated with the link that the user clicked before showing up
-                    Log.i("BranchConfigTest", "deep link data: " + referringParams.toString());
-                } else {
-                    Log.i("Branch Error", error.toString());
-                }
-            }
-        }, this.getIntent().getData(), this);
-        */
-/*      Log.d("DEEP LINK",branch.getDeeplinkDebugParams().toString());
-        Log.d("LAST",branch.getLatestReferringParams().toString());
-        Log.d("FIRST LINK",branch.getFirstReferringParams().toString());
-*/
-/*
-        BranchUniversalObject branchUniversalObject = new BranchUniversalObject()
-                .setCanonicalIdentifier("article/12345")
-                .setTitle("Check out this article!")
-                .setContentDescription("It’s really entertaining...")
-                .setContentImageUrl("https://mysite.com/article_logo.png")
-                .addContentMetadata("read_progress", "17%");
-
-        LinkProperties linkProperties = new LinkProperties()
-                .setChannel("facebook")
-                .setFeature("sharing")
-                .addControlParameter("$fallback_url", "http://mysite.com/article/12345");
-
-        branchUniversalObject.generateShortUrl((Activity) this, linkProperties, new Branch.BranchLinkCreateListener() {
-            @Override
-            public void onLinkCreate(String url, BranchError error) {
-                Log.i("MyApp", "Got my Branch link to share: " + url);
-            }
-        });
-*/
     }
 
     @Override
