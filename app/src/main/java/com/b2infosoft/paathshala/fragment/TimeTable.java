@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,17 +49,18 @@ import java.util.List;
 
 public class TimeTable extends Fragment {
 
-    private static String TAG=TimeTable.class.getName();
+    private static String TAG = TimeTable.class.getName();
 
     private OnTimeTableListener mListener;
-    TextView exam_list;
+    TableLayout t1;
+    TextView exam_list, sub_name, sub_exm_date;
     Spinner spinner;
     ListView examdetail;
-    Tags tags= Tags.getInstance();
-    Urls urls=Urls.getInstance();
+    Tags tags = Tags.getInstance();
+    Urls urls = Urls.getInstance();
     Active active;
     List<String> ExamType;
-     List<TimeTableInfo> infoList;
+    List<TimeTableInfo> infoList;
 
     public TimeTable() {
         // Required empty public constructor
@@ -66,20 +70,21 @@ public class TimeTable extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-   // ViewPager viewPager;
+
+    // ViewPager viewPager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_table, container, false);
 
-        active= Active.getInstance(getContext());
-        exam_list=(TextView)view.findViewById(R.id.exam_type);
-        spinner=(Spinner)view.findViewById(R.id.exam_list_spinner);
-        examdetail= (ListView)view.findViewById(R.id.time_table_list);
+        active = Active.getInstance(getContext());
+        exam_list = (TextView) view.findViewById(R.id.exam_type);
+        spinner = (Spinner) view.findViewById(R.id.exam_list_spinner);
+        t1 = (TableLayout) view.findViewById(R.id.time_table_list);
         fetchExamList();
-       // viewPager = (ViewPager)view.findViewById(R.id.viewPager);
+        // viewPager = (ViewPager)view.findViewById(R.id.viewPager);
 
-     //   viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
+        //   viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
 
         return view;
     }
@@ -123,36 +128,36 @@ public class TimeTable extends Fragment {
         void onTimeTableInteraction(Uri uri);
     }
 
-    private  void fetchExamList(){
-        HashMap<String,String> map=new HashMap<>();
-        map.put(tags.SESSION_ID,active.getValue(tags.SESSION_ID));
-        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-                (Request.Method.GET,urls.getUrl(urls.getPath(tags.EXAM_LIST),map), null, new Response.Listener<JSONObject>() {
+    private void fetchExamList() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.EXAM_LIST), map), null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                      // Log.d(TAG,response.toString());
-                        if(ExamType==null){
-                            ExamType= new ArrayList<>();
+                        // Log.d(TAG,response.toString());
+                        if (ExamType == null) {
+                            ExamType = new ArrayList<>();
                         }
-                        if(response!=null){
+                        if (response != null) {
                             try {
                                 if (response.has(tags.ARR_EXAM_SESSION_LIST)) {
-                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_EXAM_SESSION_LIST);
-                                    for(int i=0;i<jsonArray.length();i++) {
-                                        String examname="";
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_EXAM_SESSION_LIST);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        String examname = "";
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        if(object.has(tags.EXAM_NAME)){
-                                         examname=  object.getString(tags.EXAM_NAME);
+                                        if (object.has(tags.EXAM_NAME)) {
+                                            examname = object.getString(tags.EXAM_NAME);
                                         }
-                                       ExamType.add(examname);
+                                        ExamType.add(examname);
                                     }
-                                   spinner.setAdapter(new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item,ExamType));
+                                    spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, ExamType));
                                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                                         @Override
                                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                          // Toast.makeText(getContext(),"success",Toast.LENGTH_LONG).show();
+                                            // Toast.makeText(getContext(),"success",Toast.LENGTH_LONG).show();
                                             String value = spinner.getSelectedItem().toString();
                                             getData(value);
                                         }
@@ -163,12 +168,12 @@ public class TimeTable extends Fragment {
                                         }
                                     });
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
 
                             }
                         }
                     }
-                },new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -180,7 +185,7 @@ public class TimeTable extends Fragment {
     }
 
 
-    public void getData(String str){
+    public void getData(String str) {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
@@ -191,10 +196,9 @@ public class TimeTable extends Fragment {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                      // Log.d("response",response.toString());
-                        if(infoList==null){
-                            infoList = new ArrayList<>();
-                        }
+                        // Log.d("response",response.toString());
+                        infoList = new ArrayList<>();
+
                         if (response != null) {
                             try {
                                 if (response.has(tags.ARR_EXAM_TIME_TABLE)) {
@@ -211,8 +215,9 @@ public class TimeTable extends Fragment {
                                         infoList.add(info);
 
                                     }
-                                    TimeTableAdapter listAdapter= new TimeTableAdapter(getContext(),infoList);
-                                    examdetail.setAdapter(listAdapter);
+                                    addData(infoList);
+                                    // TimeTableAdapter listAdapter= new TimeTableAdapter(getContext(),infoList);
+                                    // examdetail.setAdapter(listAdapter);
                                 }
                             } catch (Exception e) {
 
@@ -228,5 +233,53 @@ public class TimeTable extends Fragment {
                 });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void addData(List<TimeTableInfo> infolist) {
+        if (t1.getChildCount() > 0) {
+            t1.removeAllViews();
+        }
+        TableRow tr_head = new TableRow(getContext());
+        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        sub_name = new TextView(getContext());
+        sub_name.setText("Subject Name");
+        sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        sub_name.setTextColor(getResources().getColor(R.color.app_background));
+        sub_name.setPadding(10, 5, 10, 5);
+        tr_head.addView(sub_name);
+
+
+        sub_exm_date = new TextView(getContext());
+        sub_exm_date.setText("Exam Date");
+        sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
+        sub_exm_date.setPadding(10, 5, 10, 5);
+        tr_head.addView(sub_exm_date);
+        t1.addView(tr_head);
+
+        for (int i = 0; i < infolist.size(); i++) {
+            TimeTableInfo info = infolist.get(i);
+            TableRow tr1 = new TableRow(getContext());
+
+            sub_name = new TextView(getContext());
+            sub_name.setText(info.getSubject());
+            sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            sub_name.setTextColor(getResources().getColor(R.color.colorAccent));
+            sub_name.setPadding(5, 5, 5, 5);
+            // sub_name.setGravity(Gravity.CENTER);
+            tr1.addView(sub_name);
+
+
+            sub_exm_date = new TextView(getContext());
+            sub_exm_date.setText(info.getDate());
+            sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            sub_exm_date.setPadding(5, 5, 5, 5);
+            //  sub_exm_date.setGravity(Gravity.CENTER);
+            tr1.addView(sub_exm_date);
+
+            t1.addView(tr1);
+
+        }
     }
 }

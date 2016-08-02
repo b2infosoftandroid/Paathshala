@@ -22,12 +22,12 @@ public class Splash extends AppCompatActivity {
         //Branch.getAutoInstance(getApplication());
         setContentView(R.layout.activity_splash);
 
-        findViewById(R.id.imageView).startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom));
+        //findViewById(R.id.imageView).startAnimation(AnimationUtils.loadAnimation(this, R.anim.zoom));
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(4000);
+                    Thread.sleep(0000);
                     Active active= Active.getInstance(getApplicationContext());
                     if(active.isLogin()) {
                         startActivity(new Intent(Splash.this, MainActivity.class));
