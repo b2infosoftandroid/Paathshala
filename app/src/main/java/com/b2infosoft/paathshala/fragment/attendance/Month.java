@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,7 @@ public class Month extends Fragment implements View.OnClickListener {
     Config config = Config.getInstance();
     TextView month;
     int mMonth = 0;
+    int width, height;
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
 
@@ -83,6 +85,13 @@ public class Month extends Fragment implements View.OnClickListener {
         absent = (TextView)view.findViewById(R.id.total_absent);
         leave = (TextView)view.findViewById(R.id.total_leave);
         half_day = (TextView)view.findViewById(R.id.total_half_day);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        //getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = (dm.widthPixels) / 7;
+        height = (dm.heightPixels) / 6;
+
+        month.setLayoutParams(new GridView.LayoutParams(width, width));
 
 /*
         HashSet<Date> events = new HashSet<>();

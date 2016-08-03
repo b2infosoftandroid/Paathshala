@@ -1,10 +1,12 @@
 package com.b2infosoft.paathshala.activity;
 
 import android.content.DialogInterface;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,6 +41,7 @@ public class ForgotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         active = Active.getInstance(getApplicationContext());
         user_id = (EditText)findViewById(R.id.forgot_pass_user_id);
         school_id = (EditText)findViewById(R.id.forgot_pass_schl_id);
@@ -49,6 +52,16 @@ public class ForgotPassword extends AppCompatActivity {
               checkBlank();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void checkBlank(){

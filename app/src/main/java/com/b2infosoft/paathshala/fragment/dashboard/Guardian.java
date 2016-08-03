@@ -94,8 +94,8 @@ public class Guardian extends Fragment {
 
         active = Active.getInstance(getContext());
         View view =  inflater.inflate(R.layout.fragment_guardian, container, false);
-        name=(EditText)view.findViewById(R.id.guardian_name);
-        email=(EditText)view.findViewById(R.id.guardian_email);
+        name=(EditText)view.findViewById(R.id.guardianName);
+        email=(EditText)view.findViewById(R.id.guardianEmail);
         phone=(EditText)view.findViewById(R.id.guardian_phone_no);
         mobile=(EditText)view.findViewById(R.id.guardian_mobile_no);
         remark=(EditText)view.findViewById(R.id.guardian_remark);

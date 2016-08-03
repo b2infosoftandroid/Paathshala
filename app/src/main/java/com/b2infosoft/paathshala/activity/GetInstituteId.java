@@ -1,9 +1,11 @@
 package com.b2infosoft.paathshala.activity;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -39,10 +41,20 @@ public class GetInstituteId extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_id);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         active = Active.getInstance(getApplicationContext());
         recyclerView=(RecyclerView)findViewById(R.id.recycle_view);
-       // recyclerView.setHasFixedSize(false);
         fetchId();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void fetchId(){
@@ -53,9 +65,8 @@ public class GetInstituteId extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(institute== null){
                             institute = new ArrayList<>();
-                        }
+
                         if(response!=null){
                             try {
                                 if (response.has(tags.ARR_INSTITUTE_ID)) {

@@ -74,49 +74,49 @@ public class Year extends Fragment {
         id.setText("ID");
         id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         id.setTextColor(getResources().getColor(R.color.app_background));
-        id.setPadding(10, 5, 10, 5);
+        id.setPadding(30, 25, 30, 25);
         tr_head.addView(id);
 
         month = new TextView(getActivity());
         month.setText("MONTH");
         month.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         month.setTextColor(getResources().getColor(R.color.app_background));
-        month.setPadding(10, 5, 10, 5);
+        month.setPadding(30, 25, 30, 25);
         tr_head.addView(month);
 
         present = new TextView(getActivity());
         present.setText("PRESENT");
         present.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         present.setTextColor(getResources().getColor(R.color.app_background));
-        present.setPadding(10, 5, 10, 5);
+        present.setPadding(30, 25, 30, 25);
         tr_head.addView(present);
 
         absent = new TextView(getActivity());
         absent.setText("ABSENT");
         absent.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         absent.setTextColor(getResources().getColor(R.color.app_background));
-        absent.setPadding(10, 5, 10, 5);
+        absent.setPadding(30, 25, 30, 25);
         tr_head.addView(absent);
 
         leave = new TextView(getActivity());
         leave.setText("LEAVE");
         leave.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         leave.setTextColor(getResources().getColor(R.color.app_background));
-        leave.setPadding(10, 5, 10, 5);
+        leave.setPadding(30, 25, 30, 25);
         tr_head.addView(leave);
 
         halfDay = new TextView(getActivity());
         halfDay.setText("HALF DAY");
         halfDay.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         halfDay.setTextColor(getResources().getColor(R.color.app_background));
-        halfDay.setPadding(10, 5, 10, 5);
+        halfDay.setPadding(30,25, 30, 25);
         tr_head.addView(halfDay);
 
         total = new TextView(getActivity());
         total.setText("TOTAL");
         total.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         total.setTextColor(getResources().getColor(R.color.app_background));
-        total.setPadding(10, 5, 10, 5);
+        total.setPadding(30, 25, 30, 25);
         tr_head.addView(total);
 
         tableLayout.addView(tr_head);
@@ -134,49 +134,49 @@ public class Year extends Fragment {
             id.setText(String.valueOf(marks.getId()));
             id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             id.setTextColor(getResources().getColor(R.color.colorAccent));
-            id.setPadding(10, 5, 10, 5);
+            id.setPadding(30, 25, 30, 25);
             tr_head.addView(id);
 
             month = new TextView(getActivity());
             month.setText(marks.getMonth());
             month.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             month.setTextColor(getResources().getColor(R.color.colorAccent));
-            month.setPadding(10, 5, 10, 5);
+            month.setPadding(30, 25, 30, 25);
             tr_head.addView(month);
 
             present = new TextView(getActivity());
             present.setText(String.valueOf(marks.getPresent()));
             present.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             present.setTextColor(getResources().getColor(R.color.colorAccent));
-            present.setPadding(10, 5, 10, 5);
+            present.setPadding(30, 25, 30, 25);
             tr_head.addView(present);
 
             absent = new TextView(getActivity());
             absent.setText(String.valueOf(marks.getAbsent()));
             absent.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             absent.setTextColor(getResources().getColor(R.color.colorAccent));
-            absent.setPadding(10, 5, 10, 5);
+            absent.setPadding(30, 25, 30, 25);
             tr_head.addView(absent);
 
             leave = new TextView(getActivity());
             leave.setText(String.valueOf(marks.getLeave()));
             leave.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             leave.setTextColor(getResources().getColor(R.color.colorAccent));
-            leave.setPadding(10, 5, 10, 5);
+            leave.setPadding(30, 25, 30, 25);
             tr_head.addView(leave);
 
             halfDay = new TextView(getActivity());
             halfDay.setText(String.valueOf(marks.getHalfDay()));
             halfDay.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             halfDay.setTextColor(getResources().getColor(R.color.colorAccent));
-            halfDay.setPadding(10, 5, 10, 5);
+            halfDay.setPadding(30, 25, 30, 25);
             tr_head.addView(halfDay);
 
             total = new TextView(getActivity());
             total.setText(String.valueOf(marks.getTotal()));
             total.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             total.setTextColor(getResources().getColor(R.color.colorAccent));
-            total.setPadding(10, 5, 10, 5);
+            total.setPadding(30, 25, 30, 25);
             tr_head.addView(total);
 
             tableLayout.addView(tr_head);

@@ -66,6 +66,6 @@
     <dimen name="text_view_right_padding">10dp</dimen>
     <dimen name="text_view_main_font_size">18dp</dimen>
     <dimen name="text_view_font_size">12sp</dimen>
-    <dimen name="table_text_view_font_size">10sp</dimen>
+    <dimen name="table_text_view_font_size">8sp</dimen>
 
 </resources>

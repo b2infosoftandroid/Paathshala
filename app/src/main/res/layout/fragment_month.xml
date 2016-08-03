@@ -127,7 +127,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="@color/attendance_top">
 
                     <ImageButton
                         android:id="@+id/month_left"
