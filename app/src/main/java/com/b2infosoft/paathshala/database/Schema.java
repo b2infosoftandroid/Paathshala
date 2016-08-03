@@ -17,12 +17,12 @@ public class Schema {
     public final String EXAM_LIST="exam";
     public final String INSTALLMENT_FEE="installment";
     public final String DEPOSIT_FEE="deposit";
-    public final String MARKSHEET="marksheet";
     public final String GRADING="grading";
     public final String INHOUSE="inhouse";
     public final String ALL_EXAM="examtype";
     public final String TIME_TABLE="timetable";
-
+    public final String MARK_SHEET ="mark_sheet";
+    public final String MARK_SHEET_DETAILS ="mark_sheet_details";
 
     ///////////       CITY TABLE             //////////////
     public final String S_NO="sno";
@@ -117,28 +117,7 @@ public class Schema {
     public final String DEPOSIT_SESSION_ID="session_id";
     public final String DEPOSIT_SCHOOL_ID="school_id";
 
-   ///////////////////  ALL EXAM TABLE  ////////////////
-   public final String EXAM_ID="id";
-    public final String EXAM_SID="sid";
-    public final String ALL_EXAM_NAME="name";
-    public final String EXAM_SUBJECT_NAME="subject_name";
-    public final String EXAM_TMARKS="t_marks";
-    public final String EXAM_TMARKS_OBT="t_marks_obt";
-    public final String EXAM_PMARKS="p_marks";
-    public final String EXAM_PMARKS_OBT="p_marks_obt";
-    public final String EXAM_ADD_IN_MARK="add_in_mark";
-    public final String EXAM_ADD_IN_RES="add_in_res";
-    public final String EXAM_SESSION_ID="session_id";
-    public final String EXAM_SCHOOL_ID="school_id";
-
-    public final String EXAM_RESULT="result";
-    public final String EXAM_DIVISION="division";
-    public final String EXAM_PERCENTAGE="percentage";
-    public final String EXAM_TOT_MARKS="tot_marks";
-    public final String EXAM_TOT_OBT="tot_obt";
-    public final String EXAM_MARKSHEET_TYPE="marksheet_type";
-
-    //////////////  MARKSHEET TABLE    ///////////////
+    //////////////  MARK_SHEET TABLE    ///////////////
     public final String MARKSHEET_ID="id";
     public final String MARKSHEET_SID="sid";
     public final String MARKSHEET_EXAM_NAME="name";
@@ -152,46 +131,13 @@ public class Schema {
     public final String MARKSHEET_SESSION_ID="session_id";
     public final String MARKSHEET_SCHOOL_ID="school_id";
 
+    public final String MARKSHEET_SEARCH_TYPE = "searching_type";
     public final String MARKSHEET_RESULT="result";
     public final String MARKSHEET_DIVISION="division";
     public final String MARKSHEET_PERCENTAGE="percentage";
     public final String MARKSHEET_TOT_MARKS="tot_marks";
     public final String MARKSHEET_TOT_OBT="tot_obt";
     public final String MARKSHEET_TYPE="marksheet_type";
-
-    ///////////////    INHOUSE TABLE  /////////////////
-    public final String INHOUSE_ID="id";
-    public final String INHOUSE_SID="sid";
-    public final String INHOUSE_SESSION_ID="session_id";
-    public final String INHOUSE_SCHOOL_ID="school_id";
-
-    public final String INHOUSE_RESULT="result";
-    public final String INHOUSE_DIVISION="division";
-    public final String INHOUSE_PERCENTAGE="percentage";
-    public final String INHOUSE_TOT_MARKS="tot_marks";
-    public final String INHOUSE_TOT_OBT="tot_obt";
-    public final String INHOUSE_MARKSHEET_TYPE="marksheet_type";
-
-    //////////////////////     GRADING TABLE   ////////////////
-    public final String GRADING_ID="id";
-    public final String GRADING_SID="sid";
-    public final String GRADING_EXAM_NAME="name";
-    public final String GRADING_SUBJECT_NAME="subject_name";
-    public final String GRADING_TMARKS="t_marks";
-    public final String GRADING_TMARKS_OBT="t_marks_obt";
-    public final String GRADING_PMARKS="p_marks";
-    public final String GRADING_PMARKS_OBT="p_marks_obt";
-    public final String GRADING_ADD_IN_MARK="add_in_mark";
-    public final String GRADING_ADD_IN_RES="add_in_res";
-    public final String GRADING_SESSION_ID="session_id";
-    public final String GRADING_SCHOOL_ID="school_id";
-
-    public final String GRADING_RESULT="result";
-    public final String GRADING_DIVISION="division";
-    public final String GRADING_PERCENTAGE="percentage";
-    public final String GRADING_TOT_MARKS="tot_marks";
-    public final String GRADING_TOT_OBT="tot_obt";
-    public final String GRADING_MARKSHEET_TYPE="marksheet_type";
 
     //////////////////   MONTH ATTENDANCE  TABLE  ////////////////
     public final String ONE="one";

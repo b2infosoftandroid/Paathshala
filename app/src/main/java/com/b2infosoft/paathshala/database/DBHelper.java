@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
+import com.b2infosoft.paathshala.model.Marks;
+import com.b2infosoft.paathshala.model.Result;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -55,18 +57,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String T10 = "CREATE TABLE " + schema.DEPOSIT_FEE + "(" + schema.F_DEPOSIT_ID + " int," + schema.F_DEPOSIT_SID + " int," + schema.DEPOSIT_FEE_NAME + " text," + schema.DEPOSIT_FEE_TYPE + " text," + schema.DEPOSIT_AMOUNT + " float," + schema.DEPOSIT_DISCOUNT + " float," + schema.RECEIPT_NO + " int," + schema.F_PAY_DATE + " date," + schema.F_MODE + " text," + schema.DEPOSIT_SESSION_ID + " int," + schema.DEPOSIT_SCHOOL_ID + " int)";
 
-        String T11 = "CREATE TABLE " + schema.MARKSHEET + "(" + schema.MARKSHEET_ID + " int," + schema.MARKSHEET_SID + " int," + schema.MARKSHEET_EXAM_NAME + " text," + schema.MARKSHEET_SUBJECT_NAME + " text," + schema.MARKSHEET_TMARKS + " float," + schema.MARKSHEET_TMARKS_OBT + " float," + schema.MARKSHEET_PMARKS + " float," + schema.MARKSHEET_PMARKS_OBT + " float," + schema.MARKSHEET_ADD_IN_MARK + " text,"
-                + schema.MARKSHEET_ADD_IN_RES + " text," + schema.MARKSHEET_SESSION_ID + " int," + schema.MARKSHEET_SCHOOL_ID + " int," + schema.MARKSHEET_RESULT + " text," + schema.MARKSHEET_DIVISION + " text," + schema.MARKSHEET_PERCENTAGE + " float," + schema.MARKSHEET_TOT_MARKS + " float," + schema.MARKSHEET_TOT_OBT + " float," + schema.MARKSHEET_TYPE + " text)";
+        String T11 = "CREATE TABLE " + schema.MARK_SHEET_DETAILS + "(" + schema.MARKSHEET_ID + " int," + schema.MARKSHEET_SID + " int," + schema.MARKSHEET_EXAM_NAME + " text," + schema.MARKSHEET_SUBJECT_NAME + " text," + schema.MARKSHEET_TMARKS + " float," + schema.MARKSHEET_TMARKS_OBT + " float," + schema.MARKSHEET_PMARKS + " float," + schema.MARKSHEET_PMARKS_OBT + " float," + schema.MARKSHEET_ADD_IN_MARK + " text,"
+                + schema.MARKSHEET_ADD_IN_RES + " text," + schema.MARKSHEET_SESSION_ID + " int," + schema.MARKSHEET_SCHOOL_ID + " int," + schema.MARKSHEET_SEARCH_TYPE + " text)";
+        String T12 = "CREATE TABLE " + schema.MARK_SHEET + "(" + schema.MARKSHEET_ID + " int," + schema.MARKSHEET_SID + " int," + schema.MARKSHEET_RESULT + " text," + schema.MARKSHEET_DIVISION + " text," + schema.MARKSHEET_PERCENTAGE + " float," + schema.MARKSHEET_TOT_MARKS + " float," + schema.MARKSHEET_TOT_OBT + " float," + schema.MARKSHEET_SESSION_ID + " int," + schema.MARKSHEET_SCHOOL_ID + " int," + schema.MARKSHEET_TYPE + " text," + schema.MARKSHEET_SEARCH_TYPE + " text)";
 
-        String T12 = "CREATE TABLE " + schema.GRADING + "(" + schema.GRADING_ID + " int," + schema.GRADING_SID + " int," + schema.GRADING_EXAM_NAME + " text," + schema.GRADING_SUBJECT_NAME + " text," + schema.GRADING_TMARKS + " float," + schema.GRADING_TMARKS_OBT + " float," + schema.GRADING_PMARKS + " float," + schema.GRADING_PMARKS_OBT + " float," + schema.GRADING_ADD_IN_MARK + " text,"
-                + schema.GRADING_ADD_IN_RES + " text," + schema.GRADING_SESSION_ID + " int," + schema.GRADING_SCHOOL_ID + " int," + schema.GRADING_RESULT + " text," + schema.GRADING_DIVISION + " text," + schema.GRADING_PERCENTAGE + " float," + schema.GRADING_TOT_MARKS + " float," + schema.GRADING_TOT_OBT + " float," + schema.GRADING_MARKSHEET_TYPE + " text)";
-
-        String T13 = "CREATE TABLE " + schema.INHOUSE + "(" + schema.INHOUSE_ID + " int," + schema.INHOUSE_SID + " int," + schema.INHOUSE_SESSION_ID + " int," + schema.INHOUSE_SCHOOL_ID + " int," + schema.INHOUSE_RESULT + " text," + schema.INHOUSE_DIVISION + " text," + schema.INHOUSE_PERCENTAGE + " float," + schema.INHOUSE_TOT_MARKS + " float," + schema.INHOUSE_TOT_OBT + " float," + schema.INHOUSE_MARKSHEET_TYPE + " text)";
-
-        String T14 = "CREATE TABLE " + schema.ALL_EXAM + "(" + schema.EXAM_ID + " int," + schema.EXAM_SID + " int," + schema.ALL_EXAM_NAME + " text," + schema.EXAM_SUBJECT_NAME + " text," + schema.EXAM_TMARKS + " float," + schema.EXAM_TMARKS_OBT + " float," + schema.EXAM_PMARKS + " float," + schema.EXAM_PMARKS_OBT + " float," + schema.EXAM_ADD_IN_MARK + " text,"
-                + schema.EXAM_ADD_IN_RES + " text," + schema.EXAM_SESSION_ID + " int," + schema.EXAM_SCHOOL_ID + " int," + schema.EXAM_RESULT + " text," + schema.EXAM_DIVISION + " text," + schema.EXAM_PERCENTAGE + " float," + schema.EXAM_TOT_MARKS + " float," + schema.EXAM_TOT_OBT + " float," + schema.EXAM_MARKSHEET_TYPE + " text)";
-
-        String T15 = "CREATE TABLE " + schema.TIME_TABLE + "(" + schema.SUBJECT_NAME + " text," + schema.EXAM_DATE + " text)";
+        String T13 = "CREATE TABLE " + schema.TIME_TABLE + "(" + schema.SUBJECT_NAME + " text," + schema.EXAM_DATE + " text)";
 
         db.execSQL(T1);
         db.execSQL(T2);
@@ -81,8 +76,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(T11);
         db.execSQL(T12);
         db.execSQL(T13);
-        db.execSQL(T14);
-        db.execSQL(T15);
     }
 
     @Override
@@ -97,7 +90,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + schema.EXAM_LIST);
         db.execSQL("DROP TABLE IF EXISTS " + schema.INSTALLMENT_FEE);
         db.execSQL("DROP TABLE IF EXISTS " + schema.DEPOSIT_FEE);
-        db.execSQL("DROP TABLE IF EXISTS " + schema.MARKSHEET);
+        db.execSQL("DROP TABLE IF EXISTS " + schema.MARK_SHEET);
         db.execSQL("DROP TABLE IF EXISTS " + schema.GRADING);
         db.execSQL("DROP TABLE IF EXISTS " + schema.INHOUSE);
         db.execSQL("DROP TABLE IF EXISTS " + schema.ALL_EXAM);
@@ -153,10 +146,12 @@ public class DBHelper extends SQLiteOpenHelper {
             db.insert(schema.INSTALLMENT_FEE, null, values);
         }
     }
+
     public void deleteInstallments() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + schema.INSTALLMENT_FEE);
     }
+
     public List<FeeInstallment> getInstallments() {
         List<FeeInstallment> list = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
@@ -181,30 +176,32 @@ public class DBHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public void setDepositInstallments(List<DepositInstallment> installments){
+    public void setDepositInstallments(List<DepositInstallment> installments) {
         SQLiteDatabase database = this.getWritableDatabase();
-        for(DepositInstallment installment:installments){
+        for (DepositInstallment installment : installments) {
             ContentValues values = new ContentValues();
-            values.put(schema.F_DEPOSIT_ID,installment.getId());
-            values.put(schema.F_DEPOSIT_SID,installment.getsId());
-            values.put(schema.DEPOSIT_FEE_NAME,installment.getName());
-            values.put(schema.DEPOSIT_FEE_TYPE,installment.getType());
-            values.put(schema.DEPOSIT_AMOUNT,installment.getAmount());
-            values.put(schema.DEPOSIT_AMOUNT,installment.getAmount());
-            values.put(schema.DEPOSIT_DISCOUNT,installment.getAmount());
-            values.put(schema.RECEIPT_NO,installment.getReceiptNo());
-            values.put(schema.F_PAY_DATE,installment.getReceiptDate());
-            values.put(schema.F_MODE,installment.getPaymentMode());
-            values.put(schema.DEPOSIT_SESSION_ID,installment.getSessionId());
-            values.put(schema.DEPOSIT_SCHOOL_ID,installment.getSchoolId());
-            database.insert(schema.DEPOSIT_FEE,null,values);
+            values.put(schema.F_DEPOSIT_ID, installment.getId());
+            values.put(schema.F_DEPOSIT_SID, installment.getsId());
+            values.put(schema.DEPOSIT_FEE_NAME, installment.getName());
+            values.put(schema.DEPOSIT_FEE_TYPE, installment.getType());
+            values.put(schema.DEPOSIT_AMOUNT, installment.getAmount());
+            values.put(schema.DEPOSIT_AMOUNT, installment.getAmount());
+            values.put(schema.DEPOSIT_DISCOUNT, installment.getAmount());
+            values.put(schema.RECEIPT_NO, installment.getReceiptNo());
+            values.put(schema.F_PAY_DATE, installment.getReceiptDate());
+            values.put(schema.F_MODE, installment.getPaymentMode());
+            values.put(schema.DEPOSIT_SESSION_ID, installment.getSessionId());
+            values.put(schema.DEPOSIT_SCHOOL_ID, installment.getSchoolId());
+            database.insert(schema.DEPOSIT_FEE, null, values);
         }
     }
+
     public void deleteDepositInstallments() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + schema.DEPOSIT_FEE);
     }
-    public List<DepositInstallment> getDepositInstallments(){
+
+    public List<DepositInstallment> getDepositInstallments() {
         List<DepositInstallment> list = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         Cursor cursor = database.rawQuery("SELECT * FROM " + schema.DEPOSIT_FEE, null);
@@ -230,8 +227,109 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 /* ----------------- FEES FORM PART END --------------------- */
 
-/* ----------------- TIME TABLE PART START --------------------- */
+    /* ----------------- MARK SHEETS PART START --------------------- */
+    public void setMarkSheet(List<Result> list) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (Result result : list) {
+            ContentValues values = new ContentValues();
+            values.put(schema.MARKSHEET_ID, result.getId());
+            values.put(schema.MARKSHEET_SID, result.getsId());
+            values.put(schema.MARKSHEET_RESULT, result.getResult());
+            values.put(schema.MARKSHEET_DIVISION, result.getDivision());
+            values.put(schema.MARKSHEET_PERCENTAGE, result.getPercentage());
+            values.put(schema.MARKSHEET_TOT_MARKS, result.getTotalMarks());
+            values.put(schema.MARKSHEET_TOT_OBT, result.getTotalObtain());
+            values.put(schema.MARKSHEET_TYPE, result.getMarkSheetType());
+            values.put(schema.MARKSHEET_SCHOOL_ID, result.getSchoolId());
+            values.put(schema.MARKSHEET_SESSION_ID, result.getSessionId());
+            values.put(schema.MARKSHEET_SEARCH_TYPE, result.getSearchType());
+            database.insert(schema.MARK_SHEET, null, values);
+        }
+    }
 
-/* ----------------- TIME TABLE PART END --------------------- */
+    public void deleteMarkSheet(String string) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.MARK_SHEET + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';");
+    }
+
+    public List<Result> getMarkSheet(String string) {
+        List<Result> list = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MARK_SHEET + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';", null);
+        while (cursor.moveToNext()) {
+            Result result = new Result();
+            result.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_ID))));
+            result.setsId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SID))));
+            result.setResult(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_RESULT)));
+            result.setDivision(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_DIVISION)));
+            result.setPercentage(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_PERCENTAGE))));
+            result.setTotalMarks(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_TOT_MARKS))));
+            result.setTotalObtain(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_TOT_OBT))));
+            result.setMarkSheetType(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_TYPE)));
+            result.setSessionId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SCHOOL_ID))));
+            result.setSchoolId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SESSION_ID))));
+            result.setSearchType(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SEARCH_TYPE)));
+            list.add(result);
+        }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return list;
+    }
+
+    public void setMarkSheetDetails(List<Marks> list) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (Marks marks : list) {
+            ContentValues values = new ContentValues();
+            values.put(schema.MARKSHEET_ID, marks.getId());
+            values.put(schema.MARKSHEET_SID, marks.getsId());
+            values.put(schema.MARKSHEET_EXAM_NAME, marks.getExamName());
+            values.put(schema.MARKSHEET_SUBJECT_NAME, marks.getSubjectName());
+            values.put(schema.MARKSHEET_TMARKS, marks.getTMarks());
+            values.put(schema.MARKSHEET_TMARKS_OBT, marks.getTMarksObt());
+            values.put(schema.MARKSHEET_PMARKS, marks.getPMarks());
+            values.put(schema.MARKSHEET_PMARKS_OBT, marks.getPMarksObt());
+            values.put(schema.MARKSHEET_ADD_IN_MARK, marks.getAddInMark());
+            values.put(schema.MARKSHEET_ADD_IN_RES, marks.getAddInRes());
+            values.put(schema.MARKSHEET_SCHOOL_ID, marks.getSchoolId());
+            values.put(schema.MARKSHEET_SESSION_ID, marks.getSessionId());
+            values.put(schema.MARKSHEET_SEARCH_TYPE, marks.getSearchType());
+            database.insert(schema.MARK_SHEET_DETAILS, null, values);
+        }
+    }
+
+    public void deleteMarkSheetDetails(String string) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.MARK_SHEET_DETAILS + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';");
+    }
+
+    public List<Marks> getMarkSheetDetails(String string) {
+        List<Marks> list = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MARK_SHEET_DETAILS + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';", null);
+        while (cursor.moveToNext()) {
+            Marks marks = new Marks();
+            marks.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_ID))));
+            marks.setsId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SID))));
+            marks.setExamName(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_EXAM_NAME)));
+            marks.setSubjectName(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SUBJECT_NAME)));
+            marks.setTMarks(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_TMARKS))));
+            marks.setTMarksObt(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_TMARKS_OBT))));
+            marks.setPMarks(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_PMARKS))));
+            marks.setPMarksObt(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_PMARKS_OBT))));
+            marks.setAddInMark(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_ADD_IN_MARK)));
+            marks.setAddInRes(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_ADD_IN_RES)));
+            marks.setSessionId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SCHOOL_ID))));
+            marks.setSchoolId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SESSION_ID))));
+            marks.setSearchType(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_SEARCH_TYPE)));
+            list.add(marks);
+        }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return list;
+    }
+
+/* ----------------- MARK SHEETS PART END --------------------- */
 
 }

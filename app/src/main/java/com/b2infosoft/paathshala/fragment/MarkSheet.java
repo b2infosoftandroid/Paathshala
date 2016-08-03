@@ -24,6 +24,7 @@ import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.Marks;
 import com.b2infosoft.paathshala.model.Result;
 import com.b2infosoft.paathshala.volly.MySingleton;
@@ -39,6 +40,7 @@ public class MarkSheet extends Fragment {
     private static final String TAG = MarkSheet.class.getName();
     Active active;
     Tags tags;
+    private DBHelper dbHelper;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -65,7 +67,7 @@ public class MarkSheet extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,7 @@ public class MarkSheet extends Fragment {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         tags = Tags.getInstance();
+        dbHelper = new DBHelper(getActivity());
         mView = inflater.inflate(R.layout.fragment_mark_sheet, container, false);
         spinner = (Spinner) mView.findViewById(R.id.exam_type_spinner);
         button = (Button) mView.findViewById(R.id.exam_type_search);
@@ -88,7 +91,14 @@ public class MarkSheet extends Fragment {
             public void onClick(View v) {
                 if(spinner.getSelectedItemPosition()>0) {
                     String type = (String) spinner.getSelectedItem();
-                    searchMarkSheet(type);
+                    List<Marks> marks = dbHelper.getMarkSheetDetails(type);
+                    List<Result> results = dbHelper.getMarkSheet(type);
+                    if(marks.size()==0) {
+                        searchMarkSheet(type);
+                    }else {
+                        setResult(marks);
+                        setResult1(results);
+                    }
                 }
             }
         });
@@ -398,7 +408,7 @@ public class MarkSheet extends Fragment {
         void onMarkSheetInteraction(Uri uri);
     }
 
-    private void searchMarkSheet(String type) {
+    private void searchMarkSheet(final String type) {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
@@ -410,14 +420,14 @@ public class MarkSheet extends Fragment {
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.MARKS_SHEET), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
+                        //Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_MARKS_DETAIL)) {
-                                JSONArray result = response.getJSONArray(tags.ARR_MARKS_DETAIL);
-                                List<Marks> installments = new ArrayList<>();
-                                for (int i = 0; i < result.length(); i++) {
+                                JSONArray jsonArray = response.getJSONArray(tags.ARR_MARKS_DETAIL);
+                                List<Marks> marksList = new ArrayList<>();
+                                for (int i = 0; i < jsonArray.length(); i++) {
                                     Marks marks = new Marks();
-                                    JSONObject object = result.getJSONObject(i);
+                                    JSONObject object = jsonArray.getJSONObject(i);
                                     if (object.has(tags.FEES_ID)) {
                                         marks.setId(object.getInt(tags.FEES_ID));
                                     }
@@ -445,40 +455,46 @@ public class MarkSheet extends Fragment {
                                     if (object.has(tags.M_ADD_IN_RES)) {
                                         marks.setAddInRes(object.getString(tags.M_ADD_IN_RES));
                                     }
-                                    installments.add(marks);
+                                    marks.setSearchType(type);
+                                    marksList.add(marks);
                                 }
-                                setResult(installments);
+                                setResult(marksList);
+                                dbHelper.deleteMarkSheetDetails(type);
+                                dbHelper.setMarkSheetDetails(marksList);
                             }
                             if (response.has(tags.ARR_MARK_SHEET)) {
-                                JSONArray result = response.getJSONArray(tags.ARR_MARK_SHEET);
-                                List<Result> installments = new ArrayList<>();
-                                for (int i = 0; i < result.length(); i++) {
-                                    Result marks = new Result();
-                                    JSONObject object = result.getJSONObject(i);
+                                JSONArray jsonArray = response.getJSONArray(tags.ARR_MARK_SHEET);
+                                List<Result> resultList = new ArrayList<>();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    Result result = new Result();
+                                    JSONObject object = jsonArray.getJSONObject(i);
                                     if (object.has(tags.M_ID)) {
-                                        marks.setId(object.getInt(tags.M_ID));
+                                        result.setId(object.getInt(tags.M_ID));
                                     }
                                     if (object.has(tags.M_RESULT)) {
-                                        marks.setResult(object.getString(tags.M_RESULT));
+                                        result.setResult(object.getString(tags.M_RESULT));
                                     }
                                     if (object.has(tags.M_DIVISION)) {
-                                        marks.setDivision(object.getString(tags.M_DIVISION));
+                                        result.setDivision(object.getString(tags.M_DIVISION));
                                     }
                                     if (object.has(tags.M_PERCENTAGE)) {
-                                        marks.setPercentage(object.getDouble(tags.M_PERCENTAGE));
+                                        result.setPercentage(object.getDouble(tags.M_PERCENTAGE));
                                     }
                                     if (object.has(tags.M_TOT_MARKS)) {
-                                        marks.setTotalMarks(object.getDouble(tags.M_TOT_MARKS));
+                                        result.setTotalMarks(object.getDouble(tags.M_TOT_MARKS));
                                     }
                                     if (object.has(tags.M_TOTAL_OBT)) {
-                                        marks.setTotalObtain(object.getDouble(tags.M_TOTAL_OBT));
+                                        result.setTotalObtain(object.getDouble(tags.M_TOTAL_OBT));
                                     }
                                     if (object.has(tags.M_MARK_SHEET_TYPE)) {
-                                        marks.setMarkSheetType(object.getString(tags.M_MARK_SHEET_TYPE));
+                                        result.setMarkSheetType(object.getString(tags.M_MARK_SHEET_TYPE));
                                     }
-                                    installments.add(marks);
+                                    result.setSearchType(type);
+                                    resultList.add(result);
                                 }
-                                setResult1(installments);
+                                setResult1(resultList);
+                                dbHelper.deleteMarkSheet(type);
+                                dbHelper.setMarkSheet(resultList);
                             }
                             dismissProgress();
                         } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.b2infosoft.paathshala.model;
 /**
  * Created by Microsoft on 7/28/2016.
  */
+
 public class DepositInstallment {
     private int id;
     private int sId;

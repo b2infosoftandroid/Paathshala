@@ -5,13 +5,16 @@ package com.b2infosoft.paathshala.model;
  */
 public class Result {
     private int id;
+    private int sId;
     private String result;
     private String division;
     private double percentage;
     private double totalMarks;
     private double totalObtain;
     private String markSheetType;
-
+    private int sessionId;
+    private int schoolId;
+    private String searchType;
     public int getId() {
         return id;
     }
@@ -22,6 +25,14 @@ public class Result {
 
     public String getResult() {
         return result;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
     }
 
     public void setResult(String result) {
@@ -66,5 +77,29 @@ public class Result {
 
     public void setMarkSheetType(String markSheetType) {
         this.markSheetType = markSheetType;
+    }
+
+    public int getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
     }
 }

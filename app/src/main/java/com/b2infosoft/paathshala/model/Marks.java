@@ -5,6 +5,7 @@ package com.b2infosoft.paathshala.model;
  */
 public class Marks {
     private int id;
+    private int sId;
     private String examName;
     private String subjectName;
     private double TMarks;
@@ -13,13 +14,23 @@ public class Marks {
     private double PMarksObt;
     private String addInMark;
     private String addInRes;
-
+    private int sessionId;
+    private int schoolId;
+    private String searchType;
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
     }
 
     public String getExamName() {
@@ -84,5 +95,29 @@ public class Marks {
 
     public void setAddInRes(String addInRes) {
         this.addInRes = addInRes;
+    }
+
+    public int getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public String getSearchType() {
+        return searchType;
+    }
+
+    public void setSearchType(String searchType) {
+        this.searchType = searchType;
     }
 }

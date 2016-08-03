@@ -92,7 +92,7 @@
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:textColorHint="@color/edit_text_hint_foreground">
                 <EditText
-                    android:id="@+id/parentMobile"
+                    android:id="@+id/parent_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
