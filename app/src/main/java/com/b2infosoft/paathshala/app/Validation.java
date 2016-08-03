@@ -41,7 +41,7 @@ public class Validation {
 
     public boolean isPassword(String password) {
         boolean check = false;
-        if (password.length() == 0) {
+        if (password.length()< 5) {
             check = false;
         } else {
             check = true;

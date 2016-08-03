@@ -46,12 +46,28 @@ public class ForgotPassword extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              String user =  user_id.getText().toString();
-              String schl =  school_id.getText().toString();
-
-                sendPassword(user,schl);
+              checkBlank();
             }
         });
+    }
+
+    private void checkBlank(){
+        String user =  user_id.getText().toString();
+        String schl =  school_id.getText().toString();
+         user_id.setError(null);
+        school_id.setError(null);
+
+        if(user_id.length() == 0){
+            user_id.setError("Please Enter Your Id");
+            user_id.requestFocus();
+            return;
+        }
+        if(school_id.length() == 0){
+            school_id.setError("Please Enter Your School Id");
+            school_id.requestFocus();
+            return;
+        }
+        sendPassword(user,schl);
     }
 
     private void sendPassword(String user,String schl){

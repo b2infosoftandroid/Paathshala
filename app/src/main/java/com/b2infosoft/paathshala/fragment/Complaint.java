@@ -106,13 +106,30 @@ public class Complaint extends Fragment {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String s1 = title.getText().toString();
-                String s2 = body.getText().toString();
-                sendData(s1,s2);
+                checkBlank();
             }
         });
 
         return  view;
+    }
+
+    private void checkBlank(){
+        String s1 = title.getText().toString();
+        String s2 = body.getText().toString();
+        title.setError(null);
+        body.setError(null);
+
+        if(title.length()== 0){
+            title.setError("Please Enter Subject");
+            title.requestFocus();
+            return;
+        }
+        if(body.length() == 0){
+            body.setError("Please Enter Description");
+            body.requestFocus();
+            return;
+        }
+        sendData(s1,s2);
     }
 
     public void sendData(String s1,String s2){

@@ -22,6 +22,7 @@ import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
+import com.b2infosoft.paathshala.app.Validation;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -40,12 +41,13 @@ import java.util.HashMap;
  */
 public class ChangePassword extends Fragment {
 
-    private static String TAG=ChangePassword.class.getName();
+    private static String TAG = ChangePassword.class.getName();
 
-    Tags tags= Tags.getInstance();
-    Urls urls= Urls.getInstance();
+    Tags tags = Tags.getInstance();
+    Urls urls = Urls.getInstance();
+    Validation validation = Validation.getInstance();
     Active active;
-    EditText password_old,password_new,password_confirm_new;
+    EditText password_old, password_new, password_confirm_new;
     Button update_password;
     Fonts fonts = Fonts.getInstance();
     // TODO: Rename parameter arguments, choose names that match
@@ -94,46 +96,70 @@ public class ChangePassword extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View  view = inflater.inflate(R.layout.fragment_change_password, container, false);
+        View view = inflater.inflate(R.layout.fragment_change_password, container, false);
         active = Active.getInstance(getContext());
-        password_old=(EditText)view.findViewById(R.id.change_old_password);
-        password_new=(EditText)view.findViewById(R.id.change_new_password);
-        password_confirm_new=(EditText)view.findViewById(R.id.change_confirm_new_password);
-        update_password=(Button)view.findViewById(R.id.change_password_button);
+        password_old = (EditText) view.findViewById(R.id.change_old_password);
+        password_new = (EditText) view.findViewById(R.id.change_new_password);
+        password_confirm_new = (EditText) view.findViewById(R.id.change_confirm_new_password);
+        update_password = (Button) view.findViewById(R.id.change_password_button);
         update_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String old_pass = password_old.getText().toString();
-                String new_pass = password_new.getText().toString();
-                String confirm_new_pass = password_confirm_new.getText().toString();
-                if(new_pass.equals(confirm_new_pass)) {
-                    newPassword(old_pass, new_pass);
-                }else {
-                    Toast.makeText(getContext(),"Confirm Password and New Password are different",Toast.LENGTH_LONG).show();
-                }
+                attemptChangePass();
             }
         });
-      //  setFonts();
-        return  view;
+        //  setFonts();
+        return view;
+    }
+private void attemptChangePass(){
+    String old_pass = password_old.getText().toString();
+    String new_pass = password_new.getText().toString();
+    String confirm_new_pass = password_confirm_new.getText().toString();
+    password_old.setError(null);
+    password_new.setError(null);
+    password_confirm_new.setError(null);
+
+    if(old_pass.length()==0){
+        password_old.setError("Please fill password");
+        password_old.requestFocus();
+        return;
     }
 
-    private void newPassword(String p_old, String p_new){
-        HashMap<String,String> map=new HashMap<>();
-        map.put(tags.S_ID,active.getValue(tags.S_ID));
-        map.put(tags.OLD_PASSWORD,p_old);
-        map.put(tags.NEW_PASSWORD,p_new);
-        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-                (Request.Method.GET,urls.getUrl(urls.getPath(tags.CHANGE_PASSWORD),map), null, new Response.Listener<JSONObject>() {
+    if(!validation.isPassword(new_pass)) {
+        password_new.setError("Invalid New Password");
+        password_new.requestFocus();
+        return;
+    }
+    if(!validation.isPassword(confirm_new_pass)) {
+        password_confirm_new.setError("Invalid New Password");
+        password_confirm_new.requestFocus();
+        return;
+    }
+
+    if(!validation.isPasswordConfirm(new_pass,confirm_new_pass)){
+        password_confirm_new.setError("Invalid New Password");
+        password_confirm_new.requestFocus();
+        return;
+    }
+    newPassword(old_pass,new_pass);
+}
+    private void newPassword(String p_old, String p_new) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.S_ID, active.getValue(tags.S_ID));
+        map.put(tags.OLD_PASSWORD, p_old);
+        map.put(tags.NEW_PASSWORD, p_new);
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.CHANGE_PASSWORD), map), null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(response!=null){
+                        if (response != null) {
                             try {
                                 if (response.has(tags.ARR_CHANGE_PASSWORD)) {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_CHANGE_PASSWORD);
                                     JSONObject object = jsonArray.getJSONObject(0);
-                                    if(object.has(tags.PASSWORD_STATUS)){
+                                    if (object.has(tags.PASSWORD_STATUS)) {
                                         String str = object.getString(tags.PASSWORD_STATUS);
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                         builder.setTitle("Change Password");
@@ -145,16 +171,16 @@ public class ChangePassword extends Fragment {
                                             }
                                         });
                                         builder.create().show();
-                                       // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
+                                        // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
                                     }
 
                                 }
-                            }catch (Exception e){
-                                Log.e(TAG,e.getMessage());
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
                             }
                         }
                     }
-                },new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -205,11 +231,11 @@ public class ChangePassword extends Fragment {
         void onChangePasswordInteraction(Uri uri);
     }
 
-    private void setFonts(){
+    private void setFonts() {
         password_old.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
-        password_new.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
-        password_confirm_new.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
-        update_password.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_MEDIUM));
+        password_new.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
+        password_confirm_new.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
+        update_password.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
     }
 
 }
