@@ -34,6 +34,7 @@ public class Tags {
     public final String COMPLAINTS ="Complaints";
     public final String CHANGE_PASSWORD ="ChangePassword";
     public final String FORGOT_PASSWORD ="ForgotPassword";
+    public final String Holiday ="Holiday";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -61,6 +62,7 @@ public class Tags {
     public final String ARR_COMPLAINTS="Complaints";
     public final String ARR_CHANGE_PASSWORD="Password";
     public final String ARR_FORGOT_PASSWORD="Password";
+    public final String ARR_HOLIDAY_DETAIL="holidaydetail";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -223,6 +225,11 @@ public class Tags {
     public final String FORGOT_PASS_USER_ID = "UserId";
     public final String FORGOT_PASS_SCHOOL_ID = "SchoolId";
     public final String FORGOT_PASS_STATUS = "Status";
+
+    //////////    HOLIDAY     /////////
+    public final String HOLIDAY_NAME = "HName";
+    public final String HOLIDAY_DATE_FROM = "DateFrom";
+    public final String HOLIDAY_DATE_TO = "DateTo";
 
 
 }

@@ -87,6 +87,7 @@ public class Month extends Fragment implements View.OnClickListener {
         half_day = (TextView)view.findViewById(R.id.total_half_day);
 
         DisplayMetrics dm = new DisplayMetrics();
+       // getContext().getResources().getDisplayMetrics(dm);
         //getWindowManager().getDefaultDisplay().getMetrics(dm);
         width = (dm.widthPixels) / 7;
         height = (dm.heightPixels) / 6;

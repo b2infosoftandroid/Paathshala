@@ -1,37 +1,57 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.HolidayRecyclerViewAdapter;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.app.Urls;
+import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.model.DummyContent;
 import com.b2infosoft.paathshala.model.DummyContent.DummyItem;
 import com.b2infosoft.paathshala.model.HolidayInfo;
+import com.b2infosoft.paathshala.model.TimeTableInfo;
+import com.b2infosoft.paathshala.volly.MySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnHolidayFragmentListener}
- * interface.
- */
 public class Holiday extends Fragment {
+    private static String TAG = Holiday.class.getName();
 
+    private OnHolidayFragmentListener mListener;
+    TableLayout t1;
+    TextView name, from_date, to_date;
+    Tags tags = Tags.getInstance();
+    Urls urls = Urls.getInstance();
+    Active active;
+    List<HolidayInfo> holidayInfos;
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
-    private OnHolidayFragmentListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,67 +75,17 @@ public class Holiday extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_holiday, container, false);
+        active = Active.getInstance(getContext());
+        t1 = (TableLayout) view.findViewById(R.id.holiday_table);
+        getHolidayDetail();
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new HolidayRecyclerViewAdapter(getData()));
-        }
         return view;
-    }
-
-    public List<HolidayInfo> getData() {
-        int holiday_type[] = {
-                R.drawable.ic_rakshabandhan,
-                R.drawable.ic_holi_icon,
-                R.drawable.ic_dipawali,
-                R.drawable.ic_independance_day,
-                R.drawable.ic_no_image_available
-        };
-        List<HolidayInfo> infoList = new ArrayList<>();
-        HolidayInfo info = new HolidayInfo();
-        info.setIcon(holiday_type[0]);
-        info.setName("Rakhi");
-        info.setToDate("21/07/2016");
-        info.setFromDate("21/07/2016");
-        infoList.add(info);
-        info = new HolidayInfo();
-        info.setToDate("21/07/2016");
-        info.setIcon(holiday_type[1]);
-        info.setName("Holi");
-        infoList.add(info);
-        info = new HolidayInfo();
-        info.setToDate("21/07/2016");
-        info.setIcon(holiday_type[2]);
-        info.setName("Dipawali");
-        infoList.add(info);
-        info = new HolidayInfo();
-        info.setToDate("21/07/2016");
-        info.setIcon(holiday_type[3]);
-        info.setName("Independence Day");
-        infoList.add(info);
-        info = new HolidayInfo();
-        info.setToDate("21/07/2016");
-        info.setIcon(holiday_type[4]);
-        info.setName("Summer");
-        infoList.add(info);
-
-        return infoList;
     }
 
     @Override
@@ -135,18 +105,122 @@ public class Holiday extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnHolidayFragmentListener {
         // TODO: Update argument type and name
         void onHolidayFragmentInteraction(DummyItem item);
     }
+
+    private void getHolidayDetail() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.Holiday), map), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Log.d(TAG,response.toString());
+                        if (holidayInfos == null) {
+                            holidayInfos = new ArrayList<>();
+                        }
+                        if (response != null) {
+                            try {
+                                if (response.has(tags.ARR_HOLIDAY_DETAIL)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_HOLIDAY_DETAIL);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        HolidayInfo info = new HolidayInfo();
+                                        if (object.has(tags.HOLIDAY_NAME)) {
+                                            info.setName(object.getString(tags.HOLIDAY_NAME));
+                                        }
+                                        if (object.has(tags.HOLIDAY_DATE_FROM)) {
+                                            info.setFromDate(object.getString(tags.HOLIDAY_DATE_FROM));
+                                        }
+                                        if (object.has(tags.HOLIDAY_DATE_TO)) {
+                                            info.setToDate(object.getString(tags.HOLIDAY_DATE_TO));
+                                        }
+                                        holidayInfos.add(info);
+
+                                    }
+                                    addData(holidayInfos);
+                                    // TimeTableAdapter listAdapter= new TimeTableAdapter(getContext(),infoList);
+                                    // examdetail.setAdapter(listAdapter);
+                                }
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void addData(List<HolidayInfo> holidayInfos) {
+        if (t1.getChildCount() > 0) {
+            t1.removeAllViews();
+        }
+        TableRow tr_head = new TableRow(getContext());
+        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        name = new TextView(getContext());
+        name.setText("Holiday Name");
+        name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        name.setTextColor(getResources().getColor(R.color.app_background));
+        name.setPadding(30, 25, 30, 25);
+        tr_head.addView(name);
+
+
+        from_date = new TextView(getContext());
+        from_date.setText("From Date");
+        from_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        from_date.setTextColor(getResources().getColor(R.color.app_background));
+        from_date.setPadding(30, 25, 30, 25);
+        tr_head.addView(from_date);
+
+        to_date = new TextView(getContext());
+        to_date.setText("To Date");
+        to_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        to_date.setTextColor(getResources().getColor(R.color.app_background));
+        to_date.setPadding(30, 25, 30, 25);
+        tr_head.addView(to_date);
+        t1.addView(tr_head);
+
+        for (int i = 0; i < holidayInfos.size(); i++) {
+            HolidayInfo info = holidayInfos.get(i);
+            TableRow tr1 = new TableRow(getContext());
+            if (i % 2 != 0)
+                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+
+            name = new TextView(getContext());
+            name.setText(info.getName());
+            name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            name.setTextColor(getResources().getColor(R.color.colorAccent));
+            name.setPadding(30, 25, 30, 25);
+            tr1.addView(name);
+
+            from_date = new TextView(getContext());
+            from_date.setText(info.getFromDate());
+            from_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            from_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            from_date.setPadding(30, 25, 30, 25);
+            tr1.addView(from_date);
+
+            to_date = new TextView(getContext());
+            to_date.setText(info.getToDate());
+            to_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            to_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            to_date.setPadding(30, 25, 30, 25);
+            tr1.addView(to_date);
+
+            t1.addView(tr1);
+
+        }
+    }
+
 }

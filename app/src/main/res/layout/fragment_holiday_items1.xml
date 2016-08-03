@@ -14,6 +14,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <!--
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/holiday_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo"
+            app:civ_border="true"
+            app:civ_border_color="@color/image_border"
+            android:layout_marginTop="@dimen/student_info_image_top_margin"
+            app:civ_border_width="1dp"
+            app:civ_shadow="true"
+            app:civ_shadow_color="@color/image_shadow"
+            app:civ_shadow_radius="1"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="10dp"
+            >
+        </com.mikhaellopez.circularimageview.CircularImageView>
+        -->
+        <ImageView
+            android:id="@+id/holiday_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_no_image_available"
+            />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,7 +55,7 @@
                 android:layout_toLeftOf="@+id/holiday_duration"
                 android:layout_toStartOf="@+id/holiday_duration" />
             <TextView
-                android:id="@+id/holiday_duration_from"
+                android:id="@+id/holiday_duration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxWidth="100dp"
