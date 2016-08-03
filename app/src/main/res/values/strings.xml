@@ -110,6 +110,11 @@
     <string name="institute_name">School Name :</string>
     <string name="institute_address">School Address :</string>
 
+    <!--    FORGOT PASSWORD     -->
+    <string name="forgot_pass_user_id">Enter Your Scholer Id</string>
+    <string name="forgot_pass_school_id">Enter Your School Id</string>
+    <string name="forgot_pass_submit">Submit</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="exam_type">

@@ -81,6 +81,10 @@ public class LoginActivity_1 extends AppCompatActivity {
 
     }
 
+    private void forgotPassword(){
+        startActivity(new Intent(this,ForgotPassword.class));
+    }
+
     private void loginSuccess() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
@@ -128,6 +132,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                     break;
                 case R.id.login_button_forgot_password:
                     //requestBuilder();
+                    forgotPassword();
                     break;
                 case R.id.login_session:
                     selectSession();

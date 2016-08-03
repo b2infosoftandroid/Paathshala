@@ -33,7 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GetInstituteId"></activity>
+        <activity android:name=".activity.GetInstituteId" />
+        <activity android:name=".activity.ForgotPassword"
+            android:windowSoftInputMode="adjustResize"
+            android:label="@string/login_forgot_password">
+
+        </activity>
     </application>
 
 </manifest>
