@@ -31,6 +31,7 @@ public class Tags {
     public final String SCHOOL_LIST ="SchoolList ";
     public final String YEAR_ATTENDANCE ="MonthReg";
     public final String MONTH_ATTENDANCE ="AttnReg";
+    public final String COMPLAINTS ="Complaints";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -55,6 +56,7 @@ public class Tags {
     public final String ARR_INSTITUTE_ID="Schools";
     public final String ARR_TOTAL_YEAR_ATTENDANCE="TotalYearAttendance";
     public final String ARR_TOTAL_MONTH_ATTENDANCE="AttendanceRegister";
+    public final String ARR_COMPLAINTS="Complaints";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -201,5 +203,10 @@ public class Tags {
     public final String MONTH_PRESENT="Presents";
     public final String MONTH_LEAVE="Leave";
     public final String MONTH_HALF_DAY="HalfDay";
+
+    /////////////   COMPLAINT ////////////
+    public final String COMP_SUBJECT = "Subject";
+    public final String COMP_DETAILS = "Details";
+    public final String COMP_STATUS = "Status";
 
 }

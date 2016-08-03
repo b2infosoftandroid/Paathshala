@@ -4,11 +4,28 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.app.Urls;
+import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.volly.MySingleton;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +36,13 @@ import com.b2infosoft.paathshala.R;
  * create an instance of this fragment.
  */
 public class Complaint extends Fragment {
+
+    private static String TAG=Complaint.class.getName();
+
+    Tags tags= Tags.getInstance();
+    Urls urls= Urls.getInstance();
+    Active active;
+    EditText title,body;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,7 +89,54 @@ public class Complaint extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_complaint, container, false);
+        View view = inflater.inflate(R.layout.fragment_complaint, container, false);
+        active = Active.getInstance(getContext());
+
+        title = (EditText)view.findViewById(R.id.complaint_title);
+        body = (EditText)view.findViewById(R.id.complaint_body);
+       String s1 = title.getText().toString();
+       String s2 = body.getText().toString();
+        sendData(s1,s2);
+        return  view;
+    }
+
+    public void sendData(String s1,String s2){
+        HashMap<String,String> map=new HashMap<>();
+        map.put(tags.S_ID,active.getValue(tags.S_ID));
+        map.put(tags.COMP_SUBJECT,s1);
+        map.put(tags.COMP_DETAILS,s2);
+        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+                (Request.Method.GET,urls.getUrl(urls.getPath(tags.COMPLAINTS),map), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response!=null){
+                            try {
+                                if (response.has(tags.ARR_COMPLAINTS)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINTS);
+                                    for(int i=0;i<jsonArray.length();i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        if(object.has(tags.COMP_STATUS)){
+                                         String str = object.getString(tags.COMP_STATUS);
+                                            Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                }
+                            }catch (Exception e){
+
+                            }
+                        }
+                    }
+                },new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
