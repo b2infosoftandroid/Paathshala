@@ -25,7 +25,7 @@ public class Schema {
 
 
     ///////////       CITY TABLE             //////////////
-    public final String S_NO="sno.";
+    public final String S_NO="sno";
     public final String ID="id";
     public final String NAME="name";
 
@@ -73,13 +73,13 @@ public class Schema {
     public final String STU_FATHER_INCOME="income";
     public final String STU_FATHER_OCCU="occupation";
     public final String STU_PER_ADDRESS="permanent_address";
-    public final String STU_PARENT_MOBILE="mobile_no";
+    public final String STU_PARENT_MOBILE="mobile_parent";
     public final String STU_MOTHER_NAME="mother_name";
 
     public final String STU_GUARDIAN_NAME="guardian_name";
-    public final String STU_GUARDIAN_MOBILE="mobile";
+    public final String STU_GUARDIAN_MOBILE="mobile_guardian";
     public final String STU_GUARDIAN_PHONE="phone";
-    public final String STU_GUARDIAN_EMAIL="email";
+    public final String STU_GUARDIAN_EMAIL="email_gurdian";
     public final String STU_REMARK="remark";
     public final String STU_CORR_ADDRESS="corr_address";
 
@@ -194,39 +194,39 @@ public class Schema {
     public final String GRADING_MARKSHEET_TYPE="marksheet_type";
 
     //////////////////   MONTH ATTENDANCE  TABLE  ////////////////
-    public final String ONE="absent";
-    public final String TWO="absent";
-    public final String THREE="absent";
-    public final String FOUR="absent";
-    public final String FIVE="absent";
-    public final String SIX="absent";
-    public final String SEVEN="absent";
-    public final String EIGHT="absent";
-    public final String NINE="absent";
-    public final String TEN="absent";
-    public final String ELEVEN="absent";
-    public final String TWELEVE="absent";
-    public final String THIRTEEN="absent";
-    public final String FOURTEEN="absent";
-    public final String FIFTEEN="absent";
-    public final String SIXTEEN="absent";
-    public final String SEVENTEEN="absent";
-    public final String EIGHTEEN="absent";
-    public final String NINTEEN="absent";
-    public final String TWENTY="absent";
-    public final String T_ONE="absent";
-    public final String T_TWO="absent";
-    public final String T_THREE="absent";
-    public final String T_FOUR="absent";
-    public final String T_FIVE="absent";
-    public final String T_SIX="absent";
-    public final String T_SEVEN="absent";
-    public final String T_EIGHT="absent";
-    public final String T_NINE="absent";
-    public final String THIRTY="absent";
-    public final String THIRTY_ONE="absent";
+    public final String ONE="one";
+    public final String TWO="two";
+    public final String THREE="three";
+    public final String FOUR="four";
+    public final String FIVE="five";
+    public final String SIX="six";
+    public final String SEVEN="seven";
+    public final String EIGHT="eight";
+    public final String NINE="nine";
+    public final String TEN="ten";
+    public final String ELEVEN="eleven";
+    public final String TWELEVE="twelve";
+    public final String THIRTEEN="thirteen";
+    public final String FOURTEEN="fourteen";
+    public final String FIFTEEN="fifteen";
+    public final String SIXTEEN="sixteen";
+    public final String SEVENTEEN="seventeen";
+    public final String EIGHTEEN="eighteen";
+    public final String NINTEEN="nineteen";
+    public final String TWENTY="twenty";
+    public final String T_ONE="t_one";
+    public final String T_TWO="t_two";
+    public final String T_THREE="t_three";
+    public final String T_FOUR="t_four";
+    public final String T_FIVE="t_five";
+    public final String T_SIX="t_six";
+    public final String T_SEVEN="t_seven";
+    public final String T_EIGHT="t_eight";
+    public final String T_NINE="t_nine";
+    public final String THIRTY="t_ten";
+    public final String THIRTY_ONE="t_eleven";
     public final String MONTH_ABSENT="absent";
-    public final String MONTH_PRESENT="absent";
+    public final String MONTH_PRESENT="present";
     public final String MONTH_HALF_DAY="half_day";
     public final String MONTH_LEAVE="leave";
 

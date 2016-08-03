@@ -27,6 +27,7 @@ import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.app.Validation;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -48,10 +49,10 @@ public class LoginActivity_1 extends AppCompatActivity {
     TextView get_id;
     private final String TAG = LoginActivity_1.class.getName();
     private Hashtable<String, String> sessionList;
-
     /* UI  */
     private EditText session_list, login_institute_id, login_student_scholar_no, login_password_1;
     private ProgressDialog progress = null;
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class LoginActivity_1 extends AppCompatActivity {
         urls = Urls.getInstance();
         mySingleton = MySingleton.getInstance(this);
         requestQueue = mySingleton.getRequestQueue();
+        dbHelper = new DBHelper(this);
         MyButton button = new MyButton();
         login = (Button) findViewById(R.id.login_button_login);
         login.setOnClickListener(button);
@@ -68,16 +70,20 @@ public class LoginActivity_1 extends AppCompatActivity {
         login_institute_id = (EditText) findViewById(R.id.login_institute_id);
         login_student_scholar_no = (EditText) findViewById(R.id.login_student_scholar_no);
         login_password_1 = (EditText) findViewById(R.id.login_password_1);
-        get_id = (TextView)findViewById(R.id.get_institute_id);
+        get_id = (TextView) findViewById(R.id.get_institute_id);
         get_id.setOnClickListener(button);
 
         session_list = (EditText) findViewById(R.id.login_session);
         session_list.setOnClickListener(button);
-        fetchSession();
+        sessionList = new Hashtable<>();
+        sessionList = dbHelper.getSession();
+        if (sessionList.size() == 0) {
+            fetchSession();
+        }
     }
 
-    private void getId(){
-        startActivity(new Intent(this,GetInstituteId.class));
+    private void getId() {
+        startActivity(new Intent(this, GetInstituteId.class));
 
     }
 
@@ -207,7 +213,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     active.setKey(tags.S_ID, s_id);
                                     active.setKey(tags.SCHOOL_ID, institute_id);
                                     active.setKey(tags.SESSION_ID, sessionList.get(session));
-                                    active.setKey(tags.SESSION,session);
+                                    active.setKey(tags.SESSION, session);
                                     active.setLogin();
                                     loginSuccess();
                                 }
@@ -269,8 +275,10 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 JSONArray sessionArray = response.getJSONArray(tags.ARR_SESSION_LIST);
                                 if (sessionList == null) {
                                     sessionList = new Hashtable<>();
+                                    dbHelper.deleteSession();
                                 } else {
                                     sessionList.clear();
+                                    dbHelper.deleteSession();
                                 }
                                 for (int i = 0; i < sessionArray.length(); i++) {
                                     JSONObject object = sessionArray.getJSONObject(i);
@@ -284,8 +292,10 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     }
                                     if (id != null && year != null) {
                                         sessionList.put(year, id);
+                                        dbHelper.setSession(id, year);
                                     }
                                 }
+
                             }
                         } catch (Exception e) {
 
@@ -355,15 +365,16 @@ public class LoginActivity_1 extends AppCompatActivity {
         }
     }
 
-    private void showProgress(){
+    private void showProgress() {
         progress = new ProgressDialog(LoginActivity_1.this);
         progress.setMessage("Please Wait...");
         progress.setIndeterminate(true);
         progress.setCancelable(false);
         progress.show();
     }
-    private void dismissProgress(){
-        if(progress!=null){
+
+    private void dismissProgress() {
+        if (progress != null) {
             progress.dismiss();
         }
     }
