@@ -96,7 +96,7 @@ public class Parent extends Fragment {
         m_name = (EditText) view.findViewById(R.id.parent_mother_name);
         f_occupation = (EditText) view.findViewById(R.id.parent_father_occupation);
         f_income = (EditText) view.findViewById(R.id.parent_father_income);
-        mobile = (EditText) view.findViewById(R.id.parentMobile);
+        mobile = (EditText) view.findViewById(R.id.parent_mobile);
         address = (EditText) view.findViewById(R.id.parent_address);
        // setFonts();
         fetchParentInfo();
