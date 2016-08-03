@@ -32,6 +32,7 @@ public class Tags {
     public final String YEAR_ATTENDANCE ="MonthReg";
     public final String MONTH_ATTENDANCE ="AttnReg";
     public final String COMPLAINTS ="Complaints";
+    public final String CHANGE_PASSWORD ="ChangePassword";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -57,6 +58,7 @@ public class Tags {
     public final String ARR_TOTAL_YEAR_ATTENDANCE="TotalYearAttendance";
     public final String ARR_TOTAL_MONTH_ATTENDANCE="AttendanceRegister";
     public final String ARR_COMPLAINTS="Complaints";
+    public final String ARR_CHANGE_PASSWORD="Password";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -208,5 +210,10 @@ public class Tags {
     public final String COMP_SUBJECT = "Subject";
     public final String COMP_DETAILS = "Details";
     public final String COMP_STATUS = "Status";
+
+    ////////////////     CHANGE PASSWORD    ///////////////
+    public final String OLD_PASSWORD = "OldPassword";
+    public final String NEW_PASSWORD = "NewPassword";
+    public final String PASSWORD_STATUS = "Status";
 
 }
