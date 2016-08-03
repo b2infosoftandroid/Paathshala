@@ -24,8 +24,6 @@ import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
-import com.b2infosoft.paathshala.model.DepositInstallent;
-import com.b2infosoft.paathshala.model.FeeInstallment;
 import com.b2infosoft.paathshala.model.Marks;
 import com.b2infosoft.paathshala.model.Result;
 import com.b2infosoft.paathshala.volly.MySingleton;

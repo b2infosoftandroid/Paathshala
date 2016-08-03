@@ -7,14 +7,32 @@ import java.util.Date;
  * Created by Microsoft on 7/25/2016.
  */
 public class FeeInstallment {
+    private int id;
+    private int sId;
     private String name;
     private String type;
     private Double total;
     private Double deposit;
     private Double discount;
     private Double balance;
+    private int sessionId;
+    private int schoolId;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
+    }
 
     public String getName() {
         return name;
@@ -62,5 +80,21 @@ public class FeeInstallment {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public int getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
     }
 }

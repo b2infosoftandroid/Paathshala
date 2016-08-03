@@ -2,13 +2,19 @@ package com.b2infosoft.paathshala.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.b2infosoft.paathshala.model.DepositInstallment;
+import com.b2infosoft.paathshala.model.FeeInstallment;
+
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
 /**
  * Created by rajesh on 8/2/2016.
@@ -48,9 +54,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String T8 = "CREATE TABLE " + schema.EXAM_LIST + "(" + schema.EXAM_NAME + " text)";
 
-        String T9 = "CREATE TABLE " + schema.INSTALLMENT_FEE + "(" + schema.SR_NO + " int," + schema.F_ID + " int," + schema.F_SID + " text," + schema.FEE_NAME + " text," + schema.FEE_TYPE + " text," + schema.TOTAL + " float," + schema.DEPOSIT + " float," + schema.DISCOUNT + " float," + schema.BALANCE + " float," + schema.F_SESSION_ID + " int," + schema.F_SCHOOL_ID + " int)";
+        String T9 = "CREATE TABLE " + schema.INSTALLMENT_FEE + "(" + schema.F_ID + " int," + schema.F_SID + " text," + schema.FEE_NAME + " text," + schema.FEE_TYPE + " text," + schema.TOTAL + " float," + schema.DEPOSIT + " float," + schema.DISCOUNT + " float," + schema.BALANCE + " float," + schema.F_SESSION_ID + " int," + schema.F_SCHOOL_ID + " int)";
 
-        String T10 = "CREATE TABLE " + schema.DEPOSIT_FEE + "(" + schema.DEPOSIT_SR_NO + " int," + schema.F_DEPOSIT_ID + " int," + schema.F_DEPOSIT_SID + " int," + schema.DEPOSIT_FEE_NAME + " text," + schema.DEPOSIT_FEE_TYPE + " text," + schema.DEPOSIT_AMOUNT + " float," + schema.DEPOSIT_DISCOUNT + " float," + schema.RECEIPT_NO + " int," + schema.F_PAY_DATE + " date," + schema.F_MODE + " text," + schema.DEPOSIT_SESSION_ID + " int," + schema.DEPOSIT_SCHOOL_ID + " int)";
+        String T10 = "CREATE TABLE " + schema.DEPOSIT_FEE + "(" + schema.F_DEPOSIT_ID + " int," + schema.F_DEPOSIT_SID + " int," + schema.DEPOSIT_FEE_NAME + " text," + schema.DEPOSIT_FEE_TYPE + " text," + schema.DEPOSIT_AMOUNT + " float," + schema.DEPOSIT_DISCOUNT + " float," + schema.RECEIPT_NO + " int," + schema.F_PAY_DATE + " date," + schema.F_MODE + " text," + schema.DEPOSIT_SESSION_ID + " int," + schema.DEPOSIT_SCHOOL_ID + " int)";
 
         String T11 = "CREATE TABLE " + schema.MARKSHEET + "(" + schema.MARKSHEET_ID + " int," + schema.MARKSHEET_SID + " int," + schema.MARKSHEET_EXAM_NAME + " text," + schema.MARKSHEET_SUBJECT_NAME + " text," + schema.MARKSHEET_TMARKS + " float," + schema.MARKSHEET_TMARKS_OBT + " float," + schema.MARKSHEET_PMARKS + " float," + schema.MARKSHEET_PMARKS_OBT + " float," + schema.MARKSHEET_ADD_IN_MARK + " text,"
                 + schema.MARKSHEET_ADD_IN_RES + " text," + schema.MARKSHEET_SESSION_ID + " int," + schema.MARKSHEET_SCHOOL_ID + " int," + schema.MARKSHEET_RESULT + " text," + schema.MARKSHEET_DIVISION + " text," + schema.MARKSHEET_PERCENTAGE + " float," + schema.MARKSHEET_TOT_MARKS + " float," + schema.MARKSHEET_TOT_OBT + " float," + schema.MARKSHEET_TYPE + " text)";
@@ -100,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + schema.TIME_TABLE);
     }
 
-/* ----------------- SESSION PART START --------------------- */
+    /* ----------------- SESSION PART START --------------------- */
     public void setSession(String id, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -108,30 +114,121 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(schema.SESSION_YEAR, value);
         db.insert(schema.SESSION_LIST, null, values);
     }
-    public void deleteSession(){
+
+    public void deleteSession() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + schema.SESSION_LIST);
     }
-    public Hashtable<String,String> getSession(){
-        Hashtable<String,String> data = new Hashtable<>();
+
+    public Hashtable<String, String> getSession() {
+        Hashtable<String, String> data = new Hashtable<>();
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor =database.rawQuery("SELECT * FROM "+schema.SESSION_LIST,null);
-        while (cursor.moveToNext()){
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.SESSION_LIST, null);
+        while (cursor.moveToNext()) {
             String id = cursor.getString(cursor.getColumnIndex(schema.SESSION_ID));
             String session = cursor.getString(cursor.getColumnIndex(schema.SESSION_YEAR));
-            data.put(session,id);
+            data.put(session, id);
         }
-        if(!cursor.isClosed()){
+        if (!cursor.isClosed()) {
             cursor.close();
         }
         return data;
     }
 
-/* ----------------- SESSION PART END --------------------- */
+    /* ----------------- SESSION PART END --------------------- */
 
-/* ----------------- FEES PART START --------------------- */
-    public void setFeesInstallment(){
+    /* ----------------- FEES PART START --------------------- */
+    public void setFeesInstallment(List<FeeInstallment> installments) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        for (FeeInstallment installment : installments) {
+            ContentValues values = new ContentValues();
+            values.put(schema.F_ID, installment.getId());
+            values.put(schema.F_SID, installment.getsId());
+            values.put(schema.FEE_NAME, installment.getName());
+            values.put(schema.FEE_TYPE, installment.getType());
+            values.put(schema.TOTAL, installment.getTotal());
+            values.put(schema.DEPOSIT, installment.getDeposit());
+            values.put(schema.DISCOUNT, installment.getDiscount());
+            values.put(schema.BALANCE, installment.getBalance());
+            values.put(schema.F_SESSION_ID, installment.getSessionId());
+            values.put(schema.F_SCHOOL_ID, installment.getSchoolId());
+            db.insert(schema.INSTALLMENT_FEE, null, values);
+        }
+    }
+    public void deleteInstallments() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.INSTALLMENT_FEE);
+    }
+    public List<FeeInstallment> getInstallments() {
+        List<FeeInstallment> list = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.INSTALLMENT_FEE, null);
+        while (cursor.moveToNext()) {
+            FeeInstallment installment = new FeeInstallment();
+            installment.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.F_ID))));
+            installment.setsId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.F_SID))));
+            installment.setName(cursor.getString(cursor.getColumnIndex(schema.FEE_NAME)));
+            installment.setType(cursor.getString(cursor.getColumnIndex(schema.FEE_TYPE)));
+            installment.setTotal(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.TOTAL))));
+            installment.setDeposit(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT))));
+            installment.setDiscount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.DISCOUNT))));
+            installment.setBalance(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.BALANCE))));
+            installment.setSessionId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.SESSION_ID))));
+            installment.setSchoolId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.SCHOOL_ID))));
+            list.add(installment);
+        }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return list;
+    }
 
+    public void setDepositInstallments(List<DepositInstallment> installments){
+        SQLiteDatabase database = this.getWritableDatabase();
+        for(DepositInstallment installment:installments){
+            ContentValues values = new ContentValues();
+            values.put(schema.F_DEPOSIT_ID,installment.getId());
+            values.put(schema.F_DEPOSIT_SID,installment.getsId());
+            values.put(schema.DEPOSIT_FEE_NAME,installment.getDeposit_name());
+            values.put(schema.DEPOSIT_FEE_TYPE,installment.getDeposit_type());
+            values.put(schema.DEPOSIT_AMOUNT,installment.getAmount());
+            values.put(schema.DEPOSIT_AMOUNT,installment.getAmount());
+            values.put(schema.DEPOSIT_DISCOUNT,installment.getAmount());
+            values.put(schema.RECEIPT_NO,installment.getReceipt_no());
+            values.put(schema.F_PAY_DATE,installment.getReceipt_date());
+            values.put(schema.F_MODE,installment.getPayment_mode());
+            values.put(schema.DEPOSIT_SESSION_ID,installment.getSessionId());
+            values.put(schema.DEPOSIT_SCHOOL_ID,installment.getSchoolId());
+            database.insert(schema.DEPOSIT_FEE,null,values);
+        }
+    }
+    public void deleteDepositInstallments() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.DEPOSIT_FEE);
+    }
+    public List<DepositInstallment> getDepositInstallments(){
+        List<DepositInstallment> list = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.DEPOSIT_FEE, null);
+        while (cursor.moveToNext()) {
+            DepositInstallment installment = new DepositInstallment();
+            installment.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.F_DEPOSIT_ID))));
+            installment.setsId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.F_DEPOSIT_SID))));
+            installment.setDeposit_name(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_FEE_NAME)));
+            installment.setDeposit_type(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_FEE_TYPE)));
+            installment.setAmount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_AMOUNT))));
+            installment.setDiscount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_DISCOUNT))));
+            installment.setReceipt_no(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.RECEIPT_NO))));
+            installment.setReceipt_date(cursor.getString(cursor.getColumnIndex(schema.F_PAY_DATE)));
+            installment.setPayment_mode(cursor.getString(cursor.getColumnIndex(schema.F_MODE)));
+            installment.setSessionId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_SESSION_ID))));
+            installment.setSchoolId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_SCHOOL_ID))));
+            list.add(installment);
+        }
+        if (!cursor.isClosed()) {
+            cursor.close();
+        }
+        return list;
     }
 /* ----------------- FEES FORM PART END --------------------- */
 

@@ -10,8 +10,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
-import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,7 +25,8 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
-import com.b2infosoft.paathshala.model.DepositInstallent;
+import com.b2infosoft.paathshala.database.DBHelper;
+import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -47,11 +46,12 @@ public class Fees extends Fragment {
     TableLayout t1, t2;
     TextView name, type, total_fee, deposit, t_discount, balance, deposit_name, deposit_type, amt, receipt_no, receipt_date, pay_mode;
     List<FeeInstallment> fee_installments;
-    List<DepositInstallent> deposit_installments;
+    List<DepositInstallment> deposit_installments;
     ScrollView sv;
     View view;
     private OnFeesListener mListener;
     private ProgressDialog progress = null;
+    private DBHelper dbHelper;
 
     public Fees() {
         // Required empty public constructor
@@ -164,13 +164,20 @@ public class Fees extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        dbHelper = new DBHelper(getActivity());
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
         view = inflater.inflate(R.layout.fragment_fees, container, false);
         init();
-
         //setDataInstallment(getInstallments());
-        fetchInstallmentData();
+        List<FeeInstallment> installments = dbHelper.getInstallments();
+        List<DepositInstallment> depositInstallments = dbHelper.getDepositInstallments();
+        if (installments.size() == 0) {
+            fetchInstallmentData();
+        } else {
+            setDataInstallment(installments);
+            setDataDepositInstallment(depositInstallments);
+        }
         return view;
     }
 
@@ -277,10 +284,9 @@ public class Fees extends Fragment {
         }
     }
 
-    private void setDataDepositInstallment(List<DepositInstallent> deposits) {
-        Log.d(TAG,"CALLING DEPOSIT");
+    private void setDataDepositInstallment(List<DepositInstallment> deposits) {
         for (int i = 0; i < deposits.size(); i++) {
-            DepositInstallent deposit = deposits.get(i);
+            DepositInstallment deposit = deposits.get(i);
             TableRow tr = new TableRow(getActivity());
             if (i % 2 != 0)
                 tr.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
@@ -363,7 +369,7 @@ public class Fees extends Fragment {
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.FEES_LEDGER), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                       Log.d(TAG, response.toString());
+                        Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_FEES_DETAILS)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_FEES_DETAILS);
@@ -395,12 +401,14 @@ public class Fees extends Fragment {
                                     installments.add(installment);
                                 }
                                 setDataInstallment(installments);
+                                dbHelper.deleteInstallments();
+                                dbHelper.setFeesInstallment(installments);
                             }
                             if (response.has(tags.ARR_FEES_DETAILS_DEPOSIT)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_FEES_DETAILS_DEPOSIT);
-                                List<DepositInstallent> installments = new ArrayList<>();
+                                List<DepositInstallment> installments = new ArrayList<>();
                                 for (int i = 0; i < result.length(); i++) {
-                                    DepositInstallent installment = new DepositInstallent();
+                                    DepositInstallment installment = new DepositInstallment();
                                     JSONObject object = result.getJSONObject(i);
                                     if (object.has(tags.FEES_ID)) {
 
@@ -426,6 +434,8 @@ public class Fees extends Fragment {
                                     installments.add(installment);
                                 }
                                 setDataDepositInstallment(installments);
+                                dbHelper.deleteDepositInstallments();
+                                dbHelper.setDepositInstallments(installments);
                             }
                             dismissProgress();
                         } catch (Exception e) {
