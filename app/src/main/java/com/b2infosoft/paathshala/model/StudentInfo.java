@@ -1,38 +1,19 @@
 package com.b2infosoft.paathshala.model;
 
-import javax.net.ssl.SSLContext;
-
 /**
  * Created by rajesh on 7/17/2016.
  */
 
 public class StudentInfo {
     private String name;
-    private String register_no;
-    private String form_no;
-    private String ori_date;
-
-    public String getAdmin_date() {
-        return admin_date;
-    }
-
-    public void setAdmin_date(String admin_date) {
-        this.admin_date = admin_date;
-    }
-
-    public String getOri_date() {
-        return ori_date;
-    }
-
-    public void setOri_date(String ori_date) {
-        this.ori_date = ori_date;
-    }
-
-    private String admin_date;
+    private String registerNo;
+    private String formNo;
+    private String oriDate;
+    private String adminDate;
     private String house;
     private String bpl;
     private String handicap;
-    private String natinality;
+    private String nationality;
     private String cast;
     private String dob;
     private String stu_class;
@@ -46,26 +27,42 @@ public class StudentInfo {
     private String type;
     private String email;
     private String admin_type;
-    private String f_name;
-    private String m_name;
-    private String f_occupation;
-    private String f_income;
-    private String parent_mobile;
-    private String per_address;
-    private String guardian_name;
-    private String guardian_email;
-    private String guardian_phone;
-    private String guardian_mobile;
+    private String fName;
+    private String mName;
+    private String fOccupation;
+    private String fIncome;
+    private String parentMobile;
+    private String perAddress;
+    private String guardianName;
+    private String guardianEmail;
+    private String guardianPhone;
+    private String guardianMobile;
     private String remark;
-    private String corr_address;
-    private String sr_no;
+    private String corrAddress;
+    private String srNo;
 
-    public String getSr_no() {
-        return sr_no;
+    public String getOriDate() {
+        return oriDate;
     }
 
-    public void setSr_no(String sr_no) {
-        this.sr_no = sr_no;
+    public void setOriDate(String oriDate) {
+        this.oriDate = oriDate;
+    }
+
+    public String getAdminDate() {
+        return adminDate;
+    }
+
+    public void setAdminDate(String adminDate) {
+        this.adminDate = adminDate;
+    }
+
+    public String getSrNo() {
+        return srNo;
+    }
+
+    public void setSrNo(String srNo) {
+        this.srNo = srNo;
     }
 
     public String getName() {
@@ -76,20 +73,20 @@ public class StudentInfo {
         this.name = name;
     }
 
-    public String getRegister_no() {
-        return register_no;
+    public String getRegisterNo() {
+        return registerNo;
     }
 
-    public void setRegister_no(String register_no) {
-        this.register_no = register_no;
+    public void setRegisterNo(String registerNo) {
+        this.registerNo = registerNo;
     }
 
-    public String getForm_no() {
-        return form_no;
+    public String getFormNo() {
+        return formNo;
     }
 
-    public void setForm_no(String form_no) {
-        this.form_no = form_no;
+    public void setFormNo(String formNo) {
+        this.formNo = formNo;
     }
 
     public String getHouse() {
@@ -116,12 +113,12 @@ public class StudentInfo {
         this.handicap = handicap;
     }
 
-    public String getNatinality() {
-        return natinality;
+    public String getNationality() {
+        return nationality;
     }
 
-    public void setNatinality(String natinality) {
-        this.natinality = natinality;
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public String getCast() {
@@ -228,84 +225,84 @@ public class StudentInfo {
         this.admin_type = admin_type;
     }
 
-    public String getF_name() {
-        return f_name;
+    public String getfName() {
+        return fName;
     }
 
-    public void setF_name(String f_name) {
-        this.f_name = f_name;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
-    public String getM_name() {
-        return m_name;
+    public String getmName() {
+        return mName;
     }
 
-    public void setM_name(String m_name) {
-        this.m_name = m_name;
+    public void setmName(String mName) {
+        this.mName = mName;
     }
 
-    public String getF_occupation() {
-        return f_occupation;
+    public String getfOccupation() {
+        return fOccupation;
     }
 
-    public void setF_occupation(String f_occupation) {
-        this.f_occupation = f_occupation;
+    public void setfOccupation(String fOccupation) {
+        this.fOccupation = fOccupation;
     }
 
-    public String getF_income() {
-        return f_income;
+    public String getfIncome() {
+        return fIncome;
     }
 
-    public void setF_income(String f_income) {
-        this.f_income = f_income;
+    public void setfIncome(String fIncome) {
+        this.fIncome = fIncome;
     }
 
-    public String getParent_mobile() {
-        return parent_mobile;
+    public String getParentMobile() {
+        return parentMobile;
     }
 
-    public void setParent_mobile(String parent_mobile) {
-        this.parent_mobile = parent_mobile;
+    public void setParentMobile(String parentMobile) {
+        this.parentMobile = parentMobile;
     }
 
-    public String getPer_address() {
-        return per_address;
+    public String getPerAddress() {
+        return perAddress;
     }
 
-    public void setPer_address(String per_address) {
-        this.per_address = per_address;
+    public void setPerAddress(String perAddress) {
+        this.perAddress = perAddress;
     }
 
-    public String getGuardian_name() {
-        return guardian_name;
+    public String getGuardianName() {
+        return guardianName;
     }
 
-    public void setGuardian_name(String guardian_name) {
-        this.guardian_name = guardian_name;
+    public void setGuardianName(String guardianName) {
+        this.guardianName = guardianName;
     }
 
-    public String getGuardian_email() {
-        return guardian_email;
+    public String getGuardianEmail() {
+        return guardianEmail;
     }
 
-    public void setGuardian_email(String guardian_email) {
-        this.guardian_email = guardian_email;
+    public void setGuardianEmail(String guardianEmail) {
+        this.guardianEmail = guardianEmail;
     }
 
-    public String getGuardian_phone() {
-        return guardian_phone;
+    public String getGuardianPhone() {
+        return guardianPhone;
     }
 
-    public void setGuardian_phone(String guardian_phone) {
-        this.guardian_phone = guardian_phone;
+    public void setGuardianPhone(String guardianPhone) {
+        this.guardianPhone = guardianPhone;
     }
 
-    public String getGuardian_mobile() {
-        return guardian_mobile;
+    public String getGuardianMobile() {
+        return guardianMobile;
     }
 
-    public void setGuardian_mobile(String guardian_mobile) {
-        this.guardian_mobile = guardian_mobile;
+    public void setGuardianMobile(String guardianMobile) {
+        this.guardianMobile = guardianMobile;
     }
 
     public String getRemark() {
@@ -316,11 +313,11 @@ public class StudentInfo {
         this.remark = remark;
     }
 
-    public String getCorr_address() {
-        return corr_address;
+    public String getCorrAddress() {
+        return corrAddress;
     }
 
-    public void setCorr_address(String corr_address) {
-        this.corr_address = corr_address;
+    public void setCorrAddress(String corrAddress) {
+        this.corrAddress = corrAddress;
     }
 }

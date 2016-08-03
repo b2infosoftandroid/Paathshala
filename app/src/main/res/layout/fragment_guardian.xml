@@ -25,7 +25,7 @@
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:textColorHint="@color/edit_text_hint_foreground">
                 <EditText
-                    android:id="@+id/guardian_name"
+                    android:id="@+id/guardianName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
@@ -42,7 +42,7 @@
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:textColorHint="@color/edit_text_hint_foreground">
                 <EditText
-                    android:id="@+id/guardian_email"
+                    android:id="@+id/guardianEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"

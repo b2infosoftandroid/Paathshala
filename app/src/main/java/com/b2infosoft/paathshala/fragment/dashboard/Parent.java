@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Request;
@@ -26,9 +25,7 @@ import com.b2infosoft.paathshala.volly.MySingleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -124,22 +121,22 @@ public class Parent extends Fragment {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         StudentInfo info = new StudentInfo();
                                         if(object.has(tags.S_INFO_FATHER_NAME)){
-                                            info.setF_name(object.getString(tags.S_INFO_FATHER_NAME));
+                                            info.setfName(object.getString(tags.S_INFO_FATHER_NAME));
                                         }
                                         if(object.has(tags.S_INFO_MOTHER_NAME)){
-                                            info.setM_name(object.getString(tags.S_INFO_MOTHER_NAME));
+                                            info.setmName(object.getString(tags.S_INFO_MOTHER_NAME));
                                         }
                                         if(object.has(tags.S_INFO_PARMANENT_ADD)){
-                                            info.setPer_address(object.getString(tags.S_INFO_PARMANENT_ADD));
+                                            info.setPerAddress(object.getString(tags.S_INFO_PARMANENT_ADD));
                                         }
                                         if(object.has(tags.S_INFO_PARENT_MOBILE)){
-                                            info.setParent_mobile(object.getString(tags.S_INFO_PARENT_MOBILE));
+                                            info.setParentMobile(object.getString(tags.S_INFO_PARENT_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_OCCUPATION)){
-                                            info.setF_occupation(object.getString(tags.S_INFO_OCCUPATION));
+                                            info.setfOccupation(object.getString(tags.S_INFO_OCCUPATION));
                                         }
                                         if(object.has(tags.S_INFO_FATHER_INCOME)){
-                                            info.setF_income(object.getString(tags.S_INFO_FATHER_INCOME));
+                                            info.setfIncome(object.getString(tags.S_INFO_FATHER_INCOME));
                                         }
                                         updateInfo(info);
                                     }
@@ -208,11 +205,11 @@ public class Parent extends Fragment {
     }
 
     private void updateInfo(StudentInfo info){
-        f_name.setText(info.getF_name());
-        m_name.setText(info.getM_name());
-        f_income.setText(info.getF_income());
-        f_occupation.setText(info.getF_occupation());
-        mobile.setText(info.getParent_mobile());
-        address.setText(info.getPer_address());
+        f_name.setText(info.getfName());
+        m_name.setText(info.getmName());
+        f_income.setText(info.getfIncome());
+        f_occupation.setText(info.getfOccupation());
+        mobile.setText(info.getParentMobile());
+        address.setText(info.getPerAddress());
     }
 }

@@ -1,12 +1,9 @@
 package com.b2infosoft.paathshala.activity;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -70,13 +67,13 @@ public class GetInstituteId extends AppCompatActivity {
                                            getId.setId(object.getString(tags.INSTITUTE_ID));
                                         }
                                         if(object.has(tags.INSTITUTE_CITY_ID)){
-                                            getId.setCity_id(object.getString(tags.INSTITUTE_CITY_ID));
+                                            getId.setCityId(object.getString(tags.INSTITUTE_CITY_ID));
                                         }
                                         if(object.has(tags.INSTITUTE_NAME)){
-                                            getId.setSchl_name(object.getString(tags.INSTITUTE_NAME));
+                                            getId.setName(object.getString(tags.INSTITUTE_NAME));
                                         }
                                         if(object.has(tags.INSTITUTE_ACTIVE)){
-                                            getId.setSch_active(object.getString(tags.INSTITUTE_ACTIVE));
+                                            getId.setActive(object.getString(tags.INSTITUTE_ACTIVE));
                                         }
                                         institute.add(getId);
 

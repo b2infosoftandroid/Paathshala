@@ -292,7 +292,7 @@ public class Fees extends Fragment {
                 tr.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
 
             deposit_name = new TextView(getActivity());
-            deposit_name.setText(deposit.getDeposit_name());
+            deposit_name.setText(deposit.getName());
             deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             deposit_name.setTextColor(getResources().getColor(R.color.colorAccent));
             deposit_name.setPadding(5, 5, 5, 5);
@@ -300,7 +300,7 @@ public class Fees extends Fragment {
             tr.addView(deposit_name);
 
             deposit_type = new TextView(getActivity());
-            deposit_type.setText(deposit.getDeposit_type());
+            deposit_type.setText(deposit.getType());
             deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             deposit_type.setTextColor(getResources().getColor(R.color.colorAccent));
             deposit_type.setPadding(5, 5, 5, 5);
@@ -316,7 +316,7 @@ public class Fees extends Fragment {
             tr.addView(amt);
 
             receipt_no = new TextView(getActivity());
-            receipt_no.setText(String.valueOf(deposit.getReceipt_no()));
+            receipt_no.setText(String.valueOf(deposit.getReceiptNo()));
             receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             receipt_no.setTextColor(getResources().getColor(R.color.colorAccent));
             receipt_no.setPadding(5, 5, 5, 5);
@@ -324,7 +324,7 @@ public class Fees extends Fragment {
             tr.addView(receipt_no);
 
             receipt_date = new TextView(getActivity());
-            receipt_date.setText(deposit.getReceipt_date());
+            receipt_date.setText(deposit.getReceiptDate());
             receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             receipt_date.setTextColor(getResources().getColor(R.color.colorAccent));
             receipt_date.setPadding(5, 5, 5, 5);
@@ -332,7 +332,7 @@ public class Fees extends Fragment {
             tr.addView(receipt_date);
 
             pay_mode = new TextView(getActivity());
-            pay_mode.setText(deposit.getPayment_mode());
+            pay_mode.setText(deposit.getPaymentMode());
             pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             pay_mode.setTextColor(getResources().getColor(R.color.colorAccent));
             pay_mode.setPadding(5, 5, 5, 5);
@@ -414,22 +414,22 @@ public class Fees extends Fragment {
 
                                     }
                                     if (object.has(tags.FEES_NAME)) {
-                                        installment.setDeposit_name(object.getString(tags.FEES_NAME));
+                                        installment.setName(object.getString(tags.FEES_NAME));
                                     }
                                     if (object.has(tags.FEES_TYPE)) {
-                                        installment.setDeposit_type(object.getString(tags.FEES_TYPE));
+                                        installment.setType(object.getString(tags.FEES_TYPE));
                                     }
                                     if (object.has(tags.FEES_AMOUNT)) {
                                         installment.setAmount(object.getDouble(tags.FEES_AMOUNT));
                                     }
                                     if (object.has(tags.FEES_RECEIPT_NO)) {
-                                        installment.setReceipt_no(object.getInt(tags.FEES_RECEIPT_NO));
+                                        installment.setReceiptNo(object.getInt(tags.FEES_RECEIPT_NO));
                                     }
                                     if (object.has(tags.FEES_PAY_DATE)) {
-                                        installment.setReceipt_date(object.getString(tags.FEES_PAY_DATE));
+                                        installment.setReceiptDate(object.getString(tags.FEES_PAY_DATE));
                                     }
                                     if (object.has(tags.FEES_MODE)) {
-                                        installment.setPayment_mode(object.getString(tags.FEES_MODE));
+                                        installment.setPaymentMode(object.getString(tags.FEES_MODE));
                                     }
                                     installments.add(installment);
                                 }

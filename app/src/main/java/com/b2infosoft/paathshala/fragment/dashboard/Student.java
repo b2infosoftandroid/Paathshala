@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -28,9 +27,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -169,7 +166,7 @@ public class Student extends Fragment {
                                            info.setStu_class(object.getString(tags.S_INFO_CLASS));
                                         }
                                         if(object.has(tags.S_INFO_NATIONALITY)){
-                                            info.setNatinality(object.getString(tags.S_INFO_NATIONALITY));
+                                            info.setNationality(object.getString(tags.S_INFO_NATIONALITY));
                                         }
                                         if(object.has(tags.S_INFO_BPL)){
                                             info.setBpl(object.getString(tags.S_INFO_BPL));
@@ -184,10 +181,10 @@ public class Student extends Fragment {
                                             info.setFaculty(object.getString(tags.S_INFO_FACULTY));
                                         }
                                         if(object.has(tags.S_INFO_ORI_ADMIN_DATE)){
-                                            info.setOri_date(object.getString(tags.S_INFO_ORI_ADMIN_DATE));
+                                            info.setOriDate(object.getString(tags.S_INFO_ORI_ADMIN_DATE));
                                         }
                                         if(object.has(tags.S_INFO_ADMIN_DATE)){
-                                            info.setAdmin_date(object.getString(tags.S_INFO_ADMIN_DATE));
+                                            info.setAdminDate(object.getString(tags.S_INFO_ADMIN_DATE));
                                         }
                                         if(object.has(tags.S_INFO_GENDER)){
                                             info.setGender(object.getString(tags.S_INFO_GENDER));
@@ -211,7 +208,7 @@ public class Student extends Fragment {
                                             info.setMobile(object.getString(tags.S_INFO_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_SR_NO)){
-                                            info.setSr_no(object.getString(tags.S_INFO_SR_NO));
+                                            info.setSrNo(object.getString(tags.S_INFO_SR_NO));
                                         }
                                         if(object.has(tags.S_INFO_ADMIN_TYPE)){
                                             info.setAdmin_type(object.getString(tags.S_INFO_ADMIN_TYPE));
@@ -301,10 +298,10 @@ public class Student extends Fragment {
 
     private void updateInfo(StudentInfo info){
       student_name.setText(info.getName());
-        sr_no.setText(info.getSr_no());
-        ori_date.setText(info.getOri_date());
-        admin_date.setText(info.getAdmin_date());
-        register_no.setText(info.getRegister_no());
+        sr_no.setText(info.getSrNo());
+        ori_date.setText(info.getOriDate());
+        admin_date.setText(info.getAdminDate());
+        register_no.setText(info.getRegisterNo());
         house.setText(info.getHouse());
         handicap.setText(info.getHandicap());
         dob.setText(info.getDob());
@@ -319,7 +316,7 @@ public class Student extends Fragment {
         mode.setText(info.getMode());
         faculty.setText(info.getFaculty());
         admission_type.setText(info.getAdmin_type());
-        nationality.setText(info.getNatinality());
+        nationality.setText(info.getNationality());
         bpl.setText(info.getBpl());
         email.setText(info.getEmail());
     }

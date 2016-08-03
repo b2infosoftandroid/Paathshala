@@ -6,12 +6,12 @@ package com.b2infosoft.paathshala.model;
 public class DepositInstallment {
     private int id;
     private int sId;
-    private String deposit_name;
-    private String deposit_type;
+    private String name;
+    private String type;
     private Double amount;
-    private int receipt_no;
-    private String receipt_date;
-    private String payment_mode;
+    private int receiptNo;
+    private String receiptDate;
+    private String paymentMode;
     private Double discount;
     private int sessionId;
     private int schoolId;
@@ -32,20 +32,20 @@ public class DepositInstallment {
         this.sId = sId;
     }
 
-    public String getDeposit_name() {
-        return deposit_name;
+    public String getName() {
+        return name;
     }
 
-    public void setDeposit_name(String deposit_name) {
-        this.deposit_name = deposit_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDeposit_type() {
-        return deposit_type;
+    public String getType() {
+        return type;
     }
 
-    public void setDeposit_type(String deposit_type) {
-        this.deposit_type = deposit_type;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Double getAmount() {
@@ -56,28 +56,28 @@ public class DepositInstallment {
         this.amount = amount;
     }
 
-    public String getReceipt_date() {
-        return receipt_date;
+    public String getReceiptDate() {
+        return receiptDate;
     }
 
-    public void setReceipt_date(String receipt_date) {
-        this.receipt_date = receipt_date;
+    public void setReceiptDate(String receiptDate) {
+        this.receiptDate = receiptDate;
     }
 
-    public int getReceipt_no() {
-        return receipt_no;
+    public int getReceiptNo() {
+        return receiptNo;
     }
 
-    public void setReceipt_no(int receipt_no) {
-        this.receipt_no = receipt_no;
+    public void setReceiptNo(int receiptNo) {
+        this.receiptNo = receiptNo;
     }
 
-    public String getPayment_mode() {
-        return payment_mode;
+    public String getPaymentMode() {
+        return paymentMode;
     }
 
-    public void setPayment_mode(String payment_mode) {
-        this.payment_mode = payment_mode;
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
     }
 
     public Double getDiscount() {

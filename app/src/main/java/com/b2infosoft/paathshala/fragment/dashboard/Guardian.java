@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.Request;
@@ -26,9 +25,7 @@ import com.b2infosoft.paathshala.volly.MySingleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -126,19 +123,19 @@ public class Guardian extends Fragment {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         StudentInfo info = new StudentInfo();
                                         if(object.has(tags.S_INFO_GUARDIAN_NAME)){
-                                            info.setGuardian_name(object.getString(tags.S_INFO_GUARDIAN_NAME));
+                                            info.setGuardianName(object.getString(tags.S_INFO_GUARDIAN_NAME));
                                         }
                                         if(object.has(tags.S_INFO_GUARDIAN_EMAIL)){
-                                            info.setGuardian_email(object.getString(tags.S_INFO_GUARDIAN_EMAIL));
+                                            info.setGuardianEmail(object.getString(tags.S_INFO_GUARDIAN_EMAIL));
                                         }
                                         if(object.has(tags.S_INFO_CORR_ADD)){
-                                            info.setCorr_address(object.getString(tags.S_INFO_CORR_ADD));
+                                            info.setCorrAddress(object.getString(tags.S_INFO_CORR_ADD));
                                         }
                                         if(object.has(tags.S_INFO_GUARDIAN_MOBILE)){
-                                            info.setGuardian_mobile(object.getString(tags.S_INFO_GUARDIAN_MOBILE));
+                                            info.setGuardianMobile(object.getString(tags.S_INFO_GUARDIAN_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_GUARDIAN_PHONE)){
-                                            info.setGuardian_phone(object.getString(tags.S_INFO_GUARDIAN_PHONE));
+                                            info.setGuardianPhone(object.getString(tags.S_INFO_GUARDIAN_PHONE));
                                         }
                                         if(object.has(tags.S_INFO_REMARK)){
                                             info.setRemark(object.getString(tags.S_INFO_REMARK));
@@ -210,11 +207,11 @@ public class Guardian extends Fragment {
     }
 
     private void updateInfo(StudentInfo info){
-        name.setText(info.getGuardian_name());
-        email.setText(info.getGuardian_email());
-        mobile.setText(info.getGuardian_mobile());
-        phone.setText(info.getGuardian_phone());
-        address.setText(info.getCorr_address());
+        name.setText(info.getGuardianName());
+        email.setText(info.getGuardianEmail());
+        mobile.setText(info.getGuardianMobile());
+        phone.setText(info.getGuardianPhone());
+        address.setText(info.getCorrAddress());
         remark.setText(info.getRemark());
     }
 }

@@ -2,17 +2,14 @@ package com.b2infosoft.paathshala.database;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -69,7 +66,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String T14 = "CREATE TABLE " + schema.ALL_EXAM + "(" + schema.EXAM_ID + " int," + schema.EXAM_SID + " int," + schema.ALL_EXAM_NAME + " text," + schema.EXAM_SUBJECT_NAME + " text," + schema.EXAM_TMARKS + " float," + schema.EXAM_TMARKS_OBT + " float," + schema.EXAM_PMARKS + " float," + schema.EXAM_PMARKS_OBT + " float," + schema.EXAM_ADD_IN_MARK + " text,"
                 + schema.EXAM_ADD_IN_RES + " text," + schema.EXAM_SESSION_ID + " int," + schema.EXAM_SCHOOL_ID + " int," + schema.EXAM_RESULT + " text," + schema.EXAM_DIVISION + " text," + schema.EXAM_PERCENTAGE + " float," + schema.EXAM_TOT_MARKS + " float," + schema.EXAM_TOT_OBT + " float," + schema.EXAM_MARKSHEET_TYPE + " text)";
 
-        String T15 = "CREATE TABLE " + schema.TIME_TABLE + "(" + schema.SUBJECT_NAME + " text," + schema.EXAM_DATE + " date)";
+        String T15 = "CREATE TABLE " + schema.TIME_TABLE + "(" + schema.SUBJECT_NAME + " text," + schema.EXAM_DATE + " text)";
+
         db.execSQL(T1);
         db.execSQL(T2);
         db.execSQL(T3);
@@ -189,14 +187,14 @@ public class DBHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(schema.F_DEPOSIT_ID,installment.getId());
             values.put(schema.F_DEPOSIT_SID,installment.getsId());
-            values.put(schema.DEPOSIT_FEE_NAME,installment.getDeposit_name());
-            values.put(schema.DEPOSIT_FEE_TYPE,installment.getDeposit_type());
+            values.put(schema.DEPOSIT_FEE_NAME,installment.getName());
+            values.put(schema.DEPOSIT_FEE_TYPE,installment.getType());
             values.put(schema.DEPOSIT_AMOUNT,installment.getAmount());
             values.put(schema.DEPOSIT_AMOUNT,installment.getAmount());
             values.put(schema.DEPOSIT_DISCOUNT,installment.getAmount());
-            values.put(schema.RECEIPT_NO,installment.getReceipt_no());
-            values.put(schema.F_PAY_DATE,installment.getReceipt_date());
-            values.put(schema.F_MODE,installment.getPayment_mode());
+            values.put(schema.RECEIPT_NO,installment.getReceiptNo());
+            values.put(schema.F_PAY_DATE,installment.getReceiptDate());
+            values.put(schema.F_MODE,installment.getPaymentMode());
             values.put(schema.DEPOSIT_SESSION_ID,installment.getSessionId());
             values.put(schema.DEPOSIT_SCHOOL_ID,installment.getSchoolId());
             database.insert(schema.DEPOSIT_FEE,null,values);
@@ -214,13 +212,13 @@ public class DBHelper extends SQLiteOpenHelper {
             DepositInstallment installment = new DepositInstallment();
             installment.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.F_DEPOSIT_ID))));
             installment.setsId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.F_DEPOSIT_SID))));
-            installment.setDeposit_name(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_FEE_NAME)));
-            installment.setDeposit_type(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_FEE_TYPE)));
+            installment.setName(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_FEE_NAME)));
+            installment.setType(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_FEE_TYPE)));
             installment.setAmount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_AMOUNT))));
             installment.setDiscount(Double.parseDouble(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_DISCOUNT))));
-            installment.setReceipt_no(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.RECEIPT_NO))));
-            installment.setReceipt_date(cursor.getString(cursor.getColumnIndex(schema.F_PAY_DATE)));
-            installment.setPayment_mode(cursor.getString(cursor.getColumnIndex(schema.F_MODE)));
+            installment.setReceiptNo(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.RECEIPT_NO))));
+            installment.setReceiptDate(cursor.getString(cursor.getColumnIndex(schema.F_PAY_DATE)));
+            installment.setPaymentMode(cursor.getString(cursor.getColumnIndex(schema.F_MODE)));
             installment.setSessionId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_SESSION_ID))));
             installment.setSchoolId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.DEPOSIT_SCHOOL_ID))));
             list.add(installment);
@@ -231,5 +229,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return list;
     }
 /* ----------------- FEES FORM PART END --------------------- */
+
+/* ----------------- TIME TABLE PART START --------------------- */
+
+/* ----------------- TIME TABLE PART END --------------------- */
 
 }

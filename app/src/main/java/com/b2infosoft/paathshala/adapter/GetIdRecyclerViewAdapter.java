@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.model.InstituteInfo;
@@ -40,9 +39,9 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
 
 
               id.setText(get_info.getId());
-              city_id.setText(get_info.getCity_id());
-              name.setText(get_info.getSchl_name());
-              schActive.setText(get_info.getSch_active());
+              city_id.setText(get_info.getCityId());
+              name.setText(get_info.getName());
+              schActive.setText(get_info.getActive());
     }
 
     @Override
