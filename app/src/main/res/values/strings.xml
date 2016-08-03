@@ -27,7 +27,9 @@
     <!--  STUDENT INFO   -->
     <string name="student_info_name">STUDENT NAME HERE</string>
     <string name="student_info_registration_no">REGISTRATION NUMBER</string>
-    <string name="student_info_form_no">FORM NUMBER</string>
+    <string name="student_info_sr_no">SCHOLER NUMBER</string>
+    <string name="student_info_admin_date">ADMISSION DATE</string>
+    <string name="student_info_ori_admin_date">ORIENTATION DATE</string>
     <string name="student_info_house">HOUSE</string>
     <string name="student_info_dob">DATE OF BIRTH</string>
     <string name="student_info_save">SAVE</string>
@@ -108,6 +110,8 @@
     <!--  GET INSTITUTE ID   -->
     <string name="institute_id">ID :</string>
     <string name="institute_name">School Name :</string>
+    <string name="institute_city_id">City Id :</string>
+    <string name="institute_active">Active :</string>
     <string name="institute_address">School Address :</string>
 
     <!--    FORGOT PASSWORD     -->

@@ -21,13 +21,16 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,8 +47,8 @@ public class Student extends Fragment {
 
     Active active;
     Tags tags = Tags.getInstance();
-    EditText register_no,form_no,house,dob,stu_class,section,category,religion,handicap,type,mobile,gender,mode;
-    EditText faculty,admission_type,cast,nationality,bpl,email;
+    EditText register_no,sr_no,house,dob,stu_class,section,category,religion,handicap,type,mobile,gender,mode;
+    EditText faculty,admission_type,cast,nationality,bpl,email,ori_date,admin_date;
     TextView student_name;
     CircularImageView student_image;
     Fonts fonts = Fonts.getInstance();
@@ -101,9 +104,11 @@ public class Student extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image=(CircularImageView)view.findViewById(R.id.student_info_circularImageView);
         register_no=(EditText)view.findViewById(R.id.student_info_register_no);
-        form_no=(EditText)view.findViewById(R.id.student_info_form_no);
+        sr_no=(EditText)view.findViewById(R.id.student_info_sr_no);
         house=(EditText)view.findViewById(R.id.student_info_house);
         dob=(EditText)view.findViewById(R.id.student_info_birth_date);
+        ori_date=(EditText)view.findViewById(R.id.student_info_ori_admin_date);
+        admin_date=(EditText)view.findViewById(R.id.student_info_admin_date);
         stu_class=(EditText)view.findViewById(R.id.stu_class);
         section=(EditText)view.findViewById(R.id.stu_section);
         category=(EditText)view.findViewById(R.id.stu_category);
@@ -141,69 +146,77 @@ public class Student extends Fragment {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
                                     for(int i=0;i<jsonArray.length();i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
+                                        StudentInfo info = new StudentInfo();
                                         if(object.has(tags.S_INFO_IMAGE)){
                                            //student_image.set(object.get(tags.S_INFO_IMAGE));
                                             active.setKey(tags.S_INFO_IMAGE,object.getString(tags.S_INFO_IMAGE).toString());
 
                                         }
                                         if(object.has(tags.S_INFO_DOB)){
-                                            dob.setText(object.getString(tags.S_INFO_DOB));
+                                            info.setDob(object.getString(tags.S_INFO_DOB));
                                         }
                                         if(object.has(tags.S_INFO_STU_NAME)){
                                             active.setKey(tags.S_INFO_STU_NAME,object.getString(tags.S_INFO_STU_NAME));
-                                           student_name.setText(object.getString(tags.S_INFO_STU_NAME));
+                                           info.setName(object.getString(tags.S_INFO_STU_NAME));
                                         }
                                         if(object.has(tags.S_INFO_HOUSE)){
-                                            house.setText(object.getString(tags.S_INFO_HOUSE));
+                                            info.setHouse(object.getString(tags.S_INFO_HOUSE));
                                         }
                                         if(object.has(tags.S_INFO_SECTION)){
-                                            section.setText(object.getString(tags.S_INFO_SECTION));
+                                            info.setSection(object.getString(tags.S_INFO_SECTION));
                                         }
                                         if(object.has(tags.S_INFO_CLASS)){
-                                           stu_class.setText(object.getString(tags.S_INFO_CLASS));
+                                           info.setStu_class(object.getString(tags.S_INFO_CLASS));
                                         }
                                         if(object.has(tags.S_INFO_NATIONALITY)){
-                                            nationality.setText(object.getString(tags.S_INFO_NATIONALITY));
+                                            info.setNatinality(object.getString(tags.S_INFO_NATIONALITY));
                                         }
                                         if(object.has(tags.S_INFO_BPL)){
-                                            bpl.setText(object.getString(tags.S_INFO_BPL));
+                                            info.setBpl(object.getString(tags.S_INFO_BPL));
                                         }
                                         if(object.has(tags.S_INFO_CATEGORY)){
-                                            category.setText(object.getString(tags.S_INFO_CATEGORY));
+                                            info.setCategory(object.getString(tags.S_INFO_CATEGORY));
                                         }
                                         if(object.has(tags.S_INFO_STU_CAST)){
-                                            cast.setText(object.getString(tags.S_INFO_STU_CAST));
+                                            info.setCast(object.getString(tags.S_INFO_STU_CAST));
                                         }
                                         if(object.has(tags.S_INFO_FACULTY)){
-                                            faculty.setText(object.getString(tags.S_INFO_FACULTY));
+                                            info.setFaculty(object.getString(tags.S_INFO_FACULTY));
+                                        }
+                                        if(object.has(tags.S_INFO_ORI_ADMIN_DATE)){
+                                            info.setOri_date(object.getString(tags.S_INFO_ORI_ADMIN_DATE));
+                                        }
+                                        if(object.has(tags.S_INFO_ADMIN_DATE)){
+                                            info.setAdmin_date(object.getString(tags.S_INFO_ADMIN_DATE));
                                         }
                                         if(object.has(tags.S_INFO_GENDER)){
-                                            gender.setText(object.getString(tags.S_INFO_GENDER));
+                                            info.setGender(object.getString(tags.S_INFO_GENDER));
                                         }
                                         if(object.has(tags.S_INFO_MODE)){
-                                            mode.setText(object.getString(tags.S_INFO_MODE));
+                                            info.setMode(object.getString(tags.S_INFO_MODE));
                                         }
                                         if(object.has(tags.S_INFO_EMAIL)){
-                                            email.setText(object.getString(tags.S_INFO_EMAIL));
+                                            info.setEmail(object.getString(tags.S_INFO_EMAIL));
                                         }
                                         if(object.has(tags.S_INFO_RELIGION)){
-                                            religion.setText(object.getString(tags.S_INFO_RELIGION));
+                                            info.setReligion(object.getString(tags.S_INFO_RELIGION));
                                         }
                                         if(object.has(tags.S_INFO_HANDICAPPED)){
-                                            handicap.setText(object.getString(tags.S_INFO_HANDICAPPED));
+                                            info.setHandicap(object.getString(tags.S_INFO_HANDICAPPED));
                                         }
                                         if(object.has(tags.S_INFO_STU_TYPE)){
-                                            type.setText(object.getString(tags.S_INFO_STU_TYPE));
+                                            info.setType(object.getString(tags.S_INFO_STU_TYPE));
                                         }
                                         if(object.has(tags.S_INFO_MOBILE)){
-                                            mobile.setText(object.getString(tags.S_INFO_MOBILE));
+                                            info.setMobile(object.getString(tags.S_INFO_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_SR_NO)){
-                                            register_no.setText(object.getString(tags.S_INFO_SR_NO));
+                                            info.setSr_no(object.getString(tags.S_INFO_SR_NO));
                                         }
                                         if(object.has(tags.S_INFO_ADMIN_TYPE)){
-                                            admission_type.setText(object.getString(tags.S_INFO_ADMIN_TYPE));
+                                            info.setAdmin_type(object.getString(tags.S_INFO_ADMIN_TYPE));
                                         }
+                                        updateInfo(info);
                                     }
                                 }
                             }catch (Exception e){
@@ -264,7 +277,7 @@ public class Student extends Fragment {
     private void setFonts() {
         student_name.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
         register_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
-        form_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
+        sr_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         house.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         dob.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
 
@@ -284,5 +297,30 @@ public class Student extends Fragment {
         bpl.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
         email.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
 
+    }
+
+    private void updateInfo(StudentInfo info){
+      student_name.setText(info.getName());
+        sr_no.setText(info.getSr_no());
+        ori_date.setText(info.getOri_date());
+        admin_date.setText(info.getAdmin_date());
+        register_no.setText(info.getRegister_no());
+        house.setText(info.getHouse());
+        handicap.setText(info.getHandicap());
+        dob.setText(info.getDob());
+        stu_class.setText(info.getStu_class());
+        section.setText(info.getSection());
+        cast.setText(info.getCast());
+        category.setText(info.getCategory());
+        religion.setText(info.getReligion());
+        type.setText(info.getType());
+        mobile.setText(info.getMobile());
+        gender.setText(info.getGender());
+        mode.setText(info.getMode());
+        faculty.setText(info.getFaculty());
+        admission_type.setText(info.getAdmin_type());
+        nationality.setText(info.getNatinality());
+        bpl.setText(info.getBpl());
+        email.setText(info.getEmail());
     }
 }

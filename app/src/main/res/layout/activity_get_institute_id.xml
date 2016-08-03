@@ -35,6 +35,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_view_top_margin"
+                    android:text="@string/institute_city_id"
+                    android:textSize="@dimen/text_view_main_font_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_top_margin"
                     android:text="@string/institute_name"
                     android:textSize="@dimen/text_view_main_font_size" />
 
@@ -42,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_view_top_margin"
-                    android:text="@string/institute_address"
+                    android:text="@string/institute_active"
                     android:textSize="@dimen/text_view_main_font_size" />
             </LinearLayout>
 
@@ -58,6 +65,13 @@
                     android:textSize="@dimen/text_view_main_font_size" />
 
                 <TextView
+                    android:id="@+id/school_city_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/text_view_top_margin"
+                    android:textSize="@dimen/text_view_main_font_size" />
+
+                <TextView
                     android:id="@+id/school_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,7 +79,7 @@
                     android:textSize="@dimen/text_view_main_font_size" />
 
                 <TextView
-                    android:id="@+id/school_address"
+                    android:id="@+id/school_active"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/text_view_top_margin"
