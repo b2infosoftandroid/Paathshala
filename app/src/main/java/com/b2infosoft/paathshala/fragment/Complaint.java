@@ -1,9 +1,11 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
@@ -126,13 +128,23 @@ public class Complaint extends Fragment {
                     public void onResponse(JSONObject response) {
                         if(response!=null){
                             try {
-                                Log.d(TAG,response+"");
+                               //Log.d(TAG,response+"");
                                 if (response.has(tags.ARR_COMPLAINTS)) {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINTS);
                                         JSONObject object = jsonArray.getJSONObject(0);
                                         if(object.has(tags.COMP_STATUS)){
                                          String str = object.getString(tags.COMP_STATUS);
-                                            Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                            builder.setTitle("Complaint");
+                                            builder.setMessage(str);
+                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                            builder.create().show();
+                                           // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
                                         }
 
                                 }

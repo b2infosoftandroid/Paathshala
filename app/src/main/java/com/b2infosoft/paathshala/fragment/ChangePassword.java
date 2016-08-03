@@ -1,9 +1,11 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -133,7 +135,17 @@ public class ChangePassword extends Fragment {
                                     JSONObject object = jsonArray.getJSONObject(0);
                                     if(object.has(tags.PASSWORD_STATUS)){
                                         String str = object.getString(tags.PASSWORD_STATUS);
-                                        Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                        builder.setTitle("Change Password");
+                                        builder.setMessage(str);
+                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        builder.create().show();
+                                       // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
                                     }
 
                                 }
