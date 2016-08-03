@@ -69,11 +69,14 @@ public class GetInstituteId extends AppCompatActivity {
                                         if(object.has(tags.INSTITUTE_ID)){
                                            getId.setId(object.getString(tags.INSTITUTE_ID));
                                         }
+                                        if(object.has(tags.INSTITUTE_CITY_ID)){
+                                            getId.setCity_id(object.getString(tags.INSTITUTE_CITY_ID));
+                                        }
                                         if(object.has(tags.INSTITUTE_NAME)){
                                             getId.setSchl_name(object.getString(tags.INSTITUTE_NAME));
                                         }
-                                        if(object.has(tags.INSTITUTE_ADDRESS)){
-                                            getId.setSchl_add(object.getString(tags.INSTITUTE_ADDRESS));
+                                        if(object.has(tags.INSTITUTE_ACTIVE)){
+                                            getId.setSch_active(object.getString(tags.INSTITUTE_ACTIVE));
                                         }
                                         institute.add(getId);
 

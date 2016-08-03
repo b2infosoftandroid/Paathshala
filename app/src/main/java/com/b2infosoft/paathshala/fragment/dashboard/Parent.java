@@ -20,12 +20,15 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -119,24 +122,26 @@ public class Parent extends Fragment {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
                                     for(int i=0;i<jsonArray.length();i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
+                                        StudentInfo info = new StudentInfo();
                                         if(object.has(tags.S_INFO_FATHER_NAME)){
-                                            f_name.setText(object.getString(tags.S_INFO_FATHER_NAME));
+                                            info.setF_name(object.getString(tags.S_INFO_FATHER_NAME));
                                         }
                                         if(object.has(tags.S_INFO_MOTHER_NAME)){
-                                            m_name.setText(object.getString(tags.S_INFO_MOTHER_NAME));
+                                            info.setM_name(object.getString(tags.S_INFO_MOTHER_NAME));
                                         }
                                         if(object.has(tags.S_INFO_PARMANENT_ADD)){
-                                            address.setText(object.getString(tags.S_INFO_PARMANENT_ADD));
+                                            info.setPer_address(object.getString(tags.S_INFO_PARMANENT_ADD));
                                         }
                                         if(object.has(tags.S_INFO_PARENT_MOBILE)){
-                                            mobile.setText(object.getString(tags.S_INFO_PARENT_MOBILE));
+                                            info.setParent_mobile(object.getString(tags.S_INFO_PARENT_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_OCCUPATION)){
-                                            f_occupation.setText(object.getString(tags.S_INFO_OCCUPATION));
+                                            info.setF_occupation(object.getString(tags.S_INFO_OCCUPATION));
                                         }
                                         if(object.has(tags.S_INFO_FATHER_INCOME)){
-                                            f_income.setText(object.getString(tags.S_INFO_FATHER_INCOME));
+                                            info.setF_income(object.getString(tags.S_INFO_FATHER_INCOME));
                                         }
+                                        updateInfo(info);
                                     }
                                 }
                             }catch (Exception e){
@@ -200,5 +205,14 @@ public class Parent extends Fragment {
         f_income.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         mobile.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         address.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
+    }
+
+    private void updateInfo(StudentInfo info){
+        f_name.setText(info.getF_name());
+        m_name.setText(info.getM_name());
+        f_income.setText(info.getF_income());
+        f_occupation.setText(info.getF_occupation());
+        mobile.setText(info.getParent_mobile());
+        address.setText(info.getPer_address());
     }
 }

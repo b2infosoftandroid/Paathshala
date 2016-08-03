@@ -66,14 +66,48 @@
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:textColorHint="@color/edit_text_hint_foreground">
                 <EditText
-                    android:id="@+id/student_info_form_no"
+                    android:id="@+id/student_info_ori_admin_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:hint="@string/student_info_ori_admin_date"
+                    android:textAllCaps="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_top_margin"
+                android:textColorHint="@color/edit_text_hint_foreground">
+                <EditText
+                    android:id="@+id/student_info_admin_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:hint="@string/student_info_admin_date"
+                    android:textAllCaps="true"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_top_margin"
+                android:textColorHint="@color/edit_text_hint_foreground">
+                <EditText
+                    android:id="@+id/student_info_sr_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:editable="false"
                     android:focusable="false"
                     android:clickable="false"
-                    android:hint="@string/student_info_form_no"
+                    android:hint="@string/student_info_sr_no"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
 

@@ -158,6 +158,7 @@ public class Tags {
     //////////     LOGIN INSTITUTE ID  ////////////
     public final String INSTITUTE_ID = "Id";
     public final String INSTITUTE_NAME = "SchoolName";
+    public final String INSTITUTE_CITY_ID = "CityId";
     public final String INSTITUTE_ADDRESS = "SchoolAddress";
     public final String INSTITUTE_ACTIVE = "Active";
 

@@ -34,13 +34,15 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
     public void onBindViewHolder(GetIdRecyclerViewAdapter.ViewHolder holder, int position) {
                   InstituteInfo get_info = id_details.get(position);
              TextView id = holder.id;
+             TextView city_id = holder.city_id;
              TextView name= holder.name;
-             TextView address = holder.address;
+             TextView schActive = holder.sch_active;
 
 
               id.setText(get_info.getId());
+              city_id.setText(get_info.getCity_id());
               name.setText(get_info.getSchl_name());
-              address.setText(get_info.getSchl_add());
+              schActive.setText(get_info.getSch_active());
     }
 
     @Override
@@ -48,13 +50,14 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
         return id_details.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView id,name,address;
+        TextView id,city_id,name,sch_active;
 
         public ViewHolder(View view) {
               super(view);
               this.id = (TextView)view.findViewById(R.id.school_id);
+              this.city_id = (TextView)view.findViewById(R.id.school_city_id);
                this.name = (TextView)view.findViewById(R.id.school_name);
-               this.address = (TextView)view.findViewById(R.id.school_address);
+               this.sch_active = (TextView)view.findViewById(R.id.school_active);
         }
     }
 }

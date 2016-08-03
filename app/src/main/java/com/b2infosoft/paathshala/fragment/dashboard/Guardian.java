@@ -20,12 +20,15 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +47,7 @@ public class Guardian extends Fragment {
     Tags tags= Tags.getInstance();
     Urls urls=Urls.getInstance();
     Active active;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -120,24 +124,26 @@ public class Guardian extends Fragment {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
                                     for(int i=0;i<jsonArray.length();i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
+                                        StudentInfo info = new StudentInfo();
                                         if(object.has(tags.S_INFO_GUARDIAN_NAME)){
-                                            name.setText(object.getString(tags.S_INFO_GUARDIAN_NAME));
+                                            info.setGuardian_name(object.getString(tags.S_INFO_GUARDIAN_NAME));
                                         }
                                         if(object.has(tags.S_INFO_GUARDIAN_EMAIL)){
-                                            email.setText(object.getString(tags.S_INFO_GUARDIAN_EMAIL));
+                                            info.setGuardian_email(object.getString(tags.S_INFO_GUARDIAN_EMAIL));
                                         }
                                         if(object.has(tags.S_INFO_CORR_ADD)){
-                                            address.setText(object.getString(tags.S_INFO_CORR_ADD));
+                                            info.setCorr_address(object.getString(tags.S_INFO_CORR_ADD));
                                         }
                                         if(object.has(tags.S_INFO_GUARDIAN_MOBILE)){
-                                            mobile.setText(object.getString(tags.S_INFO_GUARDIAN_MOBILE));
+                                            info.setGuardian_mobile(object.getString(tags.S_INFO_GUARDIAN_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_GUARDIAN_PHONE)){
-                                            phone.setText(object.getString(tags.S_INFO_GUARDIAN_PHONE));
+                                            info.setGuardian_phone(object.getString(tags.S_INFO_GUARDIAN_PHONE));
                                         }
                                         if(object.has(tags.S_INFO_REMARK)){
-                                            remark.setText(object.getString(tags.S_INFO_REMARK));
+                                            info.setRemark(object.getString(tags.S_INFO_REMARK));
                                         }
+                                       updateInfo(info);
                                     }
                                 }
                             }catch (Exception e){
@@ -201,5 +207,14 @@ public class Guardian extends Fragment {
         mobile.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
         remark.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
         address.setTypeface(fonts.getFont(getContext(),fonts.ROBOTO_REGULAR));
+    }
+
+    private void updateInfo(StudentInfo info){
+        name.setText(info.getGuardian_name());
+        email.setText(info.getGuardian_email());
+        mobile.setText(info.getGuardian_mobile());
+        phone.setText(info.getGuardian_phone());
+        address.setText(info.getCorr_address());
+        remark.setText(info.getRemark());
     }
 }
