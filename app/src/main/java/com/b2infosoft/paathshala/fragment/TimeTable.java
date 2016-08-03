@@ -31,6 +31,7 @@ import com.b2infosoft.paathshala.adapter.TimeTableAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.fragment.timetable.Friday;
 import com.b2infosoft.paathshala.fragment.timetable.Monday;
 import com.b2infosoft.paathshala.fragment.timetable.Saturday;
@@ -61,7 +62,7 @@ public class TimeTable extends Fragment {
     Active active;
     List<String> ExamType;
     List<TimeTableInfo> infoList;
-
+    private DBHelper dbHelper;
     public TimeTable() {
         // Required empty public constructor
     }
@@ -76,19 +77,38 @@ public class TimeTable extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_table, container, false);
-
+        dbHelper = new DBHelper(getActivity());
         active = Active.getInstance(getContext());
         exam_list = (TextView) view.findViewById(R.id.exam_type);
         spinner = (Spinner) view.findViewById(R.id.exam_list_spinner);
         t1 = (TableLayout) view.findViewById(R.id.time_table_list);
-        fetchExamList();
+        List<String> stringList = dbHelper.getExamType();
+        if(stringList.size()==0) {
+            fetchExamList();
+        }else{
+            updateExamType(stringList);
+        }
         // viewPager = (ViewPager)view.findViewById(R.id.viewPager);
 
         //   viewPager.setAdapter(new ViewPagerAdapter(getChildFragmentManager()));
 
         return view;
     }
+    private void updateExamType(List<String> stringList){
+        spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, stringList));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Toast.makeText(getContext(),"success",Toast.LENGTH_LONG).show();
+                String value = spinner.getSelectedItem().toString();
+                getData(value);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -153,20 +173,9 @@ public class TimeTable extends Fragment {
                                         }
                                         ExamType.add(examname);
                                     }
-                                    spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, ExamType));
-                                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                        @Override
-                                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                            // Toast.makeText(getContext(),"success",Toast.LENGTH_LONG).show();
-                                            String value = spinner.getSelectedItem().toString();
-                                            getData(value);
-                                        }
-
-                                        @Override
-                                        public void onNothingSelected(AdapterView<?> parent) {
-
-                                        }
-                                    });
+                                    updateExamType(ExamType);
+                                    dbHelper.deleteExamType();
+                                    dbHelper.setExamType(ExamType);
                                 }
                             } catch (Exception e) {
 

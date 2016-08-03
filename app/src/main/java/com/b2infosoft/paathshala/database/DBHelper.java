@@ -249,13 +249,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void deleteMarkSheet(String string) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + schema.MARK_SHEET + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';");
+        db.execSQL("DELETE FROM " + schema.MARK_SHEET + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string + "';");
     }
 
     public List<Result> getMarkSheet(String string) {
         List<Result> list = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MARK_SHEET + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MARK_SHEET + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string + "';", null);
         while (cursor.moveToNext()) {
             Result result = new Result();
             result.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_ID))));
@@ -300,13 +300,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void deleteMarkSheetDetails(String string) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + schema.MARK_SHEET_DETAILS + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';");
+        db.execSQL("DELETE FROM " + schema.MARK_SHEET_DETAILS + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string + "';");
     }
 
     public List<Marks> getMarkSheetDetails(String string) {
         List<Marks> list = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MARK_SHEET_DETAILS + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string+"';", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MARK_SHEET_DETAILS + " WHERE " + schema.MARKSHEET_SEARCH_TYPE + " = '" + string + "';", null);
         while (cursor.moveToNext()) {
             Marks marks = new Marks();
             marks.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(schema.MARKSHEET_ID))));
@@ -331,5 +331,31 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 /* ----------------- MARK SHEETS PART END --------------------- */
+
+    /* ----------------- EXAM PART START --------------------- */
+    public void setExamType(List<String> stringList) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (String value : stringList) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(schema.EXAM_NAME, value);
+            database.insert(schema.EXAM_LIST, null, contentValues);
+        }
+    }
+
+    public void deleteExamType() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.EXAM_LIST);
+    }
+
+    public List<String> getExamType() {
+        List<String> list = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.EXAM_LIST, null);
+        while (cursor.moveToNext()) {
+            list.add(cursor.getString(cursor.getColumnIndex(schema.EXAM_NAME)));
+        }
+        return list;
+    }
+/* ----------------- EXAM PART  END--------------------- */
 
 }
