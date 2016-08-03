@@ -5,10 +5,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ public class Complaint extends Fragment {
     Urls urls= Urls.getInstance();
     Active active;
     EditText title,body;
+    Button b1;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -94,9 +97,19 @@ public class Complaint extends Fragment {
 
         title = (EditText)view.findViewById(R.id.complaint_title);
         body = (EditText)view.findViewById(R.id.complaint_body);
-       String s1 = title.getText().toString();
-       String s2 = body.getText().toString();
-        sendData(s1,s2);
+        body.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        body.setSingleLine(false);
+
+        b1 = (Button)view.findViewById(R.id.complaint_button);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String s1 = title.getText().toString();
+                String s2 = body.getText().toString();
+                sendData(s1,s2);
+            }
+        });
+
         return  view;
     }
 
@@ -113,18 +126,18 @@ public class Complaint extends Fragment {
                     public void onResponse(JSONObject response) {
                         if(response!=null){
                             try {
+                                Log.d(TAG,response+"");
                                 if (response.has(tags.ARR_COMPLAINTS)) {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINTS);
-                                    for(int i=0;i<jsonArray.length();i++) {
-                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        JSONObject object = jsonArray.getJSONObject(0);
                                         if(object.has(tags.COMP_STATUS)){
                                          String str = object.getString(tags.COMP_STATUS);
                                             Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
                                         }
-                                    }
+
                                 }
                             }catch (Exception e){
-
+                                   Log.e(TAG,e.getMessage());
                             }
                         }
                     }
