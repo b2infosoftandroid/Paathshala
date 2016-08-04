@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.activity;
 
+import android.app.ProgressDialog;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ public class GetInstituteId extends AppCompatActivity {
     Tags tags= Tags.getInstance();
     Urls urls=Urls.getInstance();
     Active active;
+    private ProgressDialog progress = null;
     List<InstituteInfo> institute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,7 @@ public class GetInstituteId extends AppCompatActivity {
     private void fetchId(){
         HashMap<String,String> map=new HashMap<>();
         String url =urls.getUrl(urls.getPath(tags.SCHOOL_LIST),map) ;
+        showProgress();
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
                 (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
 
@@ -91,10 +94,11 @@ public class GetInstituteId extends AppCompatActivity {
                                     adapter = new GetIdRecyclerViewAdapter(institute);
 
                                     recyclerView.setAdapter(adapter);
-
+                                    dismissProgress();
                                 }
-                            }catch (Exception e){
 
+                            }catch (Exception e){
+                               dismissProgress();
                             }
                         }
                     }
@@ -107,5 +111,19 @@ public class GetInstituteId extends AppCompatActivity {
                 });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void showProgress() {
+        progress = new ProgressDialog(getApplicationContext());
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
+
+    private void dismissProgress() {
+        if (progress != null) {
+            progress.dismiss();
+        }
     }
 }
