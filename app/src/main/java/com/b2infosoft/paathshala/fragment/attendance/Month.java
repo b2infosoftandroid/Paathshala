@@ -52,7 +52,7 @@ public class Month extends Fragment implements View.OnClickListener {
     Config config = Config.getInstance();
     TextView month;
     int mMonth = 0;
-   // int width, height;
+
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
 
@@ -67,7 +67,8 @@ public class Month extends Fragment implements View.OnClickListener {
     private final String MONTH_NAME[] = {"JAN", "FAB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
     private final int MONTH_ID[] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1, 2};
     private String SESSION[];
-    private TextView present,absent,leave,half_day;
+    private TextView present, absent, leave, half_day;
+
     public Month() {
         // Required empty public constructor
     }
@@ -81,18 +82,10 @@ public class Month extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_month, container, false);
         grid = (GridView) view.findViewById(R.id.gridView);
         month = (TextView) view.findViewById(R.id.current_date);
-        present = (TextView)view.findViewById(R.id.total_present);
-        absent = (TextView)view.findViewById(R.id.total_absent);
-        leave = (TextView)view.findViewById(R.id.total_leave);
-        half_day = (TextView)view.findViewById(R.id.total_half_day);
-
-       // DisplayMetrics dm = new DisplayMetrics();
-       // getContext().getResources().getDisplayMetrics(dm);
-        //getWindowManager().getDefaultDisplay().getMetrics(dm);
-      //  width = (dm.widthPixels) / 7;
-      //  height = (dm.heightPixels) / 6;
-
-        //month.setLayoutParams(new GridView.LayoutParams(width, width));
+        present = (TextView) view.findViewById(R.id.total_present);
+        absent = (TextView) view.findViewById(R.id.total_absent);
+        leave = (TextView) view.findViewById(R.id.total_leave);
+        half_day = (TextView) view.findViewById(R.id.total_half_day);
 
 /*
         HashSet<Date> events = new HashSet<>();
@@ -127,12 +120,12 @@ public class Month extends Fragment implements View.OnClickListener {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, mon);
         if (mon <= 2) {
-            month.setText(MONTH_NAME[mon]+" ".concat(SESSION[1]));
+            month.setText(MONTH_NAME[mon] + " ".concat(SESSION[1]));
             calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[1]));
             //updateCalendar(null, calendar);
             searchYearAttendance(SESSION[1], mon + "");
         } else {
-            month.setText(MONTH_NAME[mon]+" ".concat(SESSION[0]));
+            month.setText(MONTH_NAME[mon] + " ".concat(SESSION[0]));
             calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[0]));
             //updateCalendar(null, calendar);
             searchYearAttendance(SESSION[0], mon + "");

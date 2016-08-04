@@ -35,6 +35,7 @@ public class Tags {
     public final String CHANGE_PASSWORD ="ChangePassword";
     public final String FORGOT_PASSWORD ="ForgotPassword";
     public final String Holiday ="Holiday";
+    public final String COMPLAINT_LIST ="Complaintlist";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 
@@ -63,6 +64,7 @@ public class Tags {
     public final String ARR_CHANGE_PASSWORD="Password";
     public final String ARR_FORGOT_PASSWORD="Password";
     public final String ARR_HOLIDAY_DETAIL="holidaydetail";
+    public final String ARR_COMPLAINT_DETAIL="Complaints";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -220,6 +222,9 @@ public class Tags {
     public final String COMP_SUBJECT = "Subject";
     public final String COMP_DETAILS = "Details";
     public final String COMP_STATUS = "Status";
+    public final String COMP_HISTORY_SUBJECT = "Subjects";
+    public final String COMP_HISTORY_DETAIL = "Details";
+    public final String COMP_HISTORY_DATE = "CDate";
 
     ////////////////     CHANGE PASSWORD    ///////////////
     public final String OLD_PASSWORD = "OldPassword";

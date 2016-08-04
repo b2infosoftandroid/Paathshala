@@ -9,7 +9,7 @@
     <item
         android:id="@+id/triangle"
         >
-        <rotate android:fromDegrees="-52"
+        <rotate android:fromDegrees="-54"
             android:toDegrees="45"
             android:pivotX="0%"
             android:pivotY="-45%" >

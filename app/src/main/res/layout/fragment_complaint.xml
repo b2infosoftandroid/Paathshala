@@ -1,69 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_horizontal_padding"
+    android:paddingBottom="@dimen/activity_horizontal_padding"
+    android:paddingLeft="@dimen/activity_vertical_padding"
+    android:paddingRight="@dimen/activity_vertical_padding"
     android:gravity="center_vertical|center_horizontal"
     android:background="@color/app_background"
     tools:context=".activity.MainActivity">
-    <ScrollView
-        android:layout_width="match_parent"
+
+   <ListView
+       android:id="@+id/complaint_list_view"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+   </ListView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/new_complaint_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scrollbars="none">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-            <EditText
-                android:id="@+id/complaint_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_border"
-                android:textAllCaps="true"
-                android:hint="@string/complaint_subject"
-                android:textColorHint="@color/edit_text_hint_foreground"
-                android:singleLine="true"
-                android:inputType="text"
-                android:paddingLeft="@dimen/edit_text_left_padding"
-                android:paddingRight="@dimen/edit_text_right_padding"
-                android:paddingTop="@dimen/edit_text_top_padding"
-                android:paddingBottom="@dimen/edit_text_bottom_padding"
-                android:lines="1"/>
-
-            <EditText
-                android:id="@+id/complaint_body"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAllCaps="true"
-                android:hint="@string/complaint_message"
-                android:textColorHint="@color/edit_text_hint_foreground"
-                android:background="@drawable/edit_text_border"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:singleLine="false"
-                android:inputType="textMultiLine"
-                android:gravity="top|left"
-                android:paddingLeft="@dimen/edit_text_left_padding"
-                android:paddingRight="@dimen/edit_text_right_padding"
-                android:paddingTop="@dimen/edit_text_top_padding"
-                android:paddingBottom="@dimen/edit_text_bottom_padding"
-                android:lines="5"/>
-
-            <Button
-                android:id="@+id/complaint_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/button_top_margin"
-                android:textAllCaps="true"
-                android:text="@string/submit_complaint"
-                android:textSize="15dp"
-                android:layout_marginLeft="@dimen/button_left_margin"
-                android:layout_marginRight="@dimen/button_right_margin"
-                android:textColor="@color/button_foreground"
-                android:background="@drawable/button_fill_background"
-                />
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="@dimen/button_right_margin"
+        android:layout_marginBottom="@dimen/button_bottom_margin"/>
+</android.support.design.widget.CoordinatorLayout>

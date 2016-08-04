@@ -1,11 +1,13 @@
 package com.b2infosoft.paathshala.adapter;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.TextView;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.model.MonthInfo;
@@ -24,6 +26,9 @@ public class AttendanceCalenderAdapter extends ArrayAdapter<Date> {
     private int resource;
     private MonthInfo info;
     private int month;
+    int width, height;
+    DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
+
     public AttendanceCalenderAdapter(Context context, int resource, ArrayList<Date> objects, HashSet<Date> eventDays,int month) {
         super(context, resource, objects);
         this.resource = resource;
@@ -46,7 +51,12 @@ public class AttendanceCalenderAdapter extends ArrayAdapter<Date> {
         int month_1 = date.getMonth();
         int year = date.getYear();
 
+        //getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = (dm.widthPixels) / 7;
+         height = (dm.heightPixels) / 6;
+
         TextView textView = (TextView)view.findViewById(R.id.calender_cell);
+        textView.setLayoutParams(new GridView.LayoutParams(width, width));
         Date today= new Date();
 
         // clear styling

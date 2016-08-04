@@ -136,7 +136,7 @@ public class Parent extends Fragment {
                                             info.setfOccupation(object.getString(tags.S_INFO_OCCUPATION));
                                         }
                                         if(object.has(tags.S_INFO_FATHER_INCOME)){
-                                            info.setfIncome(object.getString(tags.S_INFO_FATHER_INCOME));
+                                            info.setfIncome(object.getDouble(tags.S_INFO_FATHER_INCOME));
                                         }
                                         updateInfo(info);
                                     }
@@ -207,7 +207,7 @@ public class Parent extends Fragment {
     private void updateInfo(StudentInfo info){
         f_name.setText(info.getfName());
         m_name.setText(info.getmName());
-        f_income.setText(info.getfIncome());
+        f_income.setText(info.getfIncome()+"");
         f_occupation.setText(info.getfOccupation());
         mobile.setText(info.getParentMobile());
         address.setText(info.getPerAddress());

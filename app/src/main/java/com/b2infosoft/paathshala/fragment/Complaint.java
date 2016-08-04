@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,15 +23,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.adapter.ComplaintListAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.model.ComplaintInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +52,10 @@ public class Complaint extends Fragment {
     Urls urls= Urls.getInstance();
     Active active;
     EditText title,body;
-    Button b1;
+    FloatingActionButton new_complaint;
+    ListView lv;
+    List<ComplaintInfo> complaintInfoList;
+    private ComplaintListAdapter adapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -97,89 +105,61 @@ public class Complaint extends Fragment {
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
         active = Active.getInstance(getContext());
 
-        title = (EditText)view.findViewById(R.id.complaint_title);
-        body = (EditText)view.findViewById(R.id.complaint_body);
-        body.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        body.setSingleLine(false);
-
-        b1 = (Button)view.findViewById(R.id.complaint_button);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkBlank();
-            }
-        });
+        lv = (ListView)view.findViewById(R.id.complaint_list_view);
+        new_complaint = (FloatingActionButton) view.findViewById(R.id.new_complaint_btn);
+        fetchComplaintList();
 
         return  view;
     }
 
-    private void checkBlank(){
-        String s1 = title.getText().toString();
-        String s2 = body.getText().toString();
-        title.setError(null);
-        body.setError(null);
+   private void fetchComplaintList(){
+       HashMap<String,String> map=new HashMap<>();
+       map.put(tags.S_ID,active.getValue(tags.S_ID));
+       map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+       JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+               (Request.Method.GET,urls.getUrl(urls.getPath(tags.COMPLAINT_LIST),map), null, new Response.Listener<JSONObject>() {
 
-        if(title.length()== 0){
-            title.setError("Please Enter Subject");
-            title.requestFocus();
-            return;
-        }
-        if(body.length() == 0){
-            body.setError("Please Enter Description");
-            body.requestFocus();
-            return;
-        }
-        sendData(s1,s2);
-    }
-
-    public void sendData(String s1,String s2){
-        HashMap<String,String> map=new HashMap<>();
-        map.put(tags.S_ID,active.getValue(tags.S_ID));
-        map.put(tags.COMP_SUBJECT,s1);
-        map.put(tags.COMP_DETAILS,s2);
-        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-                (Request.Method.GET,urls.getUrl(urls.getPath(tags.COMPLAINTS),map), null, new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if(response!=null){
-                            try {
+                   @Override
+                   public void onResponse(JSONObject response) {
+                       if(response!=null){
+                           try {
                                //Log.d(TAG,response+"");
-                                if (response.has(tags.ARR_COMPLAINTS)) {
-                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINTS);
-                                        JSONObject object = jsonArray.getJSONObject(0);
-                                        if(object.has(tags.COMP_STATUS)){
-                                         String str = object.getString(tags.COMP_STATUS);
-                                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                            builder.setTitle("Complaint");
-                                            builder.setMessage(str);
-                                            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                                            builder.create().show();
-                                           // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
-                                        }
+                               if (response.has(tags.ARR_COMPLAINT_DETAIL)) {
+                                   JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINT_DETAIL);
+                                   for(int i=0;i<jsonArray.length();i++) {
+                                       JSONObject object = jsonArray.getJSONObject(i);
+                                       ComplaintInfo info = new ComplaintInfo();
+                                       if (object.has(tags.COMP_HISTORY_SUBJECT)) {
+                                           info.setSubject(object.getString(tags.COMP_HISTORY_SUBJECT));
+                                       }
+                                       if (object.has(tags.COMP_HISTORY_DETAIL)) {
+                                           info.setDetail(object.getString(tags.COMP_HISTORY_DETAIL));
+                                       }
+                                       if (object.has(tags.COMP_HISTORY_DATE)) {
+                                           info.setCdate(object.getString(tags.COMP_HISTORY_DATE));
+                                       }
+                                       complaintInfoList.add(info);
+                                      adapter = new ComplaintListAdapter(getContext(),complaintInfoList);
+                                       lv.setAdapter(adapter);
+                                   }
 
-                                }
-                            }catch (Exception e){
-                                   Log.e(TAG,e.getMessage());
-                            }
-                        }
-                    }
-                },new Response.ErrorListener() {
+                               }
+                           }catch (Exception e){
+                               Log.e(TAG,e.getMessage());
+                           }
+                       }
+                   }
+               },new Response.ErrorListener() {
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, error.toString());
-                    }
-                });
-        jsonObjectRequest.setTag(TAG);
-        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
-    }
+                   @Override
+                   public void onErrorResponse(VolleyError error) {
+                       Log.d(TAG, error.toString());
+                   }
+               });
+       jsonObjectRequest.setTag(TAG);
+       MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+   }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -208,7 +208,7 @@ public class Student extends Fragment {
                                             info.setMobile(object.getString(tags.S_INFO_MOBILE));
                                         }
                                         if(object.has(tags.S_INFO_SR_NO)){
-                                            info.setSrNo(object.getString(tags.S_INFO_SR_NO));
+                                            info.setSrNo(object.getInt(tags.S_INFO_SR_NO));
                                         }
                                         if(object.has(tags.S_INFO_ADMIN_TYPE)){
                                             info.setAdminType(object.getString(tags.S_INFO_ADMIN_TYPE));
