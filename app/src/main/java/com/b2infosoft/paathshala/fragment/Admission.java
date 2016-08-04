@@ -144,7 +144,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         if(info==null) {
             fetchStudentInfo();
         }else{
-            Toast.makeText(getContext(),"UPDATE",Toast.LENGTH_SHORT).show();
+
         }
         return view;
     }
@@ -359,6 +359,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        dismissProgress();
                     }
                 });
         jsonObjectRequest.setTag(TAG);
