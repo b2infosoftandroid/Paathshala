@@ -60,6 +60,7 @@
 
     <!--  COMPLAINT  -->
     <string name="submit_complaint">SUBMIT</string>
+    <string name="cancel_complaint">CANCEL</string>
     <string name="complaint_subject">SUBJECT</string>
     <string name="complaint_message">TYPE YOUR COMPLAINT HERE</string>
 

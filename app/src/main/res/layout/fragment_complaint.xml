@@ -23,7 +23,8 @@
         android:id="@+id/new_complaint_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_new"
+        android:background="@color/colorPrimary"
         android:layout_gravity="bottom|right"
-        android:layout_marginRight="@dimen/button_right_margin"
-        android:layout_marginBottom="@dimen/button_bottom_margin"/>
+        />
 </android.support.design.widget.CoordinatorLayout>

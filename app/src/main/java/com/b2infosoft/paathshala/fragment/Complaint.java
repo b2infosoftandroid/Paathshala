@@ -7,9 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,15 +17,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
-import com.b2infosoft.paathshala.adapter.ComplaintListAdapter;
 import com.b2infosoft.paathshala.adapter.ComplaintRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
@@ -55,6 +52,8 @@ public class Complaint extends Fragment {
     Tags tags= Tags.getInstance();
     Urls urls= Urls.getInstance();
     Active active;
+    EditText title,body;
+    Button b1,b2;
     FloatingActionButton new_complaint;
     RecyclerView rv;
     List<ComplaintInfo> complaintInfoList;
@@ -113,12 +112,39 @@ public class Complaint extends Fragment {
         new_complaint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Dialog dialog = new Dialog(getContext());
+                newComplaintSend();
             }
         });
         fetchComplaintList();
 
         return  view;
+    }
+
+    private void newComplaintSend(){
+
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.custom_dialog);
+
+        title = (EditText)dialog.findViewById(R.id.complaint_title);
+        body = (EditText)dialog.findViewById(R.id.complaint_body);
+        body.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        body.setSingleLine(false);
+
+        b1 = (Button)dialog.findViewById(R.id.complaint_button);
+        b2 = (Button)dialog.findViewById(R.id.complaint_cancel);
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkBlank();
+            }
+        });
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
    private void fetchComplaintList(){
@@ -170,6 +196,75 @@ public class Complaint extends Fragment {
        jsonObjectRequest.setTag(TAG);
        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
    }
+
+    private void checkBlank(){
+        String s1 = title.getText().toString();
+        String s2 = body.getText().toString();
+        title.setError(null);
+        body.setError(null);
+
+        if(title.length()== 0){
+            title.setError("Please Enter Subject");
+            title.requestFocus();
+            return;
+        }
+        if(body.length() == 0){
+            body.setError("Please Enter Description");
+            body.requestFocus();
+            return;
+        }
+        sendData(s1,s2);
+    }
+
+    public void sendData(String s1,String s2){
+        HashMap<String,String> map=new HashMap<>();
+        map.put(tags.S_ID,active.getValue(tags.S_ID));
+        map.put(tags.COMP_SUBJECT,s1);
+        map.put(tags.COMP_DETAILS,s2);
+        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+                (Request.Method.GET,urls.getUrl(urls.getPath(tags.COMPLAINTS),map), null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response!=null){
+                            try {
+                                //Log.d(TAG,response+"");
+                                if (response.has(tags.ARR_COMPLAINTS)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINTS);
+                                    JSONObject object = jsonArray.getJSONObject(0);
+                                    if(object.has(tags.COMP_STATUS)){
+                                        String str = object.getString(tags.COMP_STATUS);
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                                        builder.setTitle("Complaint");
+                                        builder.setMessage(str);
+                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        });
+                                        builder.create().show();
+                                        // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            }catch (Exception e){
+                                Log.e(TAG,e.getMessage());
+                            }
+                        }
+                    }
+                },new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
 
 
     // TODO: Rename method, update argument and hook method into UI event
