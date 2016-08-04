@@ -209,7 +209,7 @@ public class Month extends Fragment implements View.OnClickListener {
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
+                        //Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_TOTAL_MONTH_ATTENDANCE)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_TOTAL_MONTH_ATTENDANCE);
@@ -320,6 +320,8 @@ public class Month extends Fragment implements View.OnClickListener {
                                     month.setLeave(object.getInt(tags.MONTH_LEAVE));
                                 }
                             }
+                            month.setMonth(Integer.parseInt(month_1));
+                            month.setYear(Integer.parseInt(year));
                             present.setText(String.valueOf(month.getPresent()));
                             absent.setText(String.valueOf(month.getAbsent()));
                             leave.setText(String.valueOf(month.getLeave()));

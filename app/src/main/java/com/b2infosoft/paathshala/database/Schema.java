@@ -141,6 +141,7 @@ public class Schema {
     public final String MARKSHEET_TYPE="marksheet_type";
 
     //////////////////   MONTH ATTENDANCE  TABLE  ////////////////
+    public final String MONTH = "month";
     public final String ONE="one";
     public final String TWO="two";
     public final String THREE="three";

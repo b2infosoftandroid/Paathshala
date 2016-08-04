@@ -12,6 +12,7 @@ import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
 import com.b2infosoft.paathshala.model.HolidayInfo;
 import com.b2infosoft.paathshala.model.Marks;
+import com.b2infosoft.paathshala.model.MonthInfo;
 import com.b2infosoft.paathshala.model.Result;
 import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.model.TimeTableInfo;
@@ -51,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + schema.STU_FATHER_NAME + " text," + schema.STU_FATHER_INCOME + " int," + schema.STU_FATHER_OCCU + " text," + schema.STU_PER_ADDRESS + " text," + schema.STU_PARENT_MOBILE + " number," + schema.STU_MOTHER_NAME + " text,"
                 + schema.STU_GUARDIAN_NAME + " text," + schema.STU_GUARDIAN_MOBILE + " number," + schema.STU_GUARDIAN_PHONE + " number," + schema.STU_GUARDIAN_EMAIL + " text," + schema.STU_REMARK + " text," + schema.STU_CORR_ADDRESS + " text)";
 
-        String T6 = "CREATE TABLE " + schema.MONTH_ATTENDANCE + "(" + schema.ONE + " text," + schema.TWO + " text," + schema.THREE + " text," + schema.FOUR + " text," + schema.FIVE + " text," + schema.SIX + " text," + schema.SEVEN + " text," + schema.EIGHT + " text," + schema.NINE + " text," + schema.TEN + " text," + schema.ELEVEN + " text," + schema.TWELEVE + " text,"
+        String T6 = "CREATE TABLE " + schema.MONTH_ATTENDANCE + "(" + schema.MONTH + " int," + schema.YEAR + " int," + schema.ONE + " text," + schema.TWO + " text," + schema.THREE + " text," + schema.FOUR + " text," + schema.FIVE + " text," + schema.SIX + " text," + schema.SEVEN + " text," + schema.EIGHT + " text," + schema.NINE + " text," + schema.TEN + " text," + schema.ELEVEN + " text," + schema.TWELEVE + " text,"
                 + schema.THIRTEEN + " text," + schema.FOURTEEN + " text," + schema.FIFTEEN + " text," + schema.SIXTEEN + " text," + schema.SEVENTEEN + " text," + schema.EIGHTEEN + " text," + schema.NINTEEN + " text," + schema.TWENTY + " text," + schema.T_ONE + " text," + schema.T_TWO + " text," + schema.T_THREE + " text," + schema.T_FOUR + " text,"
                 + schema.T_FIVE + " text," + schema.T_SIX + " text," + schema.T_SEVEN + " text," + schema.T_EIGHT + " text," + schema.T_NINE + " text," + schema.THIRTY + " text," + schema.THIRTY_ONE + " text," + schema.MONTH_ABSENT + " int," + schema.MONTH_PRESENT + " int," + schema.MONTH_HALF_DAY + " int," + schema.MONTH_LEAVE + " int)";
 
@@ -567,7 +568,99 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + schema.YEAR_ATTENDANCE + " WHERE " + schema.YEAR + " = '" + string + "';");
     }
 
-/* ----------------- ATTENDANCE PART END--------------------- */
+    public void setMonthAttendance(MonthInfo info) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(schema.MONTH, info.getMonth());
+        values.put(schema.YEAR, info.getYear());
+        values.put(schema.ONE, info.getOne());
+        values.put(schema.TWO, info.getTwo());
+        values.put(schema.THREE, info.getThree());
+        values.put(schema.FOUR, info.getFour());
+        values.put(schema.FIVE, info.getFive());
+        values.put(schema.SIX, info.getSix());
+        values.put(schema.SEVEN, info.getSeven());
+        values.put(schema.EIGHT, info.getEight());
+        values.put(schema.NINE, info.getNine());
+        values.put(schema.TEN, info.getTen());
+        values.put(schema.ELEVEN, info.getEleven());
+        values.put(schema.TWELEVE, info.getTwelve());
+        values.put(schema.THIRTEEN, info.getThirteen());
+        values.put(schema.FOURTEEN, info.getFourteen());
+        values.put(schema.FIFTEEN, info.getFifteen());
+        values.put(schema.SIXTEEN, info.getSixteen());
+        values.put(schema.SEVENTEEN, info.getSeventeen());
+        values.put(schema.EIGHTEEN, info.getEighteen());
+        values.put(schema.NINTEEN, info.getNineteen());
+        values.put(schema.TWENTY, info.getTwenty());
+        values.put(schema.T_ONE, info.getTOne());
+        values.put(schema.T_TWO, info.getTTwo());
+        values.put(schema.T_THREE, info.getTThree());
+        values.put(schema.T_FOUR, info.getTFour());
+        values.put(schema.T_FIVE, info.getTFive());
+        values.put(schema.T_SIX, info.getTSix());
+        values.put(schema.T_SEVEN, info.getTSeven());
+        values.put(schema.T_EIGHT, info.getTEight());
+        values.put(schema.T_NINE, info.getTNine());
+        values.put(schema.THIRTY, info.getTTen());
+        values.put(schema.THIRTY_ONE, info.getTEleven());
+        values.put(schema.MONTH_ABSENT, info.getAbsent());
+        values.put(schema.MONTH_PRESENT, info.getPresent());
+        values.put(schema.MONTH_HALF_DAY, info.getHalfDay());
+        values.put(schema.MONTH_LEAVE, info.getLeave());
+        database.insert(schema.MONTH_ATTENDANCE, null, values);
+    }
 
+    public MonthInfo getMonthAttendance(String month ,String year) {
+        MonthInfo info = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MONTH_ATTENDANCE+ " WHERE " + schema.YEAR + " = '" + year + "' AND "+ schema.MONTH+" ='"+month+"';", null);
+        while (cursor.moveToNext()) {
+            info= new MonthInfo();
+            info.setMonth(cursor.getInt(cursor.getColumnIndex(schema.MONTH)));
+            info.setYear(cursor.getInt(cursor.getColumnIndex(schema.YEAR)));
+            info.setOne(cursor.getString(cursor.getColumnIndex(schema.ONE)));
+            info.setTwo(cursor.getString(cursor.getColumnIndex(schema.TWO)));
+            info.setThree(cursor.getString(cursor.getColumnIndex(schema.THREE)));
+            info.setFour(cursor.getString(cursor.getColumnIndex(schema.FOUR)));
+            info.setFive(cursor.getString(cursor.getColumnIndex(schema.FIVE)));
+            info.setSix(cursor.getString(cursor.getColumnIndex(schema.SIX)));
+            info.setSeven(cursor.getString(cursor.getColumnIndex(schema.SEVEN)));
+            info.setEight(cursor.getString(cursor.getColumnIndex(schema.EIGHT)));
+            info.setNine(cursor.getString(cursor.getColumnIndex(schema.NINE)));
+            info.setTen(cursor.getString(cursor.getColumnIndex(schema.TEN)));
+            info.setEleven(cursor.getString(cursor.getColumnIndex(schema.ELEVEN)));
+            info.setTwelve(cursor.getString(cursor.getColumnIndex(schema.TWELEVE)));
+            info.setThirteen(cursor.getString(cursor.getColumnIndex(schema.THIRTEEN)));
+            info.setFourteen(cursor.getString(cursor.getColumnIndex(schema.FOURTEEN)));
+            info.setFifteen(cursor.getString(cursor.getColumnIndex(schema.FIFTEEN)));
+            info.setSixteen(cursor.getString(cursor.getColumnIndex(schema.SIXTEEN)));
+            info.setSeventeen(cursor.getString(cursor.getColumnIndex(schema.SEVENTEEN)));
+            info.setEighteen(cursor.getString(cursor.getColumnIndex(schema.EIGHTEEN)));
+            info.setNineteen(cursor.getString(cursor.getColumnIndex(schema.NINTEEN)));
+            info.setTwenty(cursor.getString(cursor.getColumnIndex(schema.TWENTY)));
+            info.setTOne(cursor.getString(cursor.getColumnIndex(schema.T_ONE)));
+            info.setTTwo(cursor.getString(cursor.getColumnIndex(schema.T_TWO)));
+            info.setTThree(cursor.getString(cursor.getColumnIndex(schema.T_THREE)));
+            info.setTFour(cursor.getString(cursor.getColumnIndex(schema.T_FOUR)));
+            info.setTFive(cursor.getString(cursor.getColumnIndex(schema.T_FIVE)));
+            info.setTSix(cursor.getString(cursor.getColumnIndex(schema.T_SIX)));
+            info.setTSeven(cursor.getString(cursor.getColumnIndex(schema.T_SEVEN)));
+            info.setTEight(cursor.getString(cursor.getColumnIndex(schema.T_EIGHT)));
+            info.setTNine(cursor.getString(cursor.getColumnIndex(schema.T_NINE)));
+            info.setTTen(cursor.getString(cursor.getColumnIndex(schema.THIRTY)));
+            info.setTEleven(cursor.getString(cursor.getColumnIndex(schema.THIRTY_ONE)));
+            info.setAbsent(cursor.getInt(cursor.getColumnIndex(schema.MONTH_ABSENT)));
+            info.setPresent(cursor.getInt(cursor.getColumnIndex(schema.MONTH_PRESENT)));
+            info.setHalfDay(cursor.getInt(cursor.getColumnIndex(schema.MONTH_HALF_DAY)));
+            info.setLeave(cursor.getInt(cursor.getColumnIndex(schema.MONTH_LEAVE)));
+        }
+        return info;
+    }
+    public void deleteMonthAttendance(String month ,String year) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.MONTH_ATTENDANCE + " WHERE " + schema.YEAR + " = '" + year + "' AND"+ schema.MONTH+" ='"+month+"';");
+    }
+/* ----------------- ATTENDANCE PART END--------------------- */
 
 }

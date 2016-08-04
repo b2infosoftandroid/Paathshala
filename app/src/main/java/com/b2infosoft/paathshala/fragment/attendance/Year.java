@@ -22,8 +22,6 @@ import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
-import com.b2infosoft.paathshala.model.Marks;
-import com.b2infosoft.paathshala.model.Result;
 import com.b2infosoft.paathshala.model.YearInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
