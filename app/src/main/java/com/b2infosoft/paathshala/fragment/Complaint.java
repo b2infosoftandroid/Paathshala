@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
@@ -56,6 +57,7 @@ public class Complaint extends Fragment {
     EditText title,body;
     Button b1,b2;
     FloatingActionButton new_complaint;
+    private ProgressDialog progress = null;
     RecyclerView rv;
     List<ComplaintInfo> complaintInfoList;
     private static ComplaintRecyclerViewAdapter adapter;
@@ -153,6 +155,7 @@ public class Complaint extends Fragment {
        map.put(tags.S_ID,active.getValue(tags.S_ID));
        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
        String url = urls.getUrl(urls.getPath(tags.COMPLAINT_LIST),map);
+       showProgress();
        //Log.d(TAG,url);
        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
                (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
@@ -181,9 +184,12 @@ public class Complaint extends Fragment {
                                    }
                                    adapter = new ComplaintRecyclerViewAdapter(complaintInfoList);
                                    rv.setAdapter(adapter);
+                                   dismissProgress();
                                }
+
                            }catch (Exception e){
-                               Log.e(TAG,e.getMessage());
+                               dismissProgress();
+                               //Log.e(TAG,e.getMessage());
                            }
                        }
                    }
@@ -305,5 +311,19 @@ public class Complaint extends Fragment {
     public interface OnComplaintListener {
         // TODO: Update argument type and name
         void onComplaintInteraction(Uri uri);
+    }
+
+    private void showProgress() {
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
+
+    private void dismissProgress() {
+        if (progress != null) {
+            progress.dismiss();
+        }
     }
 }
