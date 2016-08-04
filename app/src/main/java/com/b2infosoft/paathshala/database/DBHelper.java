@@ -6,11 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.b2infosoft.paathshala.fragment.Holiday;
+import com.b2infosoft.paathshala.fragment.TimeTable;
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
+import com.b2infosoft.paathshala.model.HolidayInfo;
 import com.b2infosoft.paathshala.model.Marks;
 import com.b2infosoft.paathshala.model.Result;
 import com.b2infosoft.paathshala.model.StudentInfo;
+import com.b2infosoft.paathshala.model.TimeTableInfo;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -62,8 +66,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + schema.MARKSHEET_ADD_IN_RES + " text," + schema.MARKSHEET_SESSION_ID + " int," + schema.MARKSHEET_SCHOOL_ID + " int," + schema.MARKSHEET_SEARCH_TYPE + " text)";
         String T12 = "CREATE TABLE " + schema.MARK_SHEET + "(" + schema.MARKSHEET_ID + " int," + schema.MARKSHEET_SID + " int," + schema.MARKSHEET_RESULT + " text," + schema.MARKSHEET_DIVISION + " text," + schema.MARKSHEET_PERCENTAGE + " float," + schema.MARKSHEET_TOT_MARKS + " float," + schema.MARKSHEET_TOT_OBT + " float," + schema.MARKSHEET_SESSION_ID + " int," + schema.MARKSHEET_SCHOOL_ID + " int," + schema.MARKSHEET_TYPE + " text," + schema.MARKSHEET_SEARCH_TYPE + " text)";
 
-        String T13 = "CREATE TABLE " + schema.TIME_TABLE + "(" + schema.SUBJECT_NAME + " text," + schema.EXAM_DATE + " text)";
-
+        String T13 = "CREATE TABLE " + schema.TIME_TABLE + "(" + schema.SUBJECT_NAME + " text," + schema.EXAM_DATE + " text," + schema.EXAM_NAME + " text)";
+        String T14 = "CREATE TABLE " + schema.HOLIDAY_TABLE + "(" + schema.HOLIDAY_NAME + " text," + schema.HOLIDAY_DATE_FROM + " text," + schema.HOLIDAY_DATE_TO + " text)";
         db.execSQL(T1);
         db.execSQL(T2);
         db.execSQL(T3);
@@ -77,6 +81,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(T11);
         db.execSQL(T12);
         db.execSQL(T13);
+        db.execSQL(T14);
     }
 
     @Override
@@ -357,60 +362,93 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return list;
     }
-/* ----------------- EXAM PART  END--------------------- */
+
+    public void setTimeTable(List<TimeTableInfo> infoList) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (TimeTableInfo info : infoList) {
+            ContentValues values = new ContentValues();
+            values.put(schema.SUBJECT_NAME, info.getSubject());
+            values.put(schema.EXAM_DATE, info.getDate());
+            values.put(schema.EXAM_NAME, info.getExamName());
+            database.insert(schema.TIME_TABLE, null, values);
+        }
+    }
+
+    public List<TimeTableInfo> getTimeTable(String string) {
+        List<TimeTableInfo> infoList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.TIME_TABLE + " WHERE " + schema.EXAM_NAME + " = '" + string + "';", null);
+        while (cursor.moveToNext()) {
+            TimeTableInfo info = new TimeTableInfo();
+            info.setSubject(cursor.getString(cursor.getColumnIndex(schema.SUBJECT_NAME)));
+            info.setDate(cursor.getString(cursor.getColumnIndex(schema.EXAM_DATE)));
+            info.setExamName(cursor.getString(cursor.getColumnIndex(schema.EXAM_NAME)));
+            infoList.add(info);
+        }
+        return infoList;
+    }
+
+    public void deleteTimeTable(String string) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.TIME_TABLE + " WHERE " + schema.EXAM_NAME + " = '" + string + "';");
+    }
+
+    /* ----------------- EXAM PART  END--------------------- */
 /* ----------------- STUDENT INFO START--------------------- */
-    public void setStudentInfo(StudentInfo info){
+    public void setStudentInfo(StudentInfo info) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(schema.STU_ID,info.getId());
-        values.put(schema.STU_PASSWORD,info.getPassword());
-        values.put(schema.STU_SID,info.getsId());
-        values.put(schema.STU_ADMIN_DATE,info.getAdminDate());
-        values.put(schema.STU_SR_NO,info.getSrNo());
-        values.put(schema.STU_DOB,info.getDob());
-        values.put(schema.STU_NAME,info.getName());
-        values.put(schema.STU_MOBILE,info.getMobile());
-        values.put(schema.STU_GENDER,info.getGender());
-        values.put(schema.STU_EMAIL,info.getEmail());
-        values.put(schema.STU_MODE,info.getMode());
-        values.put(schema.STU_CLASS,info.getStu_class());
-        values.put(schema.STU_SECTION,info.getSection());
-        values.put(schema.STU_SESSION_ID,info.getSessionId());
-        values.put(schema.STU_HOUSE,info.getHouse());
-        values.put(schema.STU_ADMIN_TYPE,info.getAdminType());
-        values.put(schema.STU_BPL,info.getBpl());
-        values.put(schema.STU_HANDICAPPED,info.getHandicap());
-        values.put(schema.STU_NATIONALITY,info.getNationality());
-        values.put(schema.STU_CATEGORY,info.getCategory());
-        values.put(schema.STU_ORI_ADMIN_DATE,info.getOriAdminDate());
-        values.put(schema.STU_SESSION_YEAR,info.getSessionYear());
-        values.put(schema.STU_RELIGION,info.getReligion());
-        values.put(schema.STU_TYPE,info.getType());
-        values.put(schema.STU_CAST,info.getCast());
-        values.put(schema.STU_SCHOOL_ID,info.getSchoolId());
-        values.put(schema.STU_FATHER_NAME,info.getfName());
-        values.put(schema.STU_FATHER_INCOME,info.getfIncome());
-        values.put(schema.STU_FATHER_OCCU,info.getfOccupation());
-        values.put(schema.STU_PER_ADDRESS,info.getPerAddress());
-        values.put(schema.STU_PARENT_MOBILE,info.getParentMobile());
-        values.put(schema.STU_MOTHER_NAME,info.getmName());
-        values.put(schema.STU_GUARDIAN_NAME,info.getGuardianName());
-        values.put(schema.STU_GUARDIAN_MOBILE,info.getGuardianMobile());
-        values.put(schema.STU_GUARDIAN_PHONE,info.getGuardianPhone());
-        values.put(schema.STU_GUARDIAN_EMAIL,info.getGuardianEmail());
-        values.put(schema.STU_REMARK,info.getRemark());
-        values.put(schema.STU_CORR_ADDRESS,info.getCorrAddress());
-        database.insert(schema.STUDENT_INFO,null,values);
+        values.put(schema.STU_ID, info.getId());
+        values.put(schema.STU_PASSWORD, info.getPassword());
+        values.put(schema.STU_SID, info.getsId());
+        values.put(schema.STU_ADMIN_DATE, info.getAdminDate());
+        values.put(schema.STU_SR_NO, info.getSrNo());
+        values.put(schema.STU_DOB, info.getDob());
+        values.put(schema.STU_NAME, info.getName());
+        values.put(schema.STU_MOBILE, info.getMobile());
+        values.put(schema.STU_GENDER, info.getGender());
+        values.put(schema.STU_EMAIL, info.getEmail());
+        values.put(schema.STU_MODE, info.getMode());
+        values.put(schema.STU_CLASS, info.getStu_class());
+        values.put(schema.STU_SECTION, info.getSection());
+        values.put(schema.STU_SESSION_ID, info.getSessionId());
+        values.put(schema.STU_HOUSE, info.getHouse());
+        values.put(schema.STU_ADMIN_TYPE, info.getAdminType());
+        values.put(schema.STU_BPL, info.getBpl());
+        values.put(schema.STU_HANDICAPPED, info.getHandicap());
+        values.put(schema.STU_NATIONALITY, info.getNationality());
+        values.put(schema.STU_CATEGORY, info.getCategory());
+        values.put(schema.STU_ORI_ADMIN_DATE, info.getOriAdminDate());
+        values.put(schema.STU_SESSION_YEAR, info.getSessionYear());
+        values.put(schema.STU_RELIGION, info.getReligion());
+        values.put(schema.STU_TYPE, info.getType());
+        values.put(schema.STU_CAST, info.getCast());
+        values.put(schema.STU_SCHOOL_ID, info.getSchoolId());
+        values.put(schema.STU_FATHER_NAME, info.getfName());
+        values.put(schema.STU_FATHER_INCOME, info.getfIncome());
+        values.put(schema.STU_FATHER_OCCU, info.getfOccupation());
+        values.put(schema.STU_PER_ADDRESS, info.getPerAddress());
+        values.put(schema.STU_PARENT_MOBILE, info.getParentMobile());
+        values.put(schema.STU_MOTHER_NAME, info.getmName());
+        values.put(schema.STU_GUARDIAN_NAME, info.getGuardianName());
+        values.put(schema.STU_GUARDIAN_MOBILE, info.getGuardianMobile());
+        values.put(schema.STU_GUARDIAN_PHONE, info.getGuardianPhone());
+        values.put(schema.STU_GUARDIAN_EMAIL, info.getGuardianEmail());
+        values.put(schema.STU_REMARK, info.getRemark());
+        values.put(schema.STU_CORR_ADDRESS, info.getCorrAddress());
+        database.insert(schema.STUDENT_INFO, null, values);
     }
+
     public void deleteStudentInfo() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + schema.STUDENT_INFO);
     }
-    public StudentInfo getStudentInfo(){
+
+    public StudentInfo getStudentInfo() {
         StudentInfo info = null;
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM "+schema.STUDENT_INFO,null);
-        while(cursor.moveToNext()){
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.STUDENT_INFO, null);
+        while (cursor.moveToNext()) {
             info = new StudentInfo();
             info.setId(cursor.getInt(cursor.getColumnIndex(schema.STU_ID)));
             info.setPassword(cursor.getString(cursor.getColumnIndex(schema.STU_PASSWORD)));
@@ -450,11 +488,45 @@ public class DBHelper extends SQLiteOpenHelper {
             info.setRemark(cursor.getString(cursor.getColumnIndex(schema.STU_REMARK)));
             info.setCorrAddress(cursor.getString(cursor.getColumnIndex(schema.STU_CORR_ADDRESS)));
         }
-        if(!cursor.isClosed()){
+        if (!cursor.isClosed()) {
             cursor.close();
         }
         return info;
     }
-/* ----------------- STUDENT INFO END--------------------- */
+    /* ----------------- STUDENT INFO END--------------------- */
+
+    /* ----------------- HOLIDAY DAY START--------------------- */
+    public void setHoliday(List<HolidayInfo> infoList) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (HolidayInfo info : infoList) {
+            ContentValues values = new ContentValues();
+            values.put(schema.HOLIDAY_NAME, info.getName());
+            values.put(schema.HOLIDAY_DATE_FROM, info.getFromDate());
+            values.put(schema.HOLIDAY_DATE_TO, info.getToDate());
+            database.insert(schema.HOLIDAY_TABLE, null, values);
+        }
+    }
+
+    public List<HolidayInfo> getHoliday() {
+        List<HolidayInfo> infoList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.HOLIDAY_TABLE, null);
+        while (cursor.moveToNext()) {
+            HolidayInfo info = new HolidayInfo();
+            info.setName(cursor.getString(cursor.getColumnIndex(schema.HOLIDAY_NAME)));
+            info.setFromDate(cursor.getString(cursor.getColumnIndex(schema.HOLIDAY_DATE_FROM)));
+            info.setToDate(cursor.getString(cursor.getColumnIndex(schema.HOLIDAY_DATE_TO)));
+            infoList.add(info);
+        }
+        return infoList;
+    }
+
+    public void deleteHoliday() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.HOLIDAY_TABLE);
+    }
+
+/* ----------------- HOLIDAY DAY END--------------------- */
+
 
 }

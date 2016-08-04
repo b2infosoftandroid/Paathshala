@@ -9,7 +9,7 @@ public class TimeTableInfo {
     private String toTime;
     private String formTime;
     private String faculty;
-
+    private String examName;
     public String getSubject() {
         return subject;
     }
@@ -48,5 +48,13 @@ public class TimeTableInfo {
 
     public void setFaculty(String faculty) {
         this.faculty = faculty;
+    }
+
+    public String getExamName() {
+        return examName;
+    }
+
+    public void setExamName(String examName) {
+        this.examName = examName;
     }
 }

@@ -23,6 +23,7 @@ public class Schema {
     public final String TIME_TABLE="timetable";
     public final String MARK_SHEET ="mark_sheet";
     public final String MARK_SHEET_DETAILS ="mark_sheet_details";
+    public final String  HOLIDAY_TABLE = "holiday";
 
     ///////////       CITY TABLE             //////////////
     public final String S_NO="sno";
@@ -190,5 +191,10 @@ public class Schema {
     public final String SCHOOLS_ID="id";
     public final String SCHOOLS_NAME="name";
     public final String SCHOOLS_ADDRESS="address";
+
+    ////////////// HOLIDAY TABLE  ////////////
+    public final String HOLIDAY_NAME = "name";
+    public final String HOLIDAY_DATE_TO = "to_date";
+    public final String HOLIDAY_DATE_FROM = "from_date";
 
 }

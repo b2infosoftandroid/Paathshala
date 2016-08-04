@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.b2infosoft.paathshala.adapter.HolidayRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.DummyContent;
 import com.b2infosoft.paathshala.model.DummyContent.DummyItem;
 import com.b2infosoft.paathshala.model.HolidayInfo;
@@ -41,15 +43,16 @@ import java.util.List;
 
 public class Holiday extends Fragment {
     private static String TAG = Holiday.class.getName();
-
     private OnHolidayFragmentListener mListener;
     TableLayout t1;
     TextView name, from_date, to_date;
     Tags tags = Tags.getInstance();
     Urls urls = Urls.getInstance();
     Active active;
+    DBHelper dbHelper;
     List<HolidayInfo> holidayInfos;
-    // TODO: Customize parameter argument names
+    private ProgressDialog progress;
+
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
 
@@ -80,11 +83,16 @@ public class Holiday extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        dbHelper = new DBHelper(getActivity());
         View view = inflater.inflate(R.layout.fragment_holiday, container, false);
         active = Active.getInstance(getContext());
         t1 = (TableLayout) view.findViewById(R.id.holiday_table);
-        getHolidayDetail();
-
+        List<HolidayInfo> infoList = dbHelper.getHoliday();
+        if(infoList.size()==0) {
+            getHolidayDetail();
+        }else{
+            addData(infoList);
+        }
         return view;
     }
 
@@ -114,6 +122,7 @@ public class Holiday extends Fragment {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        showProgress();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.Holiday), map), null, new Response.Listener<JSONObject>() {
 
@@ -143,11 +152,14 @@ public class Holiday extends Fragment {
 
                                     }
                                     addData(holidayInfos);
+                                    dbHelper.deleteHoliday();
+                                    dbHelper.setHoliday(holidayInfos);
                                     // TimeTableAdapter listAdapter= new TimeTableAdapter(getContext(),infoList);
                                     // examdetail.setAdapter(listAdapter);
                                 }
+                                dismissProgress();
                             } catch (Exception e) {
-
+                                dismissProgress();
                             }
                         }
                     }
@@ -156,6 +168,7 @@ public class Holiday extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        dismissProgress();
                     }
                 });
         jsonObjectRequest.setTag(TAG);
@@ -222,5 +235,17 @@ public class Holiday extends Fragment {
 
         }
     }
+    private void showProgress() {
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
 
+    private void dismissProgress() {
+        if (progress != null) {
+            progress.dismiss();
+        }
+    }
 }

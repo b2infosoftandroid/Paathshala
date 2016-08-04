@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -63,6 +64,8 @@ public class TimeTable extends Fragment {
     List<String> ExamType;
     List<TimeTableInfo> infoList;
     private DBHelper dbHelper;
+    private ProgressDialog progress;
+
     public TimeTable() {
         // Required empty public constructor
     }
@@ -83,9 +86,9 @@ public class TimeTable extends Fragment {
         spinner = (Spinner) view.findViewById(R.id.exam_list_spinner);
         t1 = (TableLayout) view.findViewById(R.id.time_table_list);
         List<String> stringList = dbHelper.getExamType();
-        if(stringList.size()==0) {
+        if (stringList.size() == 0) {
             fetchExamList();
-        }else{
+        } else {
             updateExamType(stringList);
         }
         // viewPager = (ViewPager)view.findViewById(R.id.viewPager);
@@ -94,21 +97,29 @@ public class TimeTable extends Fragment {
 
         return view;
     }
-    private void updateExamType(List<String> stringList){
+
+    private void updateExamType(List<String> stringList) {
         spinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, stringList));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // Toast.makeText(getContext(),"success",Toast.LENGTH_LONG).show();
                 String value = spinner.getSelectedItem().toString();
-                getData(value);
+                List<TimeTableInfo> infoList = dbHelper.getTimeTable(value);
+                if(infoList.size()==0) {
+                    getData(value);
+                }else{
+                    addData(infoList);
+                }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
     }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -144,7 +155,6 @@ public class TimeTable extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnTimeTableListener {
-        // TODO: Update argument type and name
         void onTimeTableInteraction(Uri uri);
     }
 
@@ -152,6 +162,7 @@ public class TimeTable extends Fragment {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        showProgress();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.EXAM_LIST), map), null, new Response.Listener<JSONObject>() {
 
@@ -177,8 +188,9 @@ public class TimeTable extends Fragment {
                                     dbHelper.deleteExamType();
                                     dbHelper.setExamType(ExamType);
                                 }
+                                dismissProgress();
                             } catch (Exception e) {
-
+                                dismissProgress();
                             }
                         }
                     }
@@ -194,12 +206,13 @@ public class TimeTable extends Fragment {
     }
 
 
-    public void getData(String str) {
+    public void getData(final String str) {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
         map.put(tags.TIME_TABLE_EXAM_NAME, str);
+        showProgress();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.EXAM_TIME_TABLE), map), null, new Response.Listener<JSONObject>() {
 
@@ -221,15 +234,18 @@ public class TimeTable extends Fragment {
                                         if (object.has(tags.TIME_TABLE_EXAM_DATE)) {
                                             info.setDate(object.getString(tags.TIME_TABLE_EXAM_DATE));
                                         }
+                                        info.setExamName(str);
                                         infoList.add(info);
-
                                     }
                                     addData(infoList);
+                                    dbHelper.deleteTimeTable(str);
+                                    dbHelper.setTimeTable(infoList);
                                     // TimeTableAdapter listAdapter= new TimeTableAdapter(getContext(),infoList);
                                     // examdetail.setAdapter(listAdapter);
                                 }
+                                dismissProgress();
                             } catch (Exception e) {
-
+                                dismissProgress();
                             }
                         }
                     }
@@ -291,6 +307,20 @@ public class TimeTable extends Fragment {
 
             t1.addView(tr1);
 
+        }
+    }
+
+    private void showProgress() {
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
+
+    private void dismissProgress() {
+        if (progress != null) {
+            progress.dismiss();
         }
     }
 }
