@@ -36,8 +36,8 @@
                 <ImageView
                     android:id="@+id/dashboard_classmates"
                     android:layout_marginTop="5dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_attendance"
                     />
             </LinearLayout>
@@ -72,8 +72,8 @@
                 <ImageView
                     android:id="@+id/dashboard_attendance"
                     android:layout_marginTop="5dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_holidays"
                     />
             </LinearLayout>
@@ -114,8 +114,8 @@
                 <ImageView
                     android:id="@+id/dashboard_holidays"
                     android:layout_marginTop="5dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_timetable"
                     />
             </LinearLayout>
@@ -150,8 +150,8 @@
                 <ImageView
                     android:id="@+id/dashboard_fees"
                     android:layout_marginTop="5dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:src="@drawable/ic_complaint"
                     />
             </LinearLayout>
