@@ -15,6 +15,7 @@ import com.b2infosoft.paathshala.model.Marks;
 import com.b2infosoft.paathshala.model.Result;
 import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.model.TimeTableInfo;
+import com.b2infosoft.paathshala.model.YearInfo;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -54,7 +55,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + schema.THIRTEEN + " text," + schema.FOURTEEN + " text," + schema.FIFTEEN + " text," + schema.SIXTEEN + " text," + schema.SEVENTEEN + " text," + schema.EIGHTEEN + " text," + schema.NINTEEN + " text," + schema.TWENTY + " text," + schema.T_ONE + " text," + schema.T_TWO + " text," + schema.T_THREE + " text," + schema.T_FOUR + " text,"
                 + schema.T_FIVE + " text," + schema.T_SIX + " text," + schema.T_SEVEN + " text," + schema.T_EIGHT + " text," + schema.T_NINE + " text," + schema.THIRTY + " text," + schema.THIRTY_ONE + " text," + schema.MONTH_ABSENT + " int," + schema.MONTH_PRESENT + " int," + schema.MONTH_HALF_DAY + " int," + schema.MONTH_LEAVE + " int)";
 
-        String T7 = "CREATE TABLE " + schema.YEAR_ATTENDANCE + "(" + schema.YEAR_SID + " int," + schema.ATTENDANCE_MONTH + " text," + schema.YEAR_TOTAL + " int," + schema.YEAR_ABSENT + " int," + schema.YEAR_HALF_DAY + " int," + schema.YEAR_LEAVE + " int)";
+        String T7 = "CREATE TABLE " + schema.YEAR_ATTENDANCE + "(" + schema.YEAR_SID + " int," + schema.ATTENDANCE_MONTH + " text," + schema.YEAR_TOTAL + " int," + schema.YEAR_ABSENT + " int," + schema.YEAR_HALF_DAY + " int," + schema.YEAR_LEAVE + " int," + schema.YEAR + " int)";
 
         String T8 = "CREATE TABLE " + schema.EXAM_LIST + "(" + schema.EXAM_NAME + " text)";
 
@@ -526,7 +527,47 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + schema.HOLIDAY_TABLE);
     }
 
-/* ----------------- HOLIDAY DAY END--------------------- */
+    /* ----------------- HOLIDAY DAY END--------------------- */
+/* ----------------- ATTENDANCE PART START--------------------- */
+    public void setYearAttendance(List<YearInfo> infoList) {
+        SQLiteDatabase database = this.getWritableDatabase();
+        for (YearInfo info : infoList) {
+            ContentValues values = new ContentValues();
+            values.put(schema.YEAR_SID, info.getId());
+            values.put(schema.ATTENDANCE_MONTH, info.getMonth());
+            values.put(schema.YEAR_TOTAL, info.getTotal());
+            values.put(schema.YEAR_ABSENT, info.getAbsent());
+            values.put(schema.YEAR_HALF_DAY, info.getHalfDay());
+            values.put(schema.YEAR_LEAVE, info.getLeave());
+            values.put(schema.YEAR, info.getYear());
+            database.insert(schema.YEAR_ATTENDANCE, null, values);
+        }
+    }
+
+    public List<YearInfo> getYearAttendance() {
+        List<YearInfo> infoList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.YEAR_ATTENDANCE + " ORDER BY " + schema.YEAR, null);
+        while (cursor.moveToNext()) {
+            YearInfo info = new YearInfo();
+            info.setId(cursor.getInt(cursor.getColumnIndex(schema.YEAR_SID)));
+            info.setMonth(cursor.getString(cursor.getColumnIndex(schema.ATTENDANCE_MONTH)));
+            info.setTotal(cursor.getInt(cursor.getColumnIndex(schema.YEAR_TOTAL)));
+            info.setAbsent(cursor.getInt(cursor.getColumnIndex(schema.YEAR_ABSENT)));
+            info.setHalfDay(cursor.getInt(cursor.getColumnIndex(schema.YEAR_HALF_DAY)));
+            info.setLeave(cursor.getInt(cursor.getColumnIndex(schema.YEAR_LEAVE)));
+            info.setYear(cursor.getInt(cursor.getColumnIndex(schema.YEAR)));
+            infoList.add(info);
+        }
+        return infoList;
+    }
+
+    public void deleteYearAttendance(String string) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.YEAR_ATTENDANCE + " WHERE " + schema.YEAR + " = '" + string + "';");
+    }
+
+/* ----------------- ATTENDANCE PART END--------------------- */
 
 
 }

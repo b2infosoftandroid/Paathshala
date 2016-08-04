@@ -11,7 +11,7 @@ public class YearInfo {
     private int absent;
     private int halfDay;
     private int leave;
-
+    private int year;
     public int getId() {
         return id;
     }
@@ -66,5 +66,13 @@ public class YearInfo {
 
     public void setLeave(int leave) {
         this.leave = leave;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }
