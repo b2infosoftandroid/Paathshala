@@ -19,6 +19,7 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -44,7 +45,7 @@ public class Guardian extends Fragment {
     Tags tags= Tags.getInstance();
     Urls urls=Urls.getInstance();
     Active active;
-
+    DBHelper dbHelper;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,6 +94,7 @@ public class Guardian extends Fragment {
         // Inflate the layout for this fragment
 
         active = Active.getInstance(getContext());
+        dbHelper = new DBHelper(getActivity());
         View view =  inflater.inflate(R.layout.fragment_guardian, container, false);
         name=(EditText)view.findViewById(R.id.guardian_name);
         email=(EditText)view.findViewById(R.id.guardian_email);
@@ -101,7 +103,12 @@ public class Guardian extends Fragment {
         remark=(EditText)view.findViewById(R.id.guardian_remark);
         address=(EditText)view.findViewById(R.id.guardian_address);
        // setFonts();
-        fetchGuardianInfo();
+        StudentInfo info = dbHelper.getStudentInfo();
+        if(info==null){
+            fetchGuardianInfo();
+        }else{
+            updateInfo(info);
+        }
         return  view;
     }
 

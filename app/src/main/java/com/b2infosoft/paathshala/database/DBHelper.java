@@ -10,6 +10,7 @@ import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
 import com.b2infosoft.paathshala.model.Marks;
 import com.b2infosoft.paathshala.model.Result;
+import com.b2infosoft.paathshala.model.StudentInfo;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -357,5 +358,103 @@ public class DBHelper extends SQLiteOpenHelper {
         return list;
     }
 /* ----------------- EXAM PART  END--------------------- */
+/* ----------------- STUDENT INFO START--------------------- */
+    public void setStudentInfo(StudentInfo info){
+        SQLiteDatabase database = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(schema.STU_ID,info.getId());
+        values.put(schema.STU_PASSWORD,info.getPassword());
+        values.put(schema.STU_SID,info.getsId());
+        values.put(schema.STU_ADMIN_DATE,info.getAdminDate());
+        values.put(schema.STU_SR_NO,info.getSrNo());
+        values.put(schema.STU_DOB,info.getDob());
+        values.put(schema.STU_NAME,info.getName());
+        values.put(schema.STU_MOBILE,info.getMobile());
+        values.put(schema.STU_GENDER,info.getGender());
+        values.put(schema.STU_EMAIL,info.getEmail());
+        values.put(schema.STU_MODE,info.getMode());
+        values.put(schema.STU_CLASS,info.getStu_class());
+        values.put(schema.STU_SECTION,info.getSection());
+        values.put(schema.STU_SESSION_ID,info.getSessionId());
+        values.put(schema.STU_HOUSE,info.getHouse());
+        values.put(schema.STU_ADMIN_TYPE,info.getAdminType());
+        values.put(schema.STU_BPL,info.getBpl());
+        values.put(schema.STU_HANDICAPPED,info.getHandicap());
+        values.put(schema.STU_NATIONALITY,info.getNationality());
+        values.put(schema.STU_CATEGORY,info.getCategory());
+        values.put(schema.STU_ORI_ADMIN_DATE,info.getOriAdminDate());
+        values.put(schema.STU_SESSION_YEAR,info.getSessionYear());
+        values.put(schema.STU_RELIGION,info.getReligion());
+        values.put(schema.STU_TYPE,info.getType());
+        values.put(schema.STU_CAST,info.getCast());
+        values.put(schema.STU_SCHOOL_ID,info.getSchoolId());
+        values.put(schema.STU_FATHER_NAME,info.getfName());
+        values.put(schema.STU_FATHER_INCOME,info.getfIncome());
+        values.put(schema.STU_FATHER_OCCU,info.getfOccupation());
+        values.put(schema.STU_PER_ADDRESS,info.getPerAddress());
+        values.put(schema.STU_PARENT_MOBILE,info.getParentMobile());
+        values.put(schema.STU_MOTHER_NAME,info.getmName());
+        values.put(schema.STU_GUARDIAN_NAME,info.getGuardianName());
+        values.put(schema.STU_GUARDIAN_MOBILE,info.getGuardianMobile());
+        values.put(schema.STU_GUARDIAN_PHONE,info.getGuardianPhone());
+        values.put(schema.STU_GUARDIAN_EMAIL,info.getGuardianEmail());
+        values.put(schema.STU_REMARK,info.getRemark());
+        values.put(schema.STU_CORR_ADDRESS,info.getCorrAddress());
+        database.insert(schema.STUDENT_INFO,null,values);
+    }
+    public void deleteStudentInfo() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.STUDENT_INFO);
+    }
+    public StudentInfo getStudentInfo(){
+        StudentInfo info = null;
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM "+schema.STUDENT_INFO,null);
+        while(cursor.moveToNext()){
+            info = new StudentInfo();
+            info.setId(cursor.getInt(cursor.getColumnIndex(schema.STU_ID)));
+            info.setPassword(cursor.getString(cursor.getColumnIndex(schema.STU_PASSWORD)));
+            info.setAdminDate(cursor.getString(cursor.getColumnIndex(schema.STU_ADMIN_DATE)));
+            info.setSrNo(cursor.getInt(cursor.getColumnIndex(schema.STU_SR_NO)));
+            info.setDob(cursor.getString(cursor.getColumnIndex(schema.STU_DOB)));
+            info.setName(cursor.getString(cursor.getColumnIndex(schema.STU_NAME)));
+            info.setMobile(cursor.getString(cursor.getColumnIndex(schema.STU_MOBILE)));
+            info.setGender(cursor.getString(cursor.getColumnIndex(schema.STU_GENDER)));
+            info.setEmail(cursor.getString(cursor.getColumnIndex(schema.STU_EMAIL)));
+            info.setMode(cursor.getString(cursor.getColumnIndex(schema.STU_MODE)));
+            info.setStu_class(cursor.getString(cursor.getColumnIndex(schema.STU_CLASS)));
+            info.setSection(cursor.getString(cursor.getColumnIndex(schema.STU_SECTION)));
+            info.setSessionId(cursor.getInt(cursor.getColumnIndex(schema.STU_SESSION_ID)));
+            info.setHouse(cursor.getString(cursor.getColumnIndex(schema.STU_HOUSE)));
+            info.setAdminType(cursor.getString(cursor.getColumnIndex(schema.STU_ADMIN_TYPE)));
+            info.setBpl(cursor.getString(cursor.getColumnIndex(schema.STU_BPL)));
+            info.setHandicap(cursor.getString(cursor.getColumnIndex(schema.STU_HANDICAPPED)));
+            info.setNationality(cursor.getString(cursor.getColumnIndex(schema.STU_NATIONALITY)));
+            info.setCategory(cursor.getString(cursor.getColumnIndex(schema.STU_CATEGORY)));
+            info.setOriAdminDate(cursor.getString(cursor.getColumnIndex(schema.STU_ORI_ADMIN_DATE)));
+            info.setSessionYear(cursor.getString(cursor.getColumnIndex(schema.STU_SESSION_YEAR)));
+            info.setReligion(cursor.getString(cursor.getColumnIndex(schema.STU_RELIGION)));
+            info.setType(cursor.getString(cursor.getColumnIndex(schema.STU_TYPE)));
+            info.setCast(cursor.getString(cursor.getColumnIndex(schema.STU_CAST)));
+            info.setSchoolId(cursor.getInt(cursor.getColumnIndex(schema.STU_SCHOOL_ID)));
+            info.setfName(cursor.getString(cursor.getColumnIndex(schema.STU_FATHER_NAME)));
+            info.setfIncome(cursor.getDouble(cursor.getColumnIndex(schema.STU_FATHER_INCOME)));
+            info.setfOccupation(cursor.getString(cursor.getColumnIndex(schema.STU_FATHER_OCCU)));
+            info.setPerAddress(cursor.getString(cursor.getColumnIndex(schema.STU_PER_ADDRESS)));
+            info.setParentMobile(cursor.getString(cursor.getColumnIndex(schema.STU_PARENT_MOBILE)));
+            info.setmName(cursor.getString(cursor.getColumnIndex(schema.STU_MOTHER_NAME)));
+            info.setGuardianName(cursor.getString(cursor.getColumnIndex(schema.STU_GUARDIAN_NAME)));
+            info.setGuardianMobile(cursor.getString(cursor.getColumnIndex(schema.STU_GUARDIAN_MOBILE)));
+            info.setGuardianPhone(cursor.getString(cursor.getColumnIndex(schema.STU_GUARDIAN_PHONE)));
+            info.setGuardianEmail(cursor.getString(cursor.getColumnIndex(schema.STU_GUARDIAN_EMAIL)));
+            info.setRemark(cursor.getString(cursor.getColumnIndex(schema.STU_REMARK)));
+            info.setCorrAddress(cursor.getString(cursor.getColumnIndex(schema.STU_CORR_ADDRESS)));
+        }
+        if(!cursor.isClosed()){
+            cursor.close();
+        }
+        return info;
+    }
+/* ----------------- STUDENT INFO END--------------------- */
 
 }

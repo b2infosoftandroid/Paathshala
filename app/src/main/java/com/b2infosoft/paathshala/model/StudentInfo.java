@@ -8,6 +8,7 @@ public class StudentInfo {
     private String registerNo; // not here
     private String formNo; // not here
     private String studentPhoto;
+    private String password;
     private int id;
     private int sId;
     private int srNo;
@@ -63,6 +64,14 @@ public class StudentInfo {
 
     public void setAdminDate(String adminDate) {
         this.adminDate = adminDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getSrNo() {
