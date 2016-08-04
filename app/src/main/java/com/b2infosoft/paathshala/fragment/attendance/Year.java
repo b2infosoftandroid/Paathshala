@@ -202,7 +202,7 @@ public class Year extends Fragment {
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.YEAR_YEAR, search);
-        showProgress();
+        //showProgress();
         String url = urls.getUrl(urls.getPath(tags.YEAR_ATTENDANCE), map);
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

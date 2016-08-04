@@ -614,7 +614,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public MonthInfo getMonthAttendance(String month ,String year) {
         MonthInfo info = null;
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MONTH_ATTENDANCE+ " WHERE " + schema.YEAR + " = " + year + " AND "+ schema.MONTH+" ='"+month+"';", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MONTH_ATTENDANCE+ " WHERE " + schema.MONTH_ATTENDANCE+"."+schema.YEAR + " = " + year + " AND "+ schema.MONTH+" ='"+month+"';", null);
         while (cursor.moveToNext()) {
             info= new MonthInfo();
             info.setMonth(cursor.getInt(cursor.getColumnIndex(schema.MONTH)));
