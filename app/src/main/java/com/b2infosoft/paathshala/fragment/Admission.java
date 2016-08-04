@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -23,6 +25,7 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.fragment.dashboard.Guardian;
 import com.b2infosoft.paathshala.fragment.dashboard.Parent;
 import com.b2infosoft.paathshala.fragment.dashboard.Student;
@@ -49,6 +52,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
     Fonts fonts = Fonts.getInstance();
     Active active;
     Tags tags;
+    DBHelper dbHelper;
     private final static String TAG = Admission.class.getName();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -62,6 +66,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
     private TabPageAdapter tabPageAdapter;
     private String[] tabs = {"STUDENT", "PARENTS", "GUARDIANS"};
     private List<Fragment> fragmentList;
+    private ProgressDialog progress;
 
 
     private OnDashboardListener mListener;
@@ -103,6 +108,8 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
                              Bundle savedInstanceState) {
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
+        dbHelper = new DBHelper(getActivity());
+
         final View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         fragmentList = new ArrayList<>();
         fragmentList.add(new Student());
@@ -133,7 +140,12 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         viewPager.setCurrentItem(0);
         tabHost.setCurrentTab(0);
         setSelectedTabColor();
-        fetchStudentInfo();
+        StudentInfo info = dbHelper.getStudentInfo();
+        if(info==null) {
+            fetchStudentInfo();
+        }else{
+            Toast.makeText(getContext(),"UPDATE",Toast.LENGTH_SHORT).show();
+        }
         return view;
     }
 
@@ -194,13 +206,13 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
     public interface OnDashboardListener {
         void onDashboardInteraction(Uri uri);
     }
-
     private void fetchStudentInfo() {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        showProgress();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.STUDENT_INFO), map), null, new Response.Listener<JSONObject>() {
                     @Override
@@ -258,7 +270,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
                                         info.setPerAddress(object.getString(tags.S_INFO_FATHER_NAME));
                                     }
                                     if (object.has(tags.S_INFO_FATHER_INCOME)) {
-                                        info.setfIncome(Double.parseDouble(object.getString(tags.S_INFO_FATHER_INCOME)));
+                                        info.setfIncome(object.getDouble(tags.S_INFO_FATHER_INCOME));
                                     }
                                     if (object.has(tags.S_INFO_PERMANENT_ADD)) {
                                         info.setPerAddress(object.getString(tags.S_INFO_PERMANENT_ADD));
@@ -332,9 +344,13 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
                                     if (object.has(tags.S_INFO_URL)) {
                                         info.setUrl(object.getString(tags.S_INFO_URL));
                                     }
+                                    dbHelper.deleteStudentInfo();
+                                    dbHelper.setStudentInfo(info);
                                 }
-                            } catch (Exception e) {
 
+                                dismissProgress();
+                            } catch (Exception e) {
+                                dismissProgress();
                             }
                         }
                     }
@@ -348,5 +364,17 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
+    private void showProgress() {
+        progress = new ProgressDialog(getActivity());
+        progress.setMessage("Please Wait...");
+        progress.setIndeterminate(true);
+        progress.setCancelable(false);
+        progress.show();
+    }
 
+    private void dismissProgress() {
+        if (progress != null) {
+            progress.dismiss();
+        }
+    }
 }

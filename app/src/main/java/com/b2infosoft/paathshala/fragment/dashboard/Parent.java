@@ -19,6 +19,7 @@ import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -37,14 +38,14 @@ import java.util.HashMap;
  */
 public class Parent extends Fragment {
 
-    private static String TAG=Parent.class.getName();
+    private static String TAG = Parent.class.getName();
 
     EditText f_name, m_name, f_occupation, f_income, mobile, address;
     Fonts fonts = Fonts.getInstance();
-    Tags tags= Tags.getInstance();
-    Urls urls=Urls.getInstance();
+    Tags tags = Tags.getInstance();
+    Urls urls = Urls.getInstance();
     Active active;
-
+    DBHelper dbHelper;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,6 +92,7 @@ public class Parent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
+        dbHelper = new DBHelper(getActivity());
         View view = inflater.inflate(R.layout.fragment_parent, container, false);
         f_name = (EditText) view.findViewById(R.id.parent_father_name);
         m_name = (EditText) view.findViewById(R.id.parent_mother_name);
@@ -98,55 +100,60 @@ public class Parent extends Fragment {
         f_income = (EditText) view.findViewById(R.id.parent_father_income);
         mobile = (EditText) view.findViewById(R.id.parent_mobile);
         address = (EditText) view.findViewById(R.id.parent_address);
-       // setFonts();
-        fetchParentInfo();
+        // setFonts();
+        StudentInfo info = dbHelper.getStudentInfo();
+        if (info == null) {
+            fetchParentInfo();
+        } else {
+            updateInfo(info);
+        }
         return view;
     }
 
-    private void fetchParentInfo(){
-        HashMap<String,String> map=new HashMap<>();
-        map.put(tags.S_ID,active.getValue(tags.S_ID));
-        map.put(tags.SESSION_ID,active.getValue(tags.SESSION_ID));
-        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-                (Request.Method.GET,urls.getUrl(urls.getPath(tags.STUDENT_INFO),map), null, new Response.Listener<JSONObject>() {
+    private void fetchParentInfo() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.S_ID, active.getValue(tags.S_ID));
+        map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.STUDENT_INFO), map), null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(response!=null){
+                        if (response != null) {
                             try {
                                 if (response.has(tags.ARR_STUDENT_INFO)) {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
-                                    for(int i=0;i<jsonArray.length();i++) {
+                                    for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         StudentInfo info = new StudentInfo();
-                                        if(object.has(tags.S_INFO_FATHER_NAME)){
+                                        if (object.has(tags.S_INFO_FATHER_NAME)) {
                                             info.setfName(object.getString(tags.S_INFO_FATHER_NAME));
                                         }
-                                        if(object.has(tags.S_INFO_MOTHER_NAME)){
+                                        if (object.has(tags.S_INFO_MOTHER_NAME)) {
                                             info.setmName(object.getString(tags.S_INFO_MOTHER_NAME));
                                         }
-                                        if(object.has(tags.S_INFO_PERMANENT_ADD)){
+                                        if (object.has(tags.S_INFO_PERMANENT_ADD)) {
                                             info.setPerAddress(object.getString(tags.S_INFO_PERMANENT_ADD));
                                         }
-                                        if(object.has(tags.S_INFO_PARENT_MOBILE)){
+                                        if (object.has(tags.S_INFO_PARENT_MOBILE)) {
                                             info.setParentMobile(object.getString(tags.S_INFO_PARENT_MOBILE));
                                         }
-                                        if(object.has(tags.S_INFO_OCCUPATION)){
+                                        if (object.has(tags.S_INFO_OCCUPATION)) {
                                             info.setfOccupation(object.getString(tags.S_INFO_OCCUPATION));
                                         }
-                                        if(object.has(tags.S_INFO_FATHER_INCOME)){
+                                        if (object.has(tags.S_INFO_FATHER_INCOME)) {
                                             info.setfIncome(object.getDouble(tags.S_INFO_FATHER_INCOME));
                                         }
                                         updateInfo(info);
                                     }
                                 }
-                            }catch (Exception e){
+                            } catch (Exception e) {
 
                             }
                         }
                     }
-                },new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -195,6 +202,7 @@ public class Parent extends Fragment {
         // TODO: Update argument type and name
         void onParentInteraction(Uri uri);
     }
+
     private void setFonts() {
         f_name.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         m_name.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
@@ -204,10 +212,10 @@ public class Parent extends Fragment {
         address.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
     }
 
-    private void updateInfo(StudentInfo info){
+    private void updateInfo(StudentInfo info) {
         f_name.setText(info.getfName());
         m_name.setText(info.getmName());
-        f_income.setText(info.getfIncome()+"");
+        f_income.setText(info.getfIncome() + "");
         f_occupation.setText(info.getfOccupation());
         mobile.setText(info.getParentMobile());
         address.setText(info.getPerAddress());
