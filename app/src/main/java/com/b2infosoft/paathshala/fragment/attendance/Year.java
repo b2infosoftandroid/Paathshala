@@ -61,16 +61,18 @@ public class Year extends Fragment {
         updateList();
         return mView;
     }
-    private void updateList(){
-        String [] session =active.getValue(tags.SESSION).split("-");
-        List<YearInfo> yearInfos =dbHelper.getYearAttendance();
-        if(yearInfos.size()==0){
+
+    private void updateList() {
+        String[] session = active.getValue(tags.SESSION).split("-");
+        List<YearInfo> yearInfos = dbHelper.getYearAttendance();
+        if (yearInfos.size() == 0) {
             searchYearAttendance(session[0]);
             searchYearAttendance(session[1]);
-        }else{
+        } else {
             setResult(yearInfos);
         }
     }
+
     private void init() {
         tableLayout = (TableLayout) mView.findViewById(R.id.table_layout_mark_sheet);
         if (tableLayout.getChildCount() > 0) {
@@ -119,7 +121,7 @@ public class Year extends Fragment {
         halfDay.setText("HALF DAY");
         halfDay.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         halfDay.setTextColor(getResources().getColor(R.color.app_background));
-        halfDay.setPadding(30,25, 30, 25);
+        halfDay.setPadding(30, 25, 30, 25);
         tr_head.addView(halfDay);
 
         total = new TextView(getActivity());
@@ -203,7 +205,7 @@ public class Year extends Fragment {
         showProgress();
         String url = urls.getUrl(urls.getPath(tags.YEAR_ATTENDANCE), map);
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 //                        Log.d(TAG, response.toString());
@@ -282,7 +284,8 @@ public class Year extends Fragment {
         progress.setMessage("Please Wait...");
         progress.setIndeterminate(true);
         progress.setCancelable(false);
-        progress.show();
+        if (!progress.isShowing())
+            progress.show();
     }
 
     private void dismissProgress() {

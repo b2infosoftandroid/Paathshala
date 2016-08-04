@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.b2infosoft.paathshala.fragment.Holiday;
-import com.b2infosoft.paathshala.fragment.TimeTable;
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
 import com.b2infosoft.paathshala.model.HolidayInfo;
@@ -56,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + schema.THIRTEEN + " text," + schema.FOURTEEN + " text," + schema.FIFTEEN + " text," + schema.SIXTEEN + " text," + schema.SEVENTEEN + " text," + schema.EIGHTEEN + " text," + schema.NINTEEN + " text," + schema.TWENTY + " text," + schema.T_ONE + " text," + schema.T_TWO + " text," + schema.T_THREE + " text," + schema.T_FOUR + " text,"
                 + schema.T_FIVE + " text," + schema.T_SIX + " text," + schema.T_SEVEN + " text," + schema.T_EIGHT + " text," + schema.T_NINE + " text," + schema.THIRTY + " text," + schema.THIRTY_ONE + " text," + schema.MONTH_ABSENT + " int," + schema.MONTH_PRESENT + " int," + schema.MONTH_HALF_DAY + " int," + schema.MONTH_LEAVE + " int)";
 
-        String T7 = "CREATE TABLE " + schema.YEAR_ATTENDANCE + "(" + schema.YEAR_SID + " int," + schema.ATTENDANCE_MONTH + " text," + schema.YEAR_TOTAL + " int," + schema.YEAR_ABSENT + " int," + schema.YEAR_HALF_DAY + " int," + schema.YEAR_LEAVE + " int," + schema.YEAR + " int)";
+        String T7 = "CREATE TABLE " + schema.YEAR_ATTENDANCE + "(" + schema.YEAR_SID + " int," + schema.ATTENDANCE_MONTH + " text," + schema.YEAR_TOTAL + " int,"+ schema.YEAR_PRESENT + " int," + schema.YEAR_ABSENT + " int," + schema.YEAR_HALF_DAY + " int," + schema.YEAR_LEAVE + " int," + schema.YEAR + " int)";
 
         String T8 = "CREATE TABLE " + schema.EXAM_LIST + "(" + schema.EXAM_NAME + " text)";
 
@@ -537,6 +535,7 @@ public class DBHelper extends SQLiteOpenHelper {
             values.put(schema.YEAR_SID, info.getId());
             values.put(schema.ATTENDANCE_MONTH, info.getMonth());
             values.put(schema.YEAR_TOTAL, info.getTotal());
+            values.put(schema.YEAR_PRESENT,info.getPresent());
             values.put(schema.YEAR_ABSENT, info.getAbsent());
             values.put(schema.YEAR_HALF_DAY, info.getHalfDay());
             values.put(schema.YEAR_LEAVE, info.getLeave());
@@ -554,6 +553,7 @@ public class DBHelper extends SQLiteOpenHelper {
             info.setId(cursor.getInt(cursor.getColumnIndex(schema.YEAR_SID)));
             info.setMonth(cursor.getString(cursor.getColumnIndex(schema.ATTENDANCE_MONTH)));
             info.setTotal(cursor.getInt(cursor.getColumnIndex(schema.YEAR_TOTAL)));
+            info.setPresent(cursor.getInt(cursor.getColumnIndex(schema.YEAR_PRESENT)));
             info.setAbsent(cursor.getInt(cursor.getColumnIndex(schema.YEAR_ABSENT)));
             info.setHalfDay(cursor.getInt(cursor.getColumnIndex(schema.YEAR_HALF_DAY)));
             info.setLeave(cursor.getInt(cursor.getColumnIndex(schema.YEAR_LEAVE)));
@@ -614,7 +614,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public MonthInfo getMonthAttendance(String month ,String year) {
         MonthInfo info = null;
         SQLiteDatabase database = this.getReadableDatabase();
-        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MONTH_ATTENDANCE+ " WHERE " + schema.YEAR + " = '" + year + "' AND "+ schema.MONTH+" ='"+month+"';", null);
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.MONTH_ATTENDANCE+ " WHERE " + schema.YEAR + " = " + year + " AND "+ schema.MONTH+" ='"+month+"';", null);
         while (cursor.moveToNext()) {
             info= new MonthInfo();
             info.setMonth(cursor.getInt(cursor.getColumnIndex(schema.MONTH)));
@@ -659,7 +659,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     public void deleteMonthAttendance(String month ,String year) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + schema.MONTH_ATTENDANCE + " WHERE " + schema.YEAR + " = '" + year + "' AND"+ schema.MONTH+" ='"+month+"';");
+        db.execSQL("DELETE FROM " + schema.MONTH_ATTENDANCE + " WHERE " + schema.YEAR + " = " + year + " AND "+ schema.MONTH+" ='"+month+"';");
     }
 /* ----------------- ATTENDANCE PART END--------------------- */
 
