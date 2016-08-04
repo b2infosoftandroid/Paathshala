@@ -6,6 +6,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,14 +90,39 @@ public class Dashboard extends Fragment {
         setLayoutParams(linearLayoutEnquiry);
         setLayoutParams(linearLayoutResult);
 
+        linearLayoutClassmates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               replaceFragment(new Attendance());
+            }
+        });
+        linearLayoutAttendance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new Holiday());
+            }
+        });
+        linearLayoutEnquiry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new TimeTable());
+            }
+        });
+        linearLayoutResult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new Complaint());
+            }
+        });
+
         ImageView classmate = (ImageView)view.findViewById(R.id.dashboard_classmates);
         ImageView attendance = (ImageView)view.findViewById(R.id.dashboard_attendance);
         ImageView holidays = (ImageView)view.findViewById(R.id.dashboard_holidays);
         ImageView fees = (ImageView)view.findViewById(R.id.dashboard_fees);
-        classmate.setImageDrawable(getDrawable("20"));
-        attendance.setImageDrawable(getDrawable("70%"));
-        holidays.setImageDrawable(getDrawable("10"));
-        fees.setImageDrawable(getDrawable("100"));
+       // classmate.setImageDrawable(getDrawable("20"));
+       // attendance.setImageDrawable(getDrawable("70%"));
+       // holidays.setImageDrawable(getDrawable("10"));
+       // fees.setImageDrawable(getDrawable("100"));
         return view;
     }
     private void setLayoutParams(LinearLayout layout){
@@ -154,5 +183,15 @@ public class Dashboard extends Fragment {
     public interface OnAdmissionListener {
         // TODO: Update argument type and name
         void onAdmissionInteraction(Uri uri);
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(R.id.main_content, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 }

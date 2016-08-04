@@ -11,6 +11,7 @@
     <color name="image_shadow">#e6e5e5</color>
 
     <color name="edit_text_foreground">#8d8d8d</color>
+    <color name="edit_text_text_color">#838282</color>
     <color name="edit_text_hint_foreground">#bcbcbc</color>
     <color name="edit_text_background">#8c8c8c</color>
     <color name="button_foreground">#fff</color>
@@ -32,6 +33,7 @@
     <color name="attendance_absent">#fe5f34</color>
     <color name="attendance_leave">#3494fe</color>
     <color name="attendance_half_day">#ffe71e</color>
+    <color name="attendance_border">#f6de17</color>
     <color name="attendance_top">#f4f2f2</color>
 
     <color name="layout_top">#4ba0fe</color>

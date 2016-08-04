@@ -5,6 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
 
+    <!--          DASHBOARD          -->
+    <string name="dashboard_attandence">ATTANDENCE</string>
+    <string name="dashboard_holiday">HOLIDAY</string>
+    <string name="dashboard_time_table">TIME TABLE</string>
+    <string name="dashboard_complaint">COMPLAINT</string>
+
     <!-- Login form strings -->
     <string name="login_username">USERNAME</string>
     <string name="login_password">PASSWORD</string>

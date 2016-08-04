@@ -28,7 +28,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CLASSMATES"
+                    android:text="@string/dashboard_attandence"
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/button_foreground"
@@ -38,7 +38,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/user"
+                    android:src="@drawable/ic_attendance"
                     />
             </LinearLayout>
             <LinearLayout
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ATTENDANCE"
+                    android:text="@string/dashboard_holiday"
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/button_foreground"
@@ -74,7 +74,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/user"
+                    android:src="@drawable/ic_holidays"
                     />
             </LinearLayout>
             <LinearLayout
@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CLASSMATES"
+                    android:text="@string/dashboard_time_table"
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/button_foreground"
@@ -116,7 +116,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/user"
+                    android:src="@drawable/ic_timetable"
                     />
             </LinearLayout>
             <LinearLayout
@@ -142,7 +142,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ATTENDANCE"
+                    android:text="@string/dashboard_complaint"
                     android:textAllCaps="true"
                     android:textStyle="bold"
                     android:textColor="@color/button_foreground"
@@ -152,7 +152,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/user"
+                    android:src="@drawable/ic_complaint"
                     />
             </LinearLayout>
             <LinearLayout

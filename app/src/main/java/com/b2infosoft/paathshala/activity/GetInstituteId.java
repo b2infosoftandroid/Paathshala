@@ -114,7 +114,7 @@ public class GetInstituteId extends AppCompatActivity {
     }
 
     private void showProgress() {
-        progress = new ProgressDialog(getApplicationContext());
+        progress = new ProgressDialog(this);
         progress.setMessage("Please Wait...");
         progress.setIndeterminate(true);
         progress.setCancelable(false);
