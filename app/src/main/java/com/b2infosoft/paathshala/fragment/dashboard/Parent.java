@@ -126,8 +126,8 @@ public class Parent extends Fragment {
                                         if(object.has(tags.S_INFO_MOTHER_NAME)){
                                             info.setmName(object.getString(tags.S_INFO_MOTHER_NAME));
                                         }
-                                        if(object.has(tags.S_INFO_PARMANENT_ADD)){
-                                            info.setPerAddress(object.getString(tags.S_INFO_PARMANENT_ADD));
+                                        if(object.has(tags.S_INFO_PERMANENT_ADD)){
+                                            info.setPerAddress(object.getString(tags.S_INFO_PERMANENT_ADD));
                                         }
                                         if(object.has(tags.S_INFO_PARENT_MOBILE)){
                                             info.setParentMobile(object.getString(tags.S_INFO_PARENT_MOBILE));

@@ -181,7 +181,7 @@ public class Student extends Fragment {
                                             info.setFaculty(object.getString(tags.S_INFO_FACULTY));
                                         }
                                         if(object.has(tags.S_INFO_ORI_ADMIN_DATE)){
-                                            info.setOriDate(object.getString(tags.S_INFO_ORI_ADMIN_DATE));
+                                            info.setOriAdminDate(object.getString(tags.S_INFO_ORI_ADMIN_DATE));
                                         }
                                         if(object.has(tags.S_INFO_ADMIN_DATE)){
                                             info.setAdminDate(object.getString(tags.S_INFO_ADMIN_DATE));
@@ -211,7 +211,7 @@ public class Student extends Fragment {
                                             info.setSrNo(object.getString(tags.S_INFO_SR_NO));
                                         }
                                         if(object.has(tags.S_INFO_ADMIN_TYPE)){
-                                            info.setAdmin_type(object.getString(tags.S_INFO_ADMIN_TYPE));
+                                            info.setAdminType(object.getString(tags.S_INFO_ADMIN_TYPE));
                                         }
                                         updateInfo(info);
                                     }
@@ -299,7 +299,7 @@ public class Student extends Fragment {
     private void updateInfo(StudentInfo info){
       student_name.setText(info.getName());
         sr_no.setText(info.getSrNo());
-        ori_date.setText(info.getOriDate());
+        ori_date.setText(info.getOriAdminDate());
         admin_date.setText(info.getAdminDate());
         register_no.setText(info.getRegisterNo());
         house.setText(info.getHouse());
@@ -315,7 +315,7 @@ public class Student extends Fragment {
         gender.setText(info.getGender());
         mode.setText(info.getMode());
         faculty.setText(info.getFaculty());
-        admission_type.setText(info.getAdmin_type());
+        admission_type.setText(info.getAdminType());
         nationality.setText(info.getNationality());
         bpl.setText(info.getBpl());
         email.setText(info.getEmail());

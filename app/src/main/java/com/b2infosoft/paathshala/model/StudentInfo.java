@@ -5,48 +5,56 @@ package com.b2infosoft.paathshala.model;
  */
 
 public class StudentInfo {
-    private String name;
-    private String registerNo;
-    private String formNo;
-    private String oriDate;
+    private String registerNo; // not here
+    private String formNo; // not here
+    private String studentPhoto;
+    private int id;
+    private int sId;
+    private int srNo;
     private String adminDate;
-    private String house;
-    private String bpl;
-    private String handicap;
-    private String nationality;
-    private String cast;
     private String dob;
-    private String stu_class;
-    private String section;
-    private String category;
-    private String religion;
-    private String gender;
-    private String mode;
+    private String name;
     private String mobile;
-    private String faculty;
-    private String type;
+    private String gender;
     private String email;
-    private String admin_type;
+    private String stu_class;
+    private String faculty;
+    private String section;
     private String fName;
-    private String mName;
-    private String fOccupation;
-    private String fIncome;
-    private String parentMobile;
+    private double fIncome;
     private String perAddress;
+    private String parentMobile;
     private String guardianName;
+    private String corrAddress;
+    private String mName;
     private String guardianEmail;
     private String guardianPhone;
     private String guardianMobile;
     private String remark;
-    private String corrAddress;
-    private String srNo;
+    private String stuImage;
+    private int sessionId;
+    private int schoolId;
+    private String house;
+    private String adminType;
+    private String category;
+    private String fOccupation;
+    private String sessionYear;
+    private String oriAdminDate;
+    private String nationality;
+    private String religion;
+    private String handicap;
+    private String type;
+    private String bpl;
+    private String cast;
+    private String url;
+    private String mode;
 
-    public String getOriDate() {
-        return oriDate;
+    public String getOriAdminDate() {
+        return oriAdminDate;
     }
 
-    public void setOriDate(String oriDate) {
-        this.oriDate = oriDate;
+    public void setOriAdminDate(String oriAdminDate) {
+        this.oriAdminDate = oriAdminDate;
     }
 
     public String getAdminDate() {
@@ -57,11 +65,11 @@ public class StudentInfo {
         this.adminDate = adminDate;
     }
 
-    public String getSrNo() {
+    public int getSrNo() {
         return srNo;
     }
 
-    public void setSrNo(String srNo) {
+    public void setSrNo(int srNo) {
         this.srNo = srNo;
     }
 
@@ -217,12 +225,12 @@ public class StudentInfo {
         this.email = email;
     }
 
-    public String getAdmin_type() {
-        return admin_type;
+    public String getAdminType() {
+        return adminType;
     }
 
-    public void setAdmin_type(String admin_type) {
-        this.admin_type = admin_type;
+    public void setAdminType(String adminType) {
+        this.adminType = adminType;
     }
 
     public String getfName() {
@@ -249,11 +257,11 @@ public class StudentInfo {
         this.fOccupation = fOccupation;
     }
 
-    public String getfIncome() {
+    public double getfIncome() {
         return fIncome;
     }
 
-    public void setfIncome(String fIncome) {
+    public void setfIncome(double fIncome) {
         this.fIncome = fIncome;
     }
 
@@ -319,5 +327,69 @@ public class StudentInfo {
 
     public void setCorrAddress(String corrAddress) {
         this.corrAddress = corrAddress;
+    }
+
+    public String getStudentPhoto() {
+        return studentPhoto;
+    }
+
+    public void setStudentPhoto(String studentPhoto) {
+        this.studentPhoto = studentPhoto;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getsId() {
+        return sId;
+    }
+
+    public void setsId(int sId) {
+        this.sId = sId;
+    }
+
+    public String getStuImage() {
+        return stuImage;
+    }
+
+    public void setStuImage(String stuImage) {
+        this.stuImage = stuImage;
+    }
+
+    public int getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(int sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public String getSessionYear() {
+        return sessionYear;
+    }
+
+    public void setSessionYear(String sessionYear) {
+        this.sessionYear = sessionYear;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

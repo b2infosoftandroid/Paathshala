@@ -77,7 +77,12 @@ public class Tags {
     public final String TIME_TABLE_EXAM_NAME = "ExamName";
 
     ////////   STUDENT INFO  ///////////////////
+    public final String S_SESSION_ID = "sessionid";
+    public final String S_SCHOOL_ID = "SchoolId";
+    public final String S_SESSION_YEAR = "SessionYear";
+    public final String S_STU_PHOTO ="StudentPhoto";
     public final String S_INFO_IMAGE = "StuImage";
+    public final String S_INFO_URL = "Url";
     public final String S_INFO_ID = "Id";
     public final String S_INFO_SID = "SID";
     public final String S_INFO_S_PASSWORD = "SPassword";
@@ -105,7 +110,7 @@ public class Tags {
 
     public final String S_INFO_FATHER_NAME = "FatherName";
     public final String S_INFO_FATHER_INCOME = "FatherIncome";
-    public final String S_INFO_PARMANENT_ADD = "ParmanentAdd";
+    public final String S_INFO_PERMANENT_ADD = "ParmanentAdd";
     public final String S_INFO_PARENT_MOBILE = "parentmobile";
     public final String S_INFO_MOTHER_NAME = "mothername";
     public final String S_INFO_OCCUPATION = "Occupation";
