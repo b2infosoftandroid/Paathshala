@@ -179,6 +179,7 @@ public class Schema {
 
 
     //////////////////   YEAR ATTENDANCE  TABLE  ////////////////
+    public final String YEAR = "year";
     public final String YEAR_SID="id";
     public final String ATTENDANCE_MONTH="month";
     public final String YEAR_TOTAL="total";
