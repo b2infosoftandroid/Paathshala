@@ -183,6 +183,7 @@ public class Schema {
     public final String YEAR = "year";
     public final String YEAR_SID="id";
     public final String ATTENDANCE_MONTH="month";
+    public final String YEAR_PRESENT="present";
     public final String YEAR_TOTAL="total";
     public final String YEAR_ABSENT="absent";
     public final String YEAR_HALF_DAY="half_day";

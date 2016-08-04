@@ -28,6 +28,7 @@ import com.b2infosoft.paathshala.app.Config;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.MonthInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -44,7 +45,7 @@ public class Month extends Fragment implements View.OnClickListener {
     private static final String TAG = Month.class.getName();
     Active active;
     Tags tags;
-
+    private DBHelper dbHelper;
     View view;
     private GridView grid;
     private ProgressDialog progress;
@@ -78,6 +79,7 @@ public class Month extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         tags = Tags.getInstance();
+        dbHelper = new DBHelper(getActivity());
         SESSION = active.getValue(tags.SESSION).split("-");
         view = inflater.inflate(R.layout.fragment_month, container, false);
         grid = (GridView) view.findViewById(R.id.gridView);
@@ -92,6 +94,7 @@ public class Month extends Fragment implements View.OnClickListener {
         events.add(new Date());
         updateCalendar(events);
 */
+
         month_pre = (ImageButton) view.findViewById(R.id.month_left);
         month_next = (ImageButton) view.findViewById(R.id.month_right);
         month_pre.setOnClickListener(this);
@@ -123,12 +126,23 @@ public class Month extends Fragment implements View.OnClickListener {
             month.setText(MONTH_NAME[mon] + " ".concat(SESSION[1]));
             calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[1]));
             //updateCalendar(null, calendar);
-            searchYearAttendance(SESSION[1], mon + "");
+            MonthInfo info = dbHelper.getMonthAttendance(mon+"",SESSION[1]);
+            if(info==null){
+                searchYearAttendance(SESSION[1], mon + "");
+            }else{
+                updateCalendar(info);
+            }
+
         } else {
             month.setText(MONTH_NAME[mon] + " ".concat(SESSION[0]));
             calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[0]));
             //updateCalendar(null, calendar);
-            searchYearAttendance(SESSION[0], mon + "");
+            MonthInfo info = dbHelper.getMonthAttendance(mon+"",SESSION[0]);
+            if(info==null){
+                searchYearAttendance(SESSION[0], mon + "");
+            }else{
+                updateCalendar(info);
+            }
         }
     }
 
@@ -151,7 +165,11 @@ public class Month extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void updateCalendar(MonthInfo info, Calendar calendar) {
+    public void updateCalendar(MonthInfo info) {
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MONTH, info.getMonth());
+        calendar.set(Calendar.YEAR,info.getYear());
+
         ArrayList<Date> cells = new ArrayList<>();
         // determine the cell for current month's beginning
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -168,6 +186,10 @@ public class Month extends Fragment implements View.OnClickListener {
         // update grid
         //grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
         grid.setAdapter(new AttendanceCalenderAdapter(getContext(), R.layout.calender, cells, info, mMonth));
+        present.setText(String.valueOf(info.getPresent()));
+        absent.setText(String.valueOf(info.getAbsent()));
+        leave.setText(String.valueOf(info.getLeave()));
+        half_day.setText(String.valueOf(info.getHalfDay()));
     }
 
     /*
@@ -191,6 +213,7 @@ public class Month extends Fragment implements View.OnClickListener {
     }
 */
 
+
     private void searchYearAttendance(final String year, final String month_1) {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
@@ -199,10 +222,7 @@ public class Month extends Fragment implements View.OnClickListener {
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.YEAR_YEAR, year);
         map.put(tags.YEAR_MONTH, month_1);
-        final MonthInfo month = new MonthInfo();
-        final Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MONTH, Integer.parseInt(month_1));
-        calendar.set(Calendar.YEAR, Integer.parseInt(year));
+
         showProgress();
         String url = urls.getUrl(urls.getPath(tags.MONTH_ATTENDANCE), map);
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
@@ -210,6 +230,9 @@ public class Month extends Fragment implements View.OnClickListener {
                     @Override
                     public void onResponse(JSONObject response) {
                         //Log.d(TAG, response.toString());
+                        MonthInfo month = new MonthInfo();
+                        month.setMonth(Integer.parseInt(month_1));
+                        month.setYear(Integer.parseInt(year));
                         try {
                             if (response.has(tags.ARR_TOTAL_MONTH_ATTENDANCE)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_TOTAL_MONTH_ATTENDANCE);
@@ -320,23 +343,20 @@ public class Month extends Fragment implements View.OnClickListener {
                                     month.setLeave(object.getInt(tags.MONTH_LEAVE));
                                 }
                             }
-                            month.setMonth(Integer.parseInt(month_1));
-                            month.setYear(Integer.parseInt(year));
-                            present.setText(String.valueOf(month.getPresent()));
-                            absent.setText(String.valueOf(month.getAbsent()));
-                            leave.setText(String.valueOf(month.getLeave()));
-                            half_day.setText(String.valueOf(month.getHalfDay()));
                             dismissProgress();
                         } catch (Exception e) {
                             dismissProgress();
                         }
-                        updateCalendar(month, calendar);
+                        dismissProgress();
+                        updateCalendar(month);
+                        dbHelper.deleteMonthAttendance(month.getMonth() + "", month.getYear() + "");
+                        dbHelper.setMonthAttendance(month);
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        updateCalendar(month, calendar);
                         Log.d(TAG, error.toString());
+                        dismissProgress();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
