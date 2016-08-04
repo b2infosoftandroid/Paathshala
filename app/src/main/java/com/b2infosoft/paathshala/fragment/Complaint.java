@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.fragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
@@ -24,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.ComplaintListAdapter;
+import com.b2infosoft.paathshala.adapter.ComplaintRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -33,6 +36,7 @@ import com.b2infosoft.paathshala.volly.MySingleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,11 +55,10 @@ public class Complaint extends Fragment {
     Tags tags= Tags.getInstance();
     Urls urls= Urls.getInstance();
     Active active;
-    EditText title,body;
     FloatingActionButton new_complaint;
-    ListView lv;
+    RecyclerView rv;
     List<ComplaintInfo> complaintInfoList;
-    private ComplaintListAdapter adapter;
+    private static ComplaintRecyclerViewAdapter adapter;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -105,8 +108,14 @@ public class Complaint extends Fragment {
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
         active = Active.getInstance(getContext());
 
-        lv = (ListView)view.findViewById(R.id.complaint_list_view);
+        rv = (RecyclerView) view.findViewById(R.id.complaint_recycler_view);
         new_complaint = (FloatingActionButton) view.findViewById(R.id.new_complaint_btn);
+        new_complaint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Dialog dialog = new Dialog(getContext());
+            }
+        });
         fetchComplaintList();
 
         return  view;
@@ -116,11 +125,14 @@ public class Complaint extends Fragment {
        HashMap<String,String> map=new HashMap<>();
        map.put(tags.S_ID,active.getValue(tags.S_ID));
        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
+       String url = urls.getUrl(urls.getPath(tags.COMPLAINT_LIST),map);
+       //Log.d(TAG,url);
        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-               (Request.Method.GET,urls.getUrl(urls.getPath(tags.COMPLAINT_LIST),map), null, new Response.Listener<JSONObject>() {
+               (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
 
                    @Override
                    public void onResponse(JSONObject response) {
+                       complaintInfoList = new ArrayList<>();
                        if(response!=null){
                            try {
                                //Log.d(TAG,response+"");
@@ -139,10 +151,9 @@ public class Complaint extends Fragment {
                                            info.setCdate(object.getString(tags.COMP_HISTORY_DATE));
                                        }
                                        complaintInfoList.add(info);
-                                      adapter = new ComplaintListAdapter(getContext(),complaintInfoList);
-                                       lv.setAdapter(adapter);
                                    }
-
+                                   adapter = new ComplaintRecyclerViewAdapter(complaintInfoList);
+                                   rv.setAdapter(adapter);
                                }
                            }catch (Exception e){
                                Log.e(TAG,e.getMessage());

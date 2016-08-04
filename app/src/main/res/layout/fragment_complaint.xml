@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="@dimen/activity_horizontal_padding"
     android:paddingBottom="@dimen/activity_horizontal_padding"
     android:paddingLeft="@dimen/activity_vertical_padding"
@@ -12,12 +12,13 @@
     android:background="@color/app_background"
     tools:context=".activity.MainActivity">
 
-   <ListView
-       android:id="@+id/complaint_list_view"
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/complaint_recycler_view"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+       android:layout_height="wrap_content"
+       app:layoutManager="LinearLayoutManager">
 
-   </ListView>
+   </android.support.v7.widget.RecyclerView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_complaint_btn"
         android:layout_width="wrap_content"

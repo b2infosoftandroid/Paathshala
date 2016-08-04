@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class ComplaintListAdapter extends BaseAdapter {
     private Context context;
-    private List<ComplaintInfo> complaintInfoList;
-    TextView msg,sub,c_date;
+    List<ComplaintInfo> complaintInfoList;
+    TextView msg, sub, c_date;
 
     public ComplaintListAdapter(Context context, List<ComplaintInfo> complaintInfoList) {
         this.context = context;
@@ -44,16 +44,19 @@ public class ComplaintListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if(convertView == null){
-            view = inflater.inflate(R.layout.fragment_complaint_items,null);
-            ComplaintInfo info = new ComplaintInfo();
-            sub = (TextView)view.findViewById(R.id.subject_comp);
+        if (convertView == null) {
+
+            view = inflater.inflate(R.layout.fragment_complaint_items, null);
+            ComplaintInfo info = complaintInfoList.get(position);
+            sub = (TextView) view.findViewById(R.id.subject_comp);
             sub.setText(info.getSubject());
-            msg = (TextView)view.findViewById(R.id.body_comp);
+            msg = (TextView) view.findViewById(R.id.body_comp);
             msg.setText(info.getDetail());
-            c_date = (TextView)view.findViewById(R.id.date_comp);
+            c_date = (TextView) view.findViewById(R.id.date_comp);
             c_date.setText(info.getCdate());
+            return view;
+        } else {
+            return convertView;
         }
-        return null;
     }
 }

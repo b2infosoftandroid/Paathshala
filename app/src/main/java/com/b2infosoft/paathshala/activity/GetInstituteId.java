@@ -66,7 +66,6 @@ public class GetInstituteId extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                             institute = new ArrayList<>();
-
                         if(response!=null){
                             try {
                                 if (response.has(tags.ARR_INSTITUTE_ID)) {
