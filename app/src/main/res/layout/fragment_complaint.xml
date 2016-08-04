@@ -4,10 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="@dimen/activity_horizontal_padding"
-    android:paddingBottom="@dimen/activity_horizontal_padding"
-    android:paddingLeft="@dimen/activity_vertical_padding"
-    android:paddingRight="@dimen/activity_vertical_padding"
     android:gravity="center_vertical|center_horizontal"
     android:background="@color/app_background"
     tools:context=".activity.MainActivity">
@@ -16,6 +12,10 @@
        android:id="@+id/complaint_recycler_view"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
+       android:paddingTop="@dimen/activity_horizontal_padding"
+       android:paddingBottom="@dimen/activity_horizontal_padding"
+       android:paddingLeft="@dimen/activity_vertical_padding"
+       android:paddingRight="@dimen/activity_vertical_padding"
        app:layoutManager="LinearLayoutManager">
 
    </android.support.v7.widget.RecyclerView>
@@ -26,5 +26,6 @@
         android:src="@drawable/ic_add_new"
         android:background="@color/colorPrimary"
         android:layout_gravity="bottom|right"
-        />
+        android:layout_marginRight="@dimen/button_right_margin"
+        android:layout_marginBottom="@dimen/button_bottom_margin"/>
 </android.support.design.widget.CoordinatorLayout>
