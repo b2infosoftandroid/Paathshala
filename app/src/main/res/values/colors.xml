@@ -53,13 +53,13 @@
 
     <!--            DASHBOARD             -->
     <color name="dashboard_institute_name">#4ba0fe</color>
-    <color name="dashboard_fees_layout_top">#4ba0fe</color>
-    <color name="dashboard_complaint_layout_top">#4ba0fe</color>
-    <color name="dashboard_attandance_layout_top">#4ba0fe</color>
-    <color name="dashboard_marksheet_layout_top">#4ba0fe</color>
-    <color name="dashboard_fees_layout_bottom">#4ba0fe</color>
-    <color name="dashboard_complaint_layout_bottom">#4ba0fe</color>
-    <color name="dashboard_attandance_layout_bottom">#4ba0fe</color>
-    <color name="dashboard_marksheet_layout_bottom">#4ba0fe</color>
+    <color name="dashboard_fees_layout_top">#00e1ff</color>
+    <color name="dashboard_complaint_layout_top">#00e1ff</color>
+    <color name="dashboard_attandance_layout_top">#ff9e5a</color>
+    <color name="dashboard_marksheet_layout_top">#ff9e5a</color>
+    <color name="dashboard_fees_layout_bottom">#68625d</color>
+    <color name="dashboard_complaint_layout_bottom">#68625d</color>
+    <color name="dashboard_attandance_layout_bottom">#68625d</color>
+    <color name="dashboard_marksheet_layout_bottom">#68625d</color>
 
 </resources>
