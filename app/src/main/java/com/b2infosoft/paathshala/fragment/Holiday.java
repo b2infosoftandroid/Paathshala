@@ -2,6 +2,7 @@ package com.b2infosoft.paathshala.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -184,26 +185,29 @@ public class Holiday extends Fragment {
         TableRow tr_head = new TableRow(getContext());
         tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         name = new TextView(getContext());
-        name.setText("Holiday Name");
+        name.setText("HOLIDAY NAME");
         name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         name.setTextColor(getResources().getColor(R.color.app_background));
         name.setPadding(30, 30, 30, 30);
+        name.setTypeface(null, Typeface.BOLD);
         tr_head.addView(name);
 
 
         from_date = new TextView(getContext());
-        from_date.setText("From Date");
+        from_date.setText("FROM DATE");
         from_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         from_date.setTextColor(getResources().getColor(R.color.app_background));
         from_date.setPadding(30, 30, 30, 30);
+        from_date.setTypeface(null,Typeface.BOLD);
         tr_head.addView(from_date);
 
         to_date = new TextView(getContext());
-        to_date.setText("To Date");
+        to_date.setText("TO DATE");
         to_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         to_date.setTextColor(getResources().getColor(R.color.app_background));
         to_date.setPadding(30, 30, 30, 30);
         tr_head.addView(to_date);
+        to_date.setTypeface(null,Typeface.BOLD);
         t1.addView(tr_head);
 
         for (int i = 0; i < holidayInfos.size(); i++) {

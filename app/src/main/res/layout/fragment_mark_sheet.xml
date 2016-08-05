@@ -3,37 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.b2infosoft.paathshala.fragment.MarkSheet">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="16dp"
+        android:padding="@dimen/edit_text_left_padding"
         >
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exam Type"
-            android:layout_margin="5dp"
-            android:layout_gravity="center"
+            android:layout_alignParentLeft="true"
+            android:textAllCaps="true"
+            android:textSize="@dimen/text_view_main_font_size"
             />
         <Spinner
             android:id="@+id/exam_type_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/exam_type"
-            android:layout_margin="5dp"
-            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:layout_alignBaseline="@+id/textView"
             >
         </Spinner>
         <Button
             android:id="@+id/exam_type_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/button_foreground"
+            android:background="@drawable/button_fill_background"
+            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/textView"
             android:text="Search"
             />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="wrap_content"

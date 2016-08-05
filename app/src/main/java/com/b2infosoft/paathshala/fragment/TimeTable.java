@@ -2,6 +2,7 @@ package com.b2infosoft.paathshala.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -269,18 +270,21 @@ public class TimeTable extends Fragment {
         TableRow tr_head = new TableRow(getContext());
         tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         sub_name = new TextView(getContext());
-        sub_name.setText("Subject Name");
+        sub_name.setText("SUBJECT NAME");
         sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
         sub_name.setPadding(30, 30, 30, 30);
+        sub_name.setTypeface(null,Typeface.BOLD);
         tr_head.addView(sub_name);
 
 
         sub_exm_date = new TextView(getContext());
-        sub_exm_date.setText("Exam Date");
+        sub_exm_date.setText("EXAM DATE");
         sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
         sub_exm_date.setPadding(30, 30, 30, 30);
+        sub_exm_date.setGravity(Gravity.CENTER);
+        sub_exm_date.setTypeface(null,Typeface.BOLD);
         tr_head.addView(sub_exm_date);
         t1.addView(tr_head);
 
@@ -304,7 +308,6 @@ public class TimeTable extends Fragment {
             sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_exm_date.setPadding(30, 30, 30, 30);
-            //  sub_exm_date.setGravity(Gravity.CENTER);
             tr1.addView(sub_exm_date);
 
             t1.addView(tr1);

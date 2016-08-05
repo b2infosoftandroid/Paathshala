@@ -2,6 +2,7 @@ package com.b2infosoft.paathshala.fragment.attendance;
 
 
 import android.app.ProgressDialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -88,6 +89,7 @@ public class Year extends Fragment {
         id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         id.setTextColor(getResources().getColor(R.color.app_background));
         id.setPadding(30, 30, 30, 30);
+        id.setTypeface(null, Typeface.BOLD);
         tr_head.addView(id);
 
         month = new TextView(getActivity());
@@ -95,6 +97,7 @@ public class Year extends Fragment {
         month.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         month.setTextColor(getResources().getColor(R.color.app_background));
         month.setPadding(30, 30, 30, 30);
+        month.setTypeface(null,Typeface.BOLD);
         tr_head.addView(month);
 
         present = new TextView(getActivity());
@@ -102,6 +105,7 @@ public class Year extends Fragment {
         present.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         present.setTextColor(getResources().getColor(R.color.app_background));
         present.setPadding(30, 30, 30, 30);
+        present.setTypeface(null,Typeface.BOLD);
         tr_head.addView(present);
 
         absent = new TextView(getActivity());
@@ -109,6 +113,7 @@ public class Year extends Fragment {
         absent.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         absent.setTextColor(getResources().getColor(R.color.app_background));
         absent.setPadding(30, 30, 30, 30);
+        absent.setTypeface(null,Typeface.BOLD);
         tr_head.addView(absent);
 
         leave = new TextView(getActivity());
@@ -116,6 +121,7 @@ public class Year extends Fragment {
         leave.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         leave.setTextColor(getResources().getColor(R.color.app_background));
         leave.setPadding(30, 30, 30, 30);
+        leave.setTypeface(null,Typeface.BOLD);
         tr_head.addView(leave);
 
         halfDay = new TextView(getActivity());
@@ -123,6 +129,7 @@ public class Year extends Fragment {
         halfDay.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         halfDay.setTextColor(getResources().getColor(R.color.app_background));
         halfDay.setPadding(30, 30, 30, 30);
+        halfDay.setTypeface(null,Typeface.BOLD);
         tr_head.addView(halfDay);
 
         total = new TextView(getActivity());
@@ -130,6 +137,7 @@ public class Year extends Fragment {
         total.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         total.setTextColor(getResources().getColor(R.color.app_background));
         total.setPadding(30, 30, 30, 30);
+        total.setTypeface(null,Typeface.BOLD);
         tr_head.addView(total);
 
         tableLayout.addView(tr_head);

@@ -2,6 +2,7 @@ package com.b2infosoft.paathshala.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -121,6 +122,7 @@ public class MarkSheet extends Fragment {
         id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         id.setTextColor(getResources().getColor(R.color.app_background));
         id.setPadding(30, 30, 30, 30);
+        id.setTypeface(null, Typeface.BOLD);
         tr_head.addView(id);
 
         examName = new TextView(getActivity());
@@ -128,6 +130,7 @@ public class MarkSheet extends Fragment {
         examName.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         examName.setTextColor(getResources().getColor(R.color.app_background));
         examName.setPadding(30, 30, 30, 30);
+        examName.setTypeface(null, Typeface.BOLD);
         tr_head.addView(examName);
 
         subjectName = new TextView(getActivity());
@@ -135,6 +138,7 @@ public class MarkSheet extends Fragment {
         subjectName.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         subjectName.setTextColor(getResources().getColor(R.color.app_background));
         subjectName.setPadding(30, 30, 30, 30);
+        subjectName.setTypeface(null, Typeface.BOLD);
         tr_head.addView(subjectName);
 
         tMarks = new TextView(getActivity());
@@ -142,6 +146,7 @@ public class MarkSheet extends Fragment {
         tMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         tMarks.setTextColor(getResources().getColor(R.color.app_background));
         tMarks.setPadding(30, 30, 30, 30);
+        tMarks.setTypeface(null, Typeface.BOLD);
         tr_head.addView(tMarks);
 
         tMarksObt = new TextView(getActivity());
@@ -149,6 +154,7 @@ public class MarkSheet extends Fragment {
         tMarksObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         tMarksObt.setTextColor(getResources().getColor(R.color.app_background));
         tMarksObt.setPadding(30, 30, 30, 30);
+        tMarksObt.setTypeface(null, Typeface.BOLD);
         tr_head.addView(tMarksObt);
 
         pMarks = new TextView(getActivity());
@@ -156,6 +162,7 @@ public class MarkSheet extends Fragment {
         pMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         pMarks.setTextColor(getResources().getColor(R.color.app_background));
         pMarks.setPadding(30, 30, 30, 30);
+        pMarks.setTypeface(null, Typeface.BOLD);
         tr_head.addView(pMarks);
 
         pMarksObt = new TextView(getActivity());
@@ -163,6 +170,7 @@ public class MarkSheet extends Fragment {
         pMarksObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         pMarksObt.setTextColor(getResources().getColor(R.color.app_background));
         pMarksObt.setPadding(30, 30, 30, 30);
+        pMarksObt.setTypeface(null, Typeface.BOLD);
         tr_head.addView(pMarksObt);
 
         addInMark = new TextView(getActivity());
@@ -170,6 +178,7 @@ public class MarkSheet extends Fragment {
         addInMark.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         addInMark.setTextColor(getResources().getColor(R.color.app_background));
         addInMark.setPadding(30, 30, 30, 30);
+        addInMark.setTypeface(null, Typeface.BOLD);
         tr_head.addView(addInMark);
 
         addInRes = new TextView(getActivity());
@@ -177,6 +186,7 @@ public class MarkSheet extends Fragment {
         addInRes.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         addInRes.setTextColor(getResources().getColor(R.color.app_background));
         addInRes.setPadding(30, 30, 30, 30);
+        addInRes.setTypeface(null, Typeface.BOLD);
         tr_head.addView(addInRes);
 
         tableLayout.addView(tr_head);
@@ -196,6 +206,7 @@ public class MarkSheet extends Fragment {
         id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         id.setTextColor(getResources().getColor(R.color.app_background));
         id.setPadding(30, 30, 30, 30);
+        id.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(id);
 
 
@@ -204,6 +215,7 @@ public class MarkSheet extends Fragment {
         result.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         result.setTextColor(getResources().getColor(R.color.app_background));
         result.setPadding(30, 30, 30, 30);
+        result.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(result);
 
         division = new TextView(getActivity());
@@ -211,6 +223,7 @@ public class MarkSheet extends Fragment {
         division.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         division.setTextColor(getResources().getColor(R.color.app_background));
         division.setPadding(30, 30, 30, 30);
+        division.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(division);
 
         percentage = new TextView(getActivity());
@@ -218,6 +231,7 @@ public class MarkSheet extends Fragment {
         percentage.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         percentage.setTextColor(getResources().getColor(R.color.app_background));
         percentage.setPadding(30, 30, 30, 30);
+        percentage.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(percentage);
 
         totMarks = new TextView(getActivity());
@@ -225,6 +239,7 @@ public class MarkSheet extends Fragment {
         totMarks.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         totMarks.setTextColor(getResources().getColor(R.color.app_background));
         totMarks.setPadding(30, 30, 30, 30);
+        totMarks.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(totMarks);
 
         totalObt = new TextView(getActivity());
@@ -232,6 +247,7 @@ public class MarkSheet extends Fragment {
         totalObt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         totalObt.setTextColor(getResources().getColor(R.color.app_background));
         totalObt.setPadding(30, 30, 30, 30);
+        totalObt.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(totalObt);
 
         markSheetType = new TextView(getActivity());
@@ -239,6 +255,7 @@ public class MarkSheet extends Fragment {
         markSheetType.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         markSheetType.setTextColor(getResources().getColor(R.color.app_background));
         markSheetType.setPadding(30, 30, 30, 30);
+        markSheetType.setTypeface(null, Typeface.BOLD);
         tr_head1.addView(markSheetType);
 
         tableLayout1.addView(tr_head1);
@@ -317,6 +334,7 @@ public class MarkSheet extends Fragment {
             addInRes = new TextView(getActivity());
             addInRes.setText(String.valueOf(marks.getAddInRes()));
             addInRes.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            addInRes.setAllCaps(true);
             addInRes.setTextColor(getResources().getColor(R.color.colorAccent));
             addInRes.setPadding(30, 30, 30, 30);
             addInRes.setGravity(Gravity.CENTER);

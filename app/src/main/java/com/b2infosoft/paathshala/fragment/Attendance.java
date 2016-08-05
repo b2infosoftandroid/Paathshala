@@ -163,7 +163,7 @@ public class Attendance extends Fragment implements ViewPager.OnPageChangeListen
     private void setSelectedTabColor() {
         for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
             TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#ffffff"));
+            tv.setTextColor(Color.parseColor("#888888"));
             //tv.setTextSize(10);
             // tv.setTypeface(fonts.getFont(getActivity(), fonts.ROBOTO_MEDIUM));
         }
