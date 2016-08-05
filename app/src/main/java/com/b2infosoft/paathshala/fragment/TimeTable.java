@@ -29,6 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.TimeTableAdapter;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -57,6 +58,7 @@ public class TimeTable extends Fragment {
     TableLayout t1;
     TextView exam_list, sub_name, sub_exm_date;
     Spinner spinner;
+    Format format = Format.getInstance();
     ListView examdetail;
     Tags tags = Tags.getInstance();
     Urls urls = Urls.getInstance();
@@ -298,7 +300,7 @@ public class TimeTable extends Fragment {
 
 
             sub_exm_date = new TextView(getContext());
-            sub_exm_date.setText(info.getDate());
+            sub_exm_date.setText(format.getDate(info.getDate()));
             sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_exm_date.setPadding(30, 30, 30, 30);

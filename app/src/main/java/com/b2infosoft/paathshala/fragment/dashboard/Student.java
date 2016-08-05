@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -45,6 +46,7 @@ public class Student extends Fragment {
 
     Active active;
     Tags tags = Tags.getInstance();
+    Format format = Format.getInstance();
     DBHelper dbHelper;
     EditText register_no, sr_no, house, dob, stu_class, section, category, religion, handicap, type, mobile, gender, mode;
     EditText faculty, admission_type, cast, nationality, bpl, email, ori_date, admin_date;
@@ -306,12 +308,12 @@ public class Student extends Fragment {
     private void updateInfo(StudentInfo info) {
         student_name.setText(info.getName());
         sr_no.setText(info.getSrNo()+"");
-        ori_date.setText(info.getOriAdminDate());
-        admin_date.setText(info.getAdminDate());
+        ori_date.setText(format.getDate(info.getOriAdminDate()));
+        admin_date.setText(format.getDate(info.getAdminDate()));
         register_no.setText(info.getRegisterNo());
         house.setText(info.getHouse());
         handicap.setText(info.getHandicap());
-        dob.setText(info.getDob());
+        dob.setText(format.getDate(info.getDob()));
         stu_class.setText(info.getStu_class());
         section.setText(info.getSection());
         cast.setText(info.getCast());

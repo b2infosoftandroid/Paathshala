@@ -24,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.HolidayRecyclerViewAdapter;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -45,6 +46,7 @@ public class Holiday extends Fragment {
     private static String TAG = Holiday.class.getName();
     private OnHolidayFragmentListener mListener;
     TableLayout t1;
+    Format format = Format.getInstance();
     TextView name, from_date, to_date;
     Tags tags = Tags.getInstance();
     Urls urls = Urls.getInstance();
@@ -218,14 +220,14 @@ public class Holiday extends Fragment {
             tr1.addView(name);
 
             from_date = new TextView(getContext());
-            from_date.setText(info.getFromDate());
+            from_date.setText(format.getDate(info.getFromDate()));
             from_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             from_date.setTextColor(getResources().getColor(R.color.colorAccent));
             from_date.setPadding(30, 30, 30, 30);
             tr1.addView(from_date);
 
             to_date = new TextView(getContext());
-            to_date.setText(info.getToDate());
+            to_date.setText(format.getDate(info.getToDate()));
             to_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             to_date.setTextColor(getResources().getColor(R.color.colorAccent));
             to_date.setPadding(30, 30, 30, 30);

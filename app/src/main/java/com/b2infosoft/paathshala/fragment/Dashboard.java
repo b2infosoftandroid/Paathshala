@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.b2infosoft.paathshala.R;
@@ -33,6 +34,7 @@ public class Dashboard extends Fragment {
     DisplayMetrics device;
     LinearLayout linearLayoutClassmates,linearLayoutAttendance,linearLayoutEnquiry,linearLayoutResult;
     Fonts fonts = Fonts.getInstance();
+    TextView textView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -81,6 +83,7 @@ public class Dashboard extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_admission, container, false);
         device = getActivity().getResources().getDisplayMetrics();
+        textView = (TextView)view.findViewById(R.id.institute_name);
         linearLayoutClassmates = (LinearLayout)view.findViewById(R.id.layout_classmates);
         linearLayoutAttendance = (LinearLayout)view.findViewById(R.id.layout_attendance);
         linearLayoutEnquiry = (LinearLayout)view.findViewById(R.id.layout_holidays);

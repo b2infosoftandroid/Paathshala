@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -42,6 +43,7 @@ public class Fees extends Fragment {
     Active active;
     Tags tags;
     Fonts fonts = Fonts.getInstance();
+    Format format = Format.getInstance();
 
     TableLayout t1, t2;
     TextView name, type, total_fee, deposit, t_discount, balance, deposit_name, deposit_type, amt, receipt_no, receipt_date, pay_mode;
@@ -324,7 +326,7 @@ public class Fees extends Fragment {
             tr.addView(receipt_no);
 
             receipt_date = new TextView(getActivity());
-            receipt_date.setText(deposit.getReceiptDate());
+            receipt_date.setText(format.getDate(deposit.getReceiptDate()));
             receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             receipt_date.setTextColor(getResources().getColor(R.color.colorAccent));
             receipt_date.setPadding(30, 30, 30, 30);
