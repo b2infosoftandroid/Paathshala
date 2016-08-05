@@ -77,10 +77,10 @@ public class GetInstituteId extends AppCompatActivity {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         InstituteInfo getId= new InstituteInfo();
                                         if(object.has(tags.INSTITUTE_ID)){
-                                           getId.setId(object.getString(tags.INSTITUTE_ID));
+                                           getId.setId(object.getInt(tags.INSTITUTE_ID));
                                         }
                                         if(object.has(tags.INSTITUTE_CITY_ID)){
-                                            getId.setCityId(object.getString(tags.INSTITUTE_CITY_ID));
+                                            getId.setCityId(object.getInt(tags.INSTITUTE_CITY_ID));
                                         }
                                         if(object.has(tags.INSTITUTE_NAME)){
                                             getId.setName(object.getString(tags.INSTITUTE_NAME));

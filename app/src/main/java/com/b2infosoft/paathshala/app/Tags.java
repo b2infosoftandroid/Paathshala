@@ -36,6 +36,7 @@ public class Tags {
     public final String FORGOT_PASSWORD ="ForgotPassword";
     public final String Holiday ="Holiday";
     public final String COMPLAINT_LIST ="Complaintlist";
+    public final String CITY ="City";
 
     ////////////// ------- USER STRINGS --------- ////////////////////////////
 

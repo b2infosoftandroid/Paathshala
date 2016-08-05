@@ -23,11 +23,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.adapter.GetIdRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.app.Validation;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
+import com.b2infosoft.paathshala.model.City;
+import com.b2infosoft.paathshala.model.InstituteInfo;
 import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -83,6 +86,16 @@ public class LoginActivity_1 extends AppCompatActivity {
         if (sessionList.size() == 0) {
             fetchSession();
         }
+/*
+        List<City> cities = dbHelper.getCity();
+        if(cities.size()==0){
+            fetchCity();
+        }
+        List<InstituteInfo> infoList = dbHelper.getInstitute();
+        if(infoList.size()==0){
+            fetchInstitute();
+        }
+*/
     }
 
     private void getId() {
@@ -295,7 +308,6 @@ public class LoginActivity_1 extends AppCompatActivity {
         });
         jsObjRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
-
     }
 
     private void fetchSession() {
@@ -374,6 +386,117 @@ public class LoginActivity_1 extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 
+    private void fetchCity() {
+        HashMap<String, String> map = new HashMap<>();
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.CITY), map), null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+//                        Log.d(TAG,response.toString());
+                        try {
+                            if (response.has(tags.ARR_SESSION_LIST)) {
+                                JSONArray sessionArray = response.getJSONArray(tags.ARR_SESSION_LIST);
+                                if (sessionList == null) {
+                                    sessionList = new Hashtable<>();
+                                    dbHelper.deleteSession();
+                                } else {
+                                    sessionList.clear();
+                                    dbHelper.deleteSession();
+                                }
+                                for (int i = 0; i < sessionArray.length(); i++) {
+                                    JSONObject object = sessionArray.getJSONObject(i);
+                                    String id = null;
+                                    String year = null;
+                                    if (object.has(tags.SESSION_ID)) {
+                                        id = object.getString(tags.SESSION_ID);
+                                    }
+                                    if (object.has(tags.SESSION_YEAR)) {
+                                        year = object.getString(tags.SESSION_YEAR);
+                                    }
+                                    if (id != null && year != null) {
+                                        sessionList.put(year, id);
+                                        dbHelper.setSession(id, year);
+                                    }
+                                }
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsObjRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+        jsObjRequest.setTag(TAG);
+        //requestQueue.add(jsObjRequest);
+        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+
+    private void fetchInstitute(){
+        HashMap<String,String> map=new HashMap<>();
+        String url =urls.getUrl(urls.getPath(tags.SCHOOL_LIST),map) ;
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
+                (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                    List<InstituteInfo>    institute = new ArrayList<>();
+                        if(response!=null){
+                            try {
+                                if (response.has(tags.ARR_INSTITUTE_ID)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_INSTITUTE_ID);
+                                    for(int i=0;i<jsonArray.length();i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        InstituteInfo getId= new InstituteInfo();
+                                        if(object.has(tags.INSTITUTE_ID)){
+                                            getId.setId(object.getInt(tags.INSTITUTE_ID));
+                                        }
+                                        if(object.has(tags.INSTITUTE_CITY_ID)){
+                                            getId.setCityId(object.getInt(tags.INSTITUTE_CITY_ID));
+                                        }
+                                        if(object.has(tags.INSTITUTE_NAME)){
+                                            getId.setName(object.getString(tags.INSTITUTE_NAME));
+                                        }
+                                        if(object.has(tags.INSTITUTE_ACTIVE)){
+                                            getId.setActive(object.getString(tags.INSTITUTE_ACTIVE));
+                                        }
+                                        institute.add(getId);
+                                    }
+                                }
+                            }catch (Exception e){
+                                dismissProgress();
+                            }
+                        }
+                    }
+                },new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
     private void requestBuilder() {
         requestQueue = Volley.newRequestQueue(this);
         HashMap<String, String> map = new HashMap<>();
@@ -423,4 +546,6 @@ public class LoginActivity_1 extends AppCompatActivity {
             progress.dismiss();
         }
     }
+
+
 }

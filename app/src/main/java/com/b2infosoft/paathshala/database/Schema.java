@@ -194,8 +194,10 @@ public class Schema {
 
     //////////////////   SCHOOL LIST TABLE  ////////////////
     public final String SCHOOLS_ID="id";
+    public final String SCHOOLS_CITY_ID="city_id";
     public final String SCHOOLS_NAME="name";
     public final String SCHOOLS_ADDRESS="address";
+    public final String SCHOOLS_ACTIVE="active";
 
     ////////////// HOLIDAY TABLE  ////////////
     public final String HOLIDAY_NAME = "name";

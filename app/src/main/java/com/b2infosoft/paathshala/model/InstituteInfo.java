@@ -5,12 +5,12 @@ package com.b2infosoft.paathshala.model;
  */
 public class InstituteInfo {
 
-    private String id;
-    private String cityId;
+    private int id;
+    private int cityId;
     private String name;
     private String address;
     private String active;
-
+    private String cityName;
     public String getActive() {
         return active;
     }
@@ -19,11 +19,11 @@ public class InstituteInfo {
         this.active = active;
     }
 
-    public String getCityId() {
+    public int getCityId() {
         return cityId;
     }
 
-    public void setCityId(String cityId) {
+    public void setCityId(int cityId) {
         this.cityId = cityId;
     }
 
@@ -46,11 +46,19 @@ public class InstituteInfo {
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 }
