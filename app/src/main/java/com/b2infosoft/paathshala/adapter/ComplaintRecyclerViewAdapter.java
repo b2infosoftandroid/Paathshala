@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.fragment.Holiday;
 import com.b2infosoft.paathshala.model.ComplaintInfo;
 import com.b2infosoft.paathshala.model.DummyContent.DummyItem;
@@ -23,9 +24,10 @@ import java.util.List;
 public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<ComplaintRecyclerViewAdapter.ViewHolder> {
 
     private final List<ComplaintInfo> complaintInfoList;
-
+    private Format format;
     public ComplaintRecyclerViewAdapter(List<ComplaintInfo> items) {
         complaintInfoList = items;
+        format = Format.getInstance();
     }
 
     @Override
@@ -44,7 +46,7 @@ public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<Complaint
 
         sub.setText(info.getSubject());
         msg.setText(info.getDetail());
-        c_date.setText(info.getCdate());
+        c_date.setText(format.getDate(info.getCdate()));
     }
 
     @Override

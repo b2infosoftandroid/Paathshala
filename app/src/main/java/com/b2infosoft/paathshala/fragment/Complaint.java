@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.ComplaintRecyclerViewAdapter;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -56,6 +57,7 @@ public class Complaint extends Fragment {
     Urls urls = Urls.getInstance();
     Active active;
     DBHelper dbHelper;
+    Format format;
     EditText title, body;
     Button b1, b2;
     FloatingActionButton new_complaint;
@@ -110,6 +112,7 @@ public class Complaint extends Fragment {
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
         active = Active.getInstance(getContext());
         dbHelper = new DBHelper(getActivity());
+        format = Format.getInstance();
         rv = (RecyclerView) view.findViewById(R.id.complaint_recycler_view);
         new_complaint = (FloatingActionButton) view.findViewById(R.id.new_complaint_btn);
         new_complaint.setOnClickListener(new View.OnClickListener() {
