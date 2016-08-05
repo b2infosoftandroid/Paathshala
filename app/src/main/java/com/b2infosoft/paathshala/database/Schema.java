@@ -57,6 +57,7 @@ public class Schema {
     public final String STU_MODE="mode";
     public final String STU_CLASS="class";
     public final String STU_SECTION="section";
+    public final String STU_FACULTY="faculty";
     public final String STU_SESSION_ID="session_id";
     public final String STU_HOUSE="house";
     public final String STU_ADMIN_TYPE="admin_type";

@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.adapter;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,12 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
 
     @Override
     public void onBindViewHolder(GetIdRecyclerViewAdapter.ViewHolder holder, int position) {
+        CardView cardView = holder.cardView;
+        if(position%2 != 0){
+            holder.cardView.setBackgroundResource(R.color.attendance_present);
+        }else {
+            holder.cardView.setBackgroundResource(R.color.attendance_half_day);
+        }
                   InstituteInfo get_info = id_details.get(position);
              TextView id = holder.id;
              TextView city_id = holder.city_id;
@@ -50,9 +57,11 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
     }
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView id,city_id,name,sch_active;
+        CardView  cardView;
 
         public ViewHolder(View view) {
               super(view);
+            this.cardView = (CardView)view.findViewById(R.id.card_view);
               this.id = (TextView)view.findViewById(R.id.school_id);
               this.city_id = (TextView)view.findViewById(R.id.school_city_id);
                this.name = (TextView)view.findViewById(R.id.school_name);

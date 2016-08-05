@@ -46,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String T5 = "CREATE TABLE " + schema.STUDENT_INFO + "(" + schema.STU_ID + " int,"+ schema.STU_PHOTO + " text," + schema.STU_PASSWORD + " text," + schema.STU_SID + " int," + schema.STU_ADMIN_DATE + " date," + schema.STU_SR_NO + " int," + schema.STU_DOB + " date," + schema.STU_NAME + " text," + schema.STU_MOBILE + " number," + schema.STU_GENDER + " text," + schema.STU_EMAIL + " text," + schema.STU_MODE + " text," + schema.STU_CLASS + " text,"
                 + schema.STU_SECTION + " text," + schema.STU_SESSION_ID + " int," + schema.STU_HOUSE + " text," + schema.STU_ADMIN_TYPE + " text," + schema.STU_BPL + " text," + schema.STU_HANDICAPPED + " text," + schema.STU_NATIONALITY + " text," + schema.STU_CATEGORY + " text," + schema.STU_ORI_ADMIN_DATE + " date," + schema.STU_SESSION_YEAR + " int," + schema.STU_RELIGION + " text," + schema.STU_TYPE + " text,"
-                + schema.STU_CAST + " text," + schema.STU_SCHOOL_ID + " int,"
+                + schema.STU_CAST + " text," + schema.STU_SCHOOL_ID + " int," + schema.STU_FACULTY + " text,"
                 + schema.STU_FATHER_NAME + " text," + schema.STU_FATHER_INCOME + " int," + schema.STU_FATHER_OCCU + " text," + schema.STU_PER_ADDRESS + " text," + schema.STU_PARENT_MOBILE + " number," + schema.STU_MOTHER_NAME + " text,"
                 + schema.STU_GUARDIAN_NAME + " text," + schema.STU_GUARDIAN_MOBILE + " number," + schema.STU_GUARDIAN_PHONE + " number," + schema.STU_GUARDIAN_EMAIL + " text," + schema.STU_REMARK + " text," + schema.STU_CORR_ADDRESS + " text)";
 
@@ -405,6 +405,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(schema.STU_ADMIN_DATE, info.getAdminDate());
         values.put(schema.STU_SR_NO, info.getSrNo());
         values.put(schema.STU_DOB, info.getDob());
+        values.put(schema.STU_FACULTY, info.getFaculty());
         values.put(schema.STU_NAME, info.getName());
         values.put(schema.STU_MOBILE, info.getMobile());
         values.put(schema.STU_GENDER, info.getGender());
@@ -458,6 +459,7 @@ public class DBHelper extends SQLiteOpenHelper {
             info.setSrNo(cursor.getInt(cursor.getColumnIndex(schema.STU_SR_NO)));
             info.setDob(cursor.getString(cursor.getColumnIndex(schema.STU_DOB)));
             info.setName(cursor.getString(cursor.getColumnIndex(schema.STU_NAME)));
+            info.setFaculty(cursor.getString(cursor.getColumnIndex(schema.STU_FACULTY)));
             info.setMobile(cursor.getString(cursor.getColumnIndex(schema.STU_MOBILE)));
             info.setGender(cursor.getString(cursor.getColumnIndex(schema.STU_GENDER)));
             info.setEmail(cursor.getString(cursor.getColumnIndex(schema.STU_EMAIL)));

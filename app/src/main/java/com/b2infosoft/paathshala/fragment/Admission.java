@@ -267,7 +267,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
                                         info.setSection(object.getString(tags.S_INFO_SECTION));
                                     }
                                     if (object.has(tags.S_INFO_FATHER_NAME)) {
-                                        info.setPerAddress(object.getString(tags.S_INFO_FATHER_NAME));
+                                        info.setfName(object.getString(tags.S_INFO_FATHER_NAME));
                                     }
                                     if (object.has(tags.S_INFO_FATHER_INCOME)) {
                                         info.setfIncome(object.getDouble(tags.S_INFO_FATHER_INCOME));
@@ -276,7 +276,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
                                         info.setPerAddress(object.getString(tags.S_INFO_PERMANENT_ADD));
                                     }
                                     if (object.has(tags.S_INFO_PARENT_MOBILE)) {
-                                        info.setPerAddress(object.getString(tags.S_INFO_PARENT_MOBILE));
+                                        info.setParentMobile(object.getString(tags.S_INFO_PARENT_MOBILE));
                                     }
                                     if (object.has(tags.S_INFO_GUARDIAN_NAME)) {
                                         info.setGuardianName(object.getString(tags.S_INFO_GUARDIAN_NAME));
