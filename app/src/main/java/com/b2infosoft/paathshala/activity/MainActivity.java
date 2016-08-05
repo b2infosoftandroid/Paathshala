@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -18,6 +19,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.credential.Active;
@@ -34,6 +38,7 @@ import com.b2infosoft.paathshala.fragment.dashboard.Guardian;
 import com.b2infosoft.paathshala.fragment.dashboard.Parent;
 import com.b2infosoft.paathshala.fragment.dashboard.Student;
 import com.b2infosoft.paathshala.model.DummyContent;
+import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 public class MainActivity extends CallBacks {
@@ -71,11 +76,12 @@ public class MainActivity extends CallBacks {
                 setTitle("Admission");
             }
         });
+        updateImage(circularImageView);
         profile_name = (TextView) headerView.findViewById(R.id.user_profile_name);
         profile_name.setText(active.getValue(tags.S_INFO_STU_NAME));
-        if (circularImageView != null) {
-            //Toast.makeText(this,circularImageView+"",Toast.LENGTH_SHORT).show();
-        }
+
+        navigationView.removeHeaderView(headerView);
+        navigationView.addHeaderView(headerView);
         replaceFragment(new Dashboard());
         setTitle("Admission");
     }
@@ -200,6 +206,24 @@ public class MainActivity extends CallBacks {
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+    private void updateImage(final CircularImageView imageView){
+        String url = active.getValue(tags.S_STU_PHOTO);
+        // Retrieves an image specified by the URL, displays it in the UI.
+        ImageRequest request = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        imageView.setImageResource(R.drawable.user);
+                    }
+                });
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(request);
     }
     @Override
     public void setTitle(CharSequence title) {
