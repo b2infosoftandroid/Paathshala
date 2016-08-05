@@ -122,6 +122,7 @@ public class Student extends Fragment {
         bpl = (EditText) view.findViewById(R.id.stu_bpl);
         email = (EditText) view.findViewById(R.id.stu_email);
         student_name = (TextView) view.findViewById(R.id.student_info_name);
+        student_name.setText(active.getValue(tags.S_INFO_STU_NAME));
         //setFonts();
         StudentInfo info = dbHelper.getStudentInfo();
         if (info == null) {
