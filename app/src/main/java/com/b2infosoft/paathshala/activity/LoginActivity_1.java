@@ -28,6 +28,7 @@ import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.app.Validation;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
+import com.b2infosoft.paathshala.model.StudentInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -40,6 +41,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class LoginActivity_1 extends AppCompatActivity {
+    Active active ;
     Urls urls;
     MySingleton mySingleton;
     Tags tags = Tags.getInstance();
@@ -57,6 +59,7 @@ public class LoginActivity_1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        active = Active.getInstance(this);
         setContentView(R.layout.activity_login_1);
         urls = Urls.getInstance();
         mySingleton = MySingleton.getInstance(this);
@@ -84,18 +87,60 @@ public class LoginActivity_1 extends AppCompatActivity {
 
     private void getId() {
         startActivity(new Intent(this, GetInstituteId.class));
-
     }
 
-    private void forgotPassword(){
-        startActivity(new Intent(this,ForgotPassword.class));
+    private void forgotPassword() {
+        startActivity(new Intent(this, ForgotPassword.class));
     }
-
     private void loginSuccess() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.S_ID, active.getValue(tags.S_ID));
+        map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        showProgress();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.STUDENT_INFO), map), null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (response != null) {
+                            try {
+                                if (response.has(tags.ARR_STUDENT_INFO)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_STUDENT_INFO);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        StudentInfo info = new StudentInfo();
+                                        if (object.has(tags.S_STU_PHOTO)) {
+                                            info.setStudentPhoto(object.getString(tags.S_STU_PHOTO));
+                                        }
+                                        if (object.has(tags.S_INFO_STU_NAME)) {
+                                            info.setName(object.getString(tags.S_INFO_STU_NAME));
+                                        }
+                                        active.setKey(tags.S_STU_PHOTO,info.getStudentPhoto());
+                                        active.setKey(tags.S_INFO_STU_NAME,info.getName());
+                                    }
+                                }
+                                dismissProgress();
+                                doLogin();
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+
+    }
+    private void doLogin(){
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
-
     private void selectSession() {
         //CharSequence[] items = {"2001-2002", "2002-2003", "2003-2004", "2004-2005", "2005-2006"};
         String[] items = {};
@@ -209,12 +254,12 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 JSONObject object = userInfoArray.getJSONObject(0);
                                 if (object.has(tags.S_ID)) {
                                     String s_id = object.getString(tags.S_ID);
-                                    Active active = Active.getInstance(getApplicationContext());
                                     active.setKey(tags.S_ID, s_id);
                                     active.setKey(tags.SCHOOL_ID, institute_id);
                                     active.setKey(tags.SESSION_ID, sessionList.get(session));
                                     active.setKey(tags.SESSION, session);
                                     active.setLogin();
+                                    dismissProgress();
                                     loginSuccess();
                                 }
                                 if (object.has(tags.COLUMN_1)) {

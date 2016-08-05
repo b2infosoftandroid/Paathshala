@@ -21,7 +21,7 @@ public class MySingleton {
     private MySingleton(Context context) {
         mCtx = context;
         mRequestQueue = getRequestQueue();
-
+        /*
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {
                     private final LruCache<String, Bitmap>
@@ -36,6 +36,9 @@ public class MySingleton {
                         cache.put(url, bitmap);
                     }
                 });
+        */
+        mImageLoader = new ImageLoader(mRequestQueue, new LruBitmapCache(
+                LruBitmapCache.getCacheSize(mCtx)));
     }
 
     public static synchronized MySingleton getInstance(Context context) {

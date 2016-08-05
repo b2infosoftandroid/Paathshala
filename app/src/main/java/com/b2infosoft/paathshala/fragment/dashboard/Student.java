@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.fragment.dashboard;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
@@ -70,15 +73,6 @@ public class Student extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Student.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Student newInstance(String param1, String param2) {
         Student fragment = new Student();
         Bundle args = new Bundle();
@@ -104,6 +98,7 @@ public class Student extends Fragment {
         dbHelper = new DBHelper(getActivity());
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image = (CircularImageView) view.findViewById(R.id.student_info_circularImageView);
+        updateImage(student_image);
         register_no = (EditText) view.findViewById(R.id.student_info_register_no);
         sr_no = (EditText) view.findViewById(R.id.student_info_sr_no);
         house = (EditText) view.findViewById(R.id.student_info_house);
@@ -135,7 +130,6 @@ public class Student extends Fragment {
         }
         return view;
     }
-
     private void fetchStudentInfo() {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
@@ -153,16 +147,16 @@ public class Student extends Fragment {
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
                                         StudentInfo info = new StudentInfo();
+                                        if (object.has(tags.S_STU_PHOTO)) {
+                                            info.setStudentPhoto(object.getString(tags.S_STU_PHOTO));
+                                        }
                                         if (object.has(tags.S_INFO_IMAGE)) {
-                                            //student_image.set(object.get(tags.S_INFO_IMAGE));
-                                            active.setKey(tags.S_INFO_IMAGE, object.getString(tags.S_INFO_IMAGE).toString());
-
+                                            info.setStuImage(object.getString(tags.S_INFO_IMAGE));
                                         }
                                         if (object.has(tags.S_INFO_DOB)) {
                                             info.setDob(object.getString(tags.S_INFO_DOB));
                                         }
                                         if (object.has(tags.S_INFO_STU_NAME)) {
-                                            active.setKey(tags.S_INFO_STU_NAME, object.getString(tags.S_INFO_STU_NAME));
                                             info.setName(object.getString(tags.S_INFO_STU_NAME));
                                         }
                                         if (object.has(tags.S_INFO_HOUSE)) {
@@ -240,8 +234,6 @@ public class Student extends Fragment {
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
-
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onStudentInteraction(uri);
@@ -328,5 +320,24 @@ public class Student extends Fragment {
         nationality.setText(info.getNationality());
         bpl.setText(info.getBpl());
         email.setText(info.getEmail());
+    }
+
+    private void updateImage(final CircularImageView imageView){
+        String url = active.getValue(tags.S_STU_PHOTO);
+        // Retrieves an image specified by the URL, displays it in the UI.
+        ImageRequest request = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                        imageView.setImageResource(R.drawable.user);
+                    }
+                });
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(getActivity()).addToRequestQueue(request);
     }
 }

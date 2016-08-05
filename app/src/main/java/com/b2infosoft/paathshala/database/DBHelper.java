@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.b2infosoft.paathshala.model.ComplaintInfo;
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
@@ -45,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String T4 = "CREATE TABLE " + schema.SESSION_LIST + "(" + schema.SESSION_ID + " int," + schema.SESSION_YEAR + " text)";
 
-        String T5 = "CREATE TABLE " + schema.STUDENT_INFO + "(" + schema.STU_ID + " int," + schema.STU_PASSWORD + " text," + schema.STU_SID + " int," + schema.STU_ADMIN_DATE + " date," + schema.STU_SR_NO + " int," + schema.STU_DOB + " date," + schema.STU_NAME + " text," + schema.STU_MOBILE + " number," + schema.STU_GENDER + " text," + schema.STU_EMAIL + " text," + schema.STU_MODE + " text," + schema.STU_CLASS + " text,"
+        String T5 = "CREATE TABLE " + schema.STUDENT_INFO + "(" + schema.STU_ID + " int,"+ schema.STU_PHOTO + " text," + schema.STU_PASSWORD + " text," + schema.STU_SID + " int," + schema.STU_ADMIN_DATE + " date," + schema.STU_SR_NO + " int," + schema.STU_DOB + " date," + schema.STU_NAME + " text," + schema.STU_MOBILE + " number," + schema.STU_GENDER + " text," + schema.STU_EMAIL + " text," + schema.STU_MODE + " text," + schema.STU_CLASS + " text,"
                 + schema.STU_SECTION + " text," + schema.STU_SESSION_ID + " int," + schema.STU_HOUSE + " text," + schema.STU_ADMIN_TYPE + " text," + schema.STU_BPL + " text," + schema.STU_HANDICAPPED + " text," + schema.STU_NATIONALITY + " text," + schema.STU_CATEGORY + " text," + schema.STU_ORI_ADMIN_DATE + " date," + schema.STU_SESSION_YEAR + " int," + schema.STU_RELIGION + " text," + schema.STU_TYPE + " text,"
                 + schema.STU_CAST + " text," + schema.STU_SCHOOL_ID + " int,"
                 + schema.STU_FATHER_NAME + " text," + schema.STU_FATHER_INCOME + " int," + schema.STU_FATHER_OCCU + " text," + schema.STU_PER_ADDRESS + " text," + schema.STU_PARENT_MOBILE + " number," + schema.STU_MOTHER_NAME + " text,"
@@ -399,6 +398,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void setStudentInfo(StudentInfo info) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(schema.STU_PHOTO, info.getStudentPhoto());
         values.put(schema.STU_ID, info.getId());
         values.put(schema.STU_PASSWORD, info.getPassword());
         values.put(schema.STU_SID, info.getsId());
@@ -452,6 +452,7 @@ public class DBHelper extends SQLiteOpenHelper {
         while (cursor.moveToNext()) {
             info = new StudentInfo();
             info.setId(cursor.getInt(cursor.getColumnIndex(schema.STU_ID)));
+            info.setStudentPhoto(cursor.getString(cursor.getColumnIndex(schema.STU_PHOTO)));
             info.setPassword(cursor.getString(cursor.getColumnIndex(schema.STU_PASSWORD)));
             info.setAdminDate(cursor.getString(cursor.getColumnIndex(schema.STU_ADMIN_DATE)));
             info.setSrNo(cursor.getInt(cursor.getColumnIndex(schema.STU_SR_NO)));
