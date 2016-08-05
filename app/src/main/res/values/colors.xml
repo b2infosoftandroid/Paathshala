@@ -42,6 +42,8 @@
     <color name="image_border_1">#81bcfd</color>
     <color name="image_border_bg">#58a7ff</color>
 
+    <color name="table_row">#D3D3D3</color>
+
 
     <!--     ATTENDANCE CALENDER        -->
     <color name="current_month_date">#787878</color>

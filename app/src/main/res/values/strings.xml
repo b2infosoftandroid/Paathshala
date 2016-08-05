@@ -10,6 +10,8 @@
     <string name="dashboard_holiday">HOLIDAY</string>
     <string name="dashboard_time_table">TIME TABLE</string>
     <string name="dashboard_complaint">COMPLAINT</string>
+    <string name="dashboard_fees">FEES</string>
+    <string name="dashboard_marksheet">MARKSHEET</string>
 
     <!-- Login form strings -->
     <string name="login_username">USERNAME</string>

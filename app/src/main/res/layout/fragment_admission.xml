@@ -3,163 +3,195 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     tools:context=".fragment.Dashboard">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/institute_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/info_background"
+            android:fontFamily="fonts/Roboto_Medium.ttf"
+            android:padding="5dp"
+            android:text="@string/login_bottom_text"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/button_foreground"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:id="@+id/layout_classmates"
-            android:layout_width="160dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            >
+            android:gravity="center"
+            android:orientation="vertical">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:orientation="vertical"
-                android:background="@color/layout_top"
-                android:gravity="center"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dashboard_attandence"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/button_foreground"
-                    />
-                <ImageView
-                    android:id="@+id/dashboard_classmates"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_attendance"
-                    />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layout_classmates"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@color/layout_top"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_fees"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/dashboard_classmates"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/ic_fees" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/layout_bottom"></LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_attendance"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@color/layout_top"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_marksheet"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/dashboard_attendance"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/ic_marksheet" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/layout_bottom"></LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/layout_bottom"
-                ></LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_attendance"
-            android:layout_width="160dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:orientation="vertical"
-                android:background="@color/layout_top"
-                android:gravity="center"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dashboard_holiday"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/button_foreground"
-                    />
-                <ImageView
-                    android:id="@+id/dashboard_attendance"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_holidays"
-                    />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/layout_holidays"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@color/layout_top"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_attandence"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/dashboard_holidays"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/ic_attendance" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/layout_bottom"></LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_fees"
+                    android:layout_width="160dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@color/layout_top"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/dashboard_complaint"
+                            android:textAllCaps="true"
+                            android:textColor="@color/button_foreground"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/dashboard_fees"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/ic_complaint" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:background="@color/layout_bottom"></LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/layout_bottom"
-                ></LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-        <LinearLayout
-            android:id="@+id/layout_holidays"
-            android:layout_width="160dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:orientation="vertical"
-                android:background="@color/layout_top"
-                android:gravity="center"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dashboard_time_table"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/button_foreground"
-                    />
-                <ImageView
-                    android:id="@+id/dashboard_holidays"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_timetable"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/layout_bottom"
-                ></LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_fees"
-            android:layout_width="160dp"
-            android:layout_height="150dp"
-            android:orientation="vertical"
-            android:layout_margin="10dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:orientation="vertical"
-                android:background="@color/layout_top"
-                android:gravity="center"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dashboard_complaint"
-                    android:textAllCaps="true"
-                    android:textStyle="bold"
-                    android:textColor="@color/button_foreground"
-                    />
-                <ImageView
-                    android:id="@+id/dashboard_fees"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/ic_complaint"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="@color/layout_bottom"
-                ></LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

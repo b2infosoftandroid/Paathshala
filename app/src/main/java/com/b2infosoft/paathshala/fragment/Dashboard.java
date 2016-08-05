@@ -93,19 +93,19 @@ public class Dashboard extends Fragment {
         linearLayoutClassmates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               replaceFragment(new Attendance());
+               replaceFragment(new Fees());
             }
         });
         linearLayoutAttendance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new Holiday());
+                replaceFragment(new MarkSheet());
             }
         });
         linearLayoutEnquiry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new TimeTable());
+                replaceFragment(new Attendance());
             }
         });
         linearLayoutResult.setOnClickListener(new View.OnClickListener() {

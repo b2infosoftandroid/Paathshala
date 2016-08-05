@@ -57,7 +57,8 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="text_view_top_margin">16dp</dimen>
-    <dimen name="text_view_bottom_margin">10dp</dimen>
+    <dimen name="deposit_text_view_top_margin">40dp</dimen>
+    <dimen name="text_view_bottom_margin">2dp</dimen>
     <dimen name="text_view_left_margin">16dp</dimen>
     <dimen name="text_view_right_margin">16dp</dimen>
     <dimen name="text_view_top_padding">10dp</dimen>

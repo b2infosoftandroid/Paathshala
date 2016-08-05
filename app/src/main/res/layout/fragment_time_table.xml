@@ -10,10 +10,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:padding="@dimen/edit_text_left_padding">
 
             <TextView
@@ -21,17 +20,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/time_table_exam_type"
-                android:textSize="@dimen/text_view_main_font_size" />
+                android:textSize="@dimen/text_view_main_font_size"
+                android:layout_alignParentLeft="true"/>
 
             <Spinner
                 android:id="@+id/exam_list_spinner"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/text_view_left_margin">
+                android:layout_alignParentRight="true">
 
             </Spinner>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <ScrollView
             android:layout_width="match_parent"

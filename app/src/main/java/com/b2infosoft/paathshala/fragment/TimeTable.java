@@ -270,7 +270,7 @@ public class TimeTable extends Fragment {
         sub_name.setText("Subject Name");
         sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
-        sub_name.setPadding(30, 25, 30, 25);
+        sub_name.setPadding(30, 30, 30, 30);
         tr_head.addView(sub_name);
 
 
@@ -278,7 +278,7 @@ public class TimeTable extends Fragment {
         sub_exm_date.setText("Exam Date");
         sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
-        sub_exm_date.setPadding(30, 25, 30, 25);
+        sub_exm_date.setPadding(30, 30, 30, 30);
         tr_head.addView(sub_exm_date);
         t1.addView(tr_head);
 
@@ -286,13 +286,13 @@ public class TimeTable extends Fragment {
             TimeTableInfo info = infolist.get(i);
             TableRow tr1 = new TableRow(getContext());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr1.setBackgroundColor(getResources().getColor(R.color.table_row));
 
             sub_name = new TextView(getContext());
             sub_name.setText(info.getSubject());
             sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             sub_name.setTextColor(getResources().getColor(R.color.colorAccent));
-            sub_name.setPadding(30, 25, 30, 25);
+            sub_name.setPadding(30, 30, 30, 30);
             // sub_name.setGravity(Gravity.CENTER);
             tr1.addView(sub_name);
 
@@ -301,7 +301,7 @@ public class TimeTable extends Fragment {
             sub_exm_date.setText(info.getDate());
             sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
-            sub_exm_date.setPadding(30, 25, 30, 25);
+            sub_exm_date.setPadding(30, 30, 30, 30);
             //  sub_exm_date.setGravity(Gravity.CENTER);
             tr1.addView(sub_exm_date);
 
