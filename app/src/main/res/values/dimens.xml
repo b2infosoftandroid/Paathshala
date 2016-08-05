@@ -69,4 +69,6 @@
     <dimen name="text_view_font_size">12sp</dimen>
     <dimen name="table_text_view_font_size">8sp</dimen>
 
+    <dimen name="card_view_border_radius">2px</dimen>
+
 </resources>

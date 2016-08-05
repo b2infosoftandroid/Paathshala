@@ -62,4 +62,12 @@
     <color name="dashboard_attandance_layout_bottom">#68625d</color>
     <color name="dashboard_marksheet_layout_bottom">#68625d</color>
 
+    <!--     CARD LAYOUT         -->
+    <color name="complaint_card_1">#ff9e5a</color>
+    <color name="complaint_card_1_border">#f79047 </color>
+    <color name="complaint_card_2">#13daf4</color>
+    <color name="complaint_card_2_border">#0ed1eb</color>
+
+    <color name="floating_button_background">#fc9f5e </color>
+
 </resources>

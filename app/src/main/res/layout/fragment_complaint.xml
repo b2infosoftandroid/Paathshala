@@ -23,8 +23,11 @@
         android:id="@+id/new_complaint_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/floating_button_background"
+        app:fabSize="normal"
+        app:borderWidth="0dp"
+        app:elevation="6dp"
         android:src="@drawable/ic_add_new"
-        android:background="@color/colorPrimary"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="@dimen/button_right_margin"
         android:layout_marginBottom="@dimen/button_bottom_margin"/>

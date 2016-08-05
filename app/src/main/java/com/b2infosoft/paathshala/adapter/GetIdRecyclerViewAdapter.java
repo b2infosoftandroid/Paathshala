@@ -34,9 +34,9 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
     public void onBindViewHolder(GetIdRecyclerViewAdapter.ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
         if(position%2 != 0){
-            holder.cardView.setBackgroundResource(R.color.attendance_present);
+            holder.cardView.setBackgroundResource(R.color.complaint_card_2);
         }else {
-            holder.cardView.setBackgroundResource(R.color.attendance_half_day);
+            holder.cardView.setBackgroundResource(R.color.complaint_card_1);
         }
                   InstituteInfo get_info = id_details.get(position);
              TextView id = holder.id;

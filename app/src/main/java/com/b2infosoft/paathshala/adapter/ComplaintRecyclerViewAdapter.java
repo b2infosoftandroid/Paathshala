@@ -42,9 +42,9 @@ public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<Complaint
     public void onBindViewHolder(final ViewHolder holder, int position) {
         CardView cardView = holder.cardView;
         if(position%2 != 0){
-            holder.cardView.setBackgroundResource(R.color.attendance_present);
+            holder.cardView.setBackgroundResource(R.color.complaint_card_2);
         }else {
-            holder.cardView.setBackgroundResource(R.color.attendance_half_day);
+            holder.cardView.setBackgroundResource(R.color.complaint_card_1);
         }
         ComplaintInfo info = complaintInfoList.get(position);
         TextView msg = holder.msg;
