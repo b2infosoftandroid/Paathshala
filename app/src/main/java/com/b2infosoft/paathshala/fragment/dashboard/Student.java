@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.app.FileCache;
 import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
@@ -98,7 +99,7 @@ public class Student extends Fragment {
         dbHelper = new DBHelper(getActivity());
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image = (CircularImageView) view.findViewById(R.id.student_info_circularImageView);
-        updateImage(student_image);
+        setProfileImage();
         register_no = (EditText) view.findViewById(R.id.student_info_register_no);
         sr_no = (EditText) view.findViewById(R.id.student_info_sr_no);
         house = (EditText) view.findViewById(R.id.student_info_house);
@@ -129,6 +130,13 @@ public class Student extends Fragment {
             updateInfo(info);
         }
         return view;
+    }
+    private void setProfileImage(){
+        if(active.getValue(tags.USER_PROFILE_PIC).length()>0){
+            student_image.setImageBitmap(FileCache.getBitmap(active.getValue(tags.USER_PROFILE_PIC)));
+        }else{
+            updateImage();
+        }
     }
     private void fetchStudentInfo() {
         HashMap<String, String> map = new HashMap<>();
@@ -322,19 +330,21 @@ public class Student extends Fragment {
         email.setText(info.getEmail());
     }
 
-    private void updateImage(final CircularImageView imageView){
+    private void updateImage(){
         String url = active.getValue(tags.S_STU_PHOTO);
         // Retrieves an image specified by the URL, displays it in the UI.
         ImageRequest request = new ImageRequest(url,
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap bitmap) {
-                        imageView.setImageBitmap(bitmap);
+                        //imageView.setImageBitmap(bitmap);
+                        active.setKey(tags.USER_PROFILE_PIC, FileCache.encodeToBase64(bitmap));
+                        setProfileImage();
                     }
                 }, 0, 0, null,
                 new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError error) {
-                        imageView.setImageResource(R.drawable.user);
+                        //imageView.setImageResource(R.drawable.user);
                     }
                 });
         // Access the RequestQueue through your singleton class.

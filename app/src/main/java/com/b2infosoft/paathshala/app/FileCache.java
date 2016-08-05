@@ -2,8 +2,13 @@ package com.b2infosoft.paathshala.app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.InputStream;
 
 /**
  * Created by rajesh on 8/5/2016.
@@ -51,5 +56,21 @@ public class FileCache {
         //delete all cache directory files
         for(File f:files)
             f.delete();
+    }
+    public static String encodeToBase64(Bitmap image) {
+        Bitmap bitmap_image = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap_image.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+        return imageEncoded;
+    }
+    public static Bitmap getBitmap(String string){
+        if(string!=null && string.length()>0) {
+            byte[] b = Base64.decode(string, Base64.DEFAULT);
+            InputStream is = new ByteArrayInputStream(b);
+            return BitmapFactory.decodeStream(is);
+        }
+        return null;
     }
 }

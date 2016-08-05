@@ -44,6 +44,7 @@ public class Tags {
     public final String USER_NAME = "user_name";
     public final String USER_SESSION = "user_session";
     public final String USER_PASSWORD = "user_password";
+    public final String USER_PROFILE_PIC = "user_profile_pic";
 
     //////////  JSON ARRAYS ////////////
 

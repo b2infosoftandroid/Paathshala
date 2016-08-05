@@ -3,6 +3,8 @@ package com.b2infosoft.paathshala.credential;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.b2infosoft.paathshala.app.Tags;
+
 /**
  * Created by rajesh on 7/12/2016.
  */
@@ -17,7 +19,6 @@ public class Active {
     public static Active getInstance(Context context) {
         return new Active(context);
     }
-
     private final String USER_CREDENTIALS = "dmr_rajesh";
     private final int PRIVATE_KEY = 0;
     private final String DEVICE_LOGIN = "device_login";
@@ -43,9 +44,14 @@ public class Active {
     }
 
     public void setLogOut() {
+        Tags tags = Tags.getInstance();
         SharedPreferences setting = context.getSharedPreferences(USER_CREDENTIALS, PRIVATE_KEY);
         setting.edit()
                 .putBoolean(DEVICE_LOGIN, STATUS[0])
+                .putString(tags.USER_PROFILE_PIC, "")
+                .putString(tags.S_STU_PHOTO, "")
+                .putString(tags.SESSION, "")
+                .putString(tags.S_INFO_STU_NAME,"")
                 .commit();
     }
 

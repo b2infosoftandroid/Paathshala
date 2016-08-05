@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.app.FileCache;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.fragment.Admission;
@@ -73,19 +74,24 @@ public class MainActivity extends CallBacks {
             @Override
             public void onClick(View v) {
                 replaceFragment(new Dashboard());
-                setTitle("Admission");
+                setTitle("Dashboard");
             }
         });
-        updateImage(circularImageView);
         profile_name = (TextView) headerView.findViewById(R.id.user_profile_name);
         profile_name.setText(active.getValue(tags.S_INFO_STU_NAME));
-
+        setProfileImage();
         navigationView.removeHeaderView(headerView);
         navigationView.addHeaderView(headerView);
         replaceFragment(new Dashboard());
-        setTitle("Admission");
+        setTitle("Dashboard");
     }
-
+    private void setProfileImage(){
+        if(active.getValue(tags.USER_PROFILE_PIC).length()>0){
+            circularImageView.setImageBitmap(FileCache.getBitmap(active.getValue(tags.USER_PROFILE_PIC)));
+        }else{
+            updateImage();
+        }
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -207,19 +213,21 @@ public class MainActivity extends CallBacks {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
     }
-    private void updateImage(final CircularImageView imageView){
+    private void updateImage(){
         String url = active.getValue(tags.S_STU_PHOTO);
         // Retrieves an image specified by the URL, displays it in the UI.
         ImageRequest request = new ImageRequest(url,
                 new Response.Listener<Bitmap>() {
                     @Override
                     public void onResponse(Bitmap bitmap) {
-                        imageView.setImageBitmap(bitmap);
+                        //imageView.setImageBitmap(bitmap);
+                        active.setKey(tags.USER_PROFILE_PIC, FileCache.encodeToBase64(bitmap));
+                        setProfileImage();
                     }
                 }, 0, 0, null,
                 new Response.ErrorListener() {
                     public void onErrorResponse(VolleyError error) {
-                        imageView.setImageResource(R.drawable.user);
+                        //imageView.setImageResource(R.drawable.user);
                     }
                 });
         // Access the RequestQueue through your singleton class.
