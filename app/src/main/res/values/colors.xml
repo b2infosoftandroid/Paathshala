@@ -68,6 +68,6 @@
     <color name="complaint_card_2">#13daf4</color>
     <color name="complaint_card_2_border">#0ed1eb</color>
 
-    <color name="floating_button_background">#fc9f5e </color>
+    <color name="floating_button_background">#575757 </color>
 
 </resources>
