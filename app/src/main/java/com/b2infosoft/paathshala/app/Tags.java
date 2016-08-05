@@ -219,6 +219,10 @@ public class Tags {
     public final String MONTH_HALF_DAY="HalfDay";
 
     /////////////   COMPLAINT ////////////
+
+    public final String COMP_ID = "Id";
+    public final String COMP_SID = "Sid";
+    public final String COMP_SCHOOL_ID = "Schoolid";
     public final String COMP_SUBJECT = "Subject";
     public final String COMP_DETAILS = "Details";
     public final String COMP_STATUS = "Status";

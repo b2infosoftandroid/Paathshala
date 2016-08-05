@@ -29,6 +29,7 @@ import com.b2infosoft.paathshala.adapter.ComplaintRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.ComplaintInfo;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -49,20 +50,19 @@ import java.util.List;
  */
 public class Complaint extends Fragment {
 
-    private static String TAG=Complaint.class.getName();
+    private static String TAG = Complaint.class.getName();
 
-    Tags tags= Tags.getInstance();
-    Urls urls= Urls.getInstance();
+    Tags tags = Tags.getInstance();
+    Urls urls = Urls.getInstance();
     Active active;
-    EditText title,body;
-    Button b1,b2;
+    DBHelper dbHelper;
+    EditText title, body;
+    Button b1, b2;
     FloatingActionButton new_complaint;
     private ProgressDialog progress = null;
     RecyclerView rv;
     List<ComplaintInfo> complaintInfoList;
     private static ComplaintRecyclerViewAdapter adapter;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -109,7 +109,7 @@ public class Complaint extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_complaint, container, false);
         active = Active.getInstance(getContext());
-
+        dbHelper = new DBHelper(getActivity());
         rv = (RecyclerView) view.findViewById(R.id.complaint_recycler_view);
         new_complaint = (FloatingActionButton) view.findViewById(R.id.new_complaint_btn);
         new_complaint.setOnClickListener(new View.OnClickListener() {
@@ -118,23 +118,28 @@ public class Complaint extends Fragment {
                 newComplaintSend();
             }
         });
-        fetchComplaintList();
 
-        return  view;
+        List<ComplaintInfo> infoList = dbHelper.getComplaint();
+        if (infoList.size() == 0) {
+            fetchComplaintList();
+        } else {
+            updateComplaint(infoList);
+        }
+        return view;
     }
 
-    private void newComplaintSend(){
+    private void newComplaintSend() {
 
         final Dialog dialog = new Dialog(getContext());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.custom_dialog);
-        title = (EditText)dialog.findViewById(R.id.complaint_title);
-        body = (EditText)dialog.findViewById(R.id.complaint_body);
+        title = (EditText) dialog.findViewById(R.id.complaint_title);
+        body = (EditText) dialog.findViewById(R.id.complaint_body);
         body.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         body.setSingleLine(false);
 
-        b1 = (Button)dialog.findViewById(R.id.complaint_button);
-        b2 = (Button)dialog.findViewById(R.id.complaint_cancel);
+        b1 = (Button) dialog.findViewById(R.id.complaint_button);
+        b2 = (Button) dialog.findViewById(R.id.complaint_cancel);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,97 +155,112 @@ public class Complaint extends Fragment {
         dialog.show();
     }
 
-   private void fetchComplaintList(){
-       HashMap<String,String> map=new HashMap<>();
-       map.put(tags.S_ID,active.getValue(tags.S_ID));
-       map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
-       String url = urls.getUrl(urls.getPath(tags.COMPLAINT_LIST),map);
-       showProgress();
-       //Log.d(TAG,url);
-       JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-               (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
+    private void updateComplaint(List<ComplaintInfo> infoList) {
+        adapter = new ComplaintRecyclerViewAdapter(infoList);
+        rv.setAdapter(adapter);
+    }
 
-                   @Override
-                   public void onResponse(JSONObject response) {
-                       complaintInfoList = new ArrayList<>();
-                       if(response!=null){
-                           try {
-                               //Log.d(TAG,response+"");
-                               if (response.has(tags.ARR_COMPLAINT_DETAIL)) {
-                                   JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINT_DETAIL);
-                                   for(int i=0;i<jsonArray.length();i++) {
-                                       JSONObject object = jsonArray.getJSONObject(i);
-                                       ComplaintInfo info = new ComplaintInfo();
-                                       if (object.has(tags.COMP_HISTORY_SUBJECT)) {
-                                           info.setSubject(object.getString(tags.COMP_HISTORY_SUBJECT));
-                                       }
-                                       if (object.has(tags.COMP_HISTORY_DETAIL)) {
-                                           info.setDetail(object.getString(tags.COMP_HISTORY_DETAIL));
-                                       }
-                                       if (object.has(tags.COMP_HISTORY_DATE)) {
-                                           info.setCdate(object.getString(tags.COMP_HISTORY_DATE));
-                                       }
-                                       complaintInfoList.add(info);
-                                   }
-                                   adapter = new ComplaintRecyclerViewAdapter(complaintInfoList);
-                                   rv.setAdapter(adapter);
-                                   dismissProgress();
-                               }
+    private void fetchComplaintList() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.S_ID, active.getValue(tags.S_ID));
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        String url = urls.getUrl(urls.getPath(tags.COMPLAINT_LIST), map);
+        showProgress();
+        //Log.d(TAG,url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
-                           }catch (Exception e){
-                               dismissProgress();
-                               //Log.e(TAG,e.getMessage());
-                           }
-                       }
-                   }
-               },new Response.ErrorListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        complaintInfoList = new ArrayList<>();
+                        if (response != null) {
+                            try {
+                                //Log.d(TAG,response+"");
+                                if (response.has(tags.ARR_COMPLAINT_DETAIL)) {
+                                    JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINT_DETAIL);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject object = jsonArray.getJSONObject(i);
+                                        ComplaintInfo info = new ComplaintInfo();
+                                        if (object.has(tags.COMP_ID)) {
+                                            info.setId(object.getInt(tags.COMP_ID));
+                                        }
+                                        if (object.has(tags.COMP_SID)) {
+                                            info.setsId(object.getInt(tags.COMP_SID));
+                                        }
+                                        if (object.has(tags.COMP_SCHOOL_ID)) {
+                                            info.setSchoolId(object.getInt(tags.COMP_SCHOOL_ID));
+                                        }
+                                        if (object.has(tags.COMP_HISTORY_SUBJECT)) {
+                                            info.setSubject(object.getString(tags.COMP_HISTORY_SUBJECT));
+                                        }
+                                        if (object.has(tags.COMP_HISTORY_DETAIL)) {
+                                            info.setDetail(object.getString(tags.COMP_HISTORY_DETAIL));
+                                        }
+                                        if (object.has(tags.COMP_HISTORY_DATE)) {
+                                            info.setCdate(object.getString(tags.COMP_HISTORY_DATE));
+                                        }
+                                        complaintInfoList.add(info);
+                                    }
+                                    updateComplaint(complaintInfoList);
+                                    dbHelper.deleteComplaint();
+                                    dbHelper.setComplaint(complaintInfoList);
+                                    dismissProgress();
+                                }
 
-                   @Override
-                   public void onErrorResponse(VolleyError error) {
-                       Log.d(TAG, error.toString());
-                   }
-               });
-       jsonObjectRequest.setTag(TAG);
-       MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
-   }
+                            } catch (Exception e) {
+                                dismissProgress();
+                                //Log.e(TAG,e.getMessage());
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
 
-    private void checkBlank(){
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
+                    }
+                });
+        jsonObjectRequest.setTag(TAG);
+        MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private void checkBlank() {
         String s1 = title.getText().toString();
         String s2 = body.getText().toString();
         title.setError(null);
         body.setError(null);
 
-        if(title.length()== 0){
+        if (title.length() == 0) {
             title.setError("Please Enter Subject");
             title.requestFocus();
             return;
         }
-        if(body.length() == 0){
+        if (body.length() == 0) {
             body.setError("Please Enter Description");
             body.requestFocus();
             return;
         }
-        sendData(s1,s2);
+        sendData(s1, s2);
     }
 
-    public void sendData(String s1,String s2){
-        HashMap<String,String> map=new HashMap<>();
-        map.put(tags.S_ID,active.getValue(tags.S_ID));
-        map.put(tags.COMP_SUBJECT,s1);
-        map.put(tags.COMP_DETAILS,s2);
-        map.put(tags.SCHOOL_ID,active.getValue(tags.SCHOOL_ID));
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-                (Request.Method.GET,urls.getUrl(urls.getPath(tags.COMPLAINTS),map), null, new Response.Listener<JSONObject>() {
+    public void sendData(String s1, String s2) {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(tags.S_ID, active.getValue(tags.S_ID));
+        map.put(tags.COMP_SUBJECT, s1);
+        map.put(tags.COMP_DETAILS, s2);
+        map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.COMPLAINTS), map), null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        if(response!=null){
+                        if (response != null) {
                             try {
                                 //Log.d(TAG,response+"");
                                 if (response.has(tags.ARR_COMPLAINTS)) {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_COMPLAINTS);
                                     JSONObject object = jsonArray.getJSONObject(0);
-                                    if(object.has(tags.COMP_STATUS)){
+                                    if (object.has(tags.COMP_STATUS)) {
                                         String str = object.getString(tags.COMP_STATUS);
                                         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                         builder.setTitle("Complaint");
@@ -256,12 +276,12 @@ public class Complaint extends Fragment {
                                     }
 
                                 }
-                            }catch (Exception e){
-                                Log.e(TAG,e.getMessage());
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
                             }
                         }
                     }
-                },new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -271,7 +291,6 @@ public class Complaint extends Fragment {
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(getContext()).addToRequestQueue(jsonObjectRequest);
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event

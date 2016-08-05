@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.b2infosoft.paathshala.model.ComplaintInfo;
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
 import com.b2infosoft.paathshala.model.HolidayInfo;
@@ -38,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String T1 = "CREATE TABLE " + schema.CITY + "(" + schema.S_NO + " int," + schema.ID + " int," + schema.NAME + " text)";
 
-        String T2 = "CREATE TABLE " + schema.COMPLAINT_LIST + "(" + schema.C_ID + " int," + schema.C_SID + " int," + schema.SUBJECT + " text," + schema.C_DATE + " date," + schema.SCHOOL_ID + " int)";
+        String T2 = "CREATE TABLE " + schema.COMPLAINT_LIST + "(" + schema.C_ID + " int," + schema.C_SID + " int," + schema.SUBJECT + " text," + schema.C_DETAILS + " text," + schema.C_DATE + " date," + schema.SCHOOL_ID + " int)";
 
         String T3 = "CREATE TABLE " + schema.SCHOOL_LIST + "(" + schema.SCHOOLS_ID + " int," + schema.SCHOOLS_NAME + " text," + schema.SCHOOLS_ADDRESS + " text)";
 
@@ -662,5 +663,42 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + schema.MONTH_ATTENDANCE + " WHERE " + schema.YEAR + " = " + year + " AND "+ schema.MONTH+" ='"+month+"';");
     }
 /* ----------------- ATTENDANCE PART END--------------------- */
+/* ----------------- COMPLAINT PART START--------------------- */
+public void setComplaint(List<ComplaintInfo> infoList) {
+    SQLiteDatabase database = this.getWritableDatabase();
+    for (ComplaintInfo info : infoList) {
+        ContentValues values = new ContentValues();
+        values.put(schema.C_ID, info.getId());
+        values.put(schema.C_SID, info.getsId());
+        values.put(schema.SUBJECT, info.getSubject());
+        values.put(schema.C_DETAILS, info.getDetail());
+        values.put(schema.C_DATE, info.getCdate());
+        values.put(schema.SCHOOL_ID, info.getSchoolId());
+        database.insert(schema.COMPLAINT_LIST, null, values);
+    }
+}
 
+    public List<ComplaintInfo> getComplaint() {
+        List<ComplaintInfo> infoList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.COMPLAINT_LIST+ " ORDER BY " + schema.C_ID +" DESC", null);
+        while (cursor.moveToNext()) {
+            ComplaintInfo info = new ComplaintInfo();
+            info.setsId(cursor.getInt(cursor.getColumnIndex(schema.C_ID)));
+            info.setsId(cursor.getInt(cursor.getColumnIndex(schema.C_SID)));
+            info.setSubject(cursor.getString(cursor.getColumnIndex(schema.SUBJECT)));
+            info.setDetail(cursor.getString(cursor.getColumnIndex(schema.C_DETAILS)));
+            info.setCdate(cursor.getString(cursor.getColumnIndex(schema.C_DATE)));
+            info.setSchoolId(cursor.getInt(cursor.getColumnIndex(schema.SCHOOL_ID)));
+            infoList.add(info);
+        }
+        return infoList;
+    }
+
+    public void deleteComplaint() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + schema.COMPLAINT_LIST);
+    }
+
+/* ----------------- COMPLAINT PART END--------------------- */
 }

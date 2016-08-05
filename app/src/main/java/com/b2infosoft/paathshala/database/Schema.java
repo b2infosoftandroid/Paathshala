@@ -35,6 +35,7 @@ public class Schema {
     public final String C_SID="s_id";
     public final String SUBJECT="subject_name";
     public final String C_DATE="c_date";
+    public final String C_DETAILS="Details";
     public final String SCHOOL_ID="school_id";
 
     ///////////       SESSION LIST TABLE   //////////////
