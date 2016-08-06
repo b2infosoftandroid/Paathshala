@@ -45,8 +45,8 @@ public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecycler
              TextView schActive = holder.sch_active;
 
 
-              id.setText(get_info.getId());
-              city_id.setText(get_info.getCityId());
+              id.setText(String.valueOf(get_info.getId()));
+              city_id.setText(String.valueOf(get_info.getCityId()));
               name.setText(get_info.getName());
               schActive.setText(get_info.getActive());
     }

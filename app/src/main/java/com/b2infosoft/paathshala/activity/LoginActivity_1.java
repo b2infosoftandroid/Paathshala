@@ -264,8 +264,8 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                             }
                             if (response.has(tags.ARR_USER_INFO)) {
-                                JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
-                                JSONObject object = userInfoArray.getJSONObject(0);
+                                //JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
+                                JSONObject object = response.getJSONObject(tags.ARR_USER_INFO);
                                 if (object.has(tags.S_ID)) {
                                     String s_id = object.getString(tags.S_ID);
                                     active.setKey(tags.S_ID, s_id);
