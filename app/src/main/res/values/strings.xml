@@ -128,7 +128,14 @@
     <string name="forgot_pass_school_id">Enter Your School Id</string>
     <string name="forgot_pass_submit">Submit</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+    <!--   GET INSTITUTE INFO -->
+    <string name="get_institute_prompt_id">Institute Id</string>
+    <string name="get_institute_id">16</string>
+    <string name="get_institute_prompt_city_name">City Name</string>
+    <string name="get_institute_city_name">JAIPUR</string>
+    <string name="get_institute_prompt_school_name">School Name</string>
+    <string name="get_institute_school_name">Websquare School,  F-112,113 VDN Jaipur</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="exam_type">
         <item>Select</item>

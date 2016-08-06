@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.b2infosoft.paathshala.model.City;
 import com.b2infosoft.paathshala.model.ComplaintInfo;
@@ -731,6 +732,15 @@ public void setComplaint(List<ComplaintInfo> infoList) {
         }
         return infoList;
     }
+    public List<String> getCityName() {
+        List<String> infoList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.CITY, null);
+        while (cursor.moveToNext()) {
+            infoList.add(cursor.getString(cursor.getColumnIndex(schema.NAME)));
+        }
+        return infoList;
+    }
 
     public void deleteCity() {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -765,6 +775,25 @@ public void setComplaint(List<ComplaintInfo> infoList) {
             city.setAddress(cursor.getString(cursor.getColumnIndex(schema.SCHOOLS_ADDRESS)));
             city.setActive(cursor.getString(cursor.getColumnIndex(schema.SCHOOLS_ACTIVE)));
             infoList.add(city);
+        }
+        return infoList;
+    }
+
+    public List<InstituteInfo> getInstitute(String city) {
+        List<InstituteInfo> infoList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        String sql ="SELECT s."+schema.SCHOOLS_ID+",s."+schema.SCHOOLS_NAME+",s."+schema.SCHOOLS_ADDRESS+",s."+schema.SCHOOLS_ACTIVE+" FROM "+schema.CITY+" as c JOIN "+schema.SCHOOL_LIST+
+                " as s ON (c."+schema.ID+" = s."+schema.SCHOOLS_CITY_ID+") WHERE c."+schema.NAME+" = '"+city+"'";
+        Log.d("SQL",sql);
+        Cursor cursor = database.rawQuery(sql , null);
+        while (cursor.moveToNext()) {
+            InstituteInfo info = new InstituteInfo();
+            info.setId(cursor.getInt(cursor.getColumnIndex(schema.SCHOOLS_ID)));
+            info.setCityName(city);
+            info.setName(cursor.getString(cursor.getColumnIndex(schema.SCHOOLS_NAME)));
+            info.setAddress(cursor.getString(cursor.getColumnIndex(schema.SCHOOLS_ADDRESS)));
+            info.setActive(cursor.getString(cursor.getColumnIndex(schema.SCHOOLS_ACTIVE)));
+            infoList.add(info);
         }
         return infoList;
     }
