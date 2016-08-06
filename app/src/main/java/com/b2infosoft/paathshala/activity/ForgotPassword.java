@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.services.DBUpdate;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -30,7 +33,7 @@ import java.util.HashMap;
 public class ForgotPassword extends AppCompatActivity {
 
     private static String TAG=ForgotPassword.class.getName();
-
+    Network network;
     Tags tags= Tags.getInstance();
     Urls urls= Urls.getInstance();
     Active active;
@@ -40,7 +43,7 @@ public class ForgotPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot_password);
-
+        network = Network.getInstance(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         active = Active.getInstance(getApplicationContext());
         user_id = (EditText)findViewById(R.id.forgot_pass_user_id);
@@ -78,6 +81,10 @@ public class ForgotPassword extends AppCompatActivity {
         if(school_id.length() == 0){
             school_id.setError("Please Enter Your School Id");
             school_id.requestFocus();
+            return;
+        }
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
             return;
         }
         sendPassword(user,schl);
