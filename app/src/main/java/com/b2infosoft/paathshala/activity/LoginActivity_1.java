@@ -252,10 +252,11 @@ public class LoginActivity_1 extends AppCompatActivity {
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.CHECK_USER), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        Log.d(TAG, response.toString());
+                      Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
-                                JSONObject object = response.getJSONObject(tags.ARR_RESULT);
+                                JSONArray array = response.getJSONArray(tags.ARR_RESULT);
+                                JSONObject object = array.getJSONObject(0);
                                 if (object.has(tags.RESPONSE)) {
                                     String res = object.getString(tags.RESPONSE);
                                     if (res.equals(tags.RESPONSE_PASS)) {
@@ -264,8 +265,8 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                             }
                             if (response.has(tags.ARR_USER_INFO)) {
-                                //JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
-                                JSONObject object = response.getJSONObject(tags.ARR_USER_INFO);
+                                JSONArray array = response.getJSONArray(tags.ARR_USER_INFO);
+                                JSONObject object = array.getJSONObject(0);
                                 if (object.has(tags.S_ID)) {
                                     String s_id = object.getString(tags.S_ID);
                                     active.setKey(tags.S_ID, s_id);

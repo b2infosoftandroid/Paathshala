@@ -93,7 +93,8 @@ public class Dashboard extends Fragment {
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
         dbHelper = new DBHelper(getActivity());
-        textView.setText(dbHelper.getInstituteName(active.getValue(tags.SESSION_ID)));
+        String school_name = dbHelper.getInstituteName(active.getValue(tags.SCHOOL_ID));
+        textView.setText(school_name.substring(0,school_name.indexOf(",")).toUpperCase());
         linearLayoutClassmates = (LinearLayout)view.findViewById(R.id.layout_classmates);
         linearLayoutAttendance = (LinearLayout)view.findViewById(R.id.layout_attendance);
         linearLayoutEnquiry = (LinearLayout)view.findViewById(R.id.layout_holidays);
