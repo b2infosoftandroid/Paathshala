@@ -1,5 +1,6 @@
 package com.b2infosoft.paathshala.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +57,7 @@ public class MainActivity extends CallBacks {
     Active active;
     Tags tags;
     Network network;
+    private Menu optionsMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +93,7 @@ public class MainActivity extends CallBacks {
         navigationView.addHeaderView(headerView);
         replaceFragment(new Dashboard());
         setTitle("Dashboard");
+
     }
     private void setProfileImage(){
         if(active.getValue(tags.USER_PROFILE_PIC).length()>0){
@@ -101,13 +105,14 @@ public class MainActivity extends CallBacks {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main, menu);
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
+
                 if(network.isInternetAvailable()) {
                     Intent intent = new Intent(this, DBUpdate.class);
                     startService(intent);
@@ -115,8 +120,25 @@ public class MainActivity extends CallBacks {
                     Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
                 }
                 return true;
+           // case R.id.menu_refresh1:
+               // setRefreshActionButtonState(true);
+               // return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void setRefreshActionButtonState(final boolean refreshing) {
+        if (optionsMenu != null) {
+            final MenuItem refreshItem = optionsMenu
+                    .findItem(R.id.menu_refresh1);
+            if (refreshItem != null) {
+                if (refreshing) {
+                    refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
+                } else {
+                    refreshItem.setActionView(null);
+                }
+            }
         }
     }
     @Override
@@ -128,6 +150,7 @@ public class MainActivity extends CallBacks {
             super.onBackPressed();
         }
     }
+
 
 
     @Override
