@@ -30,6 +30,7 @@ import com.b2infosoft.paathshala.fragment.dashboard.Guardian;
 import com.b2infosoft.paathshala.fragment.dashboard.Parent;
 import com.b2infosoft.paathshala.fragment.dashboard.Student;
 import com.b2infosoft.paathshala.model.StudentInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -53,6 +54,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
     Active active;
     Tags tags;
     DBHelper dbHelper;
+    Network network;
     private final static String TAG = Admission.class.getName();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -109,7 +111,7 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
         dbHelper = new DBHelper(getActivity());
-
+        network = Network.getInstance(getActivity());
         final View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         fragmentList = new ArrayList<>();
         fragmentList.add(new Student());
@@ -207,6 +209,10 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         void onDashboardInteraction(Uri uri);
     }
     private void fetchStudentInfo() {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(),getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
