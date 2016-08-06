@@ -5,6 +5,10 @@
     android:layout_height="wrap_content"
     android:background="@color/app_background"
     android:orientation="vertical"
+    android:paddingTop="@dimen/activity_horizontal_padding"
+    android:paddingBottom="@dimen/activity_horizontal_padding"
+    android:paddingLeft="@dimen/activity_vertical_padding"
+    android:paddingRight="@dimen/activity_vertical_padding"
     tools:context=".activity.MainActivity">
 
     <android.support.v7.widget.CardView

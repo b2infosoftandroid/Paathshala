@@ -107,7 +107,7 @@
                         android:text="0"
                         android:gravity="center"
                         android:textColor="@color/app_background"
-                        android:background="@color/attendance_half_day" />
+                        android:background="@color/attendance_half_day_border" />
 
                     <TextView
                         android:layout_width="wrap_content"

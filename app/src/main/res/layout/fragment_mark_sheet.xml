@@ -34,7 +34,6 @@
             android:textColor="@color/button_foreground"
             android:background="@drawable/button_fill_background"
             android:layout_alignParentRight="true"
-            android:layout_alignBaseline="@+id/textView"
             android:text="Search"
             />
     </RelativeLayout>
