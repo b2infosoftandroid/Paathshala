@@ -252,8 +252,7 @@ public class LoginActivity_1 extends AppCompatActivity {
 //                        Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
-                                JSONArray result = response.getJSONArray(tags.ARR_RESULT);
-                                JSONObject object = result.getJSONObject(0);
+                                JSONObject object = response.getJSONObject(tags.ARR_RESULT);
                                 if (object.has(tags.RESPONSE)) {
                                     String res = object.getString(tags.RESPONSE);
                                     if (res.equals(tags.RESPONSE_PASS)) {
@@ -262,8 +261,8 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                             }
                             if (response.has(tags.ARR_USER_INFO)) {
-                                JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
-                                JSONObject object = userInfoArray.getJSONObject(0);
+                                //JSONArray userInfoArray = response.getJSONArray(tags.ARR_USER_INFO);
+                                JSONObject object = response.getJSONObject(tags.ARR_USER_INFO);
                                 if (object.has(tags.S_ID)) {
                                     String s_id = object.getString(tags.S_ID);
                                     active.setKey(tags.S_ID, s_id);
