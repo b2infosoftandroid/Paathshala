@@ -31,6 +31,7 @@ import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.City;
 import com.b2infosoft.paathshala.model.InstituteInfo;
 import com.b2infosoft.paathshala.model.StudentInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -46,6 +47,7 @@ public class LoginActivity_1 extends AppCompatActivity {
     Active active;
     Urls urls;
     MySingleton mySingleton;
+    Network network;
     Tags tags = Tags.getInstance();
     StringRequest stringRequest; // Assume this exists.
     RequestQueue requestQueue;  // Assume this exists.
@@ -64,6 +66,7 @@ public class LoginActivity_1 extends AppCompatActivity {
         active = Active.getInstance(this);
         setContentView(R.layout.activity_login_1);
         urls = Urls.getInstance();
+        network = Network.getInstance(this);
         mySingleton = MySingleton.getInstance(this);
         requestQueue = mySingleton.getRequestQueue();
         dbHelper = new DBHelper(this);
@@ -80,6 +83,47 @@ public class LoginActivity_1 extends AppCompatActivity {
 
         session_list = (EditText) findViewById(R.id.login_session);
         session_list.setOnClickListener(button);
+
+        sessionList = new Hashtable<>();
+        sessionList = dbHelper.getSession();
+        if (sessionList.size() == 0) {
+            fetchSession();
+        }
+
+        List<City> cities = dbHelper.getCity();
+        if (cities.size() == 0) {
+            fetchCity();
+        }
+        List<InstituteInfo> infoList = dbHelper.getInstitute();
+        if (infoList.size() == 0) {
+            fetchInstitute();
+        }
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        sessionList = new Hashtable<>();
+        sessionList = dbHelper.getSession();
+        if (sessionList.size() == 0) {
+            fetchSession();
+        }
+
+        List<City> cities = dbHelper.getCity();
+        if (cities.size() == 0) {
+            fetchCity();
+        }
+        List<InstituteInfo> infoList = dbHelper.getInstitute();
+        if (infoList.size() == 0) {
+            fetchInstitute();
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         sessionList = new Hashtable<>();
         sessionList = dbHelper.getSession();
         if (sessionList.size() == 0) {
@@ -106,6 +150,10 @@ public class LoginActivity_1 extends AppCompatActivity {
     }
 
     private void loginSuccess() {
+        if (!network.isInternetAvailable()) {
+            Toast.makeText(this, getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
@@ -155,10 +203,9 @@ public class LoginActivity_1 extends AppCompatActivity {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
-
+    String[] items = {};
     private void selectSession() {
         //CharSequence[] items = {"2001-2002", "2002-2003", "2003-2004", "2004-2005", "2005-2006"};
-        String[] items = {};
         if (sessionList != null) {
             List<String> list = new ArrayList<>(sessionList.keySet());
             Collections.sort(list);
@@ -178,10 +225,13 @@ public class LoginActivity_1 extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                ListView lw = ((AlertDialog) dialog).getListView();
-                Object checkedItem = lw.getAdapter().getItem(lw.getCheckedItemPosition());
-                //Toast.makeText(getApplication(),""+checkedItem,Toast.LENGTH_SHORT).show();
-                session_list.setText(checkedItem.toString());
+                if (sessionList != null && sessionList.size() > 0 && items.length >0) {
+                    ListView lw = ((AlertDialog) dialog).getListView();
+                    Object checkedItem = lw.getAdapter().getItem(lw.getCheckedItemPosition());
+                    session_list.setText(checkedItem.toString());
+                } else {
+                    Toast.makeText(LoginActivity_1.this,"Please Select Session",Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
             }
         });
@@ -242,6 +292,10 @@ public class LoginActivity_1 extends AppCompatActivity {
             login_password_1.requestFocus();
             return;
         }
+        if(!network.isInternetAvailable()){
+            Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, institute_id);
         map.put(tags.SESSION_ID, sessionList.get(session));
@@ -252,7 +306,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.CHECK_USER), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                      //Log.d(TAG, response.toString());
+                        //Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
                                 JSONArray array = response.getJSONArray(tags.ARR_RESULT);
@@ -278,7 +332,16 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     loginSuccess();
                                 }
                                 if (object.has(tags.COLUMN_1)) {
-
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity_1.this);
+                                    builder.setTitle("Alert");
+                                    builder.setMessage("Id & Password is wrong.");
+                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    builder.create().show();
                                 }
                                 dismissProgress();
                             }
@@ -313,12 +376,16 @@ public class LoginActivity_1 extends AppCompatActivity {
     }
 
     private void fetchSession() {
+        if(!network.isInternetAvailable()){
+            Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG,response.toString());
+                        Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
                                 JSONArray jsonArray = response.getJSONArray(tags.ARR_RESULT);
@@ -394,6 +461,10 @@ public class LoginActivity_1 extends AppCompatActivity {
     }
 
     private void fetchCity() {
+        if(!network.isInternetAvailable()){
+            Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.CITY), map), null, new Response.Listener<JSONObject>() {
@@ -451,6 +522,10 @@ public class LoginActivity_1 extends AppCompatActivity {
     }
 
     private void fetchInstitute() {
+        if(!network.isInternetAvailable()){
+            Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         String url = urls.getUrl(urls.getPath(tags.SCHOOL_LIST), map);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -483,6 +558,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     dbHelper.setInstitute(institute);
                                 }
                             } catch (Exception e) {
+
                             }
                         }
                     }

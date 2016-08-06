@@ -14,10 +14,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -39,6 +41,8 @@ import com.b2infosoft.paathshala.fragment.dashboard.Guardian;
 import com.b2infosoft.paathshala.fragment.dashboard.Parent;
 import com.b2infosoft.paathshala.fragment.dashboard.Student;
 import com.b2infosoft.paathshala.model.DummyContent;
+import com.b2infosoft.paathshala.services.DBUpdate;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -50,6 +54,7 @@ public class MainActivity extends CallBacks {
     LinearLayout nav_header_layout;
     Active active;
     Tags tags;
+    Network network;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class MainActivity extends CallBacks {
         setSupportActionBar(toolbar);
         active = Active.getInstance(this);
         tags = Tags.getInstance();
+        network = Network.getInstance(this);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -90,6 +96,27 @@ public class MainActivity extends CallBacks {
             circularImageView.setImageBitmap(FileCache.getBitmap(active.getValue(tags.USER_PROFILE_PIC)));
         }else{
             updateImage();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_refresh:
+                if(network.isInternetAvailable()) {
+                    Intent intent = new Intent(this, DBUpdate.class);
+                    startService(intent);
+                }else{
+                    Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
     @Override

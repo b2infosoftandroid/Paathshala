@@ -3,7 +3,6 @@ package com.b2infosoft.paathshala.activity;
 import android.app.ProgressDialog;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -52,10 +50,8 @@ public class GetInstituteId extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_get_id);
         dbHelper = new DBHelper(this);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
         active = Active.getInstance(getApplicationContext());
@@ -86,7 +82,6 @@ public class GetInstituteId extends AppCompatActivity {
 
             }
         });
-
         return super.onCreateOptionsMenu(menu);
     }
 
