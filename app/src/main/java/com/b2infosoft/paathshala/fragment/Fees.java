@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,6 +31,7 @@ import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.FeeInstallment;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -45,7 +47,7 @@ public class Fees extends Fragment {
     Tags tags;
     Fonts fonts = Fonts.getInstance();
     Format format = Format.getInstance();
-
+    Network network;
     TableLayout t1, t2;
     TextView name, type, total_fee, deposit, t_discount, balance, deposit_name, deposit_type, amt, receipt_no, receipt_date, pay_mode;
     List<FeeInstallment> fee_installments;
@@ -181,6 +183,7 @@ public class Fees extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        network = Network.getInstance(getActivity());
         dbHelper = new DBHelper(getActivity());
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
@@ -376,6 +379,10 @@ public class Fees extends Fragment {
     }
 
     private void fetchInstallmentData() {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));

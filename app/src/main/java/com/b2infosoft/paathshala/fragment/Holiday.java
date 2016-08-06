@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -34,6 +35,7 @@ import com.b2infosoft.paathshala.model.DummyContent;
 import com.b2infosoft.paathshala.model.DummyContent.DummyItem;
 import com.b2infosoft.paathshala.model.HolidayInfo;
 import com.b2infosoft.paathshala.model.TimeTableInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -46,6 +48,7 @@ import java.util.List;
 public class Holiday extends Fragment {
     private static String TAG = Holiday.class.getName();
     private OnHolidayFragmentListener mListener;
+    Network network;
     TableLayout t1;
     Format format = Format.getInstance();
     TextView name, from_date, to_date;
@@ -87,6 +90,7 @@ public class Holiday extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         dbHelper = new DBHelper(getActivity());
+        network = Network.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_holiday, container, false);
         active = Active.getInstance(getContext());
         t1 = (TableLayout) view.findViewById(R.id.holiday_table);
@@ -122,6 +126,10 @@ public class Holiday extends Fragment {
     }
 
     private void getHolidayDetail() {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));

@@ -42,6 +42,7 @@ import com.b2infosoft.paathshala.fragment.timetable.Sunday;
 import com.b2infosoft.paathshala.fragment.timetable.Thursday;
 import com.b2infosoft.paathshala.fragment.timetable.Wednesday;
 import com.b2infosoft.paathshala.model.TimeTableInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -54,7 +55,7 @@ import java.util.List;
 public class TimeTable extends Fragment {
 
     private static String TAG = TimeTable.class.getName();
-
+    Network network;
     private OnTimeTableListener mListener;
     TableLayout t1;
     TextView exam_list, sub_name, sub_exm_date;
@@ -83,6 +84,7 @@ public class TimeTable extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_time_table, container, false);
+        network = Network.getInstance(getActivity());
         dbHelper = new DBHelper(getActivity());
         active = Active.getInstance(getContext());
         exam_list = (TextView) view.findViewById(R.id.exam_type);
@@ -109,9 +111,9 @@ public class TimeTable extends Fragment {
                 // Toast.makeText(getContext(),"success",Toast.LENGTH_LONG).show();
                 String value = spinner.getSelectedItem().toString();
                 List<TimeTableInfo> infoList = dbHelper.getTimeTable(value);
-                if(infoList.size()==0) {
+                if (infoList.size() == 0) {
                     getData(value);
-                }else{
+                } else {
                     addData(infoList);
                 }
             }
@@ -162,6 +164,10 @@ public class TimeTable extends Fragment {
     }
 
     private void fetchExamList() {
+        if (!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
@@ -210,6 +216,10 @@ public class TimeTable extends Fragment {
 
 
     public void getData(final String str) {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(),getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
@@ -274,7 +284,7 @@ public class TimeTable extends Fragment {
         sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
         sub_name.setPadding(30, 30, 30, 30);
-        sub_name.setTypeface(null,Typeface.BOLD);
+        sub_name.setTypeface(null, Typeface.BOLD);
         tr_head.addView(sub_name);
 
 
@@ -284,7 +294,7 @@ public class TimeTable extends Fragment {
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
         sub_exm_date.setPadding(30, 30, 30, 30);
         sub_exm_date.setGravity(Gravity.CENTER);
-        sub_exm_date.setTypeface(null,Typeface.BOLD);
+        sub_exm_date.setTypeface(null, Typeface.BOLD);
         tr_head.addView(sub_exm_date);
         t1.addView(tr_head);
 
