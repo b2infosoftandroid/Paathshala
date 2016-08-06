@@ -25,7 +25,6 @@
     <color name="tab_host_strip_line_selected">#fff</color>
     <color name="tab_host_strip_line_unselected">#72b2f9</color>
     <color name="tab_host_divider">#72b2f9</color>
-    <color name="tab_host_text_view_forground">#888888</color>
 
     <color name="student_info_name">#787878</color>
     <color name="info_background">#02264d</color>
@@ -36,6 +35,7 @@
     <color name="attendance_half_day">#ffe71e</color>
     <color name="attendance_half_day_border">#f6de17</color>
     <color name="attendance_top">#f4f2f2</color>
+    <color name="attendance_date_text_view_forground">#888888</color>
 
     <color name="layout_top">#4ba0fe</color>
     <color name="layout_bottom">#4b7db3</color>

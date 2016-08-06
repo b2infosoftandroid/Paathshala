@@ -247,7 +247,7 @@ public class Fees extends Fragment {
             FeeInstallment installment = installments.get(i);
             TableRow tr1 = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
 
             name = new TextView(getActivity());
             name.setText(installment.getName());
@@ -306,7 +306,7 @@ public class Fees extends Fragment {
             DepositInstallment deposit = deposits.get(i);
             TableRow tr = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
 
             deposit_name = new TextView(getActivity());
             deposit_name.setText(deposit.getName());

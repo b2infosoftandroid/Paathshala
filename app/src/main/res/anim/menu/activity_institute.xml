@@ -6,6 +6,6 @@
         android:id="@+id/menu_city_spinner"
         android:title="Choose City"
         app:actionViewClass="android.widget.Spinner"
-        app:background="@color/app_background"
+        app:background="@drawable/spinner_background"
         app:showAsAction="always" />
 </menu>

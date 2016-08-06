@@ -268,7 +268,7 @@ public class MarkSheet extends Fragment {
         for (Marks marks : marksList) {
             TableRow tr_head = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr_head.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr_head.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
             i++;
             id = new TextView(getActivity());
             id.setText(String.valueOf(marks.getId()));
@@ -350,7 +350,7 @@ public class MarkSheet extends Fragment {
         for (Result res : resultList) {
             TableRow tr_head1 = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr_head1.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr_head1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
             i++;
 
             id = new TextView(getActivity());

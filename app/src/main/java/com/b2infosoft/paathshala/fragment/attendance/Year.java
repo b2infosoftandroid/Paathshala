@@ -149,7 +149,7 @@ public class Year extends Fragment {
         for (YearInfo year : yearInfos) {
             TableRow tr_head = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr_head.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr_head.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
             i++;
             id = new TextView(getActivity());
             id.setText(String.valueOf(year.getId()));

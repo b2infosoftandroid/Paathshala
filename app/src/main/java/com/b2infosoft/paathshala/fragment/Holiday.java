@@ -214,7 +214,7 @@ public class Holiday extends Fragment {
             HolidayInfo info = holidayInfos.get(i);
             TableRow tr1 = new TableRow(getContext());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
 
             name = new TextView(getContext());
             name.setText(info.getName());

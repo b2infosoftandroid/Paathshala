@@ -292,7 +292,7 @@ public class TimeTable extends Fragment {
             TimeTableInfo info = infolist.get(i);
             TableRow tr1 = new TableRow(getContext());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.table_row));
+                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
 
             sub_name = new TextView(getContext());
             sub_name.setText(info.getSubject());
