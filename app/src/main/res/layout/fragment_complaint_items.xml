@@ -1,61 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/app_background"
     android:orientation="vertical"
-    android:paddingTop="@dimen/activity_horizontal_padding"
-    android:paddingBottom="@dimen/activity_horizontal_padding"
+    android:paddingBottom="@dimen/card_view_bottom_padding"
     android:paddingLeft="@dimen/activity_vertical_padding"
     android:paddingRight="@dimen/activity_vertical_padding"
+    android:paddingTop="@dimen/activity_horizontal_padding"
     tools:context=".activity.MainActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/complaint_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_padding">
+        android:padding="@dimen/activity_horizontal_padding"
+        app:cardCornerRadius="@dimen/card_view_corner_radius"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="6dp">
 
         <LinearLayout
+            android:id="@+id/layout_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/layout_corner"
             android:gravity="center"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:padding="@dimen/activity_horizontal_margin">
 
                     <TextView
+                        android:id="@+id/textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="@string/complaint_subject" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_margin">
+                        android:text="about"
+                        android:textAllCaps="true"
+                        android:textColor="@color/app_background" />
 
                     <TextView
                         android:id="@+id/subject_comp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAllCaps="true"
+                        android:layout_marginLeft="@dimen/text_view_bottom_margin"
+                        android:textColor="@color/app_background" />
                 </LinearLayout>
-            </LinearLayout>
+
+                <TextView
+                    android:id="@+id/date_comp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/textView"
+                    android:layout_alignParentRight="true"
+                    android:padding="@dimen/text_view_top_padding"
+                    android:textColor="@color/app_background" />
+
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/colorAccent" />
+                android:layout_height="1dp"
+                android:background="@color/app_background"
+                android:alpha="0.2"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,19 +84,11 @@
                     android:id="@+id/body_comp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/activity_horizontal_margin" />
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingBottom="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/app_background" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/date_comp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/activity_horizontal_margin" />
-                </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>

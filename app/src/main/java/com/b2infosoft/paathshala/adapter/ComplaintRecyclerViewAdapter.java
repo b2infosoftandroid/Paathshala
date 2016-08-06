@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.b2infosoft.paathshala.R;
@@ -40,11 +41,11 @@ public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<Complaint
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        CardView cardView = holder.cardView;
+        LinearLayout linearLayout = holder.linearLayout;
         if(position%2 != 0){
-            holder.cardView.setBackgroundResource(R.color.complaint_card_2);
+            holder.linearLayout.setBackgroundResource(R.color.complaint_card_2);
         }else {
-            holder.cardView.setBackgroundResource(R.color.complaint_card_1);
+            holder.linearLayout.setBackgroundResource(R.color.complaint_card_1);
         }
         ComplaintInfo info = complaintInfoList.get(position);
         TextView msg = holder.msg;
@@ -63,11 +64,12 @@ public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<Complaint
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView msg, sub, c_date;
-        CardView cardView;
+        //CardView cardView;
+        LinearLayout linearLayout;
 
         public ViewHolder(View view) {
             super(view);
-            this.cardView = (CardView)view.findViewById(R.id.complaint_card_view);
+            this.linearLayout = (LinearLayout) view.findViewById(R.id.layout_card);
             this.sub = (TextView) view.findViewById(R.id.subject_comp);
             this.msg = (TextView) view.findViewById(R.id.body_comp);
             this.c_date = (TextView) view.findViewById(R.id.date_comp);

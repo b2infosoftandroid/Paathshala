@@ -52,7 +52,7 @@
     <color name="current_date">#FFA500</color>
 
     <!--            DASHBOARD             -->
-    <color name="dashboard_institute_name">#4ba0fe</color>
+    <color name="dashboard_institute_name">#828282</color>
     <color name="dashboard_fees_layout_top">#00e1ff</color>
     <color name="dashboard_complaint_layout_top">#00e1ff</color>
     <color name="dashboard_attandance_layout_top">#ff9e5a</color>

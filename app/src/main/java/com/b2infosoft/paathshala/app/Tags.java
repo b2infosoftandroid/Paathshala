@@ -73,7 +73,7 @@ public class Tags {
     /////////   LOGIN FORM USER VALID    /////////
     public final String SESSION = "session";
     public final String USER_ID ="UserId";
-    public final String SESSION_ID ="SessionId";
+    public final String SESSION_ID ="Sessionid";
     public final String SESSION_YEAR ="SessionYear";
     public final String SCHOOL_ID ="SchoolId";
     public final String PWD_ID = "Pwd";
