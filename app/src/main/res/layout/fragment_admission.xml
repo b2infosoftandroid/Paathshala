@@ -13,14 +13,18 @@
             android:id="@+id/institute_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:focusableInTouchMode="true"
             android:fontFamily="fonts/Roboto_Medium.ttf"
             android:textSize="@dimen/text_view_main_font_size"
             android:padding="5dp"
-            android:textAlignment="center"
             android:textAllCaps="false"
-            android:textColor="@color/dashboard_institute_name"
-            android:textStyle="normal" />
+            android:textColor="@color/dashboard_institute_name" />
     </RelativeLayout>
 
     <LinearLayout
