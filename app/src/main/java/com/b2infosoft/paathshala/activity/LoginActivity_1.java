@@ -43,7 +43,7 @@ import java.util.Hashtable;
 import java.util.List;
 
 public class LoginActivity_1 extends AppCompatActivity {
-    Active active ;
+    Active active;
     Urls urls;
     MySingleton mySingleton;
     Tags tags = Tags.getInstance();
@@ -87,11 +87,11 @@ public class LoginActivity_1 extends AppCompatActivity {
         }
 
         List<City> cities = dbHelper.getCity();
-        if(cities.size()==0){
+        if (cities.size() == 0) {
             fetchCity();
         }
         List<InstituteInfo> infoList = dbHelper.getInstitute();
-        if(infoList.size()==0){
+        if (infoList.size() == 0) {
             fetchInstitute();
         }
 
@@ -104,6 +104,7 @@ public class LoginActivity_1 extends AppCompatActivity {
     private void forgotPassword() {
         startActivity(new Intent(this, ForgotPassword.class));
     }
+
     private void loginSuccess() {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
@@ -127,8 +128,8 @@ public class LoginActivity_1 extends AppCompatActivity {
                                         if (object.has(tags.S_INFO_STU_NAME)) {
                                             info.setName(object.getString(tags.S_INFO_STU_NAME));
                                         }
-                                        active.setKey(tags.S_STU_PHOTO,info.getStudentPhoto());
-                                        active.setKey(tags.S_INFO_STU_NAME,info.getName());
+                                        active.setKey(tags.S_STU_PHOTO, info.getStudentPhoto());
+                                        active.setKey(tags.S_INFO_STU_NAME, info.getName());
                                     }
                                 }
                                 dismissProgress();
@@ -149,10 +150,12 @@ public class LoginActivity_1 extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
 
     }
-    private void doLogin(){
+
+    private void doLogin() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
+
     private void selectSession() {
         //CharSequence[] items = {"2001-2002", "2002-2003", "2003-2004", "2004-2005", "2005-2006"};
         String[] items = {};
@@ -252,8 +255,7 @@ public class LoginActivity_1 extends AppCompatActivity {
 //                        Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
-                                JSONArray result = response.getJSONArray(tags.ARR_RESULT);
-                                JSONObject object = result.getJSONObject(0);
+                                JSONObject object = response.getJSONObject(tags.ARR_RESULT);
                                 if (object.has(tags.RESPONSE)) {
                                     String res = object.getString(tags.RESPONSE);
                                     if (res.equals(tags.RESPONSE_PASS)) {
@@ -315,7 +317,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
- //                      Log.d(TAG,response.toString());
+                        //                      Log.d(TAG,response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
                                 JSONObject object = response.getJSONObject(tags.ARR_RESULT);
@@ -327,7 +329,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                             }
                             if (response.has(tags.ARR_SESSION_LIST)) {
-                                Log.d("IF","FOUND");
+                                //Log.d("IF", "FOUND");
                                 JSONArray sessionArray = response.getJSONArray(tags.ARR_SESSION_LIST);
                                 if (sessionList == null) {
                                     sessionList = new Hashtable<>();
@@ -338,7 +340,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                                 for (int i = 0; i < sessionArray.length(); i++) {
                                     JSONObject object = sessionArray.getJSONObject(i);
-                                    Log.d("SESSION",object.toString());
+                                    //Log.d("SESSION", object.toString());
                                     String id = null;
                                     String year = null;
                                     if (object.has(tags.SESSION_ID)) {
@@ -353,12 +355,12 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     }
                                 }
 
-                            }else{
-                                Log.d("ELSE","NOT FOUND");
+                            } else {
+                                Log.d("ELSE", "NOT FOUND");
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            Log.e(TAG,e.getMessage());
+                            Log.e(TAG, e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -396,33 +398,24 @@ public class LoginActivity_1 extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
 //                        Log.d(TAG,response.toString());
+                        List<City> cities = new ArrayList<>();
                         try {
-                            if (response.has(tags.ARR_SESSION_LIST)) {
-                                JSONArray sessionArray = response.getJSONArray(tags.ARR_SESSION_LIST);
-                                if (sessionList == null) {
-                                    sessionList = new Hashtable<>();
-                                    dbHelper.deleteSession();
-                                } else {
-                                    sessionList.clear();
-                                    dbHelper.deleteSession();
-                                }
+                            if (response.has(tags.ARR_CITY)) {
+                                JSONArray sessionArray = response.getJSONArray(tags.ARR_CITY);
                                 for (int i = 0; i < sessionArray.length(); i++) {
                                     JSONObject object = sessionArray.getJSONObject(i);
-                                    String id = null;
-                                    String year = null;
-                                    if (object.has(tags.SESSION_ID)) {
-                                        id = object.getString(tags.SESSION_ID);
+                                    City city = new City();
+                                    if (object.has(tags.CITY_ID)) {
+                                        city.setId(object.getInt(tags.CITY_ID));
                                     }
-                                    if (object.has(tags.SESSION_YEAR)) {
-                                        year = object.getString(tags.SESSION_YEAR);
+                                    if (object.has(tags.CITY_NAME)) {
+                                        city.setName(object.getString(tags.CITY_NAME));
                                     }
-                                    if (id != null && year != null) {
-                                        sessionList.put(year, id);
-                                        dbHelper.setSession(id, year);
-                                    }
+                                    cities.add(city);
                                 }
-
                             }
+                            dbHelper.deleteCity();
+                            dbHelper.setCity(cities);
                         } catch (Exception e) {
 
                         }
@@ -455,42 +448,43 @@ public class LoginActivity_1 extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 
-    private void fetchInstitute(){
-        HashMap<String,String> map=new HashMap<>();
-        String url =urls.getUrl(urls.getPath(tags.SCHOOL_LIST),map) ;
-        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest
-                (Request.Method.GET,url, null, new Response.Listener<JSONObject>() {
+    private void fetchInstitute() {
+        HashMap<String, String> map = new HashMap<>();
+        String url = urls.getUrl(urls.getPath(tags.SCHOOL_LIST), map);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                    List<InstituteInfo>    institute = new ArrayList<>();
-                        if(response!=null){
+                        List<InstituteInfo> institute = new ArrayList<>();
+                        if (response != null) {
                             try {
                                 if (response.has(tags.ARR_INSTITUTE_ID)) {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_INSTITUTE_ID);
-                                    for(int i=0;i<jsonArray.length();i++) {
+                                    for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        InstituteInfo getId= new InstituteInfo();
-                                        if(object.has(tags.INSTITUTE_ID)){
+                                        InstituteInfo getId = new InstituteInfo();
+                                        if (object.has(tags.INSTITUTE_ID)) {
                                             getId.setId(object.getInt(tags.INSTITUTE_ID));
                                         }
-                                        if(object.has(tags.INSTITUTE_CITY_ID)){
+                                        if (object.has(tags.INSTITUTE_CITY_ID)) {
                                             getId.setCityId(object.getInt(tags.INSTITUTE_CITY_ID));
                                         }
-                                        if(object.has(tags.INSTITUTE_NAME)){
+                                        if (object.has(tags.INSTITUTE_NAME)) {
                                             getId.setName(object.getString(tags.INSTITUTE_NAME));
                                         }
-                                        if(object.has(tags.INSTITUTE_ACTIVE)){
+                                        if (object.has(tags.INSTITUTE_ACTIVE)) {
                                             getId.setActive(object.getString(tags.INSTITUTE_ACTIVE));
                                         }
                                         institute.add(getId);
                                     }
+                                    dbHelper.deleteInstitute();
+                                    dbHelper.setInstitute(institute);
                                 }
-                            }catch (Exception e){
-                                dismissProgress();
+                            } catch (Exception e) {
                             }
                         }
                     }
-                },new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
@@ -498,34 +492,6 @@ public class LoginActivity_1 extends AppCompatActivity {
                 });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
-    }
-
-    private void requestBuilder() {
-        requestQueue = Volley.newRequestQueue(this);
-        HashMap<String, String> map = new HashMap<>();
-        map.put(tags.USER_ID, "5697");
-        map.put(tags.SESSION_ID, "8");
-        map.put(tags.SCHOOL_ID, "1");
-        map.put(tags.PWD_ID, "1");
-
-        //Log.d("URL",urls.getUrl(urls.getPath(tags.CHECK_USER),map));
-
-        stringRequest = new StringRequest(Request.Method.GET, urls.getUrl(urls.getPath(tags.CHECK_USER), map), new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d(TAG, response);
-                Toast.makeText(getBaseContext(), response, Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, error.toString());
-                Toast.makeText(getBaseContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        stringRequest.setTag(TAG);
-        requestQueue.add(stringRequest);
-
     }
 
     @Override
@@ -549,6 +515,4 @@ public class LoginActivity_1 extends AppCompatActivity {
             progress.dismiss();
         }
     }
-
-
 }

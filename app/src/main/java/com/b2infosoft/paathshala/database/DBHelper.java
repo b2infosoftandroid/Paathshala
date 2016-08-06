@@ -43,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String T2 = "CREATE TABLE " + schema.COMPLAINT_LIST + "(" + schema.C_ID + " int," + schema.C_SID + " int," + schema.SUBJECT + " text," + schema.C_DETAILS + " text," + schema.C_DATE + " date," + schema.SCHOOL_ID + " int)";
 
-        String T3 = "CREATE TABLE " + schema.SCHOOL_LIST + "(" + schema.SCHOOLS_ID + " int," + schema.SCHOOLS_NAME + " text," + schema.SCHOOLS_ADDRESS + " text)";
+        String T3 = "CREATE TABLE " + schema.SCHOOL_LIST + "(" + schema.SCHOOLS_ID + " int,"+ schema.SCHOOLS_CITY_ID + " int," + schema.SCHOOLS_NAME + " text,"+ schema.SCHOOLS_ADDRESS + " text," + schema.SCHOOLS_ACTIVE + " text)";
 
         String T4 = "CREATE TABLE " + schema.SESSION_LIST + "(" + schema.SESSION_ID + " int," + schema.SESSION_YEAR + " text)";
 
@@ -774,7 +774,14 @@ public void setComplaint(List<ComplaintInfo> infoList) {
         db.execSQL("DELETE FROM " + schema.SCHOOL_LIST);
     }
 
-
+    public String getInstituteName(String id){
+        SQLiteDatabase database = this.getReadableDatabase();
+        Cursor cursor = database.rawQuery("SELECT * FROM " + schema.SCHOOL_LIST +" WHERE "+schema.SCHOOLS_ID +" = '"+id+"' LIMIT 1;", null);
+        while (cursor.moveToNext()){
+            return cursor.getString(cursor.getColumnIndex(schema.SCHOOLS_NAME));
+        }
+        return null;
+    }
 /* ----------------- SCHOOL PART END--------------------- */
 //String T3 = "CREATE TABLE " + schema.SCHOOL_LIST + "(" + schema.SCHOOLS_ID + " int," + schema.SCHOOLS_NAME + " text," + schema.SCHOOLS_ADDRESS + " text)";
 

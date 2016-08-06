@@ -21,6 +21,9 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.Fonts;
+import com.b2infosoft.paathshala.app.Tags;
+import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.database.DBHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +38,9 @@ public class Dashboard extends Fragment {
     LinearLayout linearLayoutClassmates,linearLayoutAttendance,linearLayoutEnquiry,linearLayoutResult;
     Fonts fonts = Fonts.getInstance();
     TextView textView;
+    Active active;
+    Tags tags;
+    DBHelper dbHelper;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,6 +90,10 @@ public class Dashboard extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_admission, container, false);
         device = getActivity().getResources().getDisplayMetrics();
         textView = (TextView)view.findViewById(R.id.institute_name);
+        active = Active.getInstance(getActivity());
+        tags = Tags.getInstance();
+        dbHelper = new DBHelper(getActivity());
+        textView.setText(dbHelper.getInstituteName(active.getValue(tags.SESSION_ID)));
         linearLayoutClassmates = (LinearLayout)view.findViewById(R.id.layout_classmates);
         linearLayoutAttendance = (LinearLayout)view.findViewById(R.id.layout_attendance);
         linearLayoutEnquiry = (LinearLayout)view.findViewById(R.id.layout_holidays);

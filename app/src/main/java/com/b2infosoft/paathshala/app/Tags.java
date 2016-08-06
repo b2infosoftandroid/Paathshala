@@ -67,6 +67,7 @@ public class Tags {
     public final String ARR_FORGOT_PASSWORD="Password";
     public final String ARR_HOLIDAY_DETAIL="holidaydetail";
     public final String ARR_COMPLAINT_DETAIL="Complaints";
+    public final String ARR_CITY="SchoolCity";
 
 
     /////////   LOGIN FORM USER VALID    /////////
@@ -247,5 +248,8 @@ public class Tags {
     public final String HOLIDAY_DATE_FROM = "DateFrom";
     public final String HOLIDAY_DATE_TO = "DateTo";
 
+    ///////////   CITY  //////////////////
+    public final String CITY_ID = "Id";
+    public final String CITY_NAME = "CityName";
 
 }
