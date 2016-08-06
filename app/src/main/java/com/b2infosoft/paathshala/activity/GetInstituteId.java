@@ -75,20 +75,20 @@ public class GetInstituteId extends AppCompatActivity {
                                     JSONArray jsonArray = response.getJSONArray(tags.ARR_INSTITUTE_ID);
                                     for(int i=0;i<jsonArray.length();i++) {
                                         JSONObject object = jsonArray.getJSONObject(i);
-                                        InstituteInfo getId= new InstituteInfo();
+                                        InstituteInfo getinfo= new InstituteInfo();
                                         if(object.has(tags.INSTITUTE_ID)){
-                                           getId.setId(object.getInt(tags.INSTITUTE_ID));
+                                            getinfo.setId(object.getInt(tags.INSTITUTE_ID));
                                         }
                                         if(object.has(tags.INSTITUTE_CITY_ID)){
-                                            getId.setCityId(object.getInt(tags.INSTITUTE_CITY_ID));
+                                            getinfo.setCityId(object.getInt(tags.INSTITUTE_CITY_ID));
                                         }
                                         if(object.has(tags.INSTITUTE_NAME)){
-                                            getId.setName(object.getString(tags.INSTITUTE_NAME));
+                                            getinfo.setName(object.getString(tags.INSTITUTE_NAME));
                                         }
                                         if(object.has(tags.INSTITUTE_ACTIVE)){
-                                            getId.setActive(object.getString(tags.INSTITUTE_ACTIVE));
+                                            getinfo.setActive(object.getString(tags.INSTITUTE_ACTIVE));
                                         }
-                                        institute.add(getId);
+                                        institute.add(getinfo);
 
                                     }
                                     adapter = new GetIdRecyclerViewAdapter(institute);
