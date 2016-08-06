@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/app_background"
-                android:alpha="0.2"
+                android:alpha="0.3"
                 />
 
             <LinearLayout
@@ -84,6 +84,7 @@
                     android:id="@+id/body_comp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="7dp"
                     android:paddingLeft="@dimen/activity_horizontal_margin"
                     android:paddingRight="@dimen/activity_horizontal_margin"
                     android:paddingBottom="@dimen/activity_horizontal_margin"

@@ -134,7 +134,7 @@ public class Complaint extends Fragment {
     private void newComplaintSend() {
 
         final Dialog dialog = new Dialog(getContext());
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setContentView(R.layout.custom_dialog);
         title = (EditText) dialog.findViewById(R.id.complaint_title);
         body = (EditText) dialog.findViewById(R.id.complaint_body);

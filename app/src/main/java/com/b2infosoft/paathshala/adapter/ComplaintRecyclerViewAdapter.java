@@ -42,10 +42,13 @@ public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<Complaint
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         LinearLayout linearLayout = holder.linearLayout;
+        CardView cardView = holder.cardView;
         if(position%2 != 0){
             holder.linearLayout.setBackgroundResource(R.color.complaint_card_2);
+           // holder.cardView.setBackgroundResource(R.color.complaint_card_2);
         }else {
             holder.linearLayout.setBackgroundResource(R.color.complaint_card_1);
+            //holder.cardView.setBackgroundResource(R.color.complaint_card_1);
         }
         ComplaintInfo info = complaintInfoList.get(position);
         TextView msg = holder.msg;
@@ -64,12 +67,13 @@ public class ComplaintRecyclerViewAdapter extends RecyclerView.Adapter<Complaint
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView msg, sub, c_date;
-        //CardView cardView;
+        CardView cardView;
         LinearLayout linearLayout;
 
         public ViewHolder(View view) {
             super(view);
             this.linearLayout = (LinearLayout) view.findViewById(R.id.layout_card);
+            this.cardView = (CardView) view.findViewById(R.id.complaint_card_view);
             this.sub = (TextView) view.findViewById(R.id.subject_comp);
             this.msg = (TextView) view.findViewById(R.id.body_comp);
             this.c_date = (TextView) view.findViewById(R.id.date_comp);

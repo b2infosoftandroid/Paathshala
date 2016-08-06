@@ -34,9 +34,11 @@ public class GetIdRecyclerViewAdapter_1 extends RecyclerView.Adapter<GetIdRecycl
     @Override
     public void onBindViewHolder(GetIdRecyclerViewAdapter_1.ViewHolder holder, int position) {
         if (position % 2 != 0) {
-            holder.cardView.setBackgroundResource(R.color.complaint_card_2);
+            //holder.cardView.setBackgroundResource(R.color.complaint_card_2);
+            holder.institute_layout.setBackgroundResource(R.color.complaint_card_2);
         } else {
-            holder.cardView.setBackgroundResource(R.color.complaint_card_1);
+            //holder.cardView.setBackgroundResource(R.color.complaint_card_1);
+            holder.institute_layout.setBackgroundResource(R.color.complaint_card_1);
         }
         InstituteInfo get_info = id_details.get(position);
         holder.institute_id.setText(String.valueOf(get_info.getId()));

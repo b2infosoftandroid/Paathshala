@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".activity.GetInstituteId">
     <android.support.v7.widget.CardView
@@ -10,13 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        app:cardCornerRadius="@dimen/card_view_corner_radius"
+        app:cardElevation="4dp"
+        app:cardMaxElevation="6dp"
         >
         <LinearLayout
             android:id="@+id/institute_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/complaint_card_2"
+            android:background="@drawable/layout_corner"
             >
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -45,9 +49,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/app_background"
-                        android:text="@string/get_institute_id"
                         android:padding="5dp"
                         android:textStyle="bold"
+                        android:background="@drawable/layout_corner"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         />
                 </LinearLayout>
