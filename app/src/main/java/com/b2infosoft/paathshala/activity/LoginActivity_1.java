@@ -23,7 +23,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.b2infosoft.paathshala.R;
-import com.b2infosoft.paathshala.adapter.GetIdRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.app.Validation;
@@ -86,7 +85,7 @@ public class LoginActivity_1 extends AppCompatActivity {
         if (sessionList.size() == 0) {
             fetchSession();
         }
-/*
+
         List<City> cities = dbHelper.getCity();
         if(cities.size()==0){
             fetchCity();
@@ -95,7 +94,7 @@ public class LoginActivity_1 extends AppCompatActivity {
         if(infoList.size()==0){
             fetchInstitute();
         }
-*/
+
     }
 
     private void getId() {
@@ -316,11 +315,10 @@ public class LoginActivity_1 extends AppCompatActivity {
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        Log.d(TAG,response.toString());
+ //                      Log.d(TAG,response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
-                                JSONArray result = response.getJSONArray(tags.ARR_RESULT);
-                                JSONObject object = result.getJSONObject(0);
+                                JSONObject object = response.getJSONObject(tags.ARR_RESULT);
                                 if (object.has(tags.RESPONSE)) {
                                     String res = object.getString(tags.RESPONSE);
                                     if (res.equals(tags.RESPONSE_PASS)) {
@@ -329,6 +327,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                             }
                             if (response.has(tags.ARR_SESSION_LIST)) {
+                                Log.d("IF","FOUND");
                                 JSONArray sessionArray = response.getJSONArray(tags.ARR_SESSION_LIST);
                                 if (sessionList == null) {
                                     sessionList = new Hashtable<>();
@@ -339,6 +338,7 @@ public class LoginActivity_1 extends AppCompatActivity {
                                 }
                                 for (int i = 0; i < sessionArray.length(); i++) {
                                     JSONObject object = sessionArray.getJSONObject(i);
+                                    Log.d("SESSION",object.toString());
                                     String id = null;
                                     String year = null;
                                     if (object.has(tags.SESSION_ID)) {
@@ -353,9 +353,12 @@ public class LoginActivity_1 extends AppCompatActivity {
                                     }
                                 }
 
+                            }else{
+                                Log.d("ELSE","NOT FOUND");
                             }
                         } catch (Exception e) {
-
+                            e.printStackTrace();
+                            Log.e(TAG,e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {
