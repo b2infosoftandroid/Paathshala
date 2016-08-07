@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -10,10 +11,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.text.TextUtils;
+import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -98,6 +103,15 @@ public class Dashboard extends Fragment {
 
         String school_name = dbHelper.getInstituteName(active.getValue(tags.SCHOOL_ID));
         textView.setText(school_name.substring(0,school_name.indexOf(",")).toUpperCase());
+        //textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+       // textView.setMovementMethod(new ScrollingMovementMethod());
+       // textView.setSelected(true);
+        TranslateAnimation slide = new TranslateAnimation(600.0f, -600.0f, 0.0f, 0.0f);
+        slide.setDuration(7000);
+        slide.setRepeatCount(Animation.INFINITE);
+        slide.setRepeatMode(Animation.RESTART);
+        textView.startAnimation(slide);
+
         linearLayoutClassmates = (LinearLayout)view.findViewById(R.id.layout_classmates);
         linearLayoutAttendance = (LinearLayout)view.findViewById(R.id.layout_attendance);
         linearLayoutEnquiry = (LinearLayout)view.findViewById(R.id.layout_holidays);

@@ -15,7 +15,7 @@
 
             <TextView
                 android:id="@+id/institute_name"
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
                 android:focusable="true"
@@ -24,8 +24,9 @@
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:padding="5dp"
+                android:lines="1"
+                android:fadingEdge="horizontal"
                 android:scrollHorizontally="true"
-                android:singleLine="true"
                 android:textAllCaps="false"
                 android:textColor="@color/dashboard_institute_name"
                 android:textSize="@dimen/text_view_main_font_size" />
