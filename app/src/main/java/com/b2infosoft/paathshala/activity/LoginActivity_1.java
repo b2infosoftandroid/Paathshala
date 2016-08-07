@@ -293,7 +293,7 @@ public class LoginActivity_1 extends AppCompatActivity {
             login_student_scholar_no.requestFocus();
             return;
         }
-        if (!validation.isPassword(password)) {
+        if (!validation.isPassword1(password)) {
             login_password_1.setError("Invalid password");
             login_password_1.requestFocus();
             return;

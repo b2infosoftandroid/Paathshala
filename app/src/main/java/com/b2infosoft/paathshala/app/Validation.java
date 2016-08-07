@@ -49,6 +49,17 @@ public class Validation {
         return check;
     }
 
+    public boolean isPassword1(String password) {
+        boolean check = false;
+        if (password.length()< 1) {
+            check = false;
+        } else {
+            check = true;
+        }
+        return check;
+    }
+
+
     public boolean isPasswordConfirm(String s, String s1) {
         return s.equals(s1);
     }
