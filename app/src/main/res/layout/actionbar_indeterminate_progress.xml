@@ -3,7 +3,6 @@
     android:layout_width="56dp"
     android:layout_height="wrap_content"
     android:minWidth="56dp">
-
     <ProgressBar
         android:id="@+id/prgs_bar"
         android:layout_width="40dp"

@@ -91,7 +91,7 @@ public class DBUpdate extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
-
+    
     @Override
     public IBinder onBind(Intent intent) {
         return null;

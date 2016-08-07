@@ -57,6 +57,7 @@ public class MainActivity extends CallBacks {
     Active active;
     Tags tags;
     Network network;
+    Menu menu;
    // private Menu optionsMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +106,13 @@ public class MainActivity extends CallBacks {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_main_menu, menu);
         return true;
     }
+
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -116,6 +121,7 @@ public class MainActivity extends CallBacks {
                 if(network.isInternetAvailable()) {
                     Intent intent = new Intent(this, DBUpdate.class);
                     startService(intent);
+                    setRefreshActionButtonState(true);
                 }else{
                     Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
                 }
@@ -129,7 +135,16 @@ public class MainActivity extends CallBacks {
     }
 
     public void setRefreshActionButtonState(final boolean refreshing) {
-
+        if(menu!=null){
+            final MenuItem refreshItem = menu.findItem(R.id.menu_refresh);
+            if(refreshItem!=null){
+                if(refreshing){
+                    refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
+                }else{
+                    refreshItem.setActionView(null);
+                }
+            }
+        }
     }
     @Override
     public void onBackPressed() {
