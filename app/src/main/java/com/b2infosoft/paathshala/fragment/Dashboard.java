@@ -41,6 +41,7 @@ public class Dashboard extends Fragment {
     Active active;
     Tags tags;
     DBHelper dbHelper;
+    TextView lastUpdate;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,6 +94,8 @@ public class Dashboard extends Fragment {
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
         dbHelper = new DBHelper(getActivity());
+        lastUpdate = (TextView)view.findViewById(R.id.last_update);
+
         String school_name = dbHelper.getInstituteName(active.getValue(tags.SCHOOL_ID));
         textView.setText(school_name.substring(0,school_name.indexOf(",")).toUpperCase());
         linearLayoutClassmates = (LinearLayout)view.findViewById(R.id.layout_classmates);
@@ -137,7 +140,19 @@ public class Dashboard extends Fragment {
        // attendance.setImageDrawable(getDrawable("70%"));
        // holidays.setImageDrawable(getDrawable("10"));
        // fees.setImageDrawable(getDrawable("100"));
+        refreshLastUpdate();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshLastUpdate();
+    }
+
+    private void refreshLastUpdate(){
+        String last_update = getActivity().getResources().getString(R.string.data_last_updated);
+        lastUpdate.setText(last_update.concat(active.getValue(tags.LAST_UPDATE)));
     }
     private void setLayoutParams(LinearLayout layout){
         layout.getLayoutParams().width= (int)(device.widthPixels/2.3);

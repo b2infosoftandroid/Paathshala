@@ -13,6 +13,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -35,6 +36,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -44,12 +46,14 @@ public class DBUpdate extends Service {
     Urls urls = Urls.getInstance();
     Active active;
     DBHelper dbHelper;
+    Format format;
     private static final String TAG = DBUpdate.class.getName();
 
     @Override
     public void onStart(Intent intent, int startId) {
         dbHelper = new DBHelper(getApplicationContext());
         active = Active.getInstance(this);
+        format = Format.getInstance();
         fetchInstitute();
         fetchCity();
         fetchSession();
@@ -75,6 +79,7 @@ public class DBUpdate extends Service {
                 searchYearAttendance(session[0],i+"");
             }
         }
+        active.setKey(tags.LAST_UPDATE,format.getCurrentDate());
     }
 
     @Override

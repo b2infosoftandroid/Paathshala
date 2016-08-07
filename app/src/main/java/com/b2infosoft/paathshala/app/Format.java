@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.app;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -24,5 +25,11 @@ public class Format {
             return format.format(date);
         }
         return string;
+    }
+    public String getCurrentDate(){
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(date);
     }
 }
