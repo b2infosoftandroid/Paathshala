@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -32,6 +33,7 @@ import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.ComplaintInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -60,6 +62,7 @@ public class Complaint extends Fragment {
     Format format;
     EditText title, body;
     Button b1, b2;
+    Network network;
     FloatingActionButton new_complaint;
     private ProgressDialog progress = null;
     RecyclerView rv;
@@ -113,6 +116,7 @@ public class Complaint extends Fragment {
         active = Active.getInstance(getContext());
         dbHelper = new DBHelper(getActivity());
         format = Format.getInstance();
+        network = Network.getInstance(getActivity());
         rv = (RecyclerView) view.findViewById(R.id.complaint_recycler_view);
         new_complaint = (FloatingActionButton) view.findViewById(R.id.new_complaint_btn);
         new_complaint.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +139,7 @@ public class Complaint extends Fragment {
 
         final Dialog dialog = new Dialog(getContext());
         //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.setTitle("New Complaint");
         dialog.setContentView(R.layout.custom_dialog);
         title = (EditText) dialog.findViewById(R.id.complaint_title);
         body = (EditText) dialog.findViewById(R.id.complaint_body);
@@ -164,6 +169,10 @@ public class Complaint extends Fragment {
     }
 
     private void fetchComplaintList() {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
@@ -247,6 +256,10 @@ public class Complaint extends Fragment {
     }
 
     public void sendData(String s1, String s2) {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.COMP_SUBJECT, s1);

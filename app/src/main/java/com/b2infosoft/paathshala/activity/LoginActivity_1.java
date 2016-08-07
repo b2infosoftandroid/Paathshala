@@ -64,6 +64,12 @@ public class LoginActivity_1 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         active = Active.getInstance(this);
+
+        Active active= Active.getInstance(getApplicationContext());
+        if(active.isLogin()) {
+            startActivity(new Intent(LoginActivity_1.this, MainActivity.class));
+            finish();
+        }
         setContentView(R.layout.activity_login_1);
         urls = Urls.getInstance();
         network = Network.getInstance(this);

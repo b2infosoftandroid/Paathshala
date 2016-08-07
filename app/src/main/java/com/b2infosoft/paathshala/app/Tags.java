@@ -252,4 +252,6 @@ public class Tags {
     public final String CITY_ID = "Id";
     public final String CITY_NAME = "CityName";
 
+    public final String LAST_UPDATE ="last_update";
+
 }

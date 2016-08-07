@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -29,6 +30,7 @@ import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.Marks;
 import com.b2infosoft.paathshala.model.Result;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -46,7 +48,7 @@ public class MarkSheet extends Fragment {
     private DBHelper dbHelper;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    Network network;
     private String mParam1;
     private String mParam2;
 
@@ -60,6 +62,7 @@ public class MarkSheet extends Fragment {
     private Button button;
 
     public MarkSheet() {
+
     }
 
     public static MarkSheet newInstance(String param1, String param2) {
@@ -85,6 +88,7 @@ public class MarkSheet extends Fragment {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         tags = Tags.getInstance();
+        network = Network.getInstance(getActivity());
         dbHelper = new DBHelper(getActivity());
         mView = inflater.inflate(R.layout.fragment_mark_sheet, container, false);
         spinner = (Spinner) mView.findViewById(R.id.exam_type_spinner);
@@ -439,6 +443,10 @@ public class MarkSheet extends Fragment {
     }
 
     private void searchMarkSheet(final String type) {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));

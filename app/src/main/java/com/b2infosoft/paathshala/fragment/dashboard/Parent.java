@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -21,6 +22,7 @@ import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.StudentInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -46,6 +48,7 @@ public class Parent extends Fragment {
     Urls urls = Urls.getInstance();
     Active active;
     DBHelper dbHelper;
+    Network network;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -93,6 +96,7 @@ public class Parent extends Fragment {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         dbHelper = new DBHelper(getActivity());
+        network = Network.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_parent, container, false);
         f_name = (EditText) view.findViewById(R.id.parent_father_name);
         m_name = (EditText) view.findViewById(R.id.parent_mother_name);
@@ -111,6 +115,10 @@ public class Parent extends Fragment {
     }
 
     private void fetchParentInfo() {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+            return;
+        }
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));

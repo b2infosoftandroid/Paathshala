@@ -30,6 +30,7 @@ import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.model.MonthInfo;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -46,6 +47,7 @@ public class Month extends Fragment implements View.OnClickListener {
     Active active;
     Tags tags;
     private DBHelper dbHelper;
+    Network network;
     View view;
     private GridView grid;
     private ProgressDialog progress;
@@ -79,6 +81,7 @@ public class Month extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         active = Active.getInstance(getContext());
         tags = Tags.getInstance();
+        network = Network.getInstance(getActivity());
         dbHelper = new DBHelper(getActivity());
         SESSION = active.getValue(tags.SESSION).split("-");
         view = inflater.inflate(R.layout.fragment_month, container, false);
@@ -215,6 +218,10 @@ public class Month extends Fragment implements View.OnClickListener {
 
 
     private void searchYearAttendance(final String year, final String month_1) {
+        if(!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(),getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
+        }
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));

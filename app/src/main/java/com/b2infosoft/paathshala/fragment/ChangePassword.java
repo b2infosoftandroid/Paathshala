@@ -24,6 +24,7 @@ import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.app.Validation;
 import com.b2infosoft.paathshala.credential.Active;
+import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
 import org.json.JSONArray;
@@ -49,6 +50,7 @@ public class ChangePassword extends Fragment {
     Active active;
     EditText password_old, password_new, password_confirm_new;
     Button update_password;
+    Network network;
     Fonts fonts = Fonts.getInstance();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,6 +98,7 @@ public class ChangePassword extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        network = Network.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_change_password, container, false);
         active = Active.getInstance(getContext());
         password_old = (EditText) view.findViewById(R.id.change_old_password);
@@ -136,9 +139,13 @@ private void attemptChangePass(){
         return;
     }
 
-    if(!validation.isPasswordConfirm(new_pass,confirm_new_pass)){
+    if(!validation.isPasswordConfirm(new_pass, confirm_new_pass)){
         password_confirm_new.setError("Invalid New Password");
         password_confirm_new.requestFocus();
+        return;
+    }
+    if(!network.isInternetAvailable()) {
+        Toast.makeText(getActivity(),getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
         return;
     }
     newPassword(old_pass,new_pass);

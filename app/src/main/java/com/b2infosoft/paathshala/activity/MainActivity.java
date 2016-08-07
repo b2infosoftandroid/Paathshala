@@ -129,17 +129,7 @@ public class MainActivity extends CallBacks {
     }
 
     public void setRefreshActionButtonState(final boolean refreshing) {
-        if (optionsMenu != null) {
-            final MenuItem refreshItem = optionsMenu
-                    .findItem(R.id.menu_refresh1);
-            if (refreshItem != null) {
-                if (refreshing) {
-                    refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
-                } else {
-                    refreshItem.setActionView(null);
-                }
-            }
-        }
+
     }
     @Override
     public void onBackPressed() {
