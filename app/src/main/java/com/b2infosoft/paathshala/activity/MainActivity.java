@@ -57,7 +57,7 @@ public class MainActivity extends CallBacks {
     Active active;
     Tags tags;
     Network network;
-    private Menu optionsMenu;
+   // private Menu optionsMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

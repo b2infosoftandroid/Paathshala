@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -59,7 +60,6 @@ public class MarkSheet extends Fragment {
 
     private TableLayout tableLayout,tableLayout1;
     private Spinner spinner;
-    private Button button;
 
     public MarkSheet() {
 
@@ -92,10 +92,9 @@ public class MarkSheet extends Fragment {
         dbHelper = new DBHelper(getActivity());
         mView = inflater.inflate(R.layout.fragment_mark_sheet, container, false);
         spinner = (Spinner) mView.findViewById(R.id.exam_type_spinner);
-        button = (Button) mView.findViewById(R.id.exam_type_search);
-        button.setOnClickListener(new View.OnClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(spinner.getSelectedItemPosition()>0) {
                     String type = (String) spinner.getSelectedItem();
                     List<Marks> marks = dbHelper.getMarkSheetDetails(type);
@@ -108,7 +107,13 @@ public class MarkSheet extends Fragment {
                     }
                 }
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
         });
+
         return mView;
     }
 

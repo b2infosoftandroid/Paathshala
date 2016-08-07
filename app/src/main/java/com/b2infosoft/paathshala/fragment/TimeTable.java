@@ -289,11 +289,11 @@ public class TimeTable extends Fragment {
 
 
         sub_exm_date = new TextView(getContext());
-        sub_exm_date.setText("EXAM DATE");
+        sub_exm_date.setText("EXAM DATE & TIME");
         sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
         sub_exm_date.setPadding(30, 30, 30, 30);
-        sub_exm_date.setGravity(Gravity.CENTER);
+        //sub_exm_date.setGravity(Gravity.CENTER);
         sub_exm_date.setTypeface(null, Typeface.BOLD);
         tr_head.addView(sub_exm_date);
         t1.addView(tr_head);
@@ -316,6 +316,7 @@ public class TimeTable extends Fragment {
             sub_exm_date = new TextView(getContext());
             sub_exm_date.setText(format.getDate(info.getDate()));
             sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            sub_exm_date.setAllCaps(true);
             sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_exm_date.setPadding(30, 30, 30, 30);
             tr1.addView(sub_exm_date);

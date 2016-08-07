@@ -25,18 +25,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/exam_type"
-            android:layout_centerInParent="true"
+            android:layout_alignBaseline="@+id/textView"
+            android:layout_alignParentRight="true"
             >
         </Spinner>
-        <Button
-            android:id="@+id/exam_type_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/button_foreground"
-            android:background="@drawable/button_fill_background"
-            android:layout_alignParentRight="true"
-            android:text="Search"
-            />
     </RelativeLayout>
 
     <ScrollView
