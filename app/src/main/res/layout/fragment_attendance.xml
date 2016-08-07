@@ -21,7 +21,7 @@
                 android:showDividers="none"
                 android:tabStripEnabled="true"
                 android:tabStripLeft="@color/tab_host_strip_line_selected"
-                android:tabStripRight="@color/tab_host_strip_line_unselected"
+                android:tabStripRight="@color/tab_host_strip_line_selected"
                 >
             </TabWidget>
             <FrameLayout
