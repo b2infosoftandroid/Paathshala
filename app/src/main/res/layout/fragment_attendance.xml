@@ -19,7 +19,7 @@
                 android:layout_height="47dp"
                 android:background="@color/tab_host_background"
                 android:showDividers="none"
-                android:tabStripEnabled="false"
+                android:tabStripEnabled="true"
                 android:tabStripLeft="@color/tab_host_strip_line_selected"
                 android:tabStripRight="@color/tab_host_strip_line_unselected"
                 >
