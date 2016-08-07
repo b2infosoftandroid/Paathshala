@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3494fe</color>
     <color name="colorPrimaryDark">#1b80ef</color>
     <color name="colorAccent">#8d8d8d</color>
+    <color name="colorButtonNormal">#8cc307</color>
 
     <color name="app_background">#fff</color>
     <color name="text_link">#1782f6</color>

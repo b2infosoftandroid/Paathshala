@@ -66,7 +66,7 @@
                                 android:id="@+id/dashboard_classmates"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/ic_hd_fees" />
+                                android:src="@drawable/image_fees_selector" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
                                 android:id="@+id/dashboard_attendance"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/ic_hd_marksheet" />
+                                android:src="@drawable/image_marksheet_selector" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -144,7 +144,8 @@
                                 android:id="@+id/dashboard_holidays"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/ic_hd_attedance" />
+                                android:src="@drawable/image_attendance_selector"
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -180,7 +181,7 @@
                                 android:id="@+id/dashboard_fees"
                                 android:layout_width="50dp"
                                 android:layout_height="50dp"
-                                android:src="@drawable/ic_hd_complaint" />
+                                android:src="@drawable/image_complaint_selector" />
 
                             <TextView
                                 android:layout_width="wrap_content"

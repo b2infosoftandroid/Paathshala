@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/app_background"
     tools:context="com.b2infosoft.paathshala.activity.LoginActivity_1">
-
     <ScrollView
         android:id="@+id/login_form_scroll_view"
         android:layout_width="match_parent"
@@ -108,6 +108,8 @@
                 android:layout_gravity="right|top"
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:autoLink="none"
+                android:clickable="true"
+                android:background="@drawable/text_view_background"
                 android:text="@string/login_get_institute_id"
                 android:textColor="@color/text_link" />
 
