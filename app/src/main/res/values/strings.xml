@@ -117,7 +117,7 @@
     <string name="time_table_exam_type">Exam Type</string>
 
 
-    <string name="data_last_updated">Last Updated</string>
+    <string name="data_last_updated">Last Updated : </string>
 
     <!--  GET INSTITUTE ID   -->
     <string name="institute_id">ID :</string>

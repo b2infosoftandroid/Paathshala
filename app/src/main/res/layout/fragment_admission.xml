@@ -220,17 +220,6 @@
                 android:textColor="@color/dashboard_institute_name"
                 android:textSize="@dimen/text_view_font_size" />
 
-            <TextView
-                android:id="@+id/show_updated_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="fonts/Roboto_Medium.ttf"
-                android:layout_toRightOf="@+id/updated_date"
-                android:padding="5dp"
-                android:textAllCaps="false"
-                android:textColor="@color/dashboard_institute_name"
-                android:textSize="@dimen/text_view_font_size" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>
