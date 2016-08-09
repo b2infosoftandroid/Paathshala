@@ -3,51 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.b2infosoft.paathshala.fragment.MarkSheet">
+
     <LinearLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/edit_text_left_padding"
-        >
+        android:orientation="horizontal"
+        android:padding="@dimen/edit_text_left_padding">
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exam Type"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/text_view_top_padding"
-            android:layout_alignParentLeft="true"
             android:textAllCaps="true"
-            android:textSize="@dimen/text_view_main_font_size"
-            />
-        <Spinner
-            android:id="@+id/exam_type_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/exam_type"
-            android:layout_alignBaseline="@+id/textView"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@+id/textView"
-            android:layout_toEndOf="@+id/textView"
-            android:layout_gravity="right"
-            >
-        </Spinner>
+            android:textSize="@dimen/text_view_main_font_size" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/exam_type_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:entries="@array/exam_type"></Spinner>
+        </RelativeLayout>
     </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/layout_top"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" >
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/layout_top"
+        android:layout_marginTop="@dimen/activity_horizontal_margin">
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,17 +58,15 @@
                     android:id="@+id/table_layout_mark_sheet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center">
-                </TableLayout>
+                    android:gravity="center"></TableLayout>
 
                 <TableLayout
                     android:id="@+id/table_layout_mark_sheet_details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
-                    android:gravity="center">
-                </TableLayout>
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"></TableLayout>
             </LinearLayout>
         </HorizontalScrollView>
     </ScrollView>
