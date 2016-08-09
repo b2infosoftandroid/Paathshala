@@ -1,8 +1,6 @@
 package com.b2infosoft.paathshala.activity;
 
-import android.app.ProgressDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
@@ -18,29 +16,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.app.FileCache;
-import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
-import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
-import com.b2infosoft.paathshala.database.DBHelper;
 import com.b2infosoft.paathshala.fragment.Admission;
 import com.b2infosoft.paathshala.fragment.Dashboard;
 import com.b2infosoft.paathshala.fragment.Attendance;
@@ -53,30 +43,11 @@ import com.b2infosoft.paathshala.fragment.TimeTable;
 import com.b2infosoft.paathshala.fragment.dashboard.Guardian;
 import com.b2infosoft.paathshala.fragment.dashboard.Parent;
 import com.b2infosoft.paathshala.fragment.dashboard.Student;
-import com.b2infosoft.paathshala.model.City;
-import com.b2infosoft.paathshala.model.ComplaintInfo;
-import com.b2infosoft.paathshala.model.DepositInstallment;
 import com.b2infosoft.paathshala.model.DummyContent;
-import com.b2infosoft.paathshala.model.FeeInstallment;
-import com.b2infosoft.paathshala.model.HolidayInfo;
-import com.b2infosoft.paathshala.model.InstituteInfo;
-import com.b2infosoft.paathshala.model.Marks;
-import com.b2infosoft.paathshala.model.MonthInfo;
-import com.b2infosoft.paathshala.model.Result;
-import com.b2infosoft.paathshala.model.StudentInfo;
-import com.b2infosoft.paathshala.model.TimeTableInfo;
-import com.b2infosoft.paathshala.model.YearInfo;
 import com.b2infosoft.paathshala.services.DBUpdate;
 import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends CallBacks {
     View headerView;

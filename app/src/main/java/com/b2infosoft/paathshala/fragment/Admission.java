@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -21,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.TabPageAdapter;
+import com.b2infosoft.paathshala.adapter.ViewPagerAdapter;
 import com.b2infosoft.paathshala.app.Fonts;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
@@ -49,7 +51,7 @@ import java.util.List;
  * create an instance of this fragment.
  */
 
-public class Admission extends Fragment implements ViewPager.OnPageChangeListener, TabHost.OnTabChangeListener {
+public class Admission extends Fragment  {
     Fonts fonts = Fonts.getInstance();
     Active active;
     Tags tags;
@@ -64,14 +66,12 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
     private String mParam2;
 
     private ViewPager viewPager;
-    private TabHost tabHost;
-    private TabPageAdapter tabPageAdapter;
     private String[] tabs = {"STUDENT", "PARENTS", "GUARDIANS"};
-    private List<Fragment> fragmentList;
     private ProgressDialog progress;
 
 
     private OnDashboardListener mListener;
+    TabLayout tabLayout;
 
     public Admission() {
         // Required empty public constructor
@@ -112,36 +112,12 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         tags = Tags.getInstance();
         dbHelper = new DBHelper(getActivity());
         network = Network.getInstance(getActivity());
-        final View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new Student());
-        fragmentList.add(new Parent());
-        fragmentList.add(new Guardian());
 
-        tabHost = (TabHost) view.findViewById(android.R.id.tabhost);
-        tabHost.setup();
-        for (String tab : tabs) {
-            TabHost.TabSpec tabSpec = tabHost.newTabSpec(tab);
-            tabSpec.setIndicator(tab);
-            tabSpec.setContent(new TabHost.TabContentFactory() {
-                @Override
-                public View createTabContent(String tag) {
-                    View view1 = new View(getActivity().getApplicationContext());
-                    view1.setMinimumHeight(0);
-                    view1.setMinimumWidth(0);
-                    return view1;
-                }
-            });
-            tabHost.addTab(tabSpec);
-        }
-        tabHost.setOnTabChangedListener(this);
-        tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList);
+        final View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(tabPageAdapter);
-        viewPager.setOnPageChangeListener(this);
-        viewPager.setCurrentItem(0);
-        tabHost.setCurrentTab(0);
-        setSelectedTabColor();
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
         StudentInfo info = dbHelper.getStudentInfo();
         if(info==null) {
             fetchStudentInfo();
@@ -150,7 +126,13 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
         }
         return view;
     }
-
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new Student(), tabs[0]);
+        adapter.addFragment(new Parent(), tabs[1]);
+        adapter.addFragment(new Guardian(), tabs[2]);
+        viewPager.setAdapter(adapter);
+    }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onDashboardInteraction(uri);
@@ -172,37 +154,6 @@ public class Admission extends Fragment implements ViewPager.OnPageChangeListene
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        tabHost.setCurrentTab(position);
-        setSelectedTabColor();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onTabChanged(String tabId) {
-        int selected_item = tabHost.getCurrentTab();
-        viewPager.setCurrentItem(selected_item);
-    }
-
-    private void setSelectedTabColor() {
-        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
-            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#ffffff"));
-            //tv.setTextSize(10);
-            // tv.setTypeface(fonts.getFont(getActivity(), fonts.ROBOTO_MEDIUM));
-        }
     }
 
     public interface OnDashboardListener {

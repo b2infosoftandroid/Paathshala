@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -20,8 +21,12 @@ import android.widget.Toast;
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.adapter.AttendanceCalenderAdapter;
 import com.b2infosoft.paathshala.adapter.TabPageAdapter;
+import com.b2infosoft.paathshala.adapter.ViewPagerAdapter;
 import com.b2infosoft.paathshala.fragment.attendance.Month;
 import com.b2infosoft.paathshala.fragment.attendance.Year;
+import com.b2infosoft.paathshala.fragment.dashboard.Guardian;
+import com.b2infosoft.paathshala.fragment.dashboard.Parent;
+import com.b2infosoft.paathshala.fragment.dashboard.Student;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +44,7 @@ import java.util.List;
  * Use the {@link Attendance#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Attendance extends Fragment implements ViewPager.OnPageChangeListener,TabHost.OnTabChangeListener{
+public class Attendance extends Fragment {
     View view;
 
     private static final String ARG_PARAM1 = "param1";
@@ -52,11 +57,8 @@ public class Attendance extends Fragment implements ViewPager.OnPageChangeListen
     private OnAttendanceListener mListener;
 
     private ViewPager viewPager;
-    private TabHost tabHost;
-    private TabPageAdapter tabPageAdapter;
     private String[] tabs = {"MONTH","YEAR"};
-    private List<Fragment> fragmentList;
-
+    private TabLayout tabLayout;
 
     public Attendance() {
         // Required empty public constructor
@@ -83,39 +85,19 @@ public class Attendance extends Fragment implements ViewPager.OnPageChangeListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_attendance, container, false);
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new Month());
-        fragmentList.add(new Year());
-
-        tabHost = (TabHost) view.findViewById(android.R.id.tabhost);
-        tabHost.setup();
-        for (String tab : tabs) {
-            TabHost.TabSpec tabSpec = tabHost.newTabSpec(tab);
-            tabSpec.setIndicator(tab);
-            tabSpec.setContent(new TabHost.TabContentFactory() {
-                @Override
-                public View createTabContent(String tag) {
-                    View view1 = new View(getActivity().getApplicationContext());
-                    view1.setMinimumHeight(0);
-                    view1.setMinimumWidth(0);
-                    return view1;
-                }
-            });
-            tabHost.addTab(tabSpec);
-        }
-        tabHost.setOnTabChangedListener(this);
-        tabPageAdapter = new TabPageAdapter(getChildFragmentManager(), fragmentList);
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(tabPageAdapter);
-        viewPager.setOnPageChangeListener(this);
-        viewPager.setCurrentItem(0);
-        tabHost.setCurrentTab(0);
-        setSelectedTabColor();
-
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
+        tabLayout.setupWithViewPager(viewPager);
 
         return view;
     }
-
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
+        adapter.addFragment(new Month(), tabs[0]);
+        adapter.addFragment(new Year(), tabs[1]);
+        viewPager.setAdapter(adapter);
+    }
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onAttendanceInteraction(uri);
@@ -139,35 +121,6 @@ public class Attendance extends Fragment implements ViewPager.OnPageChangeListen
         mListener = null;
     }
 
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        tabHost.setCurrentTab(position);
-        setSelectedTabColor();
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onTabChanged(String tabId) {
-        int selected_item = tabHost.getCurrentTab();
-        viewPager.setCurrentItem(selected_item);
-    }
-    private void setSelectedTabColor() {
-        for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
-            TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i).findViewById(android.R.id.title); //Unselected Tabs
-            tv.setTextColor(Color.parseColor("#ffffff"));
-            //tv.setTextSize(10);
-            // tv.setTypeface(fonts.getFont(getActivity(), fonts.ROBOTO_MEDIUM));
-        }
-    }
     public interface OnAttendanceListener {
         void onAttendanceInteraction(Uri uri);
     }
