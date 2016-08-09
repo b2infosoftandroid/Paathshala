@@ -194,7 +194,6 @@ public class Holiday extends Fragment {
         tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         name = new TextView(getContext());
         name.setText("HOLIDAY NAME");
-        name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         name.setTextColor(getResources().getColor(R.color.app_background));
         name.setPadding(30, 30, 30, 30);
         name.setTypeface(null, Typeface.BOLD);
@@ -203,7 +202,6 @@ public class Holiday extends Fragment {
 
         from_date = new TextView(getContext());
         from_date.setText("FROM DATE");
-        from_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         from_date.setTextColor(getResources().getColor(R.color.app_background));
         from_date.setPadding(30, 30, 30, 30);
         from_date.setTypeface(null,Typeface.BOLD);
@@ -211,7 +209,6 @@ public class Holiday extends Fragment {
 
         to_date = new TextView(getContext());
         to_date.setText("TO DATE");
-        to_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         to_date.setTextColor(getResources().getColor(R.color.app_background));
         to_date.setPadding(30, 30, 30, 30);
         tr_head.addView(to_date);
@@ -226,21 +223,18 @@ public class Holiday extends Fragment {
 
             name = new TextView(getContext());
             name.setText(info.getName());
-            name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             name.setTextColor(getResources().getColor(R.color.colorAccent));
             name.setPadding(30, 30, 30, 30);
             tr1.addView(name);
 
             from_date = new TextView(getContext());
             from_date.setText(format.getDate(info.getFromDate()));
-            from_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             from_date.setTextColor(getResources().getColor(R.color.colorAccent));
             from_date.setPadding(30, 30, 30, 30);
             tr1.addView(from_date);
 
             to_date = new TextView(getContext());
             to_date.setText(format.getDate(info.getToDate()));
-            to_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             to_date.setTextColor(getResources().getColor(R.color.colorAccent));
             to_date.setPadding(30, 30, 30, 30);
             tr1.addView(to_date);

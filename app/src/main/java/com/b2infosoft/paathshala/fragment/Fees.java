@@ -78,7 +78,6 @@ public class Fees extends Fragment {
 
         name = new TextView(getActivity());
         name.setText("FEE NAME");
-        name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         name.setTextColor(getResources().getColor(R.color.app_background));
         name.setPadding(30, 30, 30, 30);
         //name.setGravity(Gravity.CENTER);
@@ -87,7 +86,6 @@ public class Fees extends Fragment {
 
         type = new TextView(getActivity());
         type.setText("FEE TYPE");
-        type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         type.setTextColor(getResources().getColor(R.color.app_background));
         type.setPadding(30, 30, 30, 30);
         type.setTypeface(null, Typeface.BOLD);
@@ -95,7 +93,6 @@ public class Fees extends Fragment {
 
         total_fee = new TextView(getActivity());
         total_fee.setText("TOTAL FEES");
-        total_fee.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         total_fee.setTextColor(getResources().getColor(R.color.app_background));
         total_fee.setPadding(30, 30, 30, 30);
         total_fee.setTypeface(null, Typeface.BOLD);
@@ -103,7 +100,6 @@ public class Fees extends Fragment {
 
         deposit = new TextView(getActivity());
         deposit.setText("DEPOSIT");
-        deposit.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         deposit.setTextColor(getResources().getColor(R.color.app_background));
         deposit.setPadding(30, 30, 30, 30);
         deposit.setTypeface(null, Typeface.BOLD);
@@ -111,7 +107,6 @@ public class Fees extends Fragment {
 
         t_discount = new TextView(getActivity());
         t_discount.setText("T DISCOUNT");
-        t_discount.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         t_discount.setTextColor(getResources().getColor(R.color.app_background));
         t_discount.setPadding(30, 30, 30, 30);
         t_discount.setTypeface(null, Typeface.BOLD);
@@ -119,7 +114,6 @@ public class Fees extends Fragment {
 
         balance = new TextView(getActivity());
         balance.setText("BALANCE");
-        balance.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         balance.setTextColor(getResources().getColor(R.color.app_background));
         balance.setPadding(30, 30, 30, 30);
         balance.setTypeface(null, Typeface.BOLD);
@@ -129,7 +123,6 @@ public class Fees extends Fragment {
 
         deposit_name = new TextView(getActivity());
         deposit_name.setText("FEE NAME");
-        deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         deposit_name.setTextColor(getResources().getColor(R.color.app_background));
         deposit_name.setPadding(30, 30, 30, 30);
        // deposit_name.setGravity(Gravity.CENTER);
@@ -138,7 +131,6 @@ public class Fees extends Fragment {
 
         deposit_type = new TextView(getActivity());
         deposit_type.setText("FEE TYPE");
-        deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         deposit_type.setTextColor(getResources().getColor(R.color.app_background));
         deposit_type.setPadding(30, 30, 30, 30);
         deposit_type.setTypeface(null, Typeface.BOLD);
@@ -146,7 +138,6 @@ public class Fees extends Fragment {
 
         amt = new TextView(getActivity());
         amt.setText("AMOUNT");
-        amt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         amt.setTextColor(getResources().getColor(R.color.app_background));
         amt.setPadding(30, 30, 30, 30);
         amt.setTypeface(null, Typeface.BOLD);
@@ -154,7 +145,6 @@ public class Fees extends Fragment {
 
         receipt_no = new TextView(getActivity());
         receipt_no.setText("RECEIPT NO");
-        receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         receipt_no.setTextColor(getResources().getColor(R.color.app_background));
         receipt_no.setPadding(30, 30, 30, 30);
         receipt_no.setTypeface(null, Typeface.BOLD);
@@ -162,7 +152,6 @@ public class Fees extends Fragment {
 
         receipt_date = new TextView(getActivity());
         receipt_date.setText("RECEIPT DATE");
-        receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         receipt_date.setTextColor(getResources().getColor(R.color.app_background));
         receipt_date.setPadding(30, 30, 30, 30);
         receipt_date.setTypeface(null, Typeface.BOLD);
@@ -170,7 +159,6 @@ public class Fees extends Fragment {
 
         pay_mode = new TextView(getActivity());
         pay_mode.setText("PAYMENT MODE");
-        pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
         pay_mode.setTextColor(getResources().getColor(R.color.app_background));
         pay_mode.setPadding(30, 30, 30, 30);
         pay_mode.setTypeface(null, Typeface.BOLD);
