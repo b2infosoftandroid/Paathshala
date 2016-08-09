@@ -59,7 +59,7 @@
                 android:gravity="center">
 
                 <Button
-                    android:id="@+id/complaint_button"
+                    android:id="@+id/complaint_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/button_left_margin"
@@ -73,7 +73,7 @@
                     android:textSize="15dp" />
 
                 <Button
-                    android:id="@+id/complaint_cancel"
+                    android:id="@+id/complaint_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/button_right_margin"
