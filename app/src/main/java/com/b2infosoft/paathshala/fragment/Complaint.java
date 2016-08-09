@@ -64,6 +64,7 @@ public class Complaint extends Fragment {
     Button b1, b2;
     Network network;
     FloatingActionButton new_complaint;
+    private Dialog dialog;
     private ProgressDialog progress = null;
     RecyclerView rv;
     List<ComplaintInfo> complaintInfoList;
@@ -137,7 +138,7 @@ public class Complaint extends Fragment {
 
     private void newComplaintSend() {
 
-        final Dialog dialog = new Dialog(getContext());
+        dialog = new Dialog(getContext());
         //dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setTitle("New Complaint");
         dialog.setContentView(R.layout.custom_dialog);
@@ -289,6 +290,7 @@ public class Complaint extends Fragment {
                                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
+                                                Complaint.this.dialog.dismiss();
                                                 dialog.dismiss();
                                             }
                                         });
