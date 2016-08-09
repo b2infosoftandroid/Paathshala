@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/app_background"
-    android:gravity="center_vertical|center_horizontal"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".activity.LoginActivity">
-
     <ScrollView
+        android:id="@+id/login_form_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:paddingRight="40dp"
+        android:paddingLeft="40dp"
+        android:paddingTop="5dp"
         android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/logo"
+                android:src="@drawable/ic_logo_paathsala"
                 android:layout_gravity="center"
+                android:layout_marginBottom="50dp"
                 />
-
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/edit_text_hint_foreground"
                 android:layout_marginTop="@dimen/edit_text_top_margin"
-                >
+                android:textColorHint="@color/edit_text_hint_foreground">
+
                 <EditText
-                    android:id="@+id/login_username"
+                    android:id="@+id/login_institute_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_username"
-                    android:textAllCaps="true"
-                    android:drawableLeft="@drawable/user_name"
-                    android:drawablePadding="@dimen/edit_text_drawable_padding" />
+                    android:hint="@string/login_institute_id"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:fontFamily="fonts/Roboto_Regular.ttf"
+                    android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -50,70 +50,103 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
-                    android:id="@+id/login_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/login_password"
-                    android:textAllCaps="true"
-                    android:drawableLeft="@drawable/password"
-                    android:drawablePadding="@dimen/edit_text_drawable_padding"/>
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
                 <EditText
-                    android:id="@+id/login_dob"
+                    android:id="@+id/login_session"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_dob"
-                    android:textAllCaps="true"
-                    android:drawableLeft="@drawable/dob_icon"
-                    android:drawablePadding="@dimen/edit_text_drawable_padding"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
-                    android:id="@+id/login_role"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/login_role"
-                    android:textAllCaps="true"
-                    android:drawableLeft="@drawable/role"
+                    android:drawablePadding="@dimen/edit_text_drawable_padding"
                     android:drawableRight="@drawable/dropdown_arrow"
-                    android:drawablePadding="@dimen/edit_text_drawable_padding"/>
+                    android:hint="@string/login_session"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:editable="false"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:fontFamily="fonts/Roboto_Regular.ttf"
+                    android:textColor="@color/edit_text_foreground" />
             </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_top_margin"
+                android:textColorHint="@color/edit_text_hint_foreground">
+
+                <EditText
+                    android:id="@+id/login_student_scholar_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_student_scholar_no"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:fontFamily="fonts/Roboto_Regular.ttf"
+                    android:textColor="@color/edit_text_foreground" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/edit_text_top_margin"
+                android:textColorHint="@color/edit_text_hint_foreground">
+
+                <EditText
+                    android:id="@+id/login_password_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_password_1"
+                    android:inputType="numberPassword"
+                    android:singleLine="true"
+                    android:fontFamily="fonts/Roboto_Regular.ttf"
+                    android:textColor="@color/edit_text_foreground" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/get_institute_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|top"
+                android:layout_marginTop="@dimen/edit_text_top_margin"
+                android:autoLink="none"
+                android:clickable="true"
+                android:background="@drawable/text_view_background"
+                android:text="@string/login_get_institute_id"
+                android:textColor="@color/text_link" />
 
             <Button
-                android:id="@+id/login_button"
+                android:id="@+id/login_button_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/button_top_margin"
-                android:textAllCaps="true"
-                android:text="@string/login_button"
-                android:textSize="15dp"
-                android:layout_marginLeft="@dimen/button_left_margin"
-                android:layout_marginRight="@dimen/button_right_margin"
-                android:textColor="@color/button_foreground"
+                android:fontFamily="fonts/Roboto_Medium.ttf"
                 android:background="@drawable/button_fill_background"
-                />
+                android:text="@string/login_login"
+                android:textColor="@color/button_foreground" />
 
-            <TextView
-                android:id="@+id/login_forgot_password"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/login_button_forgot_password"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="true"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:text="@string/login_forgot_password"
-                android:textColor="@color/text_link"/>
+                android:layout_marginTop="@dimen/button_top_margin_1"
+                android:layout_marginBottom="@dimen/button_top_margin_1"
+                android:background="@drawable/button_empty_background"
+                android:fontFamily="fonts/Roboto_Medium.ttf"
+                android:text= "@string/login_forgot_password_1"
+                android:textColor="@color/button_background" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/info_background"
+        android:padding="5dp"
+        android:fontFamily="fonts/Roboto_Medium.ttf"
+        android:text="@string/login_bottom_text"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/button_foreground"
+        android:textStyle="normal" />
+</RelativeLayout>

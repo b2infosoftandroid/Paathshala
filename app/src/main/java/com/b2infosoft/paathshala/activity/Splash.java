@@ -1,17 +1,11 @@
 package com.b2infosoft.paathshala.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
 
 import com.b2infosoft.paathshala.R;
 import com.b2infosoft.paathshala.credential.Active;
-
-import org.json.JSONObject;
 
 
 public class Splash extends AppCompatActivity {
@@ -32,7 +26,7 @@ public class Splash extends AppCompatActivity {
                     if(active.isLogin()) {
                         startActivity(new Intent(Splash.this, MainActivity.class));
                     }else{
-                        startActivity(new Intent(Splash.this, LoginActivity_1.class));
+                        startActivity(new Intent(Splash.this, LoginActivity.class));
                     }
                     finish();
                 } catch (InterruptedException e) {

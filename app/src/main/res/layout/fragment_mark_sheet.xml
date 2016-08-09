@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.b2infosoft.paathshala.fragment.MarkSheet">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,9 +27,12 @@
             android:entries="@array/exam_type"
             android:layout_alignBaseline="@+id/textView"
             android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/textView"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_gravity="right"
             >
         </Spinner>
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="wrap_content"

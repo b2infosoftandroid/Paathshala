@@ -129,10 +129,10 @@ public class Month extends Fragment implements View.OnClickListener {
             month.setText(MONTH_NAME[mon] + " ".concat(SESSION[1]));
             calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[1]));
             //updateCalendar(null, calendar);
-            MonthInfo info = dbHelper.getMonthAttendance(mon+"",SESSION[1]);
-            if(info==null){
+            MonthInfo info = dbHelper.getMonthAttendance(mon + "", SESSION[1]);
+            if (info == null) {
                 searchYearAttendance(SESSION[1], mon + "");
-            }else{
+            } else {
                 updateCalendar(info);
             }
 
@@ -140,10 +140,10 @@ public class Month extends Fragment implements View.OnClickListener {
             month.setText(MONTH_NAME[mon] + " ".concat(SESSION[0]));
             calendar.set(Calendar.YEAR, Integer.parseInt(SESSION[0]));
             //updateCalendar(null, calendar);
-            MonthInfo info = dbHelper.getMonthAttendance(mon+"",SESSION[0]);
-            if(info==null){
+            MonthInfo info = dbHelper.getMonthAttendance(mon + "", SESSION[0]);
+            if (info == null) {
                 searchYearAttendance(SESSION[0], mon + "");
-            }else{
+            } else {
                 updateCalendar(info);
             }
         }
@@ -168,10 +168,14 @@ public class Month extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void chooseMonth() {
+
+    }
+
     public void updateCalendar(MonthInfo info) {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MONTH, info.getMonth());
-        calendar.set(Calendar.YEAR,info.getYear());
+        calendar.set(Calendar.YEAR, info.getYear());
 
         ArrayList<Date> cells = new ArrayList<>();
         // determine the cell for current month's beginning
@@ -218,8 +222,8 @@ public class Month extends Fragment implements View.OnClickListener {
 
 
     private void searchYearAttendance(final String year, final String month_1) {
-        if(!network.isInternetAvailable()) {
-            Toast.makeText(getActivity(),getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+        if (!network.isInternetAvailable()) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
             return;
         }
         Urls urls = Urls.getInstance();

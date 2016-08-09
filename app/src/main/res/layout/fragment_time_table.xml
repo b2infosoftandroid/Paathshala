@@ -19,14 +19,13 @@
                 android:textSize="@dimen/text_view_main_font_size"
                 android:textAllCaps="true"
                 android:layout_alignParentLeft="true"/>
-
             <Spinner
                 android:id="@+id/exam_list_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/exam_type"
-                android:layout_alignParentRight="true">
-
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/exam_type"
+                android:layout_toEndOf="@+id/exam_type">
             </Spinner>
 
         </RelativeLayout>
@@ -41,18 +40,12 @@
             android:layout_below="@+id/layout_top"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" >
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none">
-
                 <TableLayout
                     android:id="@+id/time_table_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:collapseColumns="*"></TableLayout>
-            </HorizontalScrollView>
+                    android:collapseColumns="*">
+                </TableLayout>
         </ScrollView>
 </RelativeLayout>

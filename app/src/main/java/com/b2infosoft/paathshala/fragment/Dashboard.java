@@ -39,6 +39,7 @@ import com.b2infosoft.paathshala.database.DBHelper;
  * create an instance of this fragment.
  */
 public class Dashboard extends Fragment {
+    public final static String TAG = Dashboard.class.getName();
     DisplayMetrics device;
     LinearLayout linearLayoutClassmates, linearLayoutAttendance, linearLayoutEnquiry, linearLayoutResult;
     Fonts fonts = Fonts.getInstance();
