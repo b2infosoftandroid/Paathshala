@@ -67,7 +67,7 @@
                     android:layout_marginTop="@dimen/button_top_margin"
                     android:layout_marginBottom="@dimen/button_bottom_margin"
                     android:background="@drawable/button_fill_background"
-                    android:text="@string/submit_complaint"
+                    android:text="@string/cancel_complaint"
                     android:textAllCaps="true"
                     android:textColor="@color/button_foreground"
                     android:textSize="15dp" />
@@ -80,7 +80,7 @@
                     android:layout_marginTop="@dimen/button_top_margin"
                     android:layout_marginBottom="@dimen/button_bottom_margin"
                     android:background="@drawable/button_fill_background"
-                    android:text="@string/cancel_complaint"
+                    android:text="@string/submit_complaint"
                     android:textAllCaps="true"
                     android:textColor="@color/button_foreground"
                     android:textSize="15dp" />

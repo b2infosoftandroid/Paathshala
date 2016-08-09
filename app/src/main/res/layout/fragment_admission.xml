@@ -22,6 +22,7 @@
                 android:focusableInTouchMode="true"
                 android:fontFamily="fonts/Roboto_Medium.ttf"
                 android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:padding="5dp"
                 android:lines="1"
