@@ -20,6 +20,7 @@
     <dimen name="edit_text_stroke_width">1dp</dimen>
     <dimen name="edit_text_stroke_corner_radius">2dp</dimen>
     <dimen name="edit_text_font_size">15pt</dimen>
+    <dimen name="edit_text_admission_font_size">7pt</dimen>
 
     <dimen name="button_top_margin">30dp</dimen>
     <dimen name="button_top_margin_1">15dp</dimen>

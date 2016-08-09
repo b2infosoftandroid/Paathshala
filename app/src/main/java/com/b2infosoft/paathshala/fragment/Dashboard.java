@@ -106,14 +106,11 @@ public class Dashboard extends Fragment {
             if (school_name.contains(","))
                 textView.setText(school_name.substring(0, school_name.indexOf(",")).toUpperCase());
         }
-        //textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        // textView.setMovementMethod(new ScrollingMovementMethod());
-        // textView.setSelected(true);
-        TranslateAnimation slide = new TranslateAnimation(600.0f, -600.0f, 0.0f, 0.0f);
-        slide.setDuration(7000);
-        slide.setRepeatCount(Animation.INFINITE);
-        slide.setRepeatMode(Animation.RESTART);
-        textView.startAnimation(slide);
+        //TranslateAnimation slide = new TranslateAnimation(600.0f, -600.0f, 0.0f, 0.0f);
+        //slide.setDuration(7000);
+        //slide.setRepeatCount(Animation.INFINITE);
+        //slide.setRepeatMode(Animation.RESTART);
+        //textView.startAnimation(slide);
 
         linearLayoutClassmates = (LinearLayout) view.findViewById(R.id.layout_classmates);
         linearLayoutAttendance = (LinearLayout) view.findViewById(R.id.layout_attendance);

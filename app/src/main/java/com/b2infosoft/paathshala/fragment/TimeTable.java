@@ -2,6 +2,7 @@ package com.b2infosoft.paathshala.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Point;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +72,7 @@ public class TimeTable extends Fragment {
     List<TimeTableInfo> infoList;
     private DBHelper dbHelper;
     private ProgressDialog progress;
+    float textSize;
 
     public TimeTable() {
         // Required empty public constructor
@@ -88,6 +92,15 @@ public class TimeTable extends Fragment {
         dbHelper = new DBHelper(getActivity());
         active = Active.getInstance(getContext());
         exam_list = (TextView) view.findViewById(R.id.exam_type);
+
+       // Display display = getActivity().getWindowManager().getDefaultDisplay();
+       // Point size = new Point();
+       // display.getSize(size);
+       // int screenWidth = size.x;
+       // int screenheight = size.y;
+
+        //textSize = screenheight*0.024f;
+
         spinner = (Spinner) view.findViewById(R.id.exam_list_spinner);
         t1 = (TableLayout) view.findViewById(R.id.time_table_list);
         List<String> stringList = dbHelper.getExamType();
@@ -281,7 +294,7 @@ public class TimeTable extends Fragment {
         tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         sub_name = new TextView(getContext());
         sub_name.setText("SUBJECT NAME");
-        sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        sub_name.setTextSize(6 * getResources().getDisplayMetrics().density);
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
         sub_name.setPadding(30, 30, 30, 30);
         sub_name.setTypeface(null, Typeface.BOLD);
@@ -290,7 +303,7 @@ public class TimeTable extends Fragment {
 
         sub_exm_date = new TextView(getContext());
         sub_exm_date.setText("EXAM DATE & TIME");
-        sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+        sub_exm_date.setTextSize(6 * getResources().getDisplayMetrics().density);
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
         sub_exm_date.setPadding(30, 30, 30, 30);
         //sub_exm_date.setGravity(Gravity.CENTER);
@@ -306,7 +319,7 @@ public class TimeTable extends Fragment {
 
             sub_name = new TextView(getContext());
             sub_name.setText(info.getSubject());
-            sub_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            sub_name.setTextSize(6 * getResources().getDisplayMetrics().density);
             sub_name.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_name.setPadding(30, 30, 30, 30);
             // sub_name.setGravity(Gravity.CENTER);
@@ -315,7 +328,7 @@ public class TimeTable extends Fragment {
 
             sub_exm_date = new TextView(getContext());
             sub_exm_date.setText(format.getDate(info.getDate()));
-            sub_exm_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            sub_exm_date.setTextSize(getResources().getDisplayMetrics().density);
             sub_exm_date.setAllCaps(true);
             sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_exm_date.setPadding(30, 30, 30, 30);
