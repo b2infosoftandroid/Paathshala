@@ -1,8 +1,10 @@
 package com.b2infosoft.paathshala.services;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
+import com.b2infosoft.paathshala.activity.MainActivity;
 import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
@@ -47,13 +50,17 @@ public class DBUpdate extends Service {
     Active active;
     DBHelper dbHelper;
     Format format;
+    CallBack activity;
     private static final String TAG = DBUpdate.class.getName();
+    private int total_request = 0;
+    private boolean status = false;
 
     @Override
     public void onStart(Intent intent, int startId) {
         dbHelper = new DBHelper(getApplicationContext());
         active = Active.getInstance(this);
         format = Format.getInstance();
+        activity = new MainActivity();
         fetchInstitute();
         fetchCity();
         fetchSession();
@@ -69,41 +76,44 @@ public class DBUpdate extends Service {
         }
         fetchExamList();
         String[] session = active.getValue(tags.SESSION).split("-");
-        for(String year:session){
+        for (String year : session) {
             searchYearAttendance(year);
         }
-        for(int i =0;i<=11;i++) {
-            if(i<=2){
-                searchYearAttendance(session[1],i+"");
-            }else{
-                searchYearAttendance(session[0],i+"");
+        for (int i = 0; i <= 11; i++) {
+            if (i <= 2) {
+                searchYearAttendance(session[1], i + "");
+            } else {
+                searchYearAttendance(session[0], i + "");
             }
         }
-        active.setKey(tags.LAST_UPDATE,format.getCurrentDate());
+        active.setKey(tags.LAST_UPDATE, format.getCurrentDate());
+
     }
 
     @Override
     public void onDestroy() {
-
+        Toast.makeText(this, "Destroyed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return super.onStartCommand(intent, flags, startId);
     }
-    
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return new LocalBinder();
     }
 
     private void fetchInstitute() {
         HashMap<String, String> map = new HashMap<>();
         String url = urls.getUrl(urls.getPath(tags.SCHOOL_LIST), map);
+        requestAdd();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        requestComplete();
                         List<InstituteInfo> institute = new ArrayList<>();
                         if (response != null) {
                             try {
@@ -138,6 +148,7 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
@@ -162,11 +173,13 @@ public class DBUpdate extends Service {
 
     private void fetchCity() {
         HashMap<String, String> map = new HashMap<>();
+        requestAdd();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.CITY), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 //                        Log.d(TAG,response.toString());
+                        requestComplete();
                         List<City> cities = new ArrayList<>();
                         try {
                             if (response.has(tags.ARR_CITY)) {
@@ -194,6 +207,7 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
@@ -217,13 +231,15 @@ public class DBUpdate extends Service {
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 
-    private void fetchSession() {
+    private synchronized void fetchSession() {
         HashMap<String, String> map = new HashMap<>();
+        requestAdd();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
+                        requestComplete();
+//                        Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_SESSION_LIST)) {
                                 //Log.d("IF", "FOUND");
@@ -254,10 +270,10 @@ public class DBUpdate extends Service {
                         }
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
@@ -287,10 +303,12 @@ public class DBUpdate extends Service {
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        requestAdd();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.STUDENT_INFO), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        requestComplete();
                         if (response != null) {
                             try {
                                 if (response.has(tags.ARR_STUDENT_INFO)) {
@@ -430,8 +448,26 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
+
                     }
                 });
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
@@ -441,11 +477,13 @@ public class DBUpdate extends Service {
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
         String url = urls.getUrl(urls.getPath(tags.COMPLAINT_LIST), map);
+        requestAdd();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
+                        requestComplete();
                         List<ComplaintInfo> complaintInfoList = new ArrayList<>();
                         if (response != null) {
                             try {
@@ -488,8 +526,25 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
@@ -500,10 +555,12 @@ public class DBUpdate extends Service {
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.S_ID, active.getValue(tags.S_ID));
+        requestAdd();
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.FEES_LEDGER), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        requestComplete();
                         try {
                             if (response.has(tags.ARR_FEES_DETAILS)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_FEES_DETAILS);
@@ -577,6 +634,7 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
@@ -604,12 +662,14 @@ public class DBUpdate extends Service {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        requestAdd();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.Holiday), map), null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         // Log.d(TAG,response.toString());
+                        requestComplete();
                         List<HolidayInfo> holidayInfos = new ArrayList<>();
                         if (response != null) {
                             try {
@@ -641,8 +701,25 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
@@ -654,10 +731,12 @@ public class DBUpdate extends Service {
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.M_EXAM_TYPE, type);
+        requestAdd();
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.MARKS_SHEET), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        requestComplete();
                         //Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_MARKS_DETAIL)) {
@@ -739,6 +818,7 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
@@ -765,11 +845,13 @@ public class DBUpdate extends Service {
         HashMap<String, String> map = new HashMap<>();
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
+        requestAdd();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.EXAM_LIST), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         // Log.d(TAG,response.toString());
+                        requestComplete();
                         List<String> list = new ArrayList<>();
                         if (response != null) {
                             try {
@@ -794,8 +876,26 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
+
                     }
                 });
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
@@ -806,12 +906,14 @@ public class DBUpdate extends Service {
         map.put(tags.SESSION_ID, active.getValue(tags.SESSION_ID));
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
         map.put(tags.TIME_TABLE_EXAM_NAME, str);
+        requestAdd();
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.EXAM_TIME_TABLE), map), null, new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         // Log.d("response",response.toString());
+                        requestComplete();
                         List<TimeTableInfo> infoList = new ArrayList<>();
                         if (response != null) {
                             try {
@@ -842,8 +944,25 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
+        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
         jsonObjectRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
@@ -852,6 +971,7 @@ public class DBUpdate extends Service {
         for (String string : strings)
             getData(string);
     }
+
     private void searchYearAttendance(final String search) {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
@@ -860,12 +980,14 @@ public class DBUpdate extends Service {
         map.put(tags.S_ID, active.getValue(tags.S_ID));
         map.put(tags.YEAR_YEAR, search);
         //showProgress();
+        requestAdd();
         String url = urls.getUrl(urls.getPath(tags.YEAR_ATTENDANCE), map);
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 //                        Log.d(TAG, response.toString());
+                        requestComplete();
                         try {
                             if (response.has(tags.ARR_TOTAL_YEAR_ATTENDANCE)) {
                                 JSONArray result = response.getJSONArray(tags.ARR_TOTAL_YEAR_ATTENDANCE);
@@ -907,6 +1029,7 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
@@ -928,6 +1051,7 @@ public class DBUpdate extends Service {
         jsObjRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
+
     private void searchYearAttendance(final String year, final String month_1) {
         Urls urls = Urls.getInstance();
         HashMap<String, String> map = new HashMap<>();
@@ -937,10 +1061,12 @@ public class DBUpdate extends Service {
         map.put(tags.YEAR_YEAR, year);
         map.put(tags.YEAR_MONTH, month_1);
         String url = urls.getUrl(urls.getPath(tags.MONTH_ATTENDANCE), map);
+        requestAdd();
         final JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        requestComplete();
                         MonthInfo month = new MonthInfo();
                         month.setMonth(Integer.parseInt(month_1));
                         month.setYear(Integer.parseInt(year));
@@ -1054,6 +1180,7 @@ public class DBUpdate extends Service {
                                     month.setLeave(object.getInt(tags.MONTH_LEAVE));
                                 }
                             }
+
                         } catch (Exception e) {
                         }
                         dbHelper.deleteMonthAttendance(month.getMonth() + "", month.getYear() + "");
@@ -1063,6 +1190,7 @@ public class DBUpdate extends Service {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, error.toString());
+                        requestComplete();
                     }
                 });
         jsObjRequest.setRetryPolicy(new RetryPolicy() {
@@ -1083,5 +1211,39 @@ public class DBUpdate extends Service {
         });
         jsObjRequest.setTag(TAG);
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+
+    private void requestAdd() {
+    /*
+        total_request++;
+        if (!status) {
+            activity.callBack(true);
+        }
+        */
+    }
+
+    private void requestComplete() {
+        /*
+        total_request--;
+        if (status) {
+            activity.callBack(false);
+        }
+        */
+    }
+
+    public void registerClient(Activity activity) {
+        this.activity = (CallBack) activity;
+       // Toast.makeText(this,"Working"+this.activity,  Toast.LENGTH_SHORT).show();
+    }
+
+    public interface CallBack {
+        void callBack(boolean b);
+    }
+
+    //returns the instance of the service
+    public class LocalBinder extends Binder {
+        public DBUpdate getServiceInstance() {
+            return DBUpdate.this;
+        }
     }
 }

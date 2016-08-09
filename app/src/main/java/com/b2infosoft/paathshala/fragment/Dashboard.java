@@ -40,7 +40,7 @@ import com.b2infosoft.paathshala.database.DBHelper;
  */
 public class Dashboard extends Fragment {
     DisplayMetrics device;
-    LinearLayout linearLayoutClassmates,linearLayoutAttendance,linearLayoutEnquiry,linearLayoutResult;
+    LinearLayout linearLayoutClassmates, linearLayoutAttendance, linearLayoutEnquiry, linearLayoutResult;
     Fonts fonts = Fonts.getInstance();
     TextView textView;
     Active active;
@@ -93,29 +93,32 @@ public class Dashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_admission, container, false);
+        View view = inflater.inflate(R.layout.fragment_admission, container, false);
         device = getActivity().getResources().getDisplayMetrics();
-        textView = (TextView)view.findViewById(R.id.institute_name);
+        textView = (TextView) view.findViewById(R.id.institute_name);
         active = Active.getInstance(getActivity());
         tags = Tags.getInstance();
         dbHelper = new DBHelper(getActivity());
-        lastUpdate = (TextView)view.findViewById(R.id.last_update);
+        lastUpdate = (TextView) view.findViewById(R.id.last_update);
 
         String school_name = dbHelper.getInstituteName(active.getValue(tags.SCHOOL_ID));
-        textView.setText(school_name.substring(0,school_name.indexOf(",")).toUpperCase());
+        if (school_name != null) {
+            if (school_name.contains(","))
+                textView.setText(school_name.substring(0, school_name.indexOf(",")).toUpperCase());
+        }
         //textView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-       // textView.setMovementMethod(new ScrollingMovementMethod());
-       // textView.setSelected(true);
+        // textView.setMovementMethod(new ScrollingMovementMethod());
+        // textView.setSelected(true);
         TranslateAnimation slide = new TranslateAnimation(600.0f, -600.0f, 0.0f, 0.0f);
         slide.setDuration(7000);
         slide.setRepeatCount(Animation.INFINITE);
         slide.setRepeatMode(Animation.RESTART);
         textView.startAnimation(slide);
 
-        linearLayoutClassmates = (LinearLayout)view.findViewById(R.id.layout_classmates);
-        linearLayoutAttendance = (LinearLayout)view.findViewById(R.id.layout_attendance);
-        linearLayoutEnquiry = (LinearLayout)view.findViewById(R.id.layout_holidays);
-        linearLayoutResult = (LinearLayout)view.findViewById(R.id.layout_fees);
+        linearLayoutClassmates = (LinearLayout) view.findViewById(R.id.layout_classmates);
+        linearLayoutAttendance = (LinearLayout) view.findViewById(R.id.layout_attendance);
+        linearLayoutEnquiry = (LinearLayout) view.findViewById(R.id.layout_holidays);
+        linearLayoutResult = (LinearLayout) view.findViewById(R.id.layout_fees);
         setLayoutParams(linearLayoutClassmates);
         setLayoutParams(linearLayoutAttendance);
         setLayoutParams(linearLayoutEnquiry);
@@ -124,7 +127,7 @@ public class Dashboard extends Fragment {
         linearLayoutClassmates.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               replaceFragment(new Fees());
+                replaceFragment(new Fees());
             }
         });
         linearLayoutAttendance.setOnClickListener(new View.OnClickListener() {
@@ -146,14 +149,14 @@ public class Dashboard extends Fragment {
             }
         });
 
-        ImageView classmate = (ImageView)view.findViewById(R.id.dashboard_classmates);
-        ImageView attendance = (ImageView)view.findViewById(R.id.dashboard_attendance);
-        ImageView holidays = (ImageView)view.findViewById(R.id.dashboard_holidays);
-        ImageView fees = (ImageView)view.findViewById(R.id.dashboard_fees);
-       // classmate.setImageDrawable(getDrawable("20"));
-       // attendance.setImageDrawable(getDrawable("70%"));
-       // holidays.setImageDrawable(getDrawable("10"));
-       // fees.setImageDrawable(getDrawable("100"));
+        ImageView classmate = (ImageView) view.findViewById(R.id.dashboard_classmates);
+        ImageView attendance = (ImageView) view.findViewById(R.id.dashboard_attendance);
+        ImageView holidays = (ImageView) view.findViewById(R.id.dashboard_holidays);
+        ImageView fees = (ImageView) view.findViewById(R.id.dashboard_fees);
+        // classmate.setImageDrawable(getDrawable("20"));
+        // attendance.setImageDrawable(getDrawable("70%"));
+        // holidays.setImageDrawable(getDrawable("10"));
+        // fees.setImageDrawable(getDrawable("100"));
         refreshLastUpdate();
         return view;
     }
@@ -164,14 +167,16 @@ public class Dashboard extends Fragment {
         refreshLastUpdate();
     }
 
-    private void refreshLastUpdate(){
+    private void refreshLastUpdate() {
         String last_update = getActivity().getResources().getString(R.string.data_last_updated);
         lastUpdate.setText(last_update.concat(active.getValue(tags.LAST_UPDATE)));
     }
-    private void setLayoutParams(LinearLayout layout){
-        layout.getLayoutParams().width= (int)(device.widthPixels/2.3);
+
+    private void setLayoutParams(LinearLayout layout) {
+        layout.getLayoutParams().width = (int) (device.widthPixels / 2.3);
     }
-    private Drawable getDrawable(String string){
+
+    private Drawable getDrawable(String string) {
         TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
                 .withBorder(10)
@@ -182,10 +187,11 @@ public class Dashboard extends Fragment {
 //        .useFont(Typeface.createFromAsset(getActivity().getAssets(),"fonts/Roboto_Medium.ttf"))
         return drawable;
     }
-    private int getFontSize(int w,int h){
-        if(w<=320 && h <=480){
+
+    private int getFontSize(int w, int h) {
+        if (w <= 320 && h <= 480) {
             return 25;
-        }else{
+        } else {
             return 40;
         }
     }
@@ -196,6 +202,7 @@ public class Dashboard extends Fragment {
             mListener.onAdmissionInteraction(uri);
         }
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

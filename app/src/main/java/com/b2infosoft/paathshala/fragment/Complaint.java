@@ -213,9 +213,10 @@ public class Complaint extends Fragment {
                                         }
                                         complaintInfoList.add(info);
                                     }
-                                    updateComplaint(complaintInfoList);
+//                                    updateComplaint(complaintInfoList);
                                     dbHelper.deleteComplaint();
                                     dbHelper.setComplaint(complaintInfoList);
+                                    updateComplaint(dbHelper.getComplaint());
                                     dismissProgress();
                                 }
 
@@ -254,7 +255,10 @@ public class Complaint extends Fragment {
         }
         sendData(s1, s2);
     }
-
+    private void refreshForm(){
+        title.setText(null);
+        body.setText(null);
+    }
     public void sendData(String s1, String s2) {
         if(!network.isInternetAvailable()) {
             Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
@@ -267,9 +271,10 @@ public class Complaint extends Fragment {
         map.put(tags.SCHOOL_ID, active.getValue(tags.SCHOOL_ID));
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.COMPLAINTS), map), null, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
+                        fetchComplaintList();
+                        refreshForm();
                         if (response != null) {
                             try {
                                 //Log.d(TAG,response+"");
@@ -290,7 +295,6 @@ public class Complaint extends Fragment {
                                         builder.create().show();
                                         // Toast.makeText(getContext(),str,Toast.LENGTH_LONG).show();
                                     }
-
                                 }
                             } catch (Exception e) {
                                 Log.e(TAG, e.getMessage());
