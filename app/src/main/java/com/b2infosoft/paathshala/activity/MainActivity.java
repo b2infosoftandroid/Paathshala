@@ -4,6 +4,8 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -21,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +51,8 @@ import com.b2infosoft.paathshala.services.DBUpdate;
 import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.util.Random;
 
 public class MainActivity extends CallBacks {
     View headerView;
@@ -181,7 +186,10 @@ public class MainActivity extends CallBacks {
             final MenuItem refreshItem = menu.findItem(R.id.menu_refresh);
             if (refreshItem != null) {
                 if (refreshing) {
-                    refreshItem.setActionView(R.layout.actionbar_indeterminate_progress);
+                    View view = View.inflate(this,R.layout.actionbar_indeterminate_progress,null);
+                    ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
+                    progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+                    refreshItem.setActionView(view);
                 } else {
                     refreshItem.setActionView(null);
                 }
@@ -273,7 +281,7 @@ public class MainActivity extends CallBacks {
             int id = item.getItemId();
             if (id == R.id.nav_admission) {
                 replaceFragment(new Admission());
-                setTitle("Dashboard");
+                setTitle("Admission");
             } else if (id == R.id.nav_attendance) {
                 replaceFragment(new Attendance());
                 setTitle("Attendance");

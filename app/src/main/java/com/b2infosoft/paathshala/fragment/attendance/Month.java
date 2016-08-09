@@ -1,8 +1,10 @@
 package com.b2infosoft.paathshala.fragment.attendance;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -14,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 public class Month extends Fragment implements View.OnClickListener {
     private static final String TAG = Month.class.getName();
@@ -87,6 +91,7 @@ public class Month extends Fragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_month, container, false);
         grid = (GridView) view.findViewById(R.id.gridView);
         month = (TextView) view.findViewById(R.id.current_date);
+        month.setOnClickListener(this);
         present = (TextView) view.findViewById(R.id.total_present);
         absent = (TextView) view.findViewById(R.id.total_absent);
         leave = (TextView) view.findViewById(R.id.total_leave);
@@ -117,7 +122,14 @@ public class Month extends Fragment implements View.OnClickListener {
         }
         return 0;
     }
-
+    private int getItemPosition(String string){
+        for (int i = 0; i < MONTH_NAME.length; i++) {
+            if (MONTH_NAME[i].equalsIgnoreCase(string)) {
+                return i;
+            }
+        }
+        return 0;
+    }
     /**
      * Display dates correctly in grid
      */
@@ -165,11 +177,41 @@ public class Month extends Fragment implements View.OnClickListener {
                     updateDate(mMonth);
                 }
                 break;
+            case R.id.current_date:
+                chooseMonth();
+                break;
         }
     }
 
     private void chooseMonth() {
-
+        String string[] = {
+                MONTH_NAME[3] + " " + SESSION[0],
+                MONTH_NAME[4] + " " + SESSION[0],
+                MONTH_NAME[5] + " " + SESSION[0],
+                MONTH_NAME[6] + " " + SESSION[0],
+                MONTH_NAME[7] + " " + SESSION[0],
+                MONTH_NAME[8] + " " + SESSION[0],
+                MONTH_NAME[9] + " " + SESSION[0],
+                MONTH_NAME[10] + " " + SESSION[0],
+                MONTH_NAME[11] + " " + SESSION[0],
+                MONTH_NAME[0] + " " + SESSION[1],
+                MONTH_NAME[1] + " " + SESSION[1],
+                MONTH_NAME[2] + " " + SESSION[1]
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("SELECT MONTH");
+        builder.setSingleChoiceItems(string, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ListView lw = ((AlertDialog) dialog).getListView();
+                Object checkedItem = lw.getAdapter().getItem(lw.getCheckedItemPosition());
+                String string[] = checkedItem.toString().split(" ");
+                mMonth = getItemPosition(string[0]);
+                updateDate(mMonth);
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
     }
 
     public void updateCalendar(MonthInfo info) {

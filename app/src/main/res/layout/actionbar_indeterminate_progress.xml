@@ -4,8 +4,12 @@
     android:layout_height="wrap_content"
     android:minWidth="56dp">
     <ProgressBar
-        android:id="@+id/prgs_bar"
+        android:id="@+id/progress_bar"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/app_background"
+        />
 </FrameLayout>
