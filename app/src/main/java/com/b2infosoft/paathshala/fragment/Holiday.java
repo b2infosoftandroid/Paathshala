@@ -223,6 +223,7 @@ public class Holiday extends Fragment {
 
             name = new TextView(getContext());
             name.setText(info.getName());
+            name.setAllCaps(true);
             name.setTextColor(getResources().getColor(R.color.colorAccent));
             name.setPadding(30, 30, 30, 30);
             tr1.addView(name);
