@@ -93,13 +93,13 @@ public class TimeTable extends Fragment {
         active = Active.getInstance(getContext());
         exam_list = (TextView) view.findViewById(R.id.exam_type);
 
-       // Display display = getActivity().getWindowManager().getDefaultDisplay();
-       // Point size = new Point();
-       // display.getSize(size);
-       // int screenWidth = size.x;
-       // int screenheight = size.y;
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+        int screenheight = size.y;
 
-        //textSize = screenheight*0.024f;
+        textSize = screenheight*0.012f;
 
         spinner = (Spinner) view.findViewById(R.id.exam_list_spinner);
         t1 = (TableLayout) view.findViewById(R.id.time_table_list);
@@ -294,7 +294,7 @@ public class TimeTable extends Fragment {
         tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
         sub_name = new TextView(getContext());
         sub_name.setText("SUBJECT NAME");
-        sub_name.setTextSize(6 * getResources().getDisplayMetrics().density);
+        sub_name.setTextSize(textSize);
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
         sub_name.setPadding(30, 30, 30, 30);
         sub_name.setTypeface(null, Typeface.BOLD);
@@ -303,7 +303,7 @@ public class TimeTable extends Fragment {
 
         sub_exm_date = new TextView(getContext());
         sub_exm_date.setText("EXAM DATE & TIME");
-        sub_exm_date.setTextSize(6 * getResources().getDisplayMetrics().density);
+        sub_exm_date.setTextSize(textSize);
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
         sub_exm_date.setPadding(30, 30, 30, 30);
         //sub_exm_date.setGravity(Gravity.CENTER);
@@ -319,7 +319,7 @@ public class TimeTable extends Fragment {
 
             sub_name = new TextView(getContext());
             sub_name.setText(info.getSubject());
-            sub_name.setTextSize(6 * getResources().getDisplayMetrics().density);
+            sub_name.setTextSize(textSize);
             sub_name.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_name.setPadding(30, 30, 30, 30);
             // sub_name.setGravity(Gravity.CENTER);
@@ -328,7 +328,7 @@ public class TimeTable extends Fragment {
 
             sub_exm_date = new TextView(getContext());
             sub_exm_date.setText(format.getDate(info.getDate()));
-            sub_exm_date.setTextSize(getResources().getDisplayMetrics().density);
+            sub_exm_date.setTextSize(textSize);
             sub_exm_date.setAllCaps(true);
             sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
             sub_exm_date.setPadding(30, 30, 30, 30);
