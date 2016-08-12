@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.b2infosoft.paathshala.R;
-import com.b2infosoft.paathshala.adapter.GetIdRecyclerViewAdapter_1;
+import com.b2infosoft.paathshala.adapter.GetIdRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
@@ -48,7 +48,7 @@ public class GetInstituteId extends AppCompatActivity {
     }
 
     private void updateInstitute(List<InstituteInfo> infoList) {
-        GetIdRecyclerViewAdapter_1 adapter = new GetIdRecyclerViewAdapter_1(infoList);
+        GetIdRecyclerViewAdapter adapter = new GetIdRecyclerViewAdapter(infoList);
         recyclerView.setAdapter(adapter);
     }
 
