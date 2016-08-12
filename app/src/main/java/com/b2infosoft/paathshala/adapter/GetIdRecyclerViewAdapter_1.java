@@ -27,7 +27,7 @@ public class GetIdRecyclerViewAdapter_1 extends RecyclerView.Adapter<GetIdRecycl
     @Override
     public GetIdRecyclerViewAdapter_1.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_get_institute_id_1, parent, false);
+                .inflate(R.layout.custom_layout_institute, parent, false);
         return new ViewHolder(view);
     }
 

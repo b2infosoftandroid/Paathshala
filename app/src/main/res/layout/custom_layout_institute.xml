@@ -68,17 +68,10 @@
                 android:orientation="vertical"
                 android:padding="5dp"
                 >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/app_background"
-                android:text="@string/get_institute_prompt_school_name"
-                android:textAllCaps="true"
-                android:alpha=".6"
-                />
-            <TextView
+
+                <TextView
                 android:id="@+id/institute_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/get_institute_school_name"
                 android:padding="5dp"
