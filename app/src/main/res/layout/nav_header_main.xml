@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@color/app_background"
+    android:background="@color/colorPrimary"
     android:gravity="bottom"
     android:orientation="vertical"
     android:id="@+id/nav_header_layout"
@@ -29,7 +29,7 @@
         android:text="Guest Student"
         android:textAllCaps="true"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@color/edit_text_foreground"
+        android:textColor="@color/app_background"
         android:layout_gravity="center_horizontal"
         />
     <View

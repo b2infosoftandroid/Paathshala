@@ -219,24 +219,26 @@ public class Holiday extends Fragment {
             HolidayInfo info = holidayInfos.get(i);
             TableRow tr1 = new TableRow(getContext());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
+            else
+                tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
 
             name = new TextView(getContext());
             name.setText(info.getName());
             name.setAllCaps(true);
-            name.setTextColor(getResources().getColor(R.color.colorAccent));
+            name.setTextColor(getResources().getColor(R.color.app_background));
             name.setPadding(30, 30, 30, 30);
             tr1.addView(name);
 
             from_date = new TextView(getContext());
             from_date.setText(format.getDate(info.getFromDate()));
-            from_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            from_date.setTextColor(getResources().getColor(R.color.app_background));
             from_date.setPadding(30, 30, 30, 30);
             tr1.addView(from_date);
 
             to_date = new TextView(getContext());
             to_date.setText(format.getDate(info.getToDate()));
-            to_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            to_date.setTextColor(getResources().getColor(R.color.app_background));
             to_date.setPadding(30, 30, 30, 30);
             tr1.addView(to_date);
 

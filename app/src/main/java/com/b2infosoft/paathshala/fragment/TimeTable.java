@@ -305,11 +305,13 @@ public class TimeTable extends Fragment {
             TimeTableInfo info = infolist.get(i);
             TableRow tr1 = new TableRow(getContext());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
+            else
+                tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
 
             sub_name = new TextView(getContext());
             sub_name.setText(info.getSubject());
-            sub_name.setTextColor(getResources().getColor(R.color.colorAccent));
+            sub_name.setTextColor(getResources().getColor(R.color.app_background));
             sub_name.setPadding(5, 30, 0, 30);
             // sub_name.setGravity(Gravity.CENTER);
             tr1.addView(sub_name);
@@ -318,7 +320,7 @@ public class TimeTable extends Fragment {
             sub_exm_date = new TextView(getContext());
             sub_exm_date.setText(format.getDate(info.getDate()));
             sub_exm_date.setAllCaps(true);
-            sub_exm_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
             sub_exm_date.setPadding(5, 30, 0, 30);
             tr1.addView(sub_exm_date);
 

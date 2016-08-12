@@ -60,7 +60,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
-                            android:background="@color/dashboard_fees_layout_top"
+                            android:background="@color/attendance_present"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -138,7 +138,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
-                            android:background="@color/dashboard_attandance_layout_top"
+                            android:background="@color/dashboard_complaint_layout_top"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -175,7 +175,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
-                            android:background="@color/dashboard_complaint_layout_top"
+                            android:background="@color/attendance_half_day"
                             android:gravity="center"
                             android:orientation="vertical">
 

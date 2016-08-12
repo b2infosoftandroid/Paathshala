@@ -54,7 +54,7 @@ public class Student extends Fragment {
     Tags tags = Tags.getInstance();
     Format format = Format.getInstance();
     DBHelper dbHelper;
-    EditText register_no, sr_no, house, dob, stu_class, section, category, religion, handicap, type, mobile, gender, mode;
+    EditText sr_no, house, dob, stu_class, section, category, religion, handicap, type, mobile, gender, mode;
     EditText faculty, admission_type, cast, nationality, bpl, email, ori_date, admin_date;
     TextView student_name;
     CircularImageView student_image;
@@ -103,7 +103,6 @@ public class Student extends Fragment {
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image = (CircularImageView) view.findViewById(R.id.student_info_circularImageView);
         setProfileImage();
-        register_no = (EditText) view.findViewById(R.id.student_info_register_no);
         sr_no = (EditText) view.findViewById(R.id.student_info_sr_no);
         house = (EditText) view.findViewById(R.id.student_info_house);
         dob = (EditText) view.findViewById(R.id.student_info_birth_date);
@@ -290,7 +289,6 @@ public class Student extends Fragment {
 
     private void setFonts() {
         student_name.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_MEDIUM));
-        register_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         sr_no.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         house.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
         dob.setTypeface(fonts.getFont(getContext(), fonts.ROBOTO_REGULAR));
@@ -318,7 +316,6 @@ public class Student extends Fragment {
         sr_no.setText(info.getSrNo()+"");
         ori_date.setText(format.getDate(info.getOriAdminDate()));
         admin_date.setText(format.getDate(info.getAdminDate()));
-        register_no.setText(info.getRegisterNo());
         house.setText(info.getHouse());
         handicap.setText(info.getHandicap());
         dob.setText(format.getDate(info.getDob()));

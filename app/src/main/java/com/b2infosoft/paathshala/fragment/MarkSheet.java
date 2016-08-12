@@ -261,57 +261,59 @@ public class MarkSheet extends Fragment {
         for (Marks marks : marksList) {
             TableRow tr_head = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr_head.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr_head.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
+            else
+                tr_head.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
             i++;
             id = new TextView(getActivity());
             id.setText(String.valueOf(marks.getId()));
-            id.setTextColor(getResources().getColor(R.color.colorAccent));
+            id.setTextColor(getResources().getColor(R.color.app_background));
             id.setPadding(30, 30, 30, 30);
             tr_head.addView(id);
 
             examName = new TextView(getActivity());
             examName.setText(marks.getExamName());
-            examName.setTextColor(getResources().getColor(R.color.colorAccent));
+            examName.setTextColor(getResources().getColor(R.color.app_background));
             examName.setPadding(30, 30, 30, 30);
             tr_head.addView(examName);
 
             subjectName = new TextView(getActivity());
             subjectName.setText(marks.getSubjectName());
-            subjectName.setTextColor(getResources().getColor(R.color.colorAccent));
+            subjectName.setTextColor(getResources().getColor(R.color.app_background));
             subjectName.setPadding(30, 30, 30, 30);
             tr_head.addView(subjectName);
 
             tMarks = new TextView(getActivity());
             tMarks.setText(String.valueOf(marks.getTMarks()));
-            tMarks.setTextColor(getResources().getColor(R.color.colorAccent));
+            tMarks.setTextColor(getResources().getColor(R.color.app_background));
             tMarks.setPadding(30, 30, 30, 30);
             tMarks.setGravity(Gravity.CENTER);
             tr_head.addView(tMarks);
 
             tMarksObt = new TextView(getActivity());
             tMarksObt.setText(String.valueOf(marks.getTMarksObt()));
-            tMarksObt.setTextColor(getResources().getColor(R.color.colorAccent));
+            tMarksObt.setTextColor(getResources().getColor(R.color.app_background));
             tMarksObt.setPadding(30, 30, 30, 30);
             tMarksObt.setGravity(Gravity.CENTER);
             tr_head.addView(tMarksObt);
 
             pMarks = new TextView(getActivity());
             pMarks.setText(String.valueOf(marks.getPMarks()));
-            pMarks.setTextColor(getResources().getColor(R.color.colorAccent));
+            pMarks.setTextColor(getResources().getColor(R.color.app_background));
             pMarks.setPadding(30, 30, 30, 30);
             pMarks.setGravity(Gravity.CENTER);
             tr_head.addView(pMarks);
 
             pMarksObt = new TextView(getActivity());
             pMarksObt.setText(String.valueOf(marks.getPMarksObt()));
-            pMarksObt.setTextColor(getResources().getColor(R.color.colorAccent));
+            pMarksObt.setTextColor(getResources().getColor(R.color.app_background));
             pMarksObt.setPadding(30, 30, 30, 30);
             pMarksObt.setGravity(Gravity.CENTER);
             tr_head.addView(pMarksObt);
 
             addInMark = new TextView(getActivity());
             addInMark.setText(String.valueOf(marks.getAddInMark()));
-            addInMark.setTextColor(getResources().getColor(R.color.colorAccent));
+            addInMark.setTextColor(getResources().getColor(R.color.app_background));
             addInMark.setPadding(30, 30, 30, 30);
             addInMark.setGravity(Gravity.CENTER);
             tr_head.addView(addInMark);
@@ -319,7 +321,7 @@ public class MarkSheet extends Fragment {
             addInRes = new TextView(getActivity());
             addInRes.setText(String.valueOf(marks.getAddInRes()));
             addInRes.setAllCaps(true);
-            addInRes.setTextColor(getResources().getColor(R.color.colorAccent));
+            addInRes.setTextColor(getResources().getColor(R.color.app_background));
             addInRes.setPadding(30, 30, 30, 30);
             addInRes.setGravity(Gravity.CENTER);
             tr_head.addView(addInRes);
@@ -334,53 +336,55 @@ public class MarkSheet extends Fragment {
         for (Result res : resultList) {
             TableRow tr_head1 = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr_head1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr_head1.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
+            else
+                tr_head1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
             i++;
 
             id = new TextView(getActivity());
             id.setText(String.valueOf(res.getId()));
-            id.setTextColor(getResources().getColor(R.color.colorAccent));
+            id.setTextColor(getResources().getColor(R.color.app_background));
             id.setPadding(30, 30, 30, 30);
             tr_head1.addView(id);
 
 
             result = new TextView(getActivity());
             result.setText(res.getResult());
-            result.setTextColor(getResources().getColor(R.color.colorAccent));
+            result.setTextColor(getResources().getColor(R.color.app_background));
             result.setPadding(30, 30, 30, 30);
             result.setGravity(Gravity.CENTER);
             tr_head1.addView(result);
 
             division = new TextView(getActivity());
             division.setText(res.getDivision());
-            division.setTextColor(getResources().getColor(R.color.colorAccent));
+            division.setTextColor(getResources().getColor(R.color.app_background));
             division.setPadding(30, 30, 30, 30);
             tr_head1.addView(division);
 
             percentage = new TextView(getActivity());
             percentage.setText(String.valueOf(res.getPercentage()));
-            percentage.setTextColor(getResources().getColor(R.color.colorAccent));
+            percentage.setTextColor(getResources().getColor(R.color.app_background));
             percentage.setPadding(30, 30, 30, 30);
             percentage.setGravity(Gravity.CENTER);
             tr_head1.addView(percentage);
 
             totMarks = new TextView(getActivity());
             totMarks.setText(String.valueOf(res.getTotalMarks()));
-            totMarks.setTextColor(getResources().getColor(R.color.colorAccent));
+            totMarks.setTextColor(getResources().getColor(R.color.app_background));
             totMarks.setPadding(30, 30, 30, 30);
             totMarks.setGravity(Gravity.CENTER);
             tr_head1.addView(totMarks);
 
             totalObt = new TextView(getActivity());
             totalObt.setText(String.valueOf(res.getTotalObtain()));
-            totalObt.setTextColor(getResources().getColor(R.color.colorAccent));
+            totalObt.setTextColor(getResources().getColor(R.color.app_background));
             totalObt.setPadding(30, 30, 30, 30);
             totalObt.setGravity(Gravity.CENTER);
             tr_head1.addView(totalObt);
 
             markSheetType = new TextView(getActivity());
             markSheetType.setText(res.getMarkSheetType());
-            markSheetType.setTextColor(getResources().getColor(R.color.colorAccent));
+            markSheetType.setTextColor(getResources().getColor(R.color.app_background));
             markSheetType.setPadding(30, 30, 30, 30);
             tr_head1.addView(markSheetType);
 

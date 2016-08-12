@@ -49,25 +49,6 @@
                 android:layout_marginTop="@dimen/edit_text_top_margin"
                 android:textColorHint="@color/edit_text_hint_foreground">
                 <EditText
-                    android:id="@+id/student_info_register_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textColor="@color/edit_text_text_color"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_info_registration_no"
-                    android:textAllCaps="true"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
                     android:id="@+id/student_info_ori_admin_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

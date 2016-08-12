@@ -238,12 +238,14 @@ public class Fees extends Fragment {
             FeeInstallment installment = installments.get(i);
             TableRow tr1 = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr1.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
+            else
+                tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
 
             name = new TextView(getActivity());
             name.setText(installment.getName());
            // name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            name.setTextColor(getResources().getColor(R.color.colorAccent));
+            name.setTextColor(getResources().getColor(R.color.app_background));
             name.setPadding(30, 30, 30, 30);
            // name.setGravity(Gravity.CENTER);
             tr1.addView(name);
@@ -253,7 +255,7 @@ public class Fees extends Fragment {
             type.setText(installment.getType());
           //  type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             type.setAllCaps(true);
-            type.setTextColor(getResources().getColor(R.color.colorAccent));
+            type.setTextColor(getResources().getColor(R.color.app_background));
             type.setPadding(30, 30, 30, 30);
             type.setGravity(Gravity.CENTER);
             tr1.addView(type);
@@ -261,7 +263,7 @@ public class Fees extends Fragment {
             total_fee = new TextView(getActivity());
             total_fee.setText(String.valueOf(installment.getTotal()));
           //  total_fee.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            total_fee.setTextColor(getResources().getColor(R.color.colorAccent));
+            total_fee.setTextColor(getResources().getColor(R.color.app_background));
             total_fee.setPadding(30, 30, 30, 30);
             total_fee.setGravity(Gravity.CENTER);
             tr1.addView(total_fee);
@@ -269,7 +271,7 @@ public class Fees extends Fragment {
             deposit = new TextView(getActivity());
             deposit.setText(String.valueOf(installment.getDeposit()));
          //   deposit.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            deposit.setTextColor(getResources().getColor(R.color.colorAccent));
+            deposit.setTextColor(getResources().getColor(R.color.app_background));
             deposit.setPadding(30, 30, 30, 30);
             deposit.setGravity(Gravity.CENTER);
             tr1.addView(deposit);
@@ -277,7 +279,7 @@ public class Fees extends Fragment {
             t_discount = new TextView(getActivity());
             t_discount.setText(String.valueOf(installment.getDiscount()));
          //   t_discount.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            t_discount.setTextColor(getResources().getColor(R.color.colorAccent));
+            t_discount.setTextColor(getResources().getColor(R.color.app_background));
             t_discount.setPadding(30, 30, 30, 30);
             t_discount.setGravity(Gravity.CENTER);
             tr1.addView(t_discount);
@@ -285,7 +287,7 @@ public class Fees extends Fragment {
             balance = new TextView(getActivity());
             balance.setText(String.valueOf(installment.getBalance()));
          //   balance.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            balance.setTextColor(getResources().getColor(R.color.colorAccent));
+            balance.setTextColor(getResources().getColor(R.color.app_background));
             balance.setPadding(30, 30, 30, 30);
             balance.setGravity(Gravity.CENTER);
             tr1.addView(balance);
@@ -298,12 +300,14 @@ public class Fees extends Fragment {
             DepositInstallment deposit = deposits.get(i);
             TableRow tr = new TableRow(getActivity());
             if (i % 2 != 0)
-                tr.setBackgroundColor(getResources().getColor(R.color.not_in_current_month_date));
+                tr.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
+            else
+                tr.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
 
             deposit_name = new TextView(getActivity());
             deposit_name.setText(deposit.getName());
           //  deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            deposit_name.setTextColor(getResources().getColor(R.color.colorAccent));
+            deposit_name.setTextColor(getResources().getColor(R.color.app_background));
             deposit_name.setPadding(30, 30, 30, 30);
            // deposit_name.setGravity(Gravity.CENTER);
             tr.addView(deposit_name);
@@ -312,7 +316,7 @@ public class Fees extends Fragment {
             deposit_type.setText(deposit.getType());
           //  deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             deposit_type.setAllCaps(true);
-            deposit_type.setTextColor(getResources().getColor(R.color.colorAccent));
+            deposit_type.setTextColor(getResources().getColor(R.color.app_background));
             deposit_type.setPadding(30, 30, 30, 30);
             deposit_type.setGravity(Gravity.CENTER);
             tr.addView(deposit_type);
@@ -320,7 +324,7 @@ public class Fees extends Fragment {
             amt = new TextView(getActivity());
             amt.setText(String.valueOf(deposit.getAmount()));
         //    amt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            amt.setTextColor(getResources().getColor(R.color.colorAccent));
+            amt.setTextColor(getResources().getColor(R.color.app_background));
             amt.setPadding(30, 30, 30, 30);
             amt.setGravity(Gravity.CENTER);
             tr.addView(amt);
@@ -328,7 +332,7 @@ public class Fees extends Fragment {
             receipt_no = new TextView(getActivity());
             receipt_no.setText(String.valueOf(deposit.getReceiptNo()));
          //   receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            receipt_no.setTextColor(getResources().getColor(R.color.colorAccent));
+            receipt_no.setTextColor(getResources().getColor(R.color.app_background));
             receipt_no.setPadding(30, 30, 30, 30);
             receipt_no.setGravity(Gravity.CENTER);
             tr.addView(receipt_no);
@@ -336,7 +340,7 @@ public class Fees extends Fragment {
             receipt_date = new TextView(getActivity());
             receipt_date.setText(format.getDate(deposit.getReceiptDate()));
          //   receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            receipt_date.setTextColor(getResources().getColor(R.color.colorAccent));
+            receipt_date.setTextColor(getResources().getColor(R.color.app_background));
             receipt_date.setPadding(30, 30, 30, 30);
             receipt_date.setGravity(Gravity.CENTER);
             tr.addView(receipt_date);
@@ -345,7 +349,7 @@ public class Fees extends Fragment {
             pay_mode.setText(deposit.getPaymentMode());
         //    pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             pay_mode.setAllCaps(true);
-            pay_mode.setTextColor(getResources().getColor(R.color.colorAccent));
+            pay_mode.setTextColor(getResources().getColor(R.color.app_background));
             pay_mode.setPadding(30, 30, 30, 30);
             pay_mode.setGravity(Gravity.CENTER);
             tr.addView(pay_mode);

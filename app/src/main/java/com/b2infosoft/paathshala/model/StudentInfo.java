@@ -5,7 +5,6 @@ package com.b2infosoft.paathshala.model;
  */
 
 public class StudentInfo {
-    private String registerNo; // not here
     private String formNo; // not here
     private String studentPhoto;
     private String password;
@@ -88,14 +87,6 @@ public class StudentInfo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getRegisterNo() {
-        return registerNo;
-    }
-
-    public void setRegisterNo(String registerNo) {
-        this.registerNo = registerNo;
     }
 
     public String getFormNo() {

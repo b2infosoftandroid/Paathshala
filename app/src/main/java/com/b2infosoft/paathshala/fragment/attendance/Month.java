@@ -71,7 +71,7 @@ public class Month extends Fragment implements View.OnClickListener {
 
     // current displayed month
     private Calendar currentDate = Calendar.getInstance();
-    private final String MONTH_NAME[] = {"JAN", "FAB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+    private final String MONTH_NAME[] = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
     private final int MONTH_ID[] = {3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1, 2};
     private String SESSION[];
     private TextView present, absent, leave, half_day;
