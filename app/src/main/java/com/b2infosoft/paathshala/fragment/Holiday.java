@@ -229,6 +229,7 @@ public class Holiday extends Fragment {
             name.setText(info.getName() + System.getProperty("line.separator"));
             name.setMaxWidth(200);
             name.setAllCaps(true);
+            //name.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             name.setTextColor(getResources().getColor(R.color.app_background));
             name.setPadding(30, 30, 30, 0);
             tr1.addView(name);
@@ -236,7 +237,8 @@ public class Holiday extends Fragment {
             from_date = new TextView(getContext());
             from_date.setText(format.getDate(info.getFromDate()) + " TO " + format.getDate(info.getToDate()));
             from_date.setTextColor(getResources().getColor(R.color.app_background));
-            from_date.setPadding(30, 30, 30, 0);
+            from_date.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+            //from_date.setPadding(30, 30, 30, 0);
             tr1.addView(from_date);
 
             //to_date = new TextView(getContext());
