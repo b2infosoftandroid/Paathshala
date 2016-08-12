@@ -3,19 +3,12 @@ package com.b2infosoft.paathshala.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,16 +19,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b2infosoft.paathshala.R;
-import com.b2infosoft.paathshala.adapter.HolidayRecyclerViewAdapter;
 import com.b2infosoft.paathshala.app.Format;
 import com.b2infosoft.paathshala.app.Tags;
 import com.b2infosoft.paathshala.app.Urls;
 import com.b2infosoft.paathshala.credential.Active;
 import com.b2infosoft.paathshala.database.DBHelper;
-import com.b2infosoft.paathshala.model.DummyContent;
 import com.b2infosoft.paathshala.model.DummyContent.DummyItem;
 import com.b2infosoft.paathshala.model.HolidayInfo;
-import com.b2infosoft.paathshala.model.TimeTableInfo;
 import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 
@@ -192,20 +182,19 @@ public class Holiday extends Fragment {
             t1.removeAllViews();
         }
         TableRow tr_head = new TableRow(getContext());
+        tr_head.setPadding(15, 15, 15, 15);
         tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
         name = new TextView(getContext());
         name.setText("HOLIDAY NAME");
         name.setTextColor(getResources().getColor(R.color.app_background));
-        name.setPadding(30, 30, 30, 30);
+        name.setPadding(0, 30, 0, 30);
         name.setTypeface(null, Typeface.BOLD);
         tr_head.addView(name);
-
-
         from_date = new TextView(getContext());
         from_date.setText("DATE");
         from_date.setTextColor(getResources().getColor(R.color.app_background));
-        from_date.setPadding(30, 30, 30, 30);
-        from_date.setGravity(Gravity.CENTER);
+        from_date.setPadding(0, 30, 0, 30);
+        //from_date.setGravity(Gravity.CENTER);
         from_date.setTypeface(null,Typeface.BOLD);
         tr_head.addView(from_date);
 
@@ -220,25 +209,32 @@ public class Holiday extends Fragment {
         for (int i = 0; i < holidayInfos.size(); i++) {
             HolidayInfo info = holidayInfos.get(i);
             TableRow tr1 = new TableRow(getContext());
+            tr1.setPadding(15,15,15,15);
             if (i % 2 != 0)
                 tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_1));
             else
                 tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
 
             name = new TextView(getContext());
-            name.setText(info.getName() + System.getProperty("line.separator"));
-            name.setMaxWidth(200);
+            //name.setText(info.getName() + System.getProperty("line.separator"));
+            name.setText(info.getName());
+            //name.setMaxWidth(200);
             name.setAllCaps(true);
+            name.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT, 1f));
             //name.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             name.setTextColor(getResources().getColor(R.color.app_background));
-            name.setPadding(30, 30, 30, 0);
+            name.setPadding(0, 30, 0, 30);
             tr1.addView(name);
 
             from_date = new TextView(getContext());
             from_date.setText(format.getDate(info.getFromDate()) + " TO " + format.getDate(info.getToDate()));
             from_date.setTextColor(getResources().getColor(R.color.app_background));
-            from_date.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
+            //from_date.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
             //from_date.setPadding(30, 0, 0, 0);
+            from_date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT, 1f));
+
             tr1.addView(from_date);
 
             //to_date = new TextView(getContext());

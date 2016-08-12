@@ -28,9 +28,19 @@
         android:textStyle="bold"
         android:text="Guest Student"
         android:textAllCaps="true"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/app_background"
         android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/user_login_session"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAllCaps="true"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/app_background"
+        android:layout_gravity="center_horizontal"
+        android:text="Login Session : "
         />
     <View
         android:layout_width="match_parent"

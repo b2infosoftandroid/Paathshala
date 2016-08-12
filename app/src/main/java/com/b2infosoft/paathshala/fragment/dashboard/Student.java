@@ -107,7 +107,7 @@ public class Student extends Fragment {
         sr_no = (EditText) view.findViewById(R.id.student_info_sr_no);
         house = (EditText) view.findViewById(R.id.student_info_house);
         dob = (EditText) view.findViewById(R.id.student_info_birth_date);
-        ori_date = (EditText) view.findViewById(R.id.student_info_ori_admin_date);
+        //ori_date = (EditText) view.findViewById(R.id.student_info_ori_admin_date);
         admin_date = (EditText) view.findViewById(R.id.student_info_admin_date);
         stu_class = (EditText) view.findViewById(R.id.stu_class);
         section = (EditText) view.findViewById(R.id.stu_section);
@@ -315,7 +315,7 @@ public class Student extends Fragment {
     private void updateInfo(StudentInfo info) {
         student_name.setText(info.getName());
         sr_no.setText(info.getSrNo()+"");
-        ori_date.setText(format.getDate(info.getOriAdminDate()));
+        //ori_date.setText(format.getDate(info.getOriAdminDate()));
         admin_date.setText(format.getDate(info.getAdminDate()));
         house.setText(info.getHouse());
         handicap.setText(info.getHandicap());

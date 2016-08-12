@@ -17,9 +17,11 @@
                 android:id="@+id/holiday_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:stretchColumns="1"
-                android:collapseColumns="*"></TableLayout>
+                android:shrinkColumns="0,1"
+                android:collapseColumns="*"
+                android:stretchColumns="*"
+                >
+            </TableLayout>
     </ScrollView>
 
     </LinearLayout>
