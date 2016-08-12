@@ -46,6 +46,7 @@
     <color name="image_border_bg">#58a7ff</color>
 
     <color name="table_row">#f5f4f4</color>
+    <color name="table_head_row">#4d4d4d</color>
 
 
     <!--     ATTENDANCE CALENDER        -->

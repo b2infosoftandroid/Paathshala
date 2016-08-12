@@ -72,9 +72,9 @@ public class Fees extends Fragment {
         t1 = (TableLayout) view.findViewById(R.id.fee_ledger);
         t2 = (TableLayout) view.findViewById(R.id.fee_deposit_table);
         TableRow tr_head = new TableRow(getActivity());
-        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
         TableRow tr1_head = new TableRow(getActivity());
-        tr1_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        tr1_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
 
         name = new TextView(getActivity());
         name.setText("FEE NAME");

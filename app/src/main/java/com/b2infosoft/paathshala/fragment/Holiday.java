@@ -191,7 +191,7 @@ public class Holiday extends Fragment {
             t1.removeAllViews();
         }
         TableRow tr_head = new TableRow(getContext());
-        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
         name = new TextView(getContext());
         name.setText("HOLIDAY NAME");
         name.setTextColor(getResources().getColor(R.color.app_background));

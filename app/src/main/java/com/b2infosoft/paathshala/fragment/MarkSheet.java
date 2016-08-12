@@ -124,7 +124,7 @@ public class MarkSheet extends Fragment {
         }
 
         TableRow tr_head = new TableRow(getActivity());
-        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
 
         id = new TextView(getActivity());
         id.setText("ID");
@@ -199,7 +199,7 @@ public class MarkSheet extends Fragment {
             tableLayout1.removeAllViews();
         }
         TableRow tr_head1 = new TableRow(getActivity());
-        tr_head1.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        tr_head1.setBackgroundColor(getResources().getColor(R.color.table_head_row));
 
         id = new TextView(getActivity());
         id.setText("ID");

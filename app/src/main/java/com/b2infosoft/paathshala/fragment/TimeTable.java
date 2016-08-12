@@ -283,7 +283,7 @@ public class TimeTable extends Fragment {
             t1.removeAllViews();
         }
         TableRow tr_head = new TableRow(getContext());
-        tr_head.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
         sub_name = new TextView(getContext());
         sub_name.setText("SUBJECT NAME");
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
