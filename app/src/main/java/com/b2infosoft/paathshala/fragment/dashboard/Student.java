@@ -102,7 +102,8 @@ public class Student extends Fragment {
         network = Network.getInstance(getActivity());
         View view = inflater.inflate(R.layout.fragment_student, container, false);
         student_image = (CircularImageView) view.findViewById(R.id.student_info_circularImageView);
-        setProfileImage();
+        FileCache.loadCacheImage(student_image,active.getValue(tags.S_STU_PHOTO),getActivity());
+        //setProfileImage();
         sr_no = (EditText) view.findViewById(R.id.student_info_sr_no);
         house = (EditText) view.findViewById(R.id.student_info_house);
         dob = (EditText) view.findViewById(R.id.student_info_birth_date);

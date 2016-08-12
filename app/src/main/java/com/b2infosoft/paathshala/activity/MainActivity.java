@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Cache;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
@@ -52,6 +54,8 @@ import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Random;
 
 public class MainActivity extends CallBacks {
@@ -99,7 +103,11 @@ public class MainActivity extends CallBacks {
         });
         profile_name = (TextView) headerView.findViewById(R.id.user_profile_name);
         profile_name.setText(active.getValue(tags.S_INFO_STU_NAME));
-        setProfileImage();
+
+        FileCache.loadCacheImage(circularImageView,active.getValue(tags.S_STU_PHOTO),this);
+
+        //loadCacheImage(circularImageView);
+        //setProfileImage();
         navigationView.removeHeaderView(headerView);
         navigationView.addHeaderView(headerView);
         replaceFragment(new Dashboard());
@@ -186,8 +194,8 @@ public class MainActivity extends CallBacks {
             final MenuItem refreshItem = menu.findItem(R.id.menu_refresh);
             if (refreshItem != null) {
                 if (refreshing) {
-                    View view = View.inflate(this,R.layout.actionbar_indeterminate_progress,null);
-                    ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.progress_bar);
+                    View view = View.inflate(this, R.layout.actionbar_indeterminate_progress, null);
+                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
                     progressBar.getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
                     refreshItem.setActionView(view);
                 } else {
