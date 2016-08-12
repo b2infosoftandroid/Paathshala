@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Exam Type"
+            android:layout_marginTop="@dimen/text_view_top_padding"
             android:textAllCaps="true"
             android:textSize="@dimen/text_view_main_font_size" />
 
@@ -26,6 +27,7 @@
             <Spinner
                 android:id="@+id/exam_type_spinner"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="@dimen/text_view_top_padding"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:entries="@array/exam_type"></Spinner>
