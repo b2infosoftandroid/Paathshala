@@ -386,6 +386,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
         HashMap<String, String> map = new HashMap<>();
+        //map.put();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
                     @Override

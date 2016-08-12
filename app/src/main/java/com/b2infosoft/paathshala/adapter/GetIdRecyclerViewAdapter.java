@@ -16,23 +16,23 @@ import java.util.List;
 /**
  * Created by Microsoft on 7/31/2016.
  */
-public class GetIdRecyclerViewAdapter_1 extends RecyclerView.Adapter<GetIdRecyclerViewAdapter_1.ViewHolder> {
+public class GetIdRecyclerViewAdapter extends RecyclerView.Adapter<GetIdRecyclerViewAdapter.ViewHolder> {
     private List<InstituteInfo> id_details;
 
 
-    public GetIdRecyclerViewAdapter_1(List<InstituteInfo> id_details) {
+    public GetIdRecyclerViewAdapter(List<InstituteInfo> id_details) {
         this.id_details = id_details;
     }
 
     @Override
-    public GetIdRecyclerViewAdapter_1.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public GetIdRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.custom_layout_institute, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(GetIdRecyclerViewAdapter_1.ViewHolder holder, int position) {
+    public void onBindViewHolder(GetIdRecyclerViewAdapter.ViewHolder holder, int position) {
         if (position % 2 != 0) {
             //holder.cardView.setBackgroundResource(R.color.complaint_card_2);
             holder.institute_layout.setBackgroundResource(R.color.complaint_card_2);

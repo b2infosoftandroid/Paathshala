@@ -22,7 +22,7 @@ public class Tags {
     ///////////////  ----------  USER ACTION   ----------- //////////////
 
     public final String CHECK_USER ="CheckUser";
-    public final String SESSION_LIST ="Sessions/1";
+    public final String SESSION_LIST ="Sessions/";
     public final String STUDENT_INFO ="StudentInfo";
     public final String FEES_LEDGER ="FeesLedger";
     public final String EXAM_LIST ="ExamList";
@@ -68,6 +68,9 @@ public class Tags {
     public final String ARR_HOLIDAY_DETAIL="holidaydetail";
     public final String ARR_COMPLAINT_DETAIL="Complaints";
     public final String ARR_CITY="SchoolCity";
+
+    ////////////      SESSION         ///////////
+    public final String SESSION_INSTITUTE_ID = "1";
 
 
     /////////   LOGIN FORM USER VALID    /////////
