@@ -13,17 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
             <TableLayout
                 android:id="@+id/holiday_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:collapseColumns="*"></TableLayout>
-        </HorizontalScrollView>
     </ScrollView>
 
     </LinearLayout>

@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -201,18 +202,19 @@ public class Holiday extends Fragment {
 
 
         from_date = new TextView(getContext());
-        from_date.setText("FROM DATE");
+        from_date.setText("DATE");
         from_date.setTextColor(getResources().getColor(R.color.app_background));
         from_date.setPadding(30, 30, 30, 30);
+        from_date.setGravity(Gravity.CENTER);
         from_date.setTypeface(null,Typeface.BOLD);
         tr_head.addView(from_date);
 
-        to_date = new TextView(getContext());
-        to_date.setText("TO DATE");
-        to_date.setTextColor(getResources().getColor(R.color.app_background));
-        to_date.setPadding(30, 30, 30, 30);
-        tr_head.addView(to_date);
-        to_date.setTypeface(null,Typeface.BOLD);
+        //to_date = new TextView(getContext());
+        //to_date.setText("TO DATE");
+        //to_date.setTextColor(getResources().getColor(R.color.app_background));
+        //to_date.setPadding(30, 30, 30, 30);
+        //tr_head.addView(to_date);
+        //to_date.setTypeface(null,Typeface.BOLD);
         t1.addView(tr_head);
 
         for (int i = 0; i < holidayInfos.size(); i++) {
@@ -224,23 +226,24 @@ public class Holiday extends Fragment {
                 tr1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
 
             name = new TextView(getContext());
-            name.setText(info.getName());
+            name.setText(info.getName() + System.getProperty("line.separator"));
+            name.setMaxWidth(200);
             name.setAllCaps(true);
             name.setTextColor(getResources().getColor(R.color.app_background));
-            name.setPadding(30, 30, 30, 30);
+            name.setPadding(30, 30, 30, 0);
             tr1.addView(name);
 
             from_date = new TextView(getContext());
-            from_date.setText(format.getDate(info.getFromDate()));
+            from_date.setText(format.getDate(info.getFromDate()) + " TO " + format.getDate(info.getToDate()));
             from_date.setTextColor(getResources().getColor(R.color.app_background));
-            from_date.setPadding(30, 30, 30, 30);
+            from_date.setPadding(30, 30, 30, 0);
             tr1.addView(from_date);
 
-            to_date = new TextView(getContext());
-            to_date.setText(format.getDate(info.getToDate()));
-            to_date.setTextColor(getResources().getColor(R.color.app_background));
-            to_date.setPadding(30, 30, 30, 30);
-            tr1.addView(to_date);
+            //to_date = new TextView(getContext());
+           // to_date.setText(format.getDate(info.getToDate()));
+           // to_date.setTextColor(getResources().getColor(R.color.app_background));
+           // to_date.setPadding(30, 30, 30, 30);
+           // tr1.addView(to_date);
 
             t1.addView(tr1);
 
@@ -257,6 +260,12 @@ public class Holiday extends Fragment {
     private void dismissProgress() {
         if (progress != null) {
             progress.dismiss();
+        }
+    }
+    private void textDivide(){
+        HolidayInfo info = new HolidayInfo();
+        if(info.getName().length() == 14){
+            System.getProperty("line.separator");
         }
     }
 }
