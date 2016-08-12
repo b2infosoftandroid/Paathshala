@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText session_list, login_institute_id, login_student_scholar_no, login_password_1;
     private ProgressDialog progress = null;
     private DBHelper dbHelper;
-
+    private AlertDialog.Builder builder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +88,10 @@ public class LoginActivity extends AppCompatActivity {
 
         session_list = (EditText) findViewById(R.id.login_session);
         session_list.setOnClickListener(button);
-
         sessionList = new Hashtable<>();
         sessionList = dbHelper.getSession();
         if (sessionList.size() == 0) {
-            fetchSession();
+            //fetchSession(login_institute_id.getText().toString());
         }
 
         List<City> cities = dbHelper.getCity();
@@ -103,7 +102,6 @@ public class LoginActivity extends AppCompatActivity {
         if (infoList.size() == 0) {
             fetchInstitute();
         }
-
     }
 
     @Override
@@ -112,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         sessionList = new Hashtable<>();
         sessionList = dbHelper.getSession();
         if (sessionList.size() == 0) {
-            fetchSession();
+            //fetchSession();
         }
 
         List<City> cities = dbHelper.getCity();
@@ -132,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
         sessionList = new Hashtable<>();
         sessionList = dbHelper.getSession();
         if (sessionList.size() == 0) {
-            fetchSession();
+            //fetchSession();
         }
 
         List<City> cities = dbHelper.getCity();
@@ -211,36 +209,39 @@ public class LoginActivity extends AppCompatActivity {
     String[] items = {};
     private void selectSession() {
         //CharSequence[] items = {"2001-2002", "2002-2003", "2003-2004", "2004-2005", "2005-2006"};
-        if (sessionList != null) {
-            List<String> list = new ArrayList<>(sessionList.keySet());
-            Collections.sort(list);
-            items = new String[list.size()];
-            int i = 0;
-            for (String string : list) {
-                items[i++] = string;
-            }
+
+        if(!network.isInternetAvailable()){
+            Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
+            return;
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        Validation validation = Validation.getInstance();
+        final String institute_id = login_institute_id.getText().toString();
+        login_institute_id.setError(null);
+        if (!validation.isInstituteID(institute_id)) {
+            login_institute_id.setError("Invalid Institute ID");
+            login_institute_id.requestFocus();
+            return;
+        }
+        session_list.setText(null);
+        fetchSession(institute_id);
+
+        builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Session");
-        builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (sessionList != null && sessionList.size() > 0 && items.length >0) {
+                if (sessionList != null && sessionList.size() > 0 && items.length > 0) {
                     ListView lw = ((AlertDialog) dialog).getListView();
                     Object checkedItem = lw.getAdapter().getItem(lw.getCheckedItemPosition());
                     session_list.setText(checkedItem.toString());
                 } else {
-                    Toast.makeText(LoginActivity.this,"Please Select Session",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please Select Session", Toast.LENGTH_SHORT).show();
                 }
                 dialog.dismiss();
             }
         });
-        builder.create().show();
+        //builder.create().show();
     }
 
     private class MyButton implements View.OnClickListener {
@@ -380,18 +381,18 @@ public class LoginActivity extends AppCompatActivity {
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 
-    private void fetchSession() {
+    private void fetchSession(String schoolId) {
         if(!network.isInternetAvailable()){
             Toast.makeText(this,getResources().getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
             return;
         }
+        showProgress();
         HashMap<String, String> map = new HashMap<>();
-        //map.put();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST.concat(schoolId)), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
+                  //      Log.d(TAG, response.toString());
                         try {
                             if (response.has(tags.ARR_RESULT)) {
                                 JSONArray jsonArray = response.getJSONArray(tags.ARR_RESULT);
@@ -429,19 +430,39 @@ public class LoginActivity extends AppCompatActivity {
                                         dbHelper.setSession(id, year);
                                     }
                                 }
+                                if(builder!=null){
+                                    if (sessionList != null) {
+                                        List<String> list = new ArrayList<>(sessionList.keySet());
+                                        Collections.sort(list);
+                                        items = new String[list.size()];
+                                        int i = 0;
+                                        for (String string : list) {
+                                            items[i++] = string;
+                                        }
+                                    }
+                                    builder.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
 
+                                        }
+                                    });
+                                    builder.create().show();
+                                }
                             } else {
                                 Log.d("ELSE", "NOT FOUND");
                             }
+                            dismissProgress();
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.e(TAG, e.getMessage());
+                            dismissProgress();
                         }
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        dismissProgress();
                         Log.d(TAG, error.toString());
                     }
                 });

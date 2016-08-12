@@ -235,7 +235,7 @@ public class DBUpdate extends Service {
         HashMap<String, String> map = new HashMap<>();
         requestAdd();
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST), map), null, new Response.Listener<JSONObject>() {
+                (Request.Method.GET, urls.getUrl(urls.getPath(tags.SESSION_LIST.concat(active.getValue(tags.SESSION_ID))), map), null, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         requestComplete();
