@@ -114,7 +114,7 @@
     <string name="fee_installment_3">3RD INSTALL</string>
     <string name="total">TOTAL</string>
 
-    <string name="time_table_exam_type">Exam Type</string>
+    <string name="time_table_exam_type">Exam Name</string>
 
 
     <string name="data_last_updated">Last Updated : </string>

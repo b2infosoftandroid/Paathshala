@@ -45,7 +45,7 @@
                 android:text="@string/student_info_name"
                 android:layout_marginBottom="20dp"
                 />
-<!--
+
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,383 +64,384 @@
                     android:hint="@string/student_info_ori_admin_date"
                     android:textAllCaps="true"/>
             </android.support.design.widget.TextInputLayout>
+ <!--            <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
+                            <EditText
+                                android:id="@+id/student_info_admin_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="date"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_info_admin_date"
+                                android:textAllCaps="true"/>
+                        </android.support.design.widget.TextInputLayout>
 -->
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
-                    android:id="@+id/student_info_admin_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_info_admin_date"
-                    android:textAllCaps="true"/>
-            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
-                    android:id="@+id/student_info_sr_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_info_sr_no"
-                    android:textAllCaps="true"/>
-            </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
+                            <EditText
+                                android:id="@+id/student_info_sr_no"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_info_sr_no"
+                                android:textAllCaps="true"/>
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
-                    android:id="@+id/student_info_house"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_info_house"
-                    android:textAllCaps="true"/>
-            </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
+                            <EditText
+                                android:id="@+id/student_info_house"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_info_house"
+                                android:textAllCaps="true"/>
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_class"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_class"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_class"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_class"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_section"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_section"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_section"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_category"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_category"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_category"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_religion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_religion"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_religion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_religion"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_handicapped"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_handicap"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_handicapped"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_handicap"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_type"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_type"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_mobile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_mobile"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_mobile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_mobile"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_gender"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_gender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_gender"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_mode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_mode"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_mode"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:visibility="gone"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_mode"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_faculty"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_faculty"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_faculty"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_faculty"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_admission_type"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_admission_type"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_admission_type"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_admission_type"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_cast"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_cast"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_cast"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_cast"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_nationality"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_nationality"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_nationality"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_nationality"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_bpl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_bpl"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_bpl"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="text"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_bpl"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
 
-                <EditText
-                    android:id="@+id/stu_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_email"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
+                            <EditText
+                                android:id="@+id/stu_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_email"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/edit_text_top_margin"
-                android:textColorHint="@color/edit_text_hint_foreground">
-                <EditText
-                    android:id="@+id/student_info_birth_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="date"
-                    android:editable="false"
-                    android:textSize="@dimen/edit_text_admission_font_size"
-                    android:textColor="@color/edit_text_text_color"
-                    android:focusable="false"
-                    android:clickable="false"
-                    android:hint="@string/student_info_dob"
-                    android:textAllCaps="true" />
-            </android.support.design.widget.TextInputLayout>
-        </LinearLayout>
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/edit_text_top_margin"
+                            android:textColorHint="@color/edit_text_hint_foreground">
+                            <EditText
+                                android:id="@+id/student_info_birth_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="date"
+                                android:editable="false"
+                                android:textSize="@dimen/edit_text_admission_font_size"
+                                android:textColor="@color/edit_text_text_color"
+                                android:focusable="false"
+                                android:clickable="false"
+                                android:hint="@string/student_info_dob"
+                                android:textAllCaps="true" />
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
 
-    </ScrollView>
-</LinearLayout>
+                </ScrollView>
+            </LinearLayout>

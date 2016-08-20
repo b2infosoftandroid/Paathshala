@@ -88,13 +88,13 @@ public class Year extends Fragment {
         TableRow tr_head = new TableRow(getActivity());
         tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
 
-        id = new TextView(getActivity());
-        id.setText("ID");
+        //id = new TextView(getActivity());
+       // id.setText("ID");
         //id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-        id.setTextColor(getResources().getColor(R.color.app_background));
-        id.setPadding(30, 30, 30, 30);
-        id.setTypeface(null, Typeface.BOLD);
-        tr_head.addView(id);
+        //id.setTextColor(getResources().getColor(R.color.app_background));
+        //id.setPadding(30, 30, 30, 30);
+        //id.setTypeface(null, Typeface.BOLD);
+        //tr_head.addView(id);
 
         month = new TextView(getActivity());
         month.setText("MONTH");
@@ -157,12 +157,12 @@ public class Year extends Fragment {
             else
                 tr_head.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
             i++;
-            id = new TextView(getActivity());
-            id.setText(String.valueOf(year.getId()));
+            //id = new TextView(getActivity());
+            //id.setText(String.valueOf(year.getId()));
             //id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
-            id.setTextColor(getResources().getColor(R.color.app_background));
-            id.setPadding(30, 30, 30, 30);
-            tr_head.addView(id);
+           // id.setTextColor(getResources().getColor(R.color.app_background));
+            //id.setPadding(30, 30, 30, 30);
+            //tr_head.addView(id);
 
             month = new TextView(getActivity());
             month.setText(year.getMonth());

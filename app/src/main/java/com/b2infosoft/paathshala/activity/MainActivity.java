@@ -54,6 +54,8 @@ import com.b2infosoft.paathshala.services.Network;
 import com.b2infosoft.paathshala.volly.MySingleton;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Random;
@@ -76,11 +78,12 @@ public class MainActivity extends CallBacks {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         active = Active.getInstance(this);
         tags = Tags.getInstance();
         network = Network.getInstance(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         intentService = new Intent(MainActivity.this, DBUpdate.class);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -129,6 +132,8 @@ public class MainActivity extends CallBacks {
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
         getMenuInflater().inflate(R.menu.activity_main_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.menu_login_session);
+        menuItem.setTitle(active.getValue(tags.SESSION));
         return true;
     }
 

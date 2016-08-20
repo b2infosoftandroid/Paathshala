@@ -126,6 +126,8 @@
                     android:inputType="text"
                     android:editable="false"
                     android:textSize="@dimen/edit_text_admission_font_size"
+                    android:singleLine="false"
+                    android:maxLines="5"
                     android:textColor="@color/edit_text_text_color"
                     android:clickable="false"
                     android:focusable="false"

@@ -30,7 +30,7 @@
         <item
             android:id="@+id/nav_time_table"
             android:icon="@drawable/ic_timetable"
-            android:title="TIME TABLE" />
+            android:title="EXAM TIME TABLE" />
     </group>
     <group
         android:id="@+id/bottom"

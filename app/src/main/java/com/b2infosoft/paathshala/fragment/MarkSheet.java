@@ -126,12 +126,12 @@ public class MarkSheet extends Fragment {
         TableRow tr_head = new TableRow(getActivity());
         tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
 
-        id = new TextView(getActivity());
-        id.setText("ID");
-        id.setTextColor(getResources().getColor(R.color.app_background));
-        id.setPadding(30, 30, 30, 30);
-        id.setTypeface(null, Typeface.BOLD);
-        tr_head.addView(id);
+      //  id = new TextView(getActivity());
+      //  id.setText("ID");
+      //  id.setTextColor(getResources().getColor(R.color.app_background));
+      //  id.setPadding(30, 30, 30, 30);
+      //  id.setTypeface(null, Typeface.BOLD);
+      //  tr_head.addView(id);
 
         examName = new TextView(getActivity());
         examName.setText("EXAM NAME");
@@ -175,19 +175,19 @@ public class MarkSheet extends Fragment {
         pMarksObt.setTypeface(null, Typeface.BOLD);
         tr_head.addView(pMarksObt);
 
-        addInMark = new TextView(getActivity());
-        addInMark.setText("ADD IN MARKS");
-        addInMark.setTextColor(getResources().getColor(R.color.app_background));
-        addInMark.setPadding(30, 30, 30, 30);
-        addInMark.setTypeface(null, Typeface.BOLD);
-        tr_head.addView(addInMark);
+      //  addInMark = new TextView(getActivity());
+      //  addInMark.setText("ADD IN MARKS");
+      //  addInMark.setTextColor(getResources().getColor(R.color.app_background));
+      //  addInMark.setPadding(30, 30, 30, 30);
+      //  addInMark.setTypeface(null, Typeface.BOLD);
+      //  tr_head.addView(addInMark);
 
-        addInRes = new TextView(getActivity());
-        addInRes.setText("ADD IN RES");
-        addInRes.setTextColor(getResources().getColor(R.color.app_background));
-        addInRes.setPadding(30, 30, 30, 30);
-        addInRes.setTypeface(null, Typeface.BOLD);
-        tr_head.addView(addInRes);
+      //  addInRes = new TextView(getActivity());
+      //  addInRes.setText("ADD IN RES");
+      //  addInRes.setTextColor(getResources().getColor(R.color.app_background));
+      //  addInRes.setPadding(30, 30, 30, 30);
+      //  addInRes.setTypeface(null, Typeface.BOLD);
+      //  tr_head.addView(addInRes);
 
         tableLayout.addView(tr_head);
 
@@ -201,12 +201,12 @@ public class MarkSheet extends Fragment {
         TableRow tr_head1 = new TableRow(getActivity());
         tr_head1.setBackgroundColor(getResources().getColor(R.color.table_head_row));
 
-        id = new TextView(getActivity());
-        id.setText("ID");
-        id.setTextColor(getResources().getColor(R.color.app_background));
-        id.setPadding(30, 30, 30, 30);
-        id.setTypeface(null, Typeface.BOLD);
-        tr_head1.addView(id);
+     //   id = new TextView(getActivity());
+     //   id.setText("ID");
+     //   id.setTextColor(getResources().getColor(R.color.app_background));
+     //   id.setPadding(30, 30, 30, 30);
+     //   id.setTypeface(null, Typeface.BOLD);
+      //  tr_head1.addView(id);
 
 
         result = new TextView(getActivity());
@@ -245,7 +245,7 @@ public class MarkSheet extends Fragment {
         tr_head1.addView(totalObt);
 
         markSheetType = new TextView(getActivity());
-        markSheetType.setText("MARKSHEET TYPE");
+        markSheetType.setText("SUBJECT TYPE");
         markSheetType.setTextColor(getResources().getColor(R.color.app_background));
         markSheetType.setPadding(30, 30, 30, 30);
         markSheetType.setTypeface(null, Typeface.BOLD);
@@ -265,11 +265,11 @@ public class MarkSheet extends Fragment {
             else
                 tr_head.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
             i++;
-            id = new TextView(getActivity());
-            id.setText(String.valueOf(marks.getId()));
-            id.setTextColor(getResources().getColor(R.color.app_background));
-            id.setPadding(30, 30, 30, 30);
-            tr_head.addView(id);
+           // id = new TextView(getActivity());
+           // id.setText(String.valueOf(marks.getId()));
+           // id.setTextColor(getResources().getColor(R.color.app_background));
+           // id.setPadding(30, 30, 30, 30);
+          //  tr_head.addView(id);
 
             examName = new TextView(getActivity());
             examName.setText(marks.getExamName());
@@ -311,20 +311,20 @@ public class MarkSheet extends Fragment {
             pMarksObt.setGravity(Gravity.CENTER);
             tr_head.addView(pMarksObt);
 
-            addInMark = new TextView(getActivity());
-            addInMark.setText(String.valueOf(marks.getAddInMark()));
-            addInMark.setTextColor(getResources().getColor(R.color.app_background));
-            addInMark.setPadding(30, 30, 30, 30);
-            addInMark.setGravity(Gravity.CENTER);
-            tr_head.addView(addInMark);
+         //   addInMark = new TextView(getActivity());
+         //   addInMark.setText(String.valueOf(marks.getAddInMark()));
+          //  addInMark.setTextColor(getResources().getColor(R.color.app_background));
+          //  addInMark.setPadding(30, 30, 30, 30);
+         //   addInMark.setGravity(Gravity.CENTER);
+         //   tr_head.addView(addInMark);
 
-            addInRes = new TextView(getActivity());
-            addInRes.setText(String.valueOf(marks.getAddInRes()));
-            addInRes.setAllCaps(true);
-            addInRes.setTextColor(getResources().getColor(R.color.app_background));
-            addInRes.setPadding(30, 30, 30, 30);
-            addInRes.setGravity(Gravity.CENTER);
-            tr_head.addView(addInRes);
+         //   addInRes = new TextView(getActivity());
+         //   addInRes.setText(String.valueOf(marks.getAddInRes()));
+        //    addInRes.setAllCaps(true);
+          //  addInRes.setTextColor(getResources().getColor(R.color.app_background));
+          //  addInRes.setPadding(30, 30, 30, 30);
+         //   addInRes.setGravity(Gravity.CENTER);
+          //  tr_head.addView(addInRes);
 
             tableLayout.addView(tr_head);
         }
@@ -341,11 +341,11 @@ public class MarkSheet extends Fragment {
                 tr_head1.setBackgroundColor(getResources().getColor(R.color.complaint_card_2));
             i++;
 
-            id = new TextView(getActivity());
-            id.setText(String.valueOf(res.getId()));
-            id.setTextColor(getResources().getColor(R.color.app_background));
-            id.setPadding(30, 30, 30, 30);
-            tr_head1.addView(id);
+          //  id = new TextView(getActivity());
+          //  id.setText(String.valueOf(res.getId()));
+          //  id.setTextColor(getResources().getColor(R.color.app_background));
+          //  id.setPadding(30, 30, 30, 30);
+          //  tr_head1.addView(id);
 
 
             result = new TextView(getActivity());
