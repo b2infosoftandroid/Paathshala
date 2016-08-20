@@ -106,8 +106,8 @@ public class MainActivity extends CallBacks {
         });
         profile_name = (TextView) headerView.findViewById(R.id.user_profile_name);
         profile_name.setText(active.getValue(tags.S_INFO_STU_NAME));
-        login_session = (TextView) headerView.findViewById(R.id.user_login_session);
-        login_session.setText("Login Session : "+active.getValue(tags.SESSION));
+        //login_session = (TextView) headerView.findViewById(R.id.user_login_session);
+        //login_session.setText("Login Session : "+active.getValue(tags.SESSION));
 
         FileCache.loadCacheImage(circularImageView, active.getValue(tags.S_STU_PHOTO),this);
 

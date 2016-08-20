@@ -32,7 +32,7 @@
         android:textColor="@color/app_background"
         android:layout_gravity="center_horizontal"
         />
-    <TextView
+ <!--   <TextView
         android:id="@+id/user_login_session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,6 +42,7 @@
         android:layout_gravity="center_horizontal"
         android:text="Login Session : "
         />
+-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

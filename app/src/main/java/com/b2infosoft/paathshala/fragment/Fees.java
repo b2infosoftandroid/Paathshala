@@ -125,7 +125,7 @@ public class Fees extends Fragment {
         deposit_name.setText("FEE NAME");
         deposit_name.setTextColor(getResources().getColor(R.color.app_background));
         deposit_name.setPadding(30, 30, 30, 30);
-       // deposit_name.setGravity(Gravity.CENTER);
+        // deposit_name.setGravity(Gravity.CENTER);
         deposit_name.setTypeface(null, Typeface.BOLD);
         tr1_head.addView(deposit_name);
 
@@ -234,6 +234,7 @@ public class Fees extends Fragment {
     }
     */
     private void setDataInstallment(List<FeeInstallment> installments) {
+        Double tot_fee = 0.00, tot_deposit = 0.00, tot_dis = 0.00, tot_bal = 0.00;
         for (int i = 0; i < installments.size(); i++) {
             FeeInstallment installment = installments.get(i);
             TableRow tr1 = new TableRow(getActivity());
@@ -244,16 +245,16 @@ public class Fees extends Fragment {
 
             name = new TextView(getActivity());
             name.setText(installment.getName());
-           // name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            // name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             name.setTextColor(getResources().getColor(R.color.app_background));
             name.setPadding(30, 30, 30, 30);
-           // name.setGravity(Gravity.CENTER);
+            // name.setGravity(Gravity.CENTER);
             tr1.addView(name);
 
 
             type = new TextView(getActivity());
             type.setText(installment.getType());
-          //  type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //  type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             type.setAllCaps(true);
             type.setTextColor(getResources().getColor(R.color.app_background));
             type.setPadding(30, 30, 30, 30);
@@ -262,7 +263,7 @@ public class Fees extends Fragment {
 
             total_fee = new TextView(getActivity());
             total_fee.setText(String.valueOf(installment.getTotal()));
-          //  total_fee.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //  total_fee.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             total_fee.setTextColor(getResources().getColor(R.color.app_background));
             total_fee.setPadding(30, 30, 30, 30);
             total_fee.setGravity(Gravity.CENTER);
@@ -270,7 +271,7 @@ public class Fees extends Fragment {
 
             deposit = new TextView(getActivity());
             deposit.setText(String.valueOf(installment.getDeposit()));
-         //   deposit.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //   deposit.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             deposit.setTextColor(getResources().getColor(R.color.app_background));
             deposit.setPadding(30, 30, 30, 30);
             deposit.setGravity(Gravity.CENTER);
@@ -278,7 +279,7 @@ public class Fees extends Fragment {
 
             t_discount = new TextView(getActivity());
             t_discount.setText(String.valueOf(installment.getDiscount()));
-         //   t_discount.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //   t_discount.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             t_discount.setTextColor(getResources().getColor(R.color.app_background));
             t_discount.setPadding(30, 30, 30, 30);
             t_discount.setGravity(Gravity.CENTER);
@@ -286,13 +287,65 @@ public class Fees extends Fragment {
 
             balance = new TextView(getActivity());
             balance.setText(String.valueOf(installment.getBalance()));
-         //   balance.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //   balance.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             balance.setTextColor(getResources().getColor(R.color.app_background));
             balance.setPadding(30, 30, 30, 30);
             balance.setGravity(Gravity.CENTER);
             tr1.addView(balance);
             t1.addView(tr1);
+
+            tot_fee = tot_fee + (installment.getTotal());
+            tot_deposit = tot_deposit + (installment.getDeposit());
+            tot_dis = tot_dis + (installment.getDiscount());
+            tot_bal = tot_bal + (installment.getBalance());
         }
+
+        TableRow tr1 = new TableRow(getActivity());
+        tr1.setBackgroundColor(getResources().getColor(R.color.table_head_row));
+
+        name = new TextView(getActivity());
+        name.setTextColor(getResources().getColor(R.color.app_background));
+        name.setPadding(30, 30, 30, 30);
+        tr1.addView(name);
+
+        type = new TextView(getActivity());
+        type.setText("TOTAL");
+        type.setTypeface(null, Typeface.BOLD);
+        type.setTextColor(getResources().getColor(R.color.app_background));
+        type.setPadding(30, 30, 30, 30);
+        type.setGravity(Gravity.CENTER);
+        tr1.addView(type);
+
+        total_fee = new TextView(getActivity());
+        total_fee.setText(String.valueOf(tot_fee));
+        total_fee.setTextColor(getResources().getColor(R.color.app_background));
+        total_fee.setPadding(30, 30, 30, 30);
+        total_fee.setGravity(Gravity.CENTER);
+        tr1.addView(total_fee);
+
+        deposit = new TextView(getActivity());
+        deposit.setText(String.valueOf(tot_deposit));
+        deposit.setTextColor(getResources().getColor(R.color.app_background));
+        deposit.setPadding(30, 30, 30, 30);
+        deposit.setGravity(Gravity.CENTER);
+        tr1.addView(deposit);
+
+        t_discount = new TextView(getActivity());
+        t_discount.setText(String.valueOf(tot_dis));
+        t_discount.setTextColor(getResources().getColor(R.color.app_background));
+        t_discount.setPadding(30, 30, 30, 30);
+        t_discount.setGravity(Gravity.CENTER);
+        tr1.addView(t_discount);
+
+        balance = new TextView(getActivity());
+        balance.setText(String.valueOf(tot_bal));
+        balance.setTextColor(getResources().getColor(R.color.app_background));
+        balance.setPadding(30, 30, 30, 30);
+        balance.setGravity(Gravity.CENTER);
+        tr1.addView(balance);
+
+        t1.addView(tr1);
+
     }
 
     private void setDataDepositInstallment(List<DepositInstallment> deposits) {
@@ -306,15 +359,15 @@ public class Fees extends Fragment {
 
             deposit_name = new TextView(getActivity());
             deposit_name.setText(deposit.getName());
-          //  deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //  deposit_name.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             deposit_name.setTextColor(getResources().getColor(R.color.app_background));
             deposit_name.setPadding(30, 30, 30, 30);
-           // deposit_name.setGravity(Gravity.CENTER);
+            // deposit_name.setGravity(Gravity.CENTER);
             tr.addView(deposit_name);
 
             deposit_type = new TextView(getActivity());
             deposit_type.setText(deposit.getType());
-          //  deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //  deposit_type.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             deposit_type.setAllCaps(true);
             deposit_type.setTextColor(getResources().getColor(R.color.app_background));
             deposit_type.setPadding(30, 30, 30, 30);
@@ -323,7 +376,7 @@ public class Fees extends Fragment {
 
             amt = new TextView(getActivity());
             amt.setText(String.valueOf(deposit.getAmount()));
-        //    amt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //    amt.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             amt.setTextColor(getResources().getColor(R.color.app_background));
             amt.setPadding(30, 30, 30, 30);
             amt.setGravity(Gravity.CENTER);
@@ -331,7 +384,7 @@ public class Fees extends Fragment {
 
             receipt_no = new TextView(getActivity());
             receipt_no.setText(String.valueOf(deposit.getReceiptNo()));
-         //   receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //   receipt_no.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             receipt_no.setTextColor(getResources().getColor(R.color.app_background));
             receipt_no.setPadding(30, 30, 30, 30);
             receipt_no.setGravity(Gravity.CENTER);
@@ -339,7 +392,7 @@ public class Fees extends Fragment {
 
             receipt_date = new TextView(getActivity());
             receipt_date.setText(format.getDate(deposit.getReceiptDate()));
-         //   receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //   receipt_date.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             receipt_date.setTextColor(getResources().getColor(R.color.app_background));
             receipt_date.setPadding(30, 30, 30, 30);
             receipt_date.setGravity(Gravity.CENTER);
@@ -347,7 +400,7 @@ public class Fees extends Fragment {
 
             pay_mode = new TextView(getActivity());
             pay_mode.setText(deposit.getPaymentMode());
-        //    pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
+            //    pay_mode.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
             pay_mode.setAllCaps(true);
             pay_mode.setTextColor(getResources().getColor(R.color.app_background));
             pay_mode.setPadding(30, 30, 30, 30);
@@ -374,7 +427,7 @@ public class Fees extends Fragment {
     }
 
     private void fetchInstallmentData() {
-        if(!network.isInternetAvailable()) {
+        if (!network.isInternetAvailable()) {
             Toast.makeText(getActivity(), getResources().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
             return;
         }
