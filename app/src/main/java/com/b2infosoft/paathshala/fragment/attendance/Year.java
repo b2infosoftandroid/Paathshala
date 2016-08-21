@@ -70,6 +70,7 @@ public class Year extends Fragment {
         Date date = new Date();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         width = (dm.widthPixels);
+        //Log.d("width",width+"");
         updateList();
         return mView;
     }
@@ -87,18 +88,18 @@ public class Year extends Fragment {
 
     private void init() {
         tableLayout = (TableLayout) mView.findViewById(R.id.table_layout_mark_sheet);
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-           if(tableLayout.getLayoutParams().width < width) {
-               tableLayout.getLayoutParams().width = width;
-           }
-        }
         if (tableLayout.getChildCount() > 0) {
             tableLayout.removeAllViews();
         }
 
         TableRow tr_head = new TableRow(getActivity());
         tr_head.setBackgroundColor(getResources().getColor(R.color.table_head_row));
-
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if(width > 800){
+                tr_head.setLayoutParams(new TableRow.LayoutParams(width,width));
+            }else
+            tr_head.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.FILL_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+        }
         //id = new TextView(getActivity());
        // id.setText("ID");
         //id.setTextSize(getResources().getDimension(R.dimen.table_text_view_font_size));
@@ -155,8 +156,17 @@ public class Year extends Fragment {
         total.setTypeface(null,Typeface.BOLD);
         tr_head.addView(total);
 
-        tableLayout.addView(tr_head);
 
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if(width > 800){
+                tableLayout.addView(tr_head,new TableLayout.LayoutParams(width,width));
+            }else {
+                tableLayout.addView(tr_head, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
+            }
+            }else
+        {
+            tableLayout.addView(tr_head);
+        }
     }
 
     private void setResult(List<YearInfo> yearInfos) {

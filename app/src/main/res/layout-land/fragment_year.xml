@@ -21,6 +21,9 @@
                     android:id="@+id/table_layout_mark_sheet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:collapseColumns="*"
+                    android:stretchColumns="*"
                     android:gravity="center">
                 </TableLayout>
             </LinearLayout>
