@@ -3,7 +3,6 @@ package com.b2infosoft.paathshala.fragment.attendance;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,8 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -43,8 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
 public class Month extends Fragment implements View.OnClickListener {
     private static final String TAG = Month.class.getName();
@@ -59,6 +54,8 @@ public class Month extends Fragment implements View.OnClickListener {
     Config config = Config.getInstance();
     TextView month;
     int mMonth = 0;
+    int width;
+    DisplayMetrics dm = new DisplayMetrics();
 
     // how many days to show, defaults to six weeks, 42 days
     private static final int DAYS_COUNT = 42;
@@ -97,6 +94,8 @@ public class Month extends Fragment implements View.OnClickListener {
         leave = (TextView) view.findViewById(R.id.total_leave);
         half_day = (TextView) view.findViewById(R.id.total_half_day);
 
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = (dm.widthPixels);
 /*
         HashSet<Date> events = new HashSet<>();
         events.add(new Date());
@@ -235,6 +234,9 @@ public class Month extends Fragment implements View.OnClickListener {
         // update grid
         //grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
         grid.setAdapter(new AttendanceCalenderAdapter(getContext(), R.layout.calender, cells, info, mMonth));
+        grid.getLayoutParams().height= width-(width/7);
+        grid.getLayoutParams().width= width;
+
         present.setText(String.valueOf(info.getPresent()));
         absent.setText(String.valueOf(info.getAbsent()));
         leave.setText(String.valueOf(info.getLeave()));

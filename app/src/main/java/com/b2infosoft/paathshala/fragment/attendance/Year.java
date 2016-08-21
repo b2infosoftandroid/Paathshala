@@ -2,9 +2,11 @@ package com.b2infosoft.paathshala.fragment.attendance;
 
 
 import android.app.ProgressDialog;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,6 +52,8 @@ public class Year extends Fragment {
     private ProgressDialog progress;
     TextView id, month, present, absent, leave, halfDay, total;
     TableLayout tableLayout;
+    int width;
+    DisplayMetrics dm = new DisplayMetrics();
 
     public Year() {
 
@@ -64,6 +68,8 @@ public class Year extends Fragment {
         network = Network.getInstance(getActivity());
         mView = inflater.inflate(R.layout.fragment_year, container, false);
         Date date = new Date();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        width = (dm.widthPixels);
         updateList();
         return mView;
     }
@@ -81,6 +87,11 @@ public class Year extends Fragment {
 
     private void init() {
         tableLayout = (TableLayout) mView.findViewById(R.id.table_layout_mark_sheet);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+           if(tableLayout.getLayoutParams().width < width) {
+               tableLayout.getLayoutParams().width = width;
+           }
+        }
         if (tableLayout.getChildCount() > 0) {
             tableLayout.removeAllViews();
         }
@@ -145,6 +156,7 @@ public class Year extends Fragment {
         tr_head.addView(total);
 
         tableLayout.addView(tr_head);
+
     }
 
     private void setResult(List<YearInfo> yearInfos) {

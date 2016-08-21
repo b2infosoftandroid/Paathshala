@@ -19,7 +19,7 @@ android {
     sourceSets {
         main {
             assets.srcDirs = ['src/main/assets', 'src/main/assets/fonts']
-            res.srcDirs = ['src/main/res', 'src/main/res/anim']
+            res.srcDirs = ['src/main/res', 'src/main/res/anim', 'src/main/res/layout-land']
         }
     }
     productFlavors {

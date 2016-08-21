@@ -1,6 +1,7 @@
 package com.b2infosoft.paathshala.fragment;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -171,7 +172,12 @@ public class Dashboard extends Fragment {
     }
 
     private void setLayoutParams(LinearLayout layout) {
-        layout.getLayoutParams().width = (int) (device.widthPixels / 2.3);
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            layout.getLayoutParams().width = (int) (device.widthPixels / 2.3);
+        }
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            layout.getLayoutParams().width = (int) (device.widthPixels / 2.3);
+        }
     }
 
     private Drawable getDrawable(String string) {
