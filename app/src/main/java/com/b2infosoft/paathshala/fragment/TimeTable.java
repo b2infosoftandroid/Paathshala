@@ -287,7 +287,7 @@ public class TimeTable extends Fragment {
         sub_name = new TextView(getContext());
         sub_name.setText("SUBJECT NAME");
         sub_name.setTextColor(getResources().getColor(R.color.app_background));
-        sub_name.setPadding(5, 30, 0, 30);
+        sub_name.setPadding(15, 30, 0, 30);
         sub_name.setTypeface(null, Typeface.BOLD);
         tr_head.addView(sub_name);
 
@@ -295,7 +295,7 @@ public class TimeTable extends Fragment {
         sub_exm_date = new TextView(getContext());
         sub_exm_date.setText("EXAM DATE & TIME");
         sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
-        sub_exm_date.setPadding(5, 30, 0, 30);
+        sub_exm_date.setPadding(15, 30, 0, 30);
         //sub_exm_date.setGravity(Gravity.CENTER);
         sub_exm_date.setTypeface(null, Typeface.BOLD);
         tr_head.addView(sub_exm_date);
@@ -312,7 +312,9 @@ public class TimeTable extends Fragment {
             sub_name = new TextView(getContext());
             sub_name.setText(info.getSubject());
             sub_name.setTextColor(getResources().getColor(R.color.app_background));
-            sub_name.setPadding(5, 30, 0, 30);
+            sub_name.setPadding(15, 30, 0, 30);
+            sub_name.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT, 1f));
             // sub_name.setGravity(Gravity.CENTER);
             tr1.addView(sub_name);
 
@@ -321,7 +323,9 @@ public class TimeTable extends Fragment {
             sub_exm_date.setText(format.getDate(info.getDate()));
             sub_exm_date.setAllCaps(true);
             sub_exm_date.setTextColor(getResources().getColor(R.color.app_background));
-            sub_exm_date.setPadding(5, 30, 0, 30);
+            sub_exm_date.setPadding(15, 30, 0, 30);
+            sub_exm_date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT, 1f));
             tr1.addView(sub_exm_date);
 
             t1.addView(tr1);
