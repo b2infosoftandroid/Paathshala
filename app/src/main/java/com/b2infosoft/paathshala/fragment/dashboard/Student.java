@@ -126,6 +126,7 @@ public class Student extends Fragment {
         email = (EditText) view.findViewById(R.id.stu_email);
         student_name = (TextView) view.findViewById(R.id.student_info_name);
         student_name.setText(active.getValue(tags.S_INFO_STU_NAME));
+        setDisable(false);
         //setFonts();
         StudentInfo info = dbHelper.getStudentInfo();
         if (info == null) {
@@ -134,6 +135,29 @@ public class Student extends Fragment {
             updateInfo(info);
         }
         return view;
+    }
+
+    private void setDisable(Boolean update){
+        sr_no.setEnabled(update);
+        house.setEnabled(update);
+        dob.setEnabled(update);
+        ori_date.setEnabled(update);
+        stu_class.setEnabled(update);
+        section.setEnabled(update);
+        category.setEnabled(update);
+        religion.setEnabled(update);
+        handicap.setEnabled(update);
+        type.setEnabled(update);
+        mobile.setEnabled(update);
+        gender.setEnabled(update);
+        mode.setEnabled(update);
+        faculty.setEnabled(update);
+        admission_type.setEnabled(update);
+        cast.setEnabled(update);
+        nationality.setEnabled(update);
+        bpl.setEnabled(update);
+        email.setEnabled(update);
+        student_name.setEnabled(update);
     }
     private void setProfileImage(){
         if(active.getValue(tags.USER_PROFILE_PIC).length()>0){

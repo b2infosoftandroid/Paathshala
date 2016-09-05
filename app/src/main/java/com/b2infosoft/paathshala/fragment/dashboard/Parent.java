@@ -104,6 +104,7 @@ public class Parent extends Fragment {
         f_income = (EditText) view.findViewById(R.id.parent_father_income);
         mobile = (EditText) view.findViewById(R.id.parent_mobile);
         address = (EditText) view.findViewById(R.id.parent_address);
+        setDisable(false);
         // setFonts();
         StudentInfo info = dbHelper.getStudentInfo();
         if (info == null) {
@@ -112,6 +113,15 @@ public class Parent extends Fragment {
             updateInfo(info);
         }
         return view;
+    }
+
+    private void setDisable(Boolean update){
+        f_name.setEnabled(update);
+        m_name.setEnabled(update);
+        f_occupation.setEnabled(update);
+        f_income.setEnabled(update);
+        mobile.setEnabled(update);
+        address.setEnabled(update);
     }
 
     private void fetchParentInfo() {
