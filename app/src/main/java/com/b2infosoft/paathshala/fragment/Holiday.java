@@ -231,7 +231,7 @@ public class Holiday extends Fragment {
             from_date.setText(format.getDate(info.getFromDate()) + " TO " + format.getDate(info.getToDate()));
             from_date.setTextColor(getResources().getColor(R.color.app_background));
             //from_date.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
-            //from_date.setPadding(30, 0, 0, 0);
+            from_date.setPadding(0, 0, 0, 30);
             from_date.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT, 1f));
 
