@@ -116,12 +116,15 @@ public class LoginActivity extends AppCompatActivity {
         List<City> cities = dbHelper.getCity();
         if (cities.size() == 0) {
             fetchCity();
+        }else{
+            fetchCity();
         }
         List<InstituteInfo> infoList = dbHelper.getInstitute();
         if (infoList.size() == 0) {
             fetchInstitute();
+        }else{
+            fetchInstitute();
         }
-
     }
 
     @Override
