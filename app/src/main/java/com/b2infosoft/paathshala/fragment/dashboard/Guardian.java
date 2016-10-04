@@ -106,6 +106,7 @@ public class Guardian extends Fragment {
         mobile=(EditText)view.findViewById(R.id.guardian_mobile_no);
         remark=(EditText)view.findViewById(R.id.guardian_remark);
         address=(EditText)view.findViewById(R.id.guardian_address);
+        setDisable(false);
        // setFonts();
         StudentInfo info = dbHelper.getStudentInfo();
         if(info==null){
@@ -114,6 +115,15 @@ public class Guardian extends Fragment {
             updateInfo(info);
         }
         return  view;
+    }
+
+    private void setDisable(Boolean update){
+        name.setEnabled(update);
+        email.setEnabled(update);
+        phone.setEnabled(update);
+        remark.setEnabled(update);
+        mobile.setEnabled(update);
+        address.setEnabled(update);
     }
 
     private void fetchGuardianInfo(){
